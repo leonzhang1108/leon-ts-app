@@ -7,6 +7,11 @@
     ]
   },
   "rules": {
-		"object-literal-sort-keys": false
+    // 对象属性必须字母顺序
+    "object-literal-sort-keys": false,
+    // import必须字母顺序
+    "ordered-imports": false,
+    // 不能打console
+    "no-console": [false]
 	}
 }
