@@ -12,6 +12,8 @@
     // import必须字母顺序
     "ordered-imports": false,
     // 不能打console
-    "no-console": [false]
+    "no-console": [false],
+    // class内默认public
+    "member-access": [true, "no-public"]
 	}
 }
