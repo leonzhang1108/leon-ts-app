@@ -68,13 +68,11 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 }
 
 
-export default Utils.connect(withRouter(MenuComponent),
-  state => ({
-    breadcrumb: state.common.breadcrumb
-  }),
-  dispatch => ({
+export default Utils.connect({
+  component: withRouter(MenuComponent),
+  mapDispatchToProps: dispatch => ({
     actions: bindActionCreators({ 
       changeBreadcrumb: common.changeBreadcrumb
     }, dispatch)
   })
-)
+})

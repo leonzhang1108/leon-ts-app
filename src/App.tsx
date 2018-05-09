@@ -9,8 +9,7 @@ const { Content, Footer, Sider } = Layout
 class App extends React.Component {
 
   state = {
-    collapsed: false,
-    breadcrumb: ''
+    collapsed: false
   }
 
   onCollapse = (collapsed:boolean) => {

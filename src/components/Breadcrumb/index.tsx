@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 import { Breadcrumb } from 'antd'
 import './index.less'
@@ -10,9 +9,9 @@ const BreadcrumbComponent = props => (
   </Breadcrumb>
 )
 
-export default Utils.connect(BreadcrumbComponent,
-  state => ({
+export default Utils.connect({
+  component: BreadcrumbComponent,
+  mapStateToProps: state => ({
     breadcrumb: state.common.breadcrumb
-  }),
-  () => ({})
-)
+  })
+})
