@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux'
 import { common } from '@actions'
 import Utils from '@utils'
 
-const SubMenu = Menu.SubMenu
 
 interface IProps {
   breadcrumb: string,
@@ -18,20 +17,12 @@ interface IProps {
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
-  changeBreadcrumb = (breadcrumb:string) => {
-    const { changeBreadcrumb } = this.props.actions 
-    changeBreadcrumb(breadcrumb)
+  changeBreadcrumb = (breadcrumb: string) => {
+    this.props.actions.changeBreadcrumb(breadcrumb)
   }
 
   render() {
-
     const { pathname } = this.props.location
-
-    console.log(pathname)
-
-    const pathSnippets = pathname.split('/').filter(i => i)
-
-    console.log(pathSnippets)
 
     return (
       <div className="menu-wrapper">
@@ -45,30 +36,16 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         >
           <Menu.Item key="/op1">
             <Icon type="pie-chart" />
-            <Link className="menu-item-link" to="op1" onClick={this.changeBreadcrumb.bind(this, 'op1')} >Option 1</Link>
+            <Link className="menu-item-link" to="/op1" onClick={this.changeBreadcrumb.bind(this, 'op1')} >Option 1</Link>
           </Menu.Item>
           <Menu.Item key="/op2">
             <Icon type="desktop" />
-            <Link className="menu-item-link" to="op2" onClick={this.changeBreadcrumb.bind(this, 'op2')} >Option 2</Link>
+            <Link className="menu-item-link" to="/op2" onClick={this.changeBreadcrumb.bind(this, 'op2')} >Option 2</Link>
           </Menu.Item>
           <Menu.Item key="/op3">
             <Icon type="inbox" />
-            <Link className="menu-item-link" to="op3" onClick={this.changeBreadcrumb.bind(this, 'op3')} >Option 3</Link>
+            <Link className="menu-item-link" to="/op3" onClick={this.changeBreadcrumb.bind(this, 'op3')} >Option 3</Link>
           </Menu.Item>
-          <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-            <Menu.Item key="9">Option 9</Menu.Item>
-            <Menu.Item key="10">Option 10</Menu.Item>
-            <SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
-            </SubMenu>
-          </SubMenu>
         </Menu>
       </div>
     )
@@ -82,7 +59,7 @@ export default Utils.connect({
     breadcrumb: state.common.breadcrumb
   }),
   mapDispatchToProps: dispatch => ({
-    actions: bindActionCreators({ 
+    actions: bindActionCreators({
       changeBreadcrumb: common.changeBreadcrumb
     }, dispatch)
   })
