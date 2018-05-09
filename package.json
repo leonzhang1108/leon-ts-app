@@ -7,8 +7,10 @@
     "antd": "^3.5.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts-ts": "2.15.1"
+    "react-scripts-ts": "2.15.1",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
@@ -21,6 +23,8 @@
     "@types/node": "^10.0.4",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
+    "@types/react-redux": "^6.0.0",
+    "@types/redux": "^3.6.0",
     "add": "^2.0.6",
     "react-app-rewire-less": "^2.1.1",
     "react-app-rewired": "^1.5.2",

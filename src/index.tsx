@@ -5,10 +5,18 @@ import App from './App'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from '@reducers'
+
+const store = createStore(reducer)
+
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App/>
+    </Router>
+  </Provider>,
   document.getElementById('root') as HTMLElement
 )
 registerServiceWorker()
