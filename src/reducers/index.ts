@@ -1,9 +1,6 @@
 import { combineReducers } from 'redux'
 import common from './common'
 
-const reducer = combineReducers({
+export default combineReducers({
   common
 })
-
-
-export default reducer

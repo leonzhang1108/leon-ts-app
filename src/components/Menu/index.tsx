@@ -12,7 +12,7 @@ const SubMenu = Menu.SubMenu
 interface IProps {
   breadcrumb: string,
   actions: {
-    changeBreadcrumb: (breadcrumb:string) => void
+    changeBreadcrumb(v): void
   }
 }
 
@@ -24,26 +24,34 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   }
 
   render() {
-    console.log(this.props.breadcrumb)
+
+    const { pathname } = this.props.location
+
+    console.log(pathname)
+
+    const pathSnippets = pathname.split('/').filter(i => i)
+
+    console.log(pathSnippets)
+
     return (
       <div className="menu-wrapper">
         <div className="logo" />
         <Menu
           className="left-menu"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={[pathname || '/op1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="1">
+          <Menu.Item key="/op1">
             <Icon type="pie-chart" />
             <Link className="menu-item-link" to="op1" onClick={this.changeBreadcrumb.bind(this, 'op1')} >Option 1</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="/op2">
             <Icon type="desktop" />
             <Link className="menu-item-link" to="op2" onClick={this.changeBreadcrumb.bind(this, 'op2')} >Option 2</Link>
           </Menu.Item>
-          <Menu.Item key="3">
+          <Menu.Item key="/op3">
             <Icon type="inbox" />
             <Link className="menu-item-link" to="op3" onClick={this.changeBreadcrumb.bind(this, 'op3')} >Option 3</Link>
           </Menu.Item>
@@ -70,6 +78,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
 export default Utils.connect({
   component: withRouter(MenuComponent),
+  mapStateToProps: state => ({
+    breadcrumb: state.common.breadcrumb
+  }),
   mapDispatchToProps: dispatch => ({
     actions: bindActionCreators({ 
       changeBreadcrumb: common.changeBreadcrumb
