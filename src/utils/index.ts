@@ -1,17 +1,23 @@
 import { connect } from 'react-redux'
+import * as Loadable from 'react-loadable'
+import PageLoading from '@components/PageLoading'
 
 export default {
   connect: ({
     component,
     mapStateToProps,
     mapDispatchToProps
-  }: IConnectProp) => connect(
+  }: IConnectProps) => connect(
     mapStateToProps,
     mapDispatchToProps
-  )(component)
+  )(component),
+  load: component => Loadable({
+    loader: () => import(`../pages/${component}`),
+    loading: PageLoading
+  })
 }
 
-interface IConnectProp {
+interface IConnectProps {
   component,
   mapStateToProps?,
   mapDispatchToProps?

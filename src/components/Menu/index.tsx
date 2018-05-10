@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { common } from '@actions'
 import Utils from '@utils'
+import menus from '@constant/menus'
 
 
 interface IProps {
@@ -21,31 +22,28 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     this.props.actions.changeBreadcrumb(breadcrumb)
   }
 
+  renderMenus = () => {
+    return menus.map(menu => (
+      <Menu.Item key={`/${menu.route}`}>
+        <Icon type={menu.icon} />
+        <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu.route)} >{menu.title}</Link>
+      </Menu.Item>
+    ))
+  }
+
   render() {
     const { pathname } = this.props.location
-
     return (
       <div className="menu-wrapper">
         <div className="logo" />
         <Menu
           className="left-menu"
-          defaultSelectedKeys={[pathname || '/op1']}
+          defaultSelectedKeys={[pathname !== '/' ? pathname : '/op1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="/op1">
-            <Icon type="pie-chart" />
-            <Link className="menu-item-link" to="/op1" onClick={this.changeBreadcrumb.bind(this, 'op1')} >Option 1</Link>
-          </Menu.Item>
-          <Menu.Item key="/op2">
-            <Icon type="desktop" />
-            <Link className="menu-item-link" to="/op2" onClick={this.changeBreadcrumb.bind(this, 'op2')} >Option 2</Link>
-          </Menu.Item>
-          <Menu.Item key="/op3">
-            <Icon type="inbox" />
-            <Link className="menu-item-link" to="/op3" onClick={this.changeBreadcrumb.bind(this, 'op3')} >Option 3</Link>
-          </Menu.Item>
+          { this.renderMenus() }
         </Menu>
       </div>
     )
