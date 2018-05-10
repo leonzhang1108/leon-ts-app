@@ -1,11 +1,11 @@
 export default [{
   route: 'home',
-  icon: 'pie-chart',
+  icon: 'home',
   title: 'Home'
 }, {
-  route: 'op1',
+  route: 'pie-chart',
   icon: 'pie-chart',
-  title: 'Option 1'
+  title: 'Pie Chart'
 }, {
   route: 'op2',
   icon: 'desktop',
