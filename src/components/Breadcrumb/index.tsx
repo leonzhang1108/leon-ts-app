@@ -23,7 +23,7 @@ class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<a
   render() {
     return (
       <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>{this.props.breadcrumb}</Breadcrumb.Item>
+        <Breadcrumb.Item>{this.props.breadcrumb || 'home'}</Breadcrumb.Item>
       </Breadcrumb>
     )
   }

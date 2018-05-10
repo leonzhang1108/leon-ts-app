@@ -38,7 +38,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         <div className="logo" />
         <Menu
           className="left-menu"
-          defaultSelectedKeys={[pathname !== '/' ? pathname : '/op1']}
+          defaultSelectedKeys={[pathname !== '/' ? pathname : '/home']}
           defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"

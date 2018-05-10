@@ -1,4 +1,8 @@
 export default [{
+  route: 'home',
+  icon: 'pie-chart',
+  title: 'Home'
+}, {
   route: 'op1',
   icon: 'pie-chart',
   title: 'Option 1'

@@ -3,12 +3,15 @@ import { Route, Switch } from 'react-router-dom'
 import Utils from '@utils'
 import NotFound from '@pages/NotFound'
 
+import menus from '@constant/menus'
+
+const renderRouter = (menu, i) => 
+  <Route key={i} path={`/${menu.route}`} exact component={Utils.load(Utils.toCamelCase(menu.route))} />
+
 const Router = () => (
   <Switch>
     <Route path="/" exact component={Utils.load('Home')} />
-    <Route path="/op1" exact component={Utils.load('Home')} />
-    <Route path="/op2" exact component={Utils.load('Home')} />
-    <Route path="/op3" exact component={Utils.load('Home')} />
+      { menus.map(renderRouter) }
     <Route component={NotFound} />
   </Switch>
 )
