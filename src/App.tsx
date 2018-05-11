@@ -20,9 +20,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <Layout style={{ minHeight: '100vh' }} className="app">
+      <Layout className="app">
         <Sider
-          style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}
+          style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
           collapsible
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
@@ -30,7 +30,7 @@ class App extends React.Component {
           <Menu/>
         </Sider>
   
-        <Layout style={{ marginLeft: !this.state.collapsed ? 200 : 80 }}>
+        <Layout style={{ marginLeft: !this.state.collapsed ? 200 : 80, height: '100%' }}>
           <Content className='content-wrapper'>
             <Breadcrumb />
             <div className='content'>
