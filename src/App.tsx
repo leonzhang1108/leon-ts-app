@@ -31,9 +31,11 @@ class App extends React.Component {
         </Sider>
   
         <Layout style={{ marginLeft: !this.state.collapsed ? 200 : 80 }}>
-          <Content style={{ margin: '0 16px' }}>
+          <Content className='content-wrapper'>
             <Breadcrumb />
-            <Router/>
+            <div className='content'>
+              <Router/>
+            </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
             BLOG ©2018 Created by Leon
