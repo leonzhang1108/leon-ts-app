@@ -6,5 +6,11 @@ export default {
       type: actionTypes.UPDATE_BREADCRUMB,
       payload: title
     }
+  },
+  onResize: size => {
+    return {
+      type: actionTypes.ON_RESIZE,
+      payload: size
+    }
   }
 }

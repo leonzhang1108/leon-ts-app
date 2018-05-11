@@ -2,13 +2,24 @@
 import * as React from 'react'
 import './index.less'
 import Echarts from 'echarts'
+import Utils from '@utils'
 
-class PieChart extends React.Component {
+interface IProps {
+  contentHeight: number,
+  contentWidth: Echarts
+}
 
-  echarts: any
+class PieChart extends React.Component<IProps> {
+
+  echarts: HTMLDivElement | null
+  myChart: any
+
+  componentWillReceiveProps() {
+    setTimeout(() => this.myChart.resize(), 0)
+  }
 
   componentDidMount() {
-    const myChart = Echarts.init(this.echarts)
+    this.myChart = Echarts.init(this.echarts)
 
     const option = {
       angleAxis: {
@@ -45,15 +56,22 @@ class PieChart extends React.Component {
       }
     }
 
-    myChart.setOption(option)
+    this.myChart.setOption(option)
   }
 
   render() {
+    const { contentHeight: height, contentWidth: width } = this.props
     return (
-      <div ref={ref => this.echarts = ref} className='echarts' />
+      <div ref={dom => this.echarts = dom} className='echarts' style={{height: `${height}px`, width: `${width}px`}} />
     )
   }
 }
 
 
-export default PieChart
+export default Utils.connect({
+  component: PieChart,
+  mapStateToProps: state => ({
+    contentHeight: state.common.contentHeight,
+    contentWidth: state.common.contentWidth
+  }),
+})

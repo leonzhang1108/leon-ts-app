@@ -3,10 +3,10 @@ import * as React from 'react'
 import './App.less'
 import Menu from '@components/Menu'
 import Breadcrumb from '@components/Breadcrumb'
+import ContentWrapper from '@components/ContentWrapper'
 import Router from '@pages/router'
 
 const { Content, Footer, Sider } = Layout
-
 
 class App extends React.Component {
 
@@ -33,9 +33,9 @@ class App extends React.Component {
         <Layout style={{ marginLeft: !this.state.collapsed ? 200 : 80, height: '100%' }}>
           <Content className='content-wrapper'>
             <Breadcrumb />
-            <div className='content'>
+            <ContentWrapper>
               <Router/>
-            </div>
+            </ContentWrapper>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
             BLOG ©2018 Created by Leon
