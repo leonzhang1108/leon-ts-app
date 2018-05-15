@@ -3,7 +3,9 @@ import * as React from 'react'
 import './index.less'
 
 const Home = () => (
-  <div>this is Home</div>
+  <div className='home'>
+    <div>test</div>
+  </div>
 )
 
 

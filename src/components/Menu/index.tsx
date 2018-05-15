@@ -29,26 +29,23 @@ class MenuComponent extends React.Component<any> {
   render() {
     const { pathname } = this.props.location
     return (
-      <div className="menu-wrapper">
-
-         <Sider
-          style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
-          collapsible
-          collapsed={this.props.collapsed}
-          onCollapse={this.props.onCollapse}
+      <Sider
+        style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
+        collapsible
+        collapsed={this.props.collapsed}
+        onCollapse={this.props.onCollapse}
+      >
+        <div className="logo" />
+        <Menu
+          className="left-menu"
+          defaultSelectedKeys={[pathname !== '/' ? pathname : '/home']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          theme="dark"
         >
-          <div className="logo" />
-          <Menu
-            className="left-menu"
-            defaultSelectedKeys={[pathname !== '/' ? pathname : '/home']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
-            theme="dark"
-          >
-            { this.renderMenus() }
-          </Menu>
-        </Sider>
-      </div>
+          { this.renderMenus() }
+        </Menu>
+      </Sider>
     )
   }
 }

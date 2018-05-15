@@ -22,38 +22,42 @@ class PieChart extends React.Component<IProps> {
     this.myChart = Echarts.init(this.echarts)
 
     const option = {
-      angleAxis: {
+      title: {
+        text: '某站点用户访问来源',
+        subtext: '纯属虚构',
+        x: 'center',
       },
-      radiusAxis: {
-        type: 'category',
-        data: ['周一', '周二', '周三', '周四'],
-        z: 10
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
       },
-      polar: {
-      },
-      series: [{
-        type: 'bar',
-        data: [1, 2, 3, 4],
-        coordinateSystem: 'polar',
-        name: 'A',
-        stack: 'a'
-      }, {
-        type: 'bar',
-        data: [2, 4, 6, 8],
-        coordinateSystem: 'polar',
-        name: 'B',
-        stack: 'a'
-      }, {
-        type: 'bar',
-        data: [1, 2, 3, 4],
-        coordinateSystem: 'polar',
-        name: 'C',
-        stack: 'a'
-      }],
       legend: {
-        show: true,
-        data: ['A', 'B', 'C']
-      }
+        orient: 'vertical',
+        left: 'left',
+        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+      },
+      series: [
+        {
+          name: '访问来源',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '60%'],
+          data: [
+            { value: 335, name: '直接访问' },
+            { value: 310, name: '邮件营销' },
+            { value: 234, name: '联盟广告' },
+            { value: 135, name: '视频广告' },
+            { value: 1548, name: '搜索引擎' },
+          ],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          },
+        },
+      ],
     }
 
     this.myChart.setOption(option)
@@ -61,11 +65,13 @@ class PieChart extends React.Component<IProps> {
 
   render() {
     const { contentHeight: height, contentWidth: width } = this.props
+    
     return (
       <div ref={dom => this.echarts = dom} className='echarts' style={{height: `${height}px`, width: `${width}px`}} />
     )
   }
 }
+
 
 
 export default Utils.connect({
