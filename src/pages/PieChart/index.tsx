@@ -67,7 +67,9 @@ class PieChart extends React.Component<IProps> {
     const { contentHeight: height, contentWidth: width } = this.props
     
     return (
-      <div ref={dom => this.echarts = dom} className='echarts' style={{height: `${height}px`, width: `${width}px`}} />
+      <div className='pie-chart-wrapper'>
+        <div ref={dom => this.echarts = dom} className='echarts' style={{height: `${height}px`, width: `${width}px`}} />
+      </div>
     )
   }
 }
