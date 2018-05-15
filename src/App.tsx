@@ -6,7 +6,7 @@ import Breadcrumb from '@components/Breadcrumb'
 import ContentWrapper from '@components/ContentWrapper'
 import Router from '@pages/router'
 
-const { Content, Footer, Sider } = Layout
+const { Content, Footer } = Layout
 
 class App extends React.Component {
 
@@ -16,20 +16,12 @@ class App extends React.Component {
 
   onCollapse = (collapsed:boolean) => {
     this.setState({ collapsed })
-  }
+  } 
 
   render() {
     return (
       <Layout className="app">
-        <Sider
-          style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
-          collapsible
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-        >
-          <Menu/>
-        </Sider>
-  
+        <Menu collapsed={this.state.collapsed} onCollapse={this.onCollapse}/>
         <Layout style={{ marginLeft: !this.state.collapsed ? 200 : 80, height: '100%' }}>
           <Content className='content-wrapper'>
             <Breadcrumb />
