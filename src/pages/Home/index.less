@@ -1,5 +1,20 @@
+@import '../../variables.less';
+
 .home {
   display: block;
   height: 100%;
   width: 100%;
+  padding: 0 @space-base;
+  .sample-content {
+    text-align: center;
+    padding: @space-base 0;
+    margin: @space-base 0;
+    color: #fff;
+    &:nth-child(odd) {
+      background-color: rgba(0,160,233,.7);
+    }
+    &:nth-child(even) {
+      background-color: #00a0e9;
+    }
+  }
 }

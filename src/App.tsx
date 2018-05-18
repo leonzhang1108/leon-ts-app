@@ -29,7 +29,7 @@ class App extends React.Component {
               <Router/>
             </ContentWrapper>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
+          <Footer style={{ textAlign: 'center', padding:'10px 50px' }}>
             BLOG ©2018 Created by Leon
           </Footer>
         </Layout>
