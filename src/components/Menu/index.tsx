@@ -8,6 +8,7 @@ import Utils from '@utils'
 import menus from '@constant/menus'
 import { Layout } from 'antd'
 const { Sider } = Layout
+const SubMenu = Menu.SubMenu
 
 class MenuComponent extends React.Component<any> {
 
@@ -15,16 +16,21 @@ class MenuComponent extends React.Component<any> {
     this.props.actions.changeBreadcrumb(breadcrumb)
   }
 
-  renderMenus = () => {
-    return menus.map(menu => (
-      <Menu.Item key={`/${menu.route}`}>
-        <Icon type={menu.icon} />
-        <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu.route)} >
-          <span className={this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
-        </Link>
-      </Menu.Item>
-    ))
-  }
+  renderMenus = (currMenus = menus) => currMenus.map(menu => 
+    menu.childs
+      ? (
+        <SubMenu key={menu.key} title={<span><Icon type={menu.icon} /><span>{menu.title}</span></span>}>
+          { this.renderMenus(menu.childs) }
+        </SubMenu>
+      ) : (
+        <Menu.Item key={`/${menu.route}`}>
+          <Icon type={menu.icon} />
+          <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu.route)} >
+            <span className={this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
+          </Link>
+        </Menu.Item>
+      )
+  )
 
   render() {
     const { pathname } = this.props.location
@@ -39,7 +45,7 @@ class MenuComponent extends React.Component<any> {
         <Menu
           className="left-menu"
           defaultSelectedKeys={[pathname !== '/' ? pathname : '/home']}
-          defaultOpenKeys={['sub1']}
+          defaultOpenKeys={['echarts']}
           mode="inline"
           theme="dark"
         >

@@ -9,13 +9,26 @@ const renderRouter = (menu, i) =>
 
 const redirectToHome = () => <Redirect to="/home"/>
 
+
+const allMenus: any[] = []
+
+const initRoute = (currMenus: any[]) => {
+  currMenus.forEach(menu => {
+    menu.childs
+      ? initRoute(menu.childs)
+      : allMenus.push(menu)
+  })
+}
+
+initRoute(menus)
+
 const Router = () => (
   <Switch>
     {/* index */}
     <Route path="/" exact render={redirectToHome} />
 
     {/* menus */}
-    { menus.map(renderRouter) }
+    { allMenus.map(renderRouter) }
 
     {/* 404 */}
     <Route component={NotFound} />

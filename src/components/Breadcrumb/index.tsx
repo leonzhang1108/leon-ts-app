@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Breadcrumb } from 'antd'
-import './index.less'
 import Utils from '@utils'
 import { RouteComponentProps } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { common } from '@actions'
+import './index.less'
 
 interface IProps {
   breadcrumb: string,
