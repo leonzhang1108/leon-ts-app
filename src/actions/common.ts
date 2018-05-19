@@ -12,5 +12,10 @@ export default {
       type: actionTypes.ON_RESIZE,
       payload: size
     }
+  },
+  toggleCollapse: () => {
+    return {
+      type: actionTypes.TOGGLE_COLLAPSE
+    }
   }
 }

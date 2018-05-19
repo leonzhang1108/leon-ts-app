@@ -5,6 +5,7 @@ import Menu from '@components/Menu'
 import Breadcrumb from '@components/Breadcrumb'
 import ContentWrapper from '@components/ContentWrapper'
 import Router from '@pages/router'
+import MainContent from '@components/MainContent'
 
 const { Content, Footer } = Layout
 
@@ -21,10 +22,10 @@ class App extends React.Component {
   render() {
     return (
       <Layout className="app">
-        <Menu collapsed={this.state.collapsed} onCollapse={this.onCollapse}/>
-        <Layout style={{ marginLeft: !this.state.collapsed ? 200 : 80, height: '100%' }}>
+        <Menu/>
+        <MainContent>
           <Content className='content-wrapper'>
-            <Breadcrumb />
+            <Breadcrumb/>
             <ContentWrapper>
               <Router/>
             </ContentWrapper>
@@ -32,7 +33,7 @@ class App extends React.Component {
           <Footer style={{ textAlign: 'center', padding:'10px 50px' }}>
             BLOG ©2018 Created by Leon
           </Footer>
-        </Layout>
+        </MainContent>
       </Layout>
     )
   }

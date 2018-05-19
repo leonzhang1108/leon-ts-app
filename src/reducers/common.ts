@@ -1,6 +1,7 @@
 import actionTypes from '@constant/actionTypes'
 const initState = {
   breadcrumb: '',
+  collapsed: false,
   contentHeight: 0,
   contentWidth: 0
 }
@@ -18,6 +19,13 @@ const common = (state = initState, action:any) => {
         ...state,
         ...action.payload
       }
+
+    case actionTypes.TOGGLE_COLLAPSE:
+      return {
+        ...state,
+        collapsed: !state.collapsed
+      }
+      
     default:
       return state
   }

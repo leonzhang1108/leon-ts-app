@@ -3,6 +3,7 @@ import './index.less'
 import { Menu, Icon } from 'antd'
 import { withRouter, Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
+import { RouteComponentProps } from 'react-router'
 import { common } from '@actions'
 import Utils from '@utils'
 import menus from '@constant/menus'
@@ -10,7 +11,16 @@ import { Layout } from 'antd'
 const { Sider } = Layout
 const SubMenu = Menu.SubMenu
 
-class MenuComponent extends React.Component<any> {
+
+interface IProps {
+  collapsed: boolean,
+  actions: {
+    changeBreadcrumb(v: string): void,
+    toggleCollapse(): void
+  }
+}
+
+class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
   changeBreadcrumb = (breadcrumb: string) => {
     this.props.actions.changeBreadcrumb(breadcrumb)
@@ -39,7 +49,7 @@ class MenuComponent extends React.Component<any> {
         style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
         collapsible
         collapsed={this.props.collapsed}
-        onCollapse={this.props.onCollapse}
+        onCollapse={this.props.actions.toggleCollapse}
       >
         <div className="logo" />
         <Menu
@@ -60,11 +70,12 @@ class MenuComponent extends React.Component<any> {
 export default Utils.connect({
   component: withRouter(MenuComponent),
   mapStateToProps: state => ({
-    breadcrumb: state.common.breadcrumb
+    collapsed: state.common.collapsed
   }),
   mapDispatchToProps: dispatch => ({
     actions: bindActionCreators({
-      changeBreadcrumb: common.changeBreadcrumb
+      changeBreadcrumb: common.changeBreadcrumb,
+      toggleCollapse: common.toggleCollapse
     }, dispatch)
   })
-}) as any
+})
