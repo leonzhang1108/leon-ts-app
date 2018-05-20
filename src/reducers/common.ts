@@ -1,6 +1,6 @@
 import actionTypes from '@constant/actionTypes'
 const initState = {
-  breadcrumb: '',
+  breadcrumb: [],
   collapsed: false,
   contentHeight: 0,
   contentWidth: 0

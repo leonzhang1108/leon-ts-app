@@ -15,27 +15,27 @@ const SubMenu = Menu.SubMenu
 interface IProps {
   collapsed: boolean,
   actions: {
-    changeBreadcrumb(v: string): void,
+    changeBreadcrumb(v: any[]): void,
     toggleCollapse(): void
   }
 }
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
-  changeBreadcrumb = (breadcrumb: string) => {
-    this.props.actions.changeBreadcrumb(breadcrumb)
+  changeBreadcrumb = (breadcrumb: string, parents: any[] = []) => {
+    this.props.actions.changeBreadcrumb(parents.concat(breadcrumb))
   }
 
-  renderMenus = (currMenus = menus) => currMenus.map(menu => 
+  renderMenus = (currMenus = menus, parents: any[] = []) => currMenus.map(menu => 
     menu.childs
       ? (
         <SubMenu key={menu.key} title={<span><Icon type={menu.icon} /><span>{menu.title}</span></span>}>
-          { this.renderMenus(menu.childs) }
+          { this.renderMenus(menu.childs, parents.concat(menu.title)) }
         </SubMenu>
       ) : (
         <Menu.Item key={`/${menu.route}`}>
           <Icon type={menu.icon} />
-          <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu.route)} >
+          <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu.title, parents)} >
             <span className={this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
           </Link>
         </Menu.Item>

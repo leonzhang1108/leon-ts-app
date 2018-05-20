@@ -1,10 +1,10 @@
 import actionTypes from '@constant/actionTypes'
 
 export default {
-  changeBreadcrumb: (title: string) => {
+  changeBreadcrumb: (breadcrumbs: any[]) => {
     return {
       type: actionTypes.UPDATE_BREADCRUMB,
-      payload: title
+      payload: breadcrumbs
     }
   },
   onResize: size => {
