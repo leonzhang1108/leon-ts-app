@@ -15,8 +15,8 @@ class ContentWrapper extends React.Component<IProps> {
   content: HTMLDivElement | null
 
   componentDidMount() {
-    window.addEventListener('resize', this.onResize.bind(this))
-    this.onResize()
+    // window.addEventListener('resize', this.onResize.bind(this))
+    // this.onResize()
   }
 
   onResize() {

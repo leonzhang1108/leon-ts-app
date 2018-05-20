@@ -1,27 +1,12 @@
 
 import * as React from 'react'
 import './index.less'
-import Echarts from 'echarts'
-import Utils from '@utils'
+import ReactEcharts from 'echarts-for-react'
 
-interface IProps {
-  contentHeight: number,
-  contentWidth: Echarts
-}
+class PieChart extends React.Component {
 
-class PieChart extends React.Component<IProps> {
-
-  echarts: HTMLDivElement | null
-  myChart: any
-
-  componentWillReceiveProps() {
-    setTimeout(() => this.myChart.resize(), 0)
-  }
-
-  componentDidMount() {
-    this.myChart = Echarts.init(this.echarts)
-
-    const option = {
+  getOptions() {
+    return {
       title: {
         text: '某站点用户访问来源',
         subtext: '纯属虚构',
@@ -59,16 +44,17 @@ class PieChart extends React.Component<IProps> {
         },
       ],
     }
-
-    this.myChart.setOption(option)
   }
 
   render() {
-    const { contentHeight: height, contentWidth: width } = this.props
-    
     return (
       <div className='pie-chart-wrapper'>
-        <div ref={dom => this.echarts = dom} className='echarts' style={{height: `${height}px`, width: `${width}px`}} />
+        <ReactEcharts
+          option={this.getOptions()}
+          style={{ height: '100%', width: '100%' }}
+          className="react_for_echarts"
+          theme="macarons"
+        />
       </div>
     )
   }
@@ -76,10 +62,4 @@ class PieChart extends React.Component<IProps> {
 
 
 
-export default Utils.connect({
-  component: PieChart,
-  mapStateToProps: state => ({
-    contentHeight: state.common.contentHeight,
-    contentWidth: state.common.contentWidth
-  }),
-})
+export default PieChart
