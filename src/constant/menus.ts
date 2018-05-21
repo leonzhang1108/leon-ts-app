@@ -7,9 +7,14 @@ export default [{
   title: 'Echarts',
   key: 'echarts',
   childs: [{
-    route: 'pie-chart',
-    icon: 'pie-chart',
-    title: 'Pie Chart'
+    icon: 'edit',
+    title: 'Sub Echarts',
+    key: 'sub-echarts',
+    childs: [{
+      route: 'pie-chart',
+      icon: 'pie-chart',
+      title: 'Pie Chart'
+    }]
   }]
 }, {
   route: 'op3',

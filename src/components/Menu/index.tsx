@@ -44,7 +44,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     })
   }
 
-  renderMenus = (currMenus = menus, parents: any[] = []) => currMenus.map(menu => 
+  renderMenus = (currMenus: any = menus, parents: any[] = []) => currMenus.map(menu => 
     menu.childs
       ? (
         <SubMenu key={menu.key} title={<span><Icon type={menu.icon} /><span>{menu.title}</span></span>}>
