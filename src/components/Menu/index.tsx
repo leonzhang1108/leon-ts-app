@@ -15,6 +15,7 @@ const SubMenu = Menu.SubMenu
 interface IProps {
   collapsed: boolean,
   route: string,
+  breadcrumb: any[],
   actions: {
     changeBreadcrumb(v: any): void,
     toggleCollapse(): void
@@ -36,9 +37,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   }
 
   changeBreadcrumb = (menu: any, parents: any[] = []) => {
-    const { title, route } = menu
+    const { route } = menu
     this.props.actions.changeBreadcrumb({
-      breadcrumb: parents.concat(title),
+      breadcrumb: parents.concat(menu),
       route
     })
   }
@@ -47,7 +48,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     menu.childs
       ? (
         <SubMenu key={menu.key} title={<span><Icon type={menu.icon} /><span>{menu.title}</span></span>}>
-          { this.renderMenus(menu.childs, parents.concat(menu.title)) }
+          { this.renderMenus(menu.childs, parents.concat(menu)) }
         </SubMenu>
       ) : (
         <Menu.Item key={`/${menu.route}`}>
@@ -60,6 +61,24 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   )
 
   render() {
+    const { breadcrumb } = this.props
+
+    const length = breadcrumb.length
+
+    const defaultOpenKeys: any[] = []
+
+    if (!length) {
+      return <div/>
+    }
+
+    if (length > 1) {
+      breadcrumb.forEach((b, i) => {
+        if (length - 1 !== i) {
+          defaultOpenKeys.push(b.key)
+        }
+      })
+    }
+
     return (
       <Sider
         style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
@@ -71,7 +90,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         <Menu
           className="left-menu"
           selectedKeys={[this.props.route ?  `/${this.props.route}` : '/home']}
-          defaultOpenKeys={['echarts']}
+          defaultOpenKeys={defaultOpenKeys}
           mode="inline"
           theme="dark"
         >
@@ -87,6 +106,7 @@ export default Utils.connect({
   component: MenuComponent,
   mapStateToProps: state => ({
     route: state.common.route,
+    breadcrumb: state.common.breadcrumb,
     collapsed: state.common.collapsed
   }),
   mapDispatchToProps: dispatch => ({

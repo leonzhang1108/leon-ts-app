@@ -33,7 +33,7 @@ class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<a
         {
           this.props.breadcrumb.length
             ? this.props.breadcrumb.map((v, i) => 
-              <Breadcrumb.Item key={i}>{v}</Breadcrumb.Item>
+              <Breadcrumb.Item key={i}>{v.title}</Breadcrumb.Item>
             ) : <Breadcrumb.Item>home</Breadcrumb.Item>
         }
       </Breadcrumb>

@@ -18,17 +18,17 @@ export default {
   }),
   toCamelCase: str => {
     // toCamelCase
-    const [first, ...rest] = str.replace(/-(\w)/g, ($0, $1) => $1.toUpperCase())
+    const [first, ...rest] = str.replace(/-(\w)/g, (_, x) => x.toUpperCase())
     return first.toUpperCase() + rest
   },
   findBreadcrumb: (route, f) => {
     const innerFindBreadcrumb = (innerMenus: any[] = [], parents: any[] = []) => 
       innerMenus.forEach(menu => 
         menu.childs 
-          ? innerFindBreadcrumb(menu.childs, parents.concat(menu.title))
+          ? innerFindBreadcrumb(menu.childs, parents.concat(menu))
           : menu.route === route 
             ? !!f({
-                breadcrumb: parents.concat(menu.title),
+                breadcrumb: parents.concat(menu),
                 route: menu.route
               })
             : true
