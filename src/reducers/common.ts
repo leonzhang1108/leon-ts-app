@@ -1,6 +1,7 @@
 import actionTypes from '@constant/actionTypes'
 const initState = {
   breadcrumb: [],
+  route: '',
   collapsed: false,
   contentHeight: 0,
   contentWidth: 0
@@ -9,9 +10,11 @@ const initState = {
 const common = (state = initState, action:any) => {
   switch (action.type) {
     case actionTypes.UPDATE_BREADCRUMB:
+      const { breadcrumb, route } = action.payload
       return {
         ...state,
-        breadcrumb: action.payload
+        breadcrumb,
+        route
       }
 
     case actionTypes.ON_RESIZE:

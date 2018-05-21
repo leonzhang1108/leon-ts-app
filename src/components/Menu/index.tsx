@@ -1,7 +1,7 @@
 import * as React from 'react'
 import './index.less'
 import { Menu, Icon } from 'antd'
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { RouteComponentProps } from 'react-router'
 import { common } from '@actions'
@@ -14,16 +14,33 @@ const SubMenu = Menu.SubMenu
 
 interface IProps {
   collapsed: boolean,
+  route: string,
   actions: {
-    changeBreadcrumb(v: any[]): void,
+    changeBreadcrumb(v: any): void,
     toggleCollapse(): void
   }
 }
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
-  changeBreadcrumb = (breadcrumb: string, parents: any[] = []) => {
-    this.props.actions.changeBreadcrumb(parents.concat(breadcrumb))
+  componentDidMount() {
+
+    const { changeBreadcrumb } = this.props.actions
+
+    // 前进后退
+    window.addEventListener('popstate', ev => {
+      const route = window.location.pathname.split('/').filter(i => i).join('/')
+      
+      Utils.findBreadcrumb(route, changeBreadcrumb)
+    })
+  }
+
+  changeBreadcrumb = (menu: any, parents: any[] = []) => {
+    const { title, route } = menu
+    this.props.actions.changeBreadcrumb({
+      breadcrumb: parents.concat(title),
+      route
+    })
   }
 
   renderMenus = (currMenus = menus, parents: any[] = []) => currMenus.map(menu => 
@@ -35,7 +52,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       ) : (
         <Menu.Item key={`/${menu.route}`}>
           <Icon type={menu.icon} />
-          <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu.title, parents)} >
+          <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu, parents)} >
             <span className={this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
           </Link>
         </Menu.Item>
@@ -43,7 +60,6 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   )
 
   render() {
-    const { pathname } = this.props.location
     return (
       <Sider
         style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
@@ -54,7 +70,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         <div className="logo" />
         <Menu
           className="left-menu"
-          defaultSelectedKeys={[pathname !== '/' ? pathname : '/home']}
+          selectedKeys={[this.props.route ?  `/${this.props.route}` : '/home']}
           defaultOpenKeys={['echarts']}
           mode="inline"
           theme="dark"
@@ -68,8 +84,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
 
 export default Utils.connect({
-  component: withRouter(MenuComponent),
+  component: MenuComponent,
   mapStateToProps: state => ({
+    route: state.common.route,
     collapsed: state.common.collapsed
   }),
   mapDispatchToProps: dispatch => ({

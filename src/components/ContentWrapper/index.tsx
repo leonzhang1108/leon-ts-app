@@ -14,11 +14,6 @@ class ContentWrapper extends React.Component<IProps> {
 
   content: HTMLDivElement | null
 
-  componentDidMount() {
-    // window.addEventListener('resize', this.onResize.bind(this))
-    // this.onResize()
-  }
-
   onResize() {
     this.props.actions.onResize({
       contentHeight: this.content && this.content.offsetHeight || 0,

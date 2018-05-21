@@ -5,7 +5,6 @@ import { RouteComponentProps } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { common } from '@actions'
-import menus from '@constant/menus'
 import './index.less'
 
 interface IProps {
@@ -24,16 +23,7 @@ class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<a
   initBreadcrumb() {
     const route = this.props.location.pathname.split('/').filter(i => i).join('/')
 
-    const findBreadcrumb = (innerMenus: any[] = [], parents: any[] = []) => 
-      innerMenus.forEach(menu => 
-        menu.childs 
-          ? findBreadcrumb(menu.childs, parents.concat(menu.title))
-          : menu.route === route 
-            ? !!this.props.actions.changeBreadcrumb(parents.concat(menu.title))
-            : true
-    )
-
-    findBreadcrumb(menus)
+    Utils.findBreadcrumb(route, this.props.actions.changeBreadcrumb)
 
   }
 

@@ -3,7 +3,7 @@ export default [{
   icon: 'home',
   title: 'Home'
 }, {
-  icon: 'pie-chart',
+  icon: 'line-chart',
   title: 'Echarts',
   key: 'echarts',
   childs: [{
