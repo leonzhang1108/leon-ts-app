@@ -2,15 +2,21 @@
 import * as React from 'react'
 import './index.less'
 import ReactEcharts from 'echarts-for-react'
-import Utils from '@utils'
+import Model from '@models/Home'
 
 class PieChart extends React.Component {
 
+  componentDidMount() {
+    this.getRandomNumber()
+  }
+
+  getRandomNumber() {
+    const success = v => console.log(v)
+    const fail = e => console.log(e)
+    Model.getRandomNumber({ success, fail })
+  }
+
   getOptions() {
-    Utils.request.get('random-number')
-      .then(v => {
-        console.log(v)
-      })
     return {
       title: {
         text: 'DC Heros',
