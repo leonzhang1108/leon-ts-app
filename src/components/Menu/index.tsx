@@ -24,6 +24,14 @@ interface IProps {
   }
 }
 
+interface IMenuProps {
+  className: string,
+  selectedKeys: string[],
+  mode: any,
+  theme: any,
+  openKeys?: string[]
+}
+
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
   componentDidMount() {
@@ -57,7 +65,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   }
 
   onTitleClick = key => {
-    this.props.actions.toggleOpenKeys({key})
+    if (!this.props.collapsed) {
+      this.props.actions.toggleOpenKeys({key})
+    }
   }
 
   renderMenus = (currMenus: any = menus, parents: any[] = []) => currMenus.map(menu => 
@@ -81,21 +91,30 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   )
 
   render() {
+    const { collapsed, actions, route, openKeys} = this.props
+
+    const { toggleCollapse } = actions
+
+    const menuProps: IMenuProps = {
+      className: 'left-menu',
+      selectedKeys: [route ?  `/${route}` : '/home'],
+      mode: 'inline',
+      theme: 'dark'
+    }
+
+    if (!collapsed) {
+      menuProps.openKeys = openKeys
+    }
+
     return (
       <Sider
         style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
         collapsible
-        collapsed={this.props.collapsed}
-        onCollapse={this.props.actions.toggleCollapse}
+        collapsed={collapsed}
+        onCollapse={toggleCollapse}
       >
         <div className="logo" />
-        <Menu
-          className="left-menu"
-          selectedKeys={[this.props.route ?  `/${this.props.route}` : '/home']}
-          openKeys={this.props.openKeys}
-          mode="inline"
-          theme="dark"
-        >
+        <Menu {...menuProps}>
           { this.renderMenus() }
         </Menu>
       </Sider>
