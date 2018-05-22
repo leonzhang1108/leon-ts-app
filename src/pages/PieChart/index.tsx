@@ -2,14 +2,19 @@
 import * as React from 'react'
 import './index.less'
 import ReactEcharts from 'echarts-for-react'
+import Utils from '@utils'
 
 class PieChart extends React.Component {
 
   getOptions() {
+    Utils.request.get('random-number')
+      .then(v => {
+        console.log(v)
+      })
     return {
       title: {
-        text: '某站点用户访问来源',
-        subtext: '纯属虚构',
+        text: 'DC Heros',
+        subtext: 'fake data',
         x: 'center',
       },
       tooltip: {
@@ -19,7 +24,7 @@ class PieChart extends React.Component {
       legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+        data: ['Superman', 'Wonder Woman', 'Aquaman', 'The Flash', 'Batman'],
       },
       series: [
         {
@@ -28,11 +33,11 @@ class PieChart extends React.Component {
           radius: '55%',
           center: ['50%', '60%'],
           data: [
-            { value: 335, name: '直接访问' },
-            { value: 310, name: '邮件营销' },
-            { value: 234, name: '联盟广告' },
-            { value: 135, name: '视频广告' },
-            { value: 1548, name: '搜索引擎' },
+            { value: 335, name: 'Superman' },
+            { value: 310, name: 'Wonder Woman' },
+            { value: 234, name: 'Aquaman' },
+            { value: 135, name: 'The Flash' },
+            { value: 1548, name: 'Batman' },
           ],
           itemStyle: {
             emphasis: {
