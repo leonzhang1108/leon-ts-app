@@ -1,13 +1,58 @@
 import actionTypes from '@constant/actionTypes'
+
+interface IProp {
+  breadcrumb: any[],
+  openKeys: string[],
+  route: string,
+  collapsed: boolean,
+  contentHeight: number,
+  contentWidth: number
+}
+
 const initState = {
   breadcrumb: [],
+  openKeys: [],
   route: '',
   collapsed: false,
   contentHeight: 0,
   contentWidth: 0
 }
 
-const common = (state = initState, action:any) => {
+const toggleOpenKeys = (state, action) => {
+  const { key } = action.payload
+  const index = state.openKeys.indexOf(key)
+  let openKeys: string[] = []
+
+  if (index >= 0) {
+    state.openKeys.splice(index, 1)
+    openKeys = state.openKeys
+  } else {
+    openKeys = state.openKeys
+    openKeys.push(key)
+  }
+
+  return openKeys
+} 
+
+const initOpenKeys = (state, action) => {
+  const { breadcrumb } = action.payload
+  const openKeys: string[] = []
+  
+  if(breadcrumb.length <= 1) {
+    return []
+  }
+
+  breadcrumb.forEach((bc, i) => {
+    if (i !== breadcrumb.length - 1) {
+      openKeys.push(bc.key)
+    }
+  })
+
+  return openKeys
+
+}
+
+const common = (state: IProp = initState, action: any) => {
   switch (action.type) {
     case actionTypes.UPDATE_BREADCRUMB:
       const { breadcrumb, route } = action.payload
@@ -27,6 +72,14 @@ const common = (state = initState, action:any) => {
       return {
         ...state,
         collapsed: !state.collapsed
+      }
+
+    case actionTypes.TOGGLE_OPENKEYS:
+      return {
+        ...state,
+        openKeys: action.payload.isInit 
+          ? initOpenKeys(state, action) 
+          : toggleOpenKeys(state, action)
       }
       
     default:

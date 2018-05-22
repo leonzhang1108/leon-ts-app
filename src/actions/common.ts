@@ -17,5 +17,11 @@ export default {
     return {
       type: actionTypes.TOGGLE_COLLAPSE
     }
+  },
+  toggleOpenKeys: (keys: any[]) => {
+    return {
+      type: actionTypes.TOGGLE_OPENKEYS,
+      payload: keys
+    }
   }
 }

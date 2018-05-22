@@ -12,15 +12,18 @@ export default {
     mapStateToProps,
     mapDispatchToProps
   )(component),
+
   load: component => Loadable({
     loader: () => import(`../pages/${component}`),
     loading: PageLoading
   }),
+
   toCamelCase: str => {
     // toCamelCase
     const [first, ...rest] = str.replace(/-(\w)/g, (_, x) => x.toUpperCase())
     return first.toUpperCase() + rest
   },
+  
   findBreadcrumb: (route, f) => {
     const innerFindBreadcrumb = (innerMenus: any[] = [], parents: any[] = []) => 
       innerMenus.forEach(menu => 
