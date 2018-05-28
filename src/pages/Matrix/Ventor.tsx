@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 
 const renderItem = (col, colIndex, rowIndex, props) => (
@@ -10,7 +9,7 @@ const renderItem = (col, colIndex, rowIndex, props) => (
             data-ventor={props.ventor}
             onChange={props.onInput} 
           />
-        : <span>{col}</span> 
+        : <span style={{transform: `rotate(${props.rotate ? '90deg' : '0'})`}}>{col}</span> 
     }
   </li> 
 )
@@ -27,18 +26,23 @@ const renderCol = (row, rowIndex, props) => (
 
 const renderRow = props => (
   <td>
-    <div className='border-left'></div>
+    <div className='border-left'/>
     {
       props.ventorList.map((row, rowIndex) => 
         renderCol(row, rowIndex, props)
       )
     }
-    <div className='border-right'></div>
+    <div className='border-right'/>
   </td>
 )
 
 const Vector = props => (
-  <table>
+  <table style={{ 
+    transform: `
+      rotate(${props.rotate ? '-90deg' : '0'}) 
+      translateX(${props.left || 0}px)
+      translateY(${-props.top || 0}px)`
+  }}>
     <tbody>
       <tr>
         {renderRow(props)}

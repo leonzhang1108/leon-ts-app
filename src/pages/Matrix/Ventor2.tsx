@@ -5,13 +5,16 @@ import Ventor from './Ventor'
 interface IMatrixProps { 
   ventorList: number[][],
   editable: boolean,
+  top: number,
+  left: number,
+  rotate: boolean,
   onInput(e): void
 }
 
-class Vector1 extends React.Component<IMatrixProps> {
+class Vector2 extends React.Component<IMatrixProps> {
   render() {
-    return <Ventor {...this.props} ventor='v1'/>
+    return <Ventor {...this.props} ventor='v2'/>
   }
 }
 
-export default Vector1
+export default Vector2
