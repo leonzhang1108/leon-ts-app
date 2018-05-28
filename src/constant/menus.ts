@@ -17,6 +17,10 @@ export default [{
     }]
   }]
 }, {
+  route: 'matrix',
+  icon: 'codepen',
+  title: 'Matrix Multiplication'
+}, {
   route: 'op3',
   icon: 'inbox',
   title: 'Option 3'
