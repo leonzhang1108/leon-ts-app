@@ -78,7 +78,11 @@ class Matrix extends React.Component<{}, IMatrixState> {
     if (isInit) {
       this.state = initObj
     } else {
-      this.setState(initObj)
+      const { v1, v2 } = this.state
+      this.setState({
+        ...initObj,
+        v1, v2
+      })
     }
   }
 
@@ -162,7 +166,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
     setTimeout(() => {
       this.setState({
-        top: width1 + (width2 - height2) / 2 + 46,
+        top: width1 + (width2 - height2) / 2 + 48,
         left: height1 / 2 + width1 / 2 + (width2 - height2) / 2 + this.state.offset,
         rotate: true,
         step: 1,
