@@ -2,13 +2,13 @@
 import * as React from 'react'
 import Vector from './Vector'
 
-interface IMatrixProps { 
+interface IProps { 
   ventorList: number[][],
   step: number,
   width: number
 }
 
-class Vector2Display extends React.Component<IMatrixProps> {
+class Vector2Display extends React.Component<IProps> {
   render() {
     const { step, ventorList, width } = this.props
     return (

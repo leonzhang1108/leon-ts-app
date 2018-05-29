@@ -2,7 +2,7 @@
 import * as React from 'react'
 import Vector from './Vector'
 
-interface IMatrixProps { 
+interface IProps { 
   ventorList: number[][],
   editable: boolean,
   top: number,
@@ -13,7 +13,7 @@ interface IMatrixProps {
   onInput(e): void
 }
 
-class Vector2 extends React.Component<IMatrixProps> {
+class Vector2 extends React.Component<IProps> {
   render() {
     const { opacity } = this.props
     return (

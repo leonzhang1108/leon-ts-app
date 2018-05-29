@@ -2,12 +2,12 @@
 import * as React from 'react'
 import Vector from './Vector'
 
-interface IMatrixProps { 
+interface IProps { 
   ventorList: number[][] | undefined,
   hilightList: number[][] | undefined
 }
 
-class Vector3 extends React.Component<IMatrixProps> {
+class Vector3 extends React.Component<IProps> {
   render() {
     return (
       <div className='result'>
