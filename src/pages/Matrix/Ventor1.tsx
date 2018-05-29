@@ -11,7 +11,7 @@ interface IMatrixProps {
 
 class Vector1 extends React.Component<IMatrixProps> {
   render() {
-    return <Ventor {...this.props} ventor='v1'/>
+    return <Ventor {...this.props} ventor='v1' hasShadow={true}/>
   }
 }
 

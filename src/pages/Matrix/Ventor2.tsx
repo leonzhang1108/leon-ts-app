@@ -8,6 +8,7 @@ interface IMatrixProps {
   top: number,
   left: number,
   rotate: boolean,
+  transformCol: any,
   onInput(e): void
 }
 

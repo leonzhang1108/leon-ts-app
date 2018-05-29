@@ -24,6 +24,10 @@ interface IMatrixState {
   transformRow?: {
     start: number,
     end: number
+  },
+  transformCol?: {
+    start: number,
+    end: number
   }
 }
 
@@ -46,10 +50,10 @@ class Matrix extends React.Component<{}, IMatrixState> {
         [7, 8, 9, 1]
       ],
       v2: [
-        [1, 2, 5],
-        [4, 5, 5],
-        [7, 8, 5],
-        [10, 11, 5]
+        [1, 2, 5, 9, 1],
+        [4, 5, 5, 9, 1],
+        [7, 8, 5, 9, 1],
+        [10, 11, 5, 9, 1]
       ],
       top: 0,
       left: 0,
@@ -92,17 +96,22 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
     if (level) {
       const currentLevel = level - 1
-      const start = total - currentLevel - (width2 - 2) / 48
-
+      const rowStart = total - currentLevel - (width2 - 2) / 48
+      const colStart = total - currentLevel - (height2 - 2) / 48
       const end = total - currentLevel - 1
 
       this.setState({
         left: left - 48 * (total - currentLevel),
         level: currentLevel,
-        transformRow: { start, end }
+        transformRow: { start: rowStart, end },
+        transformCol: { start: colStart, end }
       })
     } else {
-      console.log('complete')
+      this.setState({
+        left: this.state.left - 48,
+        transformRow: undefined,
+        transformCol: undefined
+      })
     }
   }
 
@@ -164,6 +173,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
             editable={this.state.editable} 
             onInput={this.onInput} top={this.state.top} left={this.state.left} 
             rotate={this.state.rotate}
+            transformCol={this.state.transformCol}
           />
         </div>
         <div className='matrix-bottom' style={{opacity: this.state.bottomVisible ? 1 : 0}}>

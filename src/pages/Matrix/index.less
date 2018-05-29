@@ -24,15 +24,42 @@
           .col {
             transform: scale(1) translateX(0) translateY(0);
             transition: all 600ms ease;
+            &.col-transform span{
+              color: rgb(48, 141, 255);
+              transform: scale(0.55) translateX(1rem) translateY(1rem) rotate(90deg)!important; 
+            }
+            .shadow {
+              position: absolute;
+              top: 0px;
+              height: 100%;
+              width: 100%;
+              line-height: 48px;
+              text-align: center;
+              transform: scale(0.55);
+              font-weight: bold;
+              opacity: 0;
+              z-index: -1;
+              transition: all 600ms ease;
+              font-weight: bold;
+              &.show {
+                opacity: 1;
+              }
+            }
           }
-          &.row-transform .col {
-            color: rgb(48, 141, 255);;
-            transform: scale(0.55) translateX(16px) translateY(-10px); 
-            transition: all 600ms ease;
+          &.row-transform {
+            .col:not(:last-child) .shadow.show:after {
+              font-weight: bold;
+              content: '+';
+              position: absolute;
+              right: -30px;
+            }
+            .col span {
+              color: rgb(48, 141, 255);
+              transform: scale(0.55) translateX(-1rem) translateY(1rem)!important; 
+            }
           }
         }
         .col {
-          overflow: hidden;
           span,
           input {
             transition: all 600ms ease;
