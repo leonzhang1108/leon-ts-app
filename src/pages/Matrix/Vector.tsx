@@ -14,7 +14,7 @@ const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
               data-ventor={props.ventor}
               onChange={props.onInput} 
             />
-          : <span style={{transform: `rotate(${props.rotate ? '90deg' : '0'})`}} className={`${col ? 'show' : ''}`}>{col}</span> 
+          : <span style={{transform: `rotate(${props.rotate ? '90deg' : '0'})`}} className={`${col !== '' ? 'show' : ''}`}>{col}</span> 
       }
       {
         props.hasShadow
@@ -29,13 +29,14 @@ const renderCol = (row, rowIndex, props) => {
   const rowTransform = props.transformRow && props.transformRow.start <= rowIndex && props.transformRow.end >= rowIndex 
 
   return (
-    <ul className={`row ${rowTransform? 'row-transform' : ''}`} 
+    <ul className={`row ${rowTransform ? 'row-transform' : ''}`} 
       key={rowIndex}
     >
       {
-        row.map((col, colIndex) => 
-          renderItem(col, colIndex, rowIndex, props, rowTransform)
-        )
+        row.map((col, colIndex) => {
+
+          return renderItem(col, colIndex, rowIndex, props, rowTransform)
+        })
       }
     </ul>
   )

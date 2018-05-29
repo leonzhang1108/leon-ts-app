@@ -40,29 +40,26 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   constructor(props) {
     super(props)
-    this.state = {
+    this.reset(true)
+  }
+
+  reset(isInit?) {
+    const initObj = {
       offset: 10,
       step: 0,
       level: 0, 
       editable: true,
       v1: [
-        [1, 2, 3, 1],
-        [4, 5, 6, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1],
-        [7, 8, 9, 1]
+        [1, 2, 1],
+        [0, 1, 0],
+        [2, 3, 4]
       ],
       v2: [
-        [1, 2, 5, 9, 1, 9, 1],
-        [4, 5, 5, 9, 1, 9, 1],
-        [7, 8, 5, 9, 1, 9, 1],
-        [10, 11, 5, 9, 1, 9, 1]
+        [2, 5],
+        [6, 7],
+        [1, 8]
       ],
+      v3: undefined,
       top: 0,
       left: 0,
       rotate: false,
@@ -71,6 +68,11 @@ class Matrix extends React.Component<{}, IMatrixState> {
       width1: 0,
       height2: 0,
       width2: 0
+    }
+    if (isInit) {
+      this.state = initObj
+    } else {
+      this.setState(initObj)
     }
   }
 
@@ -90,6 +92,9 @@ class Matrix extends React.Component<{}, IMatrixState> {
         break
       case 1: 
         this.doStep()
+        break
+      case 2: 
+        this.reset()
         break
       default: 
         this.doMultiply()
@@ -115,9 +120,12 @@ class Matrix extends React.Component<{}, IMatrixState> {
       this.doCalculate(total - currentLevel)
     } else {
       this.setState({
-        left: this.state.left - 48,
         transformRow: undefined,
-        transformCol: undefined
+        transformCol: undefined,
+        top: 0,
+        left: 0,
+        rotate: false,
+        step: 2
       })
     }
   }
@@ -166,16 +174,15 @@ class Matrix extends React.Component<{}, IMatrixState> {
     const forIndex = --index
     for (let i = 0; i <= forIndex; i++) {
       let res = 0
-      if (v3 && index >= v3.length) {
-        index--
-      } else {
-        v1[index--].forEach((v, idx) => 
+      if (!v3 || index < v3.length) {
+        v1[index].forEach((v, idx) => 
           res += v * v2[idx][i]
         )
-        if (v3 && index + 1 < v3.length && i < v3[0].length) {
-          this.setResult(res, index + 1, i)
+        if (v3 && index < v3.length && i < v3[0].length) {
+          this.setResult(res, index, i)
         }
       }
+      index--
     }
   }
 
@@ -189,15 +196,23 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   render() {
     let text = ''
+    let symbol = ''
     switch(this.state.step) {
       case 0:
         text = 'Multiply'
+        symbol = '×'
         break;
       case 1: 
         text = 'Next'
+        symbol = '='
+        break
+      case 2: 
+        text = 'Reset'
+        symbol = '×'
         break
       default: 
         text = 'Multiply'
+        symbol = '×'
     }
 
     return (
@@ -209,7 +224,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
             onInput={this.onInput}
             transformRow={this.state.transformRow}
           />
-          <span>×</span>
+          <span>{symbol}</span>
           <Vector2 
             ref={el => this.dom2 = el} 
             ventorList={this.state.v2} 
@@ -218,8 +233,12 @@ class Matrix extends React.Component<{}, IMatrixState> {
             rotate={this.state.rotate}
             transformCol={this.state.transformCol}
           />
-          {/* <span>=</span> */}
-          <Vector3 ventorList={this.state.v3}/>
+          {
+            this.state.step === 2
+              ? <span>=</span>
+              : ''
+          }
+          <Vector3 ventorList={this.state.v3} step={this.state.step}/>
         </div>
         <div className='matrix-bottom' style={{opacity: this.state.bottomVisible ? 1 : 0}}>
           <Button type="primary" size='large' onClick={this.doClick}>{text}</Button>

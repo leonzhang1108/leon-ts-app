@@ -3,12 +3,19 @@ import * as React from 'react'
 import Vector from './Vector'
 
 interface IMatrixProps { 
-  ventorList: number[][] | undefined
+  ventorList: number[][] | undefined,
+  step: number
 }
 
 class Vector3 extends React.Component<IMatrixProps> {
   render() {
-    return <Vector {...this.props} style={{position: 'absolute', right: '0'}}/>
+    const { step } = this.props
+
+    return (
+      <div className={`${step === 1 ? 'calculating' : ''}`}>
+        <Vector {...this.props} result={true}/>
+      </div>
+    )
   }
 }
 
