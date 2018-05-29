@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom'
 import './index.less'
 import Vector1 from './Vector1'
 import Vector2 from './Vector2'
+import Vector2Display from './Vector2Display'
 import Vector3 from './Vector3'
 import { Button } from 'antd'
 
@@ -22,6 +23,7 @@ interface IMatrixState {
   height2: number,
   width2: number,
   rotate: boolean,
+  v2Opacity: number,
   bottomVisible: boolean,
   transformRow?: {
     start: number,
@@ -52,12 +54,13 @@ class Matrix extends React.Component<{}, IMatrixState> {
       v1: [
         [1, 2, 1],
         [0, 1, 0],
+        [0, 1, 0],
         [2, 3, 4]
       ],
       v2: [
-        [2, 5],
-        [6, 7],
-        [1, 8]
+        [2, 5, 2, 5],
+        [6, 7, 2, 5],
+        [1, 8, 2, 5]
       ],
       v3: undefined,
       top: 0,
@@ -67,7 +70,8 @@ class Matrix extends React.Component<{}, IMatrixState> {
       height1: 0,
       width1: 0,
       height2: 0,
-      width2: 0
+      width2: 0,
+      v2Opacity: 1
     }
     if (isInit) {
       this.state = initObj
@@ -105,12 +109,12 @@ class Matrix extends React.Component<{}, IMatrixState> {
     const { level, height1, width1, height2, width2 } = this.state
     const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2 - 2
     const total = this.state.v1.length + this.state.v2[0].length - 1
+    const currentLevel = level - 1
+    const rowStart = total - currentLevel - (width2 - 2) / 48
+    const colStart = total - currentLevel - (height1 - 2) / 48
+    const end = total - currentLevel - 1
 
     if (level) {
-      const currentLevel = level - 1
-      const rowStart = total - currentLevel - (width2 - 2) / 48
-      const colStart = total - currentLevel - (height1 - 2) / 48
-      const end = total - currentLevel - 1
       this.setState({
         left: left - 48 * (total - currentLevel),
         level: currentLevel,
@@ -120,13 +124,21 @@ class Matrix extends React.Component<{}, IMatrixState> {
       this.doCalculate(total - currentLevel)
     } else {
       this.setState({
-        transformRow: undefined,
-        transformCol: undefined,
-        top: 0,
-        left: 0,
-        rotate: false,
-        step: 2
+        left: this.state.left - 48,
+        transformRow: { start: rowStart, end },
+        transformCol: { start: colStart, end },
+        v2Opacity: 0
       })
+      setTimeout(() => {
+        this.setState({
+          step: 2,
+          transformRow: undefined,
+          transformCol: undefined,
+          rotate: false,
+          top: 0,
+          left: 0
+        })
+      }, 600)
     }
   }
 
@@ -147,7 +159,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
     setTimeout(() => {
       this.setState({
-        top: width1 + (width2 - height2) / 2 + 50,
+        top: width1 + (width2 - height2) / 2 + 46,
         left: height1 / 2 + width1 / 2 + (width2 - height2) / 2 + this.state.offset,
         rotate: true,
         step: 1,
@@ -225,20 +237,26 @@ class Matrix extends React.Component<{}, IMatrixState> {
             transformRow={this.state.transformRow}
           />
           <span>{symbol}</span>
+          <Vector2Display 
+            ventorList={this.state.v2}
+            step={this.state.step}
+            width={this.state.width2}
+          />
           <Vector2 
             ref={el => this.dom2 = el} 
             ventorList={this.state.v2} 
             editable={this.state.editable} 
             onInput={this.onInput} top={this.state.top} left={this.state.left} 
             rotate={this.state.rotate}
+            opacity={this.state.v2Opacity}
             transformCol={this.state.transformCol}
           />
           {
             this.state.step === 2
-              ? <span>=</span>
+              ? <span style={{transform: `translateX(${-this.state.width2}px)`}}>=</span>
               : ''
           }
-          <Vector3 ventorList={this.state.v3} step={this.state.step}/>
+          <Vector3 ventorList={this.state.v3}/>
         </div>
         <div className='matrix-bottom' style={{opacity: this.state.bottomVisible ? 1 : 0}}>
           <Button type="primary" size='large' onClick={this.doClick}>{text}</Button>

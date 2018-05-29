@@ -7,6 +7,7 @@ interface IMatrixProps {
   editable: boolean,
   top: number,
   left: number,
+  opacity: number,
   rotate: boolean,
   transformCol: any,
   onInput(e): void
@@ -14,7 +15,12 @@ interface IMatrixProps {
 
 class Vector2 extends React.Component<IMatrixProps> {
   render() {
-    return <Vector {...this.props} ventor='v2'/>
+    const { opacity } = this.props
+    return (
+      <div className='display' style={{opacity}}>
+        <Vector {...this.props} ventor='v2'/>
+      </div>
+    )
   }
 }
 
