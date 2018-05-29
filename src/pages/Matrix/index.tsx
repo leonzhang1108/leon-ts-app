@@ -162,7 +162,29 @@ class Matrix extends React.Component<{}, IMatrixState> {
   }
 
   doCalculate = index => {
-    console.log(index)
+    const { v1, v2, v3 } = this.state
+    const forIndex = --index
+    for (let i = 0; i <= forIndex; i++) {
+      let res = 0
+      if (v3 && index >= v3.length) {
+        index--
+      } else {
+        v1[index--].forEach((v, idx) => 
+          res += v * v2[idx][i]
+        )
+        if (v3 && index + 1 < v3.length && i < v3[0].length) {
+          this.setResult(res, index + 1, i)
+        }
+      }
+    }
+  }
+
+  setResult = (v, x, y) => {
+    const { v3 } = this.state
+    if (v3) { 
+      v3[x][y] = v 
+    }
+    this.setState({ v3 })
   }
 
   render() {
