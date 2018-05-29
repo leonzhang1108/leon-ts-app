@@ -40,10 +40,14 @@
           margin: 0;
           .col {
             transform: scale(1) translateX(0) translateY(0);
-            transition: all 600ms ease;
+            transition: opacity 600ms ease;
             &.col-transform span{
               color: rgb(48, 141, 255);
               transform: scale(0.55) translateX(1rem) translateY(1rem) rotate(90deg)!important; 
+            }
+            &.hilight {
+              transition: none;
+              color: rgb(48, 141, 255);
             }
             .shadow {
               position: absolute;
@@ -62,6 +66,28 @@
                 opacity: 1;
               }
             }
+            span,
+            input {
+              transition: all 600ms ease;
+              display: block;
+              height: 2em;
+              width: 2em;
+              line-height: 2em;
+              text-align: center;
+              border: none;
+              margin: 0;
+              background-color: initial;
+            }
+            span {
+              opacity: 0;
+              &.show {
+                opacity: 1;
+              }
+            }
+            input:hover,
+            input:focus {
+              box-shadow: inset 0px 2px 2px 0px rgba(0,0,0,0.5);
+            }
           }
           &.row-transform {
             .col:not(:last-child) .shadow.show:after {
@@ -74,30 +100,6 @@
               color: rgb(48, 141, 255);
               transform: scale(0.55) translateX(-1rem) translateY(1rem)!important; 
             }
-          }
-        }
-        .col {
-          span,
-          input {
-            transition: all 600ms ease;
-            display: block;
-            height: 2em;
-            width: 2em;
-            line-height: 2em;
-            text-align: center;
-            border: none;
-            margin: 0;
-            background-color: initial;
-          }
-          span {
-            opacity: 0;
-            &.show {
-              opacity: 1;
-            }
-          }
-          input:hover,
-          input:focus {
-            box-shadow: inset 0px 2px 2px 0px rgba(0,0,0,0.5);
           }
         }
       }

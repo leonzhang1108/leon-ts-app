@@ -12,6 +12,7 @@ interface IMatrixState {
   v1: number[][],
   v2: number[][],
   v3?: number[][],
+  v3Hilight?: number[][],
   editable: boolean,
   step: number,
   offset: number,
@@ -63,6 +64,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
         [1, 8, 2, 5]
       ],
       v3: undefined,
+      v3Hilight: undefined,
       top: 0,
       left: 0,
       rotate: false,
@@ -125,6 +127,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
     } else {
       this.setState({
         left: this.state.left - 48,
+        v3Hilight: this.refreshV3Hilight(),
         transformRow: { start: rowStart, end },
         transformCol: { start: colStart, end },
         v2Opacity: 0
@@ -173,17 +176,20 @@ class Matrix extends React.Component<{}, IMatrixState> {
   doCalculateV3Size = () => {
     const { v1, v2 } = this.state
     const v3: number[][] = []
+    const v3Hilight: number[][] = []
     v1.forEach(() => {
       const res:any[] = []
       v2[0].forEach(() => res.push(''))
       v3.push(res)
+      v3Hilight.push(res.map(() => 0))
     })
-    this.setState({ v3 })
+    this.setState({ v3, v3Hilight })
   }
 
   doCalculate = index => {
     const { v1, v2, v3 } = this.state
     const forIndex = --index
+    const v3Hilight = this.refreshV3Hilight()
     for (let i = 0; i <= forIndex; i++) {
       let res = 0
       if (!v3 || index < v3.length) {
@@ -192,11 +198,17 @@ class Matrix extends React.Component<{}, IMatrixState> {
         )
         if (v3 && index < v3.length && i < v3[0].length) {
           this.setResult(res, index, i)
+          if (v3Hilight) {
+            v3Hilight[index][i] = 1
+          }
         }
       }
       index--
     }
+    this.setState({ v3Hilight })
   }
+
+  refreshV3Hilight = () => this.state.v3Hilight && this.state.v3Hilight.map(list => list.map(() => 0))
 
   setResult = (v, x, y) => {
     const { v3 } = this.state
@@ -256,7 +268,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
               ? <span style={{transform: `translateX(${-this.state.width2}px)`}}>=</span>
               : ''
           }
-          <Vector3 ventorList={this.state.v3}/>
+          <Vector3 ventorList={this.state.v3} hilightList={this.state.v3Hilight}/>
         </div>
         <div className='matrix-bottom' style={{opacity: this.state.bottomVisible ? 1 : 0}}>
           <Button type="primary" size='large' onClick={this.doClick}>{text}</Button>

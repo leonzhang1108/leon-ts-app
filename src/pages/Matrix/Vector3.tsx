@@ -3,7 +3,8 @@ import * as React from 'react'
 import Vector from './Vector'
 
 interface IMatrixProps { 
-  ventorList: number[][] | undefined
+  ventorList: number[][] | undefined,
+  hilightList: number[][] | undefined
 }
 
 class Vector3 extends React.Component<IMatrixProps> {

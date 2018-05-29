@@ -4,7 +4,11 @@ const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
   const colTransform = props.transformCol && props.transformCol.start <= colIndex && props.transformCol.end >= colIndex 
 
   return (
-    <li className={`col ${colTransform ? 'col-transform' : ''}`} 
+    <li className={`
+        col 
+        ${colTransform ? 'col-transform' : ''} 
+        ${props.hilightList && props.hilightList[colIndex][rowIndex] === 1 ? 'hilight' : ''}
+      `} 
       key={colIndex}
     >
       { 
