@@ -1,6 +1,6 @@
 
 import * as React from 'react'
-import Ventor from './Ventor'
+import Vector from './Vector'
 
 interface IMatrixProps { 
   ventorList: number[][],
@@ -14,7 +14,7 @@ interface IMatrixProps {
 
 class Vector2 extends React.Component<IMatrixProps> {
   render() {
-    return <Ventor {...this.props} ventor='v2'/>
+    return <Vector {...this.props} ventor='v2'/>
   }
 }
 

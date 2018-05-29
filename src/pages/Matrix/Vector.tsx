@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
-
   const colTransform = props.transformCol && props.transformCol.start <= colIndex && props.transformCol.end >= colIndex 
 
   return (
@@ -15,7 +14,7 @@ const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
               data-ventor={props.ventor}
               onChange={props.onInput} 
             />
-          : <span style={{transform: `rotate(${props.rotate ? '90deg' : '0'})`}}>{col}</span> 
+          : <span style={{transform: `rotate(${props.rotate ? '90deg' : '0'})`}} className={`${col ? 'show' : ''}`}>{col}</span> 
       }
       {
         props.hasShadow
@@ -27,7 +26,6 @@ const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
 }
 
 const renderCol = (row, rowIndex, props) => {
-
   const rowTransform = props.transformRow && props.transformRow.start <= rowIndex && props.transformRow.end >= rowIndex 
 
   return (
@@ -43,24 +41,31 @@ const renderCol = (row, rowIndex, props) => {
   )
 }
 
-const renderRow = props => (
-  <td>
-    <div className='border-left'/>
-    {
-      props.ventorList.map((row, rowIndex) => 
-        renderCol(row, rowIndex, props)
-      )
-    }
-    <div className='border-right'/>
-  </td>
-)
+const renderRow = props => {
+  if (!props.ventorList) {
+    return <td/>
+  }
+
+  return (
+    <td>
+      <div className='border-left'/>
+      {
+        props.ventorList.map((row, rowIndex) => 
+          renderCol(row, rowIndex, props)
+        )
+      }
+      <div className='border-right'/>
+    </td>
+  )
+}
 
 const Vector = props => (
-  <table style={{ 
+  <table className={`${props.ventorList ? 'show' : ''}`} style={{ 
     transform: `
       rotate(${props.rotate ? '-90deg' : '0'}) 
       translateX(${props.left || 0}px)
-      translateY(${-props.top || 0}px)`
+      translateY(${-props.top || 0}px)`,
+    ...props.style
   }}>
     <tbody>
       <tr>

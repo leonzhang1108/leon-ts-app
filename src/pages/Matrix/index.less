@@ -8,12 +8,21 @@
     display: flex;
     flex: 1;
     font-size: 24px;
+    margin: 0 auto;
+    position: relative;
     span {
       margin: 1rem;
     }
     
     table {
       transition: all 600ms ease;
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+      &.show {
+        opacity: 1;
+        width: inherit;
+      }
       td {
         position: relative;
         .row {
@@ -71,6 +80,12 @@
             border: none;
             margin: 0;
             background-color: initial;
+          }
+          span {
+            opacity: 0;
+            &.show {
+              opacity: 1;
+            }
           }
           input:hover,
           input:focus {
