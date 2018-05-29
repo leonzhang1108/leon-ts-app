@@ -68,7 +68,9 @@
             }
             span,
             input {
-              transition: all 600ms ease;
+              transition-property: opacity, color, transform;
+              transition-duration: 600ms;
+              transition-timing-function: ease;
               display: block;
               height: 2em;
               width: 2em;
