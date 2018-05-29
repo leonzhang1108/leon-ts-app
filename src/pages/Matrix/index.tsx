@@ -20,7 +20,11 @@ interface IMatrixState {
   height2: number,
   width2: number,
   rotate: boolean,
-  bottomVisible: boolean
+  bottomVisible: boolean,
+  transformRow?: {
+    start: number,
+    end: number
+  }
 }
 
 class Matrix extends React.Component<{}, IMatrixState> {
@@ -39,14 +43,13 @@ class Matrix extends React.Component<{}, IMatrixState> {
         [1, 2, 3, 1],
         [4, 5, 6, 1],
         [7, 8, 9, 1],
-        [7, 8, 9, 1],
         [7, 8, 9, 1]
       ],
       v2: [
-        [1, 2, 5, 6, 1],
-        [4, 5, 5, 6, 1],
-        [7, 8, 5, 6, 1],
-        [10, 11, 5, 6, 1]
+        [1, 2, 5],
+        [4, 5, 5],
+        [7, 8, 5],
+        [10, 11, 5]
       ],
       top: 0,
       left: 0,
@@ -55,7 +58,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
       height1: 0,
       width1: 0,
       height2: 0,
-      width2: 0,
+      width2: 0
     }
   }
 
@@ -83,15 +86,23 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   doStep = () => {
     const { level, height1, width1, height2, width2 } = this.state
-    const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2
+    const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2 - 2
     const total = this.state.v1.length + this.state.v2[0].length - 1
+
 
     if (level) {
       const currentLevel = level - 1
+      const start = total - currentLevel - (width2 - 2) / 48
+
+      const end = total - currentLevel - 1
+
       this.setState({
         left: left - 48 * (total - currentLevel),
-        level: currentLevel
+        level: currentLevel,
+        transformRow: { start, end }
       })
+    } else {
+      console.log('complete')
     }
   }
 
@@ -144,6 +155,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
             ref={el => this.dom = el} 
             ventorList={this.state.v1} editable={this.state.editable} 
             onInput={this.onInput}
+            transformRow={this.state.transformRow}
           />
           <span>×</span>
           <Vector2 

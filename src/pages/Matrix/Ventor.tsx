@@ -15,7 +15,7 @@ const renderItem = (col, colIndex, rowIndex, props) => (
 )
 
 const renderCol = (row, rowIndex, props) => (
-  <ul className='row' key={rowIndex}>
+  <ul className={`row ${props.transformRow && props.transformRow.start <= rowIndex && props.transformRow.end >= rowIndex ? 'row-transform' : ''}`} key={rowIndex}>
     {
       row.map((col, colIndex) => 
         renderItem(col, colIndex, rowIndex, props)

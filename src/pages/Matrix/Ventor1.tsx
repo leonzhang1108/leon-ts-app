@@ -5,6 +5,7 @@ import Ventor from './Ventor'
 interface IMatrixProps { 
   ventorList: number[][],
   editable: boolean,
+  transformRow: any,
   onInput(e): void
 }
 

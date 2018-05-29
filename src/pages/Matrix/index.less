@@ -21,6 +21,15 @@
           list-style-type: none;
           padding: 0;
           margin: 0;
+          .col {
+            transform: scale(1) translateX(0) translateY(0);
+            transition: all 600ms ease;
+          }
+          &.row-transform .col {
+            color: rgb(48, 141, 255);;
+            transform: scale(0.55) translateX(16px) translateY(-10px); 
+            transition: all 600ms ease;
+          }
         }
         .col {
           overflow: hidden;
@@ -34,6 +43,7 @@
             text-align: center;
             border: none;
             margin: 0;
+            background-color: initial;
           }
           input:hover,
           input:focus {
