@@ -1,6 +1,6 @@
 
 import * as React from 'react'
-// import * as ReactDOM from 'react-dom'
+import * as ReactDOM from 'react-dom'
 import './index.less'
 import Vector1 from './Ventor1'
 import Vector2 from './Ventor2'
@@ -15,6 +15,10 @@ interface IMatrixState {
   top: number,
   left: number,
   level: number,
+  height1: number,
+  width1: number,
+  height2: number,
+  width2: number,
   rotate: boolean,
   bottomVisible: boolean
 }
@@ -29,23 +33,29 @@ class Matrix extends React.Component<{}, IMatrixState> {
     this.state = {
       offset: 10,
       step: 0,
-      level: 0,
+      level: 0, 
       editable: true,
       v1: [
         [1, 2, 3, 1],
         [4, 5, 6, 1],
+        [7, 8, 9, 1],
+        [7, 8, 9, 1],
         [7, 8, 9, 1]
       ],
       v2: [
-        [1, 2, 1,1,1],
-        [4, 5, 1,1,1],
-        [7, 8, 1,1,1],
-        [10, 11, 1,1,1]
+        [1, 2, 5, 6, 1],
+        [4, 5, 5, 6, 1],
+        [7, 8, 5, 6, 1],
+        [10, 11, 5, 6, 1]
       ],
       top: 0,
       left: 0,
       rotate: false,
-      bottomVisible: true
+      bottomVisible: true,
+      height1: 0,
+      width1: 0,
+      height2: 0,
+      width2: 0,
     }
   }
 
@@ -72,45 +82,46 @@ class Matrix extends React.Component<{}, IMatrixState> {
   }
 
   doStep = () => {
-    const { level, v1 } = this.state
-    const length = v1.length
-    
-    if (level <= length && level > -length) {
+    const { level, height1, width1, height2, width2 } = this.state
+    const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2
+    const total = this.state.v1.length + this.state.v2[0].length - 1
+
+    if (level) {
+      const currentLevel = level - 1
       this.setState({
-        left: 48 * (level - 1 ),
-        level: level - 1
+        left: left - 48 * (total - currentLevel),
+        level: currentLevel
       })
-    } else {
-      console.log('complete')
     }
   }
 
   doMultiply = () => {
 
-    // const dom = ReactDOM.findDOMNode(this.dom) as HTMLElement
-    // const height1 = dom.offsetHeight
-    // const width1 = dom.offsetWidth
+    const dom = ReactDOM.findDOMNode(this.dom) as HTMLElement
+    const height1 = dom.offsetHeight
+    const width1 = dom.offsetWidth
 
-    // const dom2 = ReactDOM.findDOMNode(this.dom2) as HTMLElement
-    // const height2 = dom2.offsetHeight
-    // const width2 = dom2.offsetWidth
+    const dom2 = ReactDOM.findDOMNode(this.dom2) as HTMLElement
+    const height2 = dom2.offsetHeight
+    const width2 = dom2.offsetWidth
 
     this.setState({
-      // top: height1 / 2 + width1 / 2 + this.state.offset,
-      // editable: false,
-      bottomVisible: false
+      top: height1 / 2 + width1 / 2 + this.state.offset,
+      editable: false,
+      bottomVisible: false,
+      height1, width1, height2, width2
     })
 
     setTimeout(() => {
       this.setState({
-        // top: height2 + 48 - 2,
-        // left: height1 / 2 + height2 / 2 ,
+        top: width1 + (width2 - height2) / 2 + 50,
+        left: height1 / 2 + width1 / 2 + (width2 - height2) / 2 + this.state.offset,
         rotate: true,
         step: 1,
-        level: this.state.v1.length,
+        level: this.state.v1.length + this.state.v2[0].length - 1,
         bottomVisible: true
       })
-    }, 700)
+    }, 600)
   }
 
   render() {
@@ -150,6 +161,5 @@ class Matrix extends React.Component<{}, IMatrixState> {
     )
   }
 }
-
 
 export default Matrix
