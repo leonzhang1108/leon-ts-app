@@ -191,7 +191,6 @@ class Matrix extends React.Component<{}, IMatrixState> {
       v3.push(res)
       v3Hilight.push(res.map(() => 0))
     })
-    console.log(v3.length, v3Hilight.length)
     this.setState({ v3, v3Hilight })
   }
 
