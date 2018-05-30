@@ -41,6 +41,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   dom
   dom2
+  span
 
   constructor(props) {
     super(props)
@@ -195,6 +196,8 @@ class Matrix extends React.Component<{}, IMatrixState> {
     const dom2 = ReactDOM.findDOMNode(this.dom2) as HTMLElement
     const height2 = dom2.offsetHeight
     const width2 = dom2.offsetWidth
+    const span = ReactDOM.findDOMNode(this.span) as HTMLElement
+    const spanWidth = span.offsetWidth
 
     this.setState({
       top: height1 / 2 + width1 / 2 + this.state.offset,
@@ -206,7 +209,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
     setTimeout(() => {
       this.setState({
-        top: width1 + (width2 - height2) / 2 + this.state.cubeSize,
+        top: width1 + (width2 - height2) / 2 + spanWidth,
         left: height1 / 2 + width1 / 2 + (width2 - height2) / 2 + this.state.offset,
         rotate: true,
         level: this.state.v1.length + this.state.v2[0].length - 1,
@@ -356,7 +359,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
             opacity={opacity}
             btnEdit={this.btnEdit}
           />
-          <span>{symbol}</span>
+          <span ref={el => this.span = el}>{symbol}</span>
           <Vector2Display 
             ventorList={this.state.v2}
             step={this.state.step}
