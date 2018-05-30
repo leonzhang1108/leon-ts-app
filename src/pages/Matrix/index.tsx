@@ -26,7 +26,7 @@ interface IMatrixState {
   width2: number,
   rotate: boolean,
   v2Opacity: number,
-  bottomVisible: boolean,
+  bottomDisable: boolean,
   transformRow?: {
     start: number,
     end: number
@@ -55,22 +55,21 @@ class Matrix extends React.Component<{}, IMatrixState> {
       level: 0, 
       editable: true,
       v1: [
-        [1, 2, 1],
+        [1, 0, 1],
         [0, 1, 0],
-        [0, 1, 0],
-        [2, 3, 4]
+        [1, 0, 1]
       ],
       v2: [
-        [2, 5, 2, 2, 2],
-        [6, 7, 2, 2, 2],
-        [1, 8, 2, 2, 2]
+        [1, 0, 1],
+        [0, 1, 0],
+        [1, 0, 1]
       ],
       v3: undefined,
       v3Hilight: undefined,
       top: 0,
       left: 0,
       rotate: false,
-      bottomVisible: true,
+      bottomDisable: false,
       height1: 0,
       width1: 0,
       height2: 0,
@@ -113,44 +112,61 @@ class Matrix extends React.Component<{}, IMatrixState> {
     }
   }
 
-  doStep = () => {
-    const { level, height1, width1, height2, width2, cubeSize } = this.state
-    const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2 - 2
-    const total = this.state.v1.length + this.state.v2[0].length - 1
-    const currentLevel = level - 1
-    const rowStart = total - currentLevel - (width2 - 2) / cubeSize
-    const colStart = total - currentLevel - (height1 - 2) / cubeSize
-    const end = total - currentLevel - 1
-
-    if (level) {
-      this.setState({
-        left: left - cubeSize * (total - currentLevel),
-        level: currentLevel,
-        transformRow: { start: rowStart, end },
-        transformCol: { start: colStart, end }
-      })
-      this.doCalculate(total - currentLevel)
-    } else {
-      this.setState({
-        left: this.state.left - cubeSize,
-        v3Hilight: this.refreshV3Hilight(),
-        transformRow: { start: rowStart, end },
-        transformCol: { start: colStart, end },
-        v2Opacity: 0,
-        bottomVisible: false
-      })
-      setTimeout(() => {
-        this.setState({
-          step: 2,
-          transformRow: undefined,
-          transformCol: undefined,
-          rotate: false,
-          top: 0,
-          left: 0,
-          bottomVisible: true
-        })
-      }, 600)
+  doAutoComplete = async() => {
+    const { level, step } = this.state
+    if (level >= 0 && step === 1) {
+      await this.doStep()
+      this.doAutoComplete()
     }
+  }
+
+  doStep = async() => {
+    await new Promise(resolve => {
+      const { level, height1, width1, height2, width2, cubeSize } = this.state
+      const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2 - 2
+      const total = this.state.v1.length + this.state.v2[0].length - 1
+      const currentLevel = level - 1
+      const rowStart = total - currentLevel - (width2 - 2) / cubeSize
+      const colStart = total - currentLevel - (height1 - 2) / cubeSize
+      const end = total - currentLevel - 1
+  
+      if (level) {
+        this.setState({
+          left: left - cubeSize * (total - currentLevel),
+          level: currentLevel,
+          transformRow: { start: rowStart, end },
+          transformCol: { start: colStart, end },
+          bottomDisable: true
+        })
+        this.doCalculate(total - currentLevel)
+        setTimeout(() => {
+          this.setState({ bottomDisable: false })
+          resolve()
+        }, 300)
+      } else {
+        this.setState({
+          left: this.state.left - cubeSize,
+          v3Hilight: this.refreshV3Hilight(),
+          transformRow: { start: rowStart, end },
+          transformCol: { start: colStart, end },
+          v2Opacity: 0,
+          bottomDisable: true
+        })
+        setTimeout(() => {
+          this.setState({
+            step: 2,
+            transformRow: undefined,
+            transformCol: undefined,
+            rotate: false,
+            top: 0,
+            left: 0,
+            bottomDisable: false
+          })
+          resolve()
+        }, 600)
+      }
+    })
+    
   }
 
   doMultiply = () => {
@@ -164,7 +180,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
     this.setState({
       top: height1 / 2 + width1 / 2 + this.state.offset,
       editable: false,
-      bottomVisible: false,
+      bottomDisable: true,
       step: 1,
       height1, width1, height2, width2
     })
@@ -175,7 +191,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
         left: height1 / 2 + width1 / 2 + (width2 - height2) / 2 + this.state.offset,
         rotate: true,
         level: this.state.v1.length + this.state.v2[0].length - 1,
-        bottomVisible: true
+        bottomDisable: false
       })
       this.doCalculateV3Size()
     }, 600)
@@ -228,7 +244,10 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   btnEdit = e => {
     const id = e.target.getAttribute('data-id')
-    const { v1, v2 } = this.state
+    const { v1, v2, step } = this.state
+    if (step !== 0) {
+      return
+    }
     switch(Number(id)) {
       case 1: 
         this.setState({ v1: this.deleteRow(v1) })
@@ -341,8 +360,13 @@ class Matrix extends React.Component<{}, IMatrixState> {
           }
           <Vector3 ventorList={this.state.v3} hilightList={this.state.v3Hilight}/>
         </div>
-        <div className='matrix-bottom' style={{opacity: this.state.bottomVisible ? 1 : 0}}>
-          <Button type="primary" size='large' onClick={this.doClick}>{text}</Button>
+        <div className='matrix-bottom'>
+          <Button disabled={this.state.bottomDisable} type="primary" size='large' onClick={this.doClick}>{text}</Button>
+          {
+            this.state.step === 1 
+              ? <Button disabled={this.state.bottomDisable} type="primary" size='large' onClick={this.doAutoComplete}>Auto Complete</Button>
+              : ''
+          }
         </div>
       </div>
     )
