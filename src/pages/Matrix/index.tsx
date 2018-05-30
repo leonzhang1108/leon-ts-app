@@ -55,14 +55,14 @@ class Matrix extends React.Component<{}, IMatrixState> {
       level: 0, 
       editable: true,
       v1: [
-        [1, 0, 1],
-        [0, 1, 0],
-        [1, 0, 1]
+        [1, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1]
       ],
       v2: [
-        [1, 0, 1],
-        [0, 1, 0],
-        [1, 0, 1]
+        [1, 1, 1],  
+        [1, 1, 1],
+        [1, 1, 1]
       ],
       v3: undefined,
       v3Hilight: undefined,
@@ -88,13 +88,32 @@ class Matrix extends React.Component<{}, IMatrixState> {
   }
 
   onInput = e => {
+    const { v, col, row } = this.getInputValue(e)
+    v[row][col] = e.target.value
+    this.setState({ [v]: v })
+  }
+
+  onBlur = e => {
+    const { v, col, row } = this.getInputValue(e)
+    if (this.isNumber(e.target.value)) {
+      v[row][col] = e.target.value.replace(/\b(0+)/gi,"")
+    } else {
+      v[row][col] = 1
+    }
+    this.setState({ [v]: v })
+  }
+
+  getInputValue = e => {
     const col = e.target.getAttribute('data-col')
     const row = e.target.getAttribute('data-row')
     const ventor = e.target.getAttribute('data-ventor')
     const v = this.state[ventor]
-    v[row][col] = e.target.value
-    this.setState({ [v]: v })
+    return {
+      v, col, row
+    }
   }
+
+  isNumber = v => !(/^(-)?\d+(\.\d+)?$/.exec(v) === null || v === "")
 
   doClick = () => {
     switch(this.state.step) {
@@ -332,6 +351,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
             ref={el => this.dom = el} 
             ventorList={this.state.v1} editable={this.state.editable} 
             onInput={this.onInput}
+            onBlur={this.onBlur} 
             transformRow={this.state.transformRow}
             opacity={opacity}
             btnEdit={this.btnEdit}
@@ -346,7 +366,10 @@ class Matrix extends React.Component<{}, IMatrixState> {
             ref={el => this.dom2 = el} 
             ventorList={this.state.v2} 
             editable={this.state.editable} 
-            onInput={this.onInput} top={this.state.top} left={this.state.left} 
+            onInput={this.onInput} 
+            onBlur={this.onBlur} 
+            top={this.state.top} 
+            left={this.state.left} 
             rotate={this.state.rotate}
             opacity={opacity}
             v2Opacity={this.state.v2Opacity}

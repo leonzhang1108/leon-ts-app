@@ -17,6 +17,7 @@ const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
               data-row={rowIndex} data-col={colIndex} 
               data-ventor={props.ventor}
               onChange={props.onInput} 
+              onBlur={props.onBlur} 
             />
           : <span style={{transform: `rotate(${props.rotate ? '90deg' : '0'})`}} className={`${col !== '' ? 'show' : ''}`}>{col}</span> 
       }

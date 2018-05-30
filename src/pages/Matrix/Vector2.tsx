@@ -12,6 +12,7 @@ interface IProps {
   rotate: boolean,
   transformCol: any,
   btnEdit(e): void,
+  onBlur(e): void,
   onInput(e): void
 }
 

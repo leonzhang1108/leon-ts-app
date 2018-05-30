@@ -8,6 +8,7 @@ interface IProps {
   transformRow: any,
   opacity: number,
   onInput(e): void,
+  onBlur(e): void,
   btnEdit(e): void
 }
 
