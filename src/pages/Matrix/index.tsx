@@ -55,14 +55,14 @@ class Matrix extends React.Component<{}, IMatrixState> {
       level: 0, 
       editable: true,
       v1: [
-        [1, 1, 1],
-        [1, 1, 1],
-        [1, 1, 1]
+        [1, 2, 3],  
+        [1, 2, 3],
+        [1, 2, 3]
       ],
       v2: [
-        [1, 1, 1],  
-        [1, 1, 1],
-        [1, 1, 1]
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1]
       ],
       v3: undefined,
       v3Hilight: undefined,
@@ -96,7 +96,9 @@ class Matrix extends React.Component<{}, IMatrixState> {
   onBlur = e => {
     const { v, col, row } = this.getInputValue(e)
     if (this.isNumber(e.target.value)) {
-      v[row][col] = e.target.value.replace(/\b(0+)/gi,"")
+      v[row][col] = e.target.value !== '0' 
+        ? e.target.value.replace(/\b(0+)/gi,"") 
+        : e.target.value
     } else {
       v[row][col] = 1
     }
@@ -108,9 +110,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
     const row = e.target.getAttribute('data-row')
     const ventor = e.target.getAttribute('data-ventor')
     const v = this.state[ventor]
-    return {
-      v, col, row
-    }
+    return { v, col, row }
   }
 
   isNumber = v => !(/^(-)?\d+(\.\d+)?$/.exec(v) === null || v === "")
