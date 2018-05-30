@@ -16,6 +16,7 @@ interface IMatrixState {
   editable: boolean,
   step: number,
   offset: number,
+  cubeSize: number,
   top: number,
   left: number,
   level: number,
@@ -49,6 +50,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
   reset(isInit?) {
     const initObj = {
       offset: 10,
+      cubeSize: 48,
       step: 0,
       level: 0, 
       editable: true,
@@ -112,17 +114,17 @@ class Matrix extends React.Component<{}, IMatrixState> {
   }
 
   doStep = () => {
-    const { level, height1, width1, height2, width2 } = this.state
+    const { level, height1, width1, height2, width2, cubeSize } = this.state
     const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2 - 2
     const total = this.state.v1.length + this.state.v2[0].length - 1
     const currentLevel = level - 1
-    const rowStart = total - currentLevel - (width2 - 2) / 48
-    const colStart = total - currentLevel - (height1 - 2) / 48
+    const rowStart = total - currentLevel - (width2 - 2) / cubeSize
+    const colStart = total - currentLevel - (height1 - 2) / cubeSize
     const end = total - currentLevel - 1
 
     if (level) {
       this.setState({
-        left: left - 48 * (total - currentLevel),
+        left: left - cubeSize * (total - currentLevel),
         level: currentLevel,
         transformRow: { start: rowStart, end },
         transformCol: { start: colStart, end }
@@ -130,11 +132,12 @@ class Matrix extends React.Component<{}, IMatrixState> {
       this.doCalculate(total - currentLevel)
     } else {
       this.setState({
-        left: this.state.left - 48,
+        left: this.state.left - cubeSize,
         v3Hilight: this.refreshV3Hilight(),
         transformRow: { start: rowStart, end },
         transformCol: { start: colStart, end },
-        v2Opacity: 0
+        v2Opacity: 0,
+        bottomVisible: false
       })
       setTimeout(() => {
         this.setState({
@@ -143,7 +146,8 @@ class Matrix extends React.Component<{}, IMatrixState> {
           transformCol: undefined,
           rotate: false,
           top: 0,
-          left: 0
+          left: 0,
+          bottomVisible: true
         })
       }, 600)
     }
@@ -161,15 +165,15 @@ class Matrix extends React.Component<{}, IMatrixState> {
       top: height1 / 2 + width1 / 2 + this.state.offset,
       editable: false,
       bottomVisible: false,
+      step: 1,
       height1, width1, height2, width2
     })
 
     setTimeout(() => {
       this.setState({
-        top: width1 + (width2 - height2) / 2 + 48,
+        top: width1 + (width2 - height2) / 2 + this.state.cubeSize,
         left: height1 / 2 + width1 / 2 + (width2 - height2) / 2 + this.state.offset,
         rotate: true,
-        step: 1,
         level: this.state.v1.length + this.state.v2[0].length - 1,
         bottomVisible: true
       })
@@ -222,51 +226,85 @@ class Matrix extends React.Component<{}, IMatrixState> {
     this.setState({ v3 })
   }
 
+  btnEdit = e => {
+    const id = e.target.getAttribute('data-id')
+    console.log(id)
+  }
+
   render() {
     let text = ''
     let symbol = ''
+    let opacity = 0
     switch(this.state.step) {
       case 0:
         text = 'Multiply'
         symbol = '×'
+        opacity = 1
         break;
       case 1: 
         text = 'Next'
         symbol = '='
+        opacity = 0
         break
       case 2: 
         text = 'Reset'
         symbol = '×'
+        opacity = 0
         break
       default: 
         text = 'Multiply'
         symbol = '×'
+        opacity = 1
     }
 
     return (
       <div className='matrix-wrapper'>
         <div className='matrix-content'>
-          <Vector1 
-            ref={el => this.dom = el} 
-            ventorList={this.state.v1} editable={this.state.editable} 
-            onInput={this.onInput}
-            transformRow={this.state.transformRow}
-          />
+          <div className='v-wrapper'>
+            <div className='btn-wrapper vertical left' style={{opacity}}>
+              <div className='btn' data-id='1' onClick={this.btnEdit}>-</div>
+              <div className='btn' data-id='2' onClick={this.btnEdit}>+</div>
+            </div>
+            <div className='v-inner'>
+              <Vector1 
+                ref={el => this.dom = el} 
+                ventorList={this.state.v1} editable={this.state.editable} 
+                onInput={this.onInput}
+                transformRow={this.state.transformRow}
+              />
+              <div className='btn-wrapper horizontal' style={{opacity}}>
+                <div className='btn' data-id='3' onClick={this.btnEdit}>-</div>
+                <div className='btn' data-id='4' onClick={this.btnEdit}>+</div>
+              </div>
+            </div>
+          </div>
           <span>{symbol}</span>
           <Vector2Display 
             ventorList={this.state.v2}
             step={this.state.step}
             width={this.state.width2}
           />
-          <Vector2 
-            ref={el => this.dom2 = el} 
-            ventorList={this.state.v2} 
-            editable={this.state.editable} 
-            onInput={this.onInput} top={this.state.top} left={this.state.left} 
-            rotate={this.state.rotate}
-            opacity={this.state.v2Opacity}
-            transformCol={this.state.transformCol}
-          />
+          <div className='v-wrapper'>
+            <div className='v-inner'>
+              <Vector2 
+                ref={el => this.dom2 = el} 
+                ventorList={this.state.v2} 
+                editable={this.state.editable} 
+                onInput={this.onInput} top={this.state.top} left={this.state.left} 
+                rotate={this.state.rotate}
+                opacity={this.state.v2Opacity}
+                transformCol={this.state.transformCol}
+              />
+              <div className='btn-wrapper horizontal' style={{opacity}}>
+                <div className='btn' data-id='5' onClick={this.btnEdit}>-</div>
+                <div className='btn' data-id='6' onClick={this.btnEdit}>+</div>
+              </div>
+            </div>
+            <div className='btn-wrapper vertical right' style={{opacity}}>
+              <div className='btn' data-id='3' onClick={this.btnEdit}>-</div>
+              <div className='btn' data-id='4' onClick={this.btnEdit}>+</div>
+            </div>
+          </div>
           {
             this.state.step === 2
               ? <span style={{transform: `translateX(${-this.state.width2}px)`}}>=</span>
