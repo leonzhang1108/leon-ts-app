@@ -228,8 +228,60 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   btnEdit = e => {
     const id = e.target.getAttribute('data-id')
+    const { v1, v2 } = this.state
     console.log(id)
+    switch(Number(id)) {
+      case 1: 
+        this.setState({ v1: this.deleteRow(v1) })
+        break
+      case 2: 
+        this.setState({ v1: this.addRow(v1) })
+        break
+      case 3:
+        this.setState({ 
+          v1: this.deleteCol(v1), 
+          v2: this.deleteRow(v2)
+        })
+        break
+      case 4:
+        this.setState({ 
+          v1: this.addCol(v1), 
+          v2: this.addRow(v2)
+        })
+        break
+      case 5: 
+        this.setState({ v2: this.deleteCol(v2) })
+        break
+      case 6: 
+        this.setState({ v2: this.addCol(v2) })
+        break
+      default:
+    }
   }
+
+  addRow = v => {
+    v.push(v[0].map(() => 1))
+    return v
+  }
+
+  deleteRow = v => {
+    if (v.length > 1) {
+      v.splice(v.length - 1, 1)
+    }
+    return v
+  }
+
+  addCol = v => {
+    v.map(list => list.push(1))
+    return v
+  }
+
+  deleteCol = v => {
+    v.map(list => list.length > 1 && list.splice(list.length - 1, 1))
+    return v
+  }
+
+
 
   render() {
     let text = ''
