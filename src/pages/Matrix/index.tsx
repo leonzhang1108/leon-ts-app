@@ -51,7 +51,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
   reset(isInit?) {
     const initObj = {
       offset: 10,
-      cubeSize: 48,
+      cubeSize: 50,
       step: 0,
       level: 0, 
       editable: true,
