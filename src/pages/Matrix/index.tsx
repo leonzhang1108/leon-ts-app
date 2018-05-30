@@ -61,9 +61,9 @@ class Matrix extends React.Component<{}, IMatrixState> {
         [2, 3, 4]
       ],
       v2: [
-        [2, 5, 2, 5],
-        [6, 7, 2, 5],
-        [1, 8, 2, 5]
+        [2, 5, 2, 2, 2],
+        [6, 7, 2, 2, 2],
+        [1, 8, 2, 2, 2]
       ],
       v3: undefined,
       v3Hilight: undefined,
@@ -191,6 +191,7 @@ class Matrix extends React.Component<{}, IMatrixState> {
       v3.push(res)
       v3Hilight.push(res.map(() => 0))
     })
+    console.log(v3.length, v3Hilight.length)
     this.setState({ v3, v3Hilight })
   }
 
@@ -229,7 +230,6 @@ class Matrix extends React.Component<{}, IMatrixState> {
   btnEdit = e => {
     const id = e.target.getAttribute('data-id')
     const { v1, v2 } = this.state
-    console.log(id)
     switch(Number(id)) {
       case 1: 
         this.setState({ v1: this.deleteRow(v1) })
@@ -281,8 +281,6 @@ class Matrix extends React.Component<{}, IMatrixState> {
     return v
   }
 
-
-
   render() {
     let text = ''
     let symbol = ''
@@ -312,51 +310,31 @@ class Matrix extends React.Component<{}, IMatrixState> {
     return (
       <div className='matrix-wrapper'>
         <div className='matrix-content'>
-          <div className='v-wrapper'>
-            <div className='btn-wrapper vertical left' style={{opacity}}>
-              <div className='btn' data-id='1' onClick={this.btnEdit}>-</div>
-              <div className='btn' data-id='2' onClick={this.btnEdit}>+</div>
-            </div>
-            <div className='v-inner'>
-              <Vector1 
-                ref={el => this.dom = el} 
-                ventorList={this.state.v1} editable={this.state.editable} 
-                onInput={this.onInput}
-                transformRow={this.state.transformRow}
-              />
-              <div className='btn-wrapper horizontal' style={{opacity}}>
-                <div className='btn' data-id='3' onClick={this.btnEdit}>-</div>
-                <div className='btn' data-id='4' onClick={this.btnEdit}>+</div>
-              </div>
-            </div>
-          </div>
+          <Vector1 
+            ref={el => this.dom = el} 
+            ventorList={this.state.v1} editable={this.state.editable} 
+            onInput={this.onInput}
+            transformRow={this.state.transformRow}
+            opacity={opacity}
+            btnEdit={this.btnEdit}
+          />
           <span>{symbol}</span>
           <Vector2Display 
             ventorList={this.state.v2}
             step={this.state.step}
             width={this.state.width2}
           />
-          <div className='v-wrapper'>
-            <div className='v-inner'>
-              <Vector2 
-                ref={el => this.dom2 = el} 
-                ventorList={this.state.v2} 
-                editable={this.state.editable} 
-                onInput={this.onInput} top={this.state.top} left={this.state.left} 
-                rotate={this.state.rotate}
-                opacity={this.state.v2Opacity}
-                transformCol={this.state.transformCol}
-              />
-              <div className='btn-wrapper horizontal' style={{opacity}}>
-                <div className='btn' data-id='5' onClick={this.btnEdit}>-</div>
-                <div className='btn' data-id='6' onClick={this.btnEdit}>+</div>
-              </div>
-            </div>
-            <div className='btn-wrapper vertical right' style={{opacity}}>
-              <div className='btn' data-id='3' onClick={this.btnEdit}>-</div>
-              <div className='btn' data-id='4' onClick={this.btnEdit}>+</div>
-            </div>
-          </div>
+          <Vector2 
+            ref={el => this.dom2 = el} 
+            ventorList={this.state.v2} 
+            editable={this.state.editable} 
+            onInput={this.onInput} top={this.state.top} left={this.state.left} 
+            rotate={this.state.rotate}
+            opacity={opacity}
+            v2Opacity={this.state.v2Opacity}
+            btnEdit={this.btnEdit}
+            transformCol={this.state.transformCol}
+          />
           {
             this.state.step === 2
               ? <span style={{transform: `translateX(${-this.state.width2}px)`}}>=</span>
