@@ -7,7 +7,7 @@ const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
     <li className={`
         col 
         ${colTransform ? 'col-transform' : ''} 
-        ${props.hilightList && props.hilightList[colIndex][rowIndex] === 1 ? 'hilight' : ''}
+        ${props.hilightList && props.hilightList[rowIndex][colIndex] === 1 ? 'hilight' : ''}
       `} 
       key={colIndex}
     >

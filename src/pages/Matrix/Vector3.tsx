@@ -11,7 +11,7 @@ class Vector3 extends React.Component<IProps> {
   render() {
     return (
       <div className='result'>
-        <Vector {...this.props} result={true}/>
+        <Vector {...this.props}/>
       </div>
     )
   }
