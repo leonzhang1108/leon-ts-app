@@ -379,11 +379,11 @@ class Matrix extends React.Component<{}, IMatrixState> {
             btnEdit={this.btnEdit}
             transformCol={this.state.transformCol}
           />
-          {
-            this.state.step === 2
-              ? <span style={{transform: `translateX(${-this.state.width2}px)`}}>=</span>
-              : ''
-          }
+          <span style={{
+            transform: `translateX(${-this.state.width2}px)`, 
+            opacity: this.state.step === 2 ? 1 : 0,
+            width: this.state.step === 2 ? 60 : 0
+          }}>=</span>
           <Vector3 ventorList={this.state.v3} hilightList={this.state.v3Hilight}/>
         </div>
         <div className='matrix-bottom'>
