@@ -96,13 +96,12 @@ class Matrix extends React.Component<{}, IMatrixState> {
 
   onBlur = e => {
     const { v, col, row } = this.getInputValue(e)
-    if (this.isNumber(e.target.value)) {
-      v[row][col] = e.target.value !== '0' 
+    v[row][col] = this.isNumber(e.target.value)
+      ? v[row][col] = e.target.value !== '0' 
         ? e.target.value.replace(/\b(0+)/gi,"") 
         : e.target.value
-    } else {
-      v[row][col] = 1
-    }
+      : 1
+
     this.setState({ [v]: v })
   }
 
