@@ -6,7 +6,9 @@ interface IProp {
   route: string,
   collapsed: boolean,
   contentHeight: number,
-  contentWidth: number
+  contentWidth: number,
+  width: number,
+  isMobile: boolean
 }
 
 const initState = {
@@ -15,7 +17,9 @@ const initState = {
   route: '',
   collapsed: false,
   contentHeight: 0,
-  contentWidth: 0
+  contentWidth: 0,
+  width: 0,
+  isMobile: false
 }
 
 const toggleOpenKeys = (state, action) => {
@@ -63,9 +67,12 @@ const common = (state: IProp = initState, action: any) => {
       }
 
     case actionTypes.ON_RESIZE:
+      const { width } = action.payload
+      const isMobile = width > 900 
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        isMobile
       }
 
     case actionTypes.TOGGLE_COLLAPSE:

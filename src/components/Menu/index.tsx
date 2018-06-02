@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './index.less'
-import { Menu, Icon } from 'antd'
+import { Menu, Icon, Popover } from 'antd'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { RouteComponentProps } from 'react-router'
@@ -15,6 +15,7 @@ const SubMenu = Menu.SubMenu
 interface IProps {
   collapsed: boolean,
   route: string,
+  isMobile: boolean,
   breadcrumb: any[],
   openKeys: any[],
   actions: {
@@ -35,7 +36,6 @@ interface IMenuProps {
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
   componentDidMount() {
-
     const { changeBreadcrumb } = this.props.actions
 
     // 前进后退
@@ -91,7 +91,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   )
 
   render() {
-    const { collapsed, actions, route, openKeys} = this.props
+    const { collapsed, actions, route, openKeys, isMobile} = this.props
 
     const { toggleCollapse } = actions
 
@@ -99,26 +99,35 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       className: 'left-menu',
       selectedKeys: [route ?  `/${route}` : '/home'],
       mode: 'inline',
-      theme: 'dark'
+      theme: ''
     }
 
     if (!collapsed) {
       menuProps.openKeys = openKeys
     }
 
-    return (
-      <Sider
-        style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
-        collapsible
-        collapsed={collapsed}
-        onCollapse={toggleCollapse}
-      >
-        <div className="logo" />
-        <Menu {...menuProps}>
-          { this.renderMenus() }
-        </Menu>
-      </Sider>
-    )
+    return isMobile 
+      ? (
+        <Sider
+          style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
+          collapsible
+          collapsed={collapsed}
+          onCollapse={toggleCollapse}
+        >
+          <div className="logo" />
+          <Menu mode='inline' {...menuProps} >
+            { this.renderMenus() }
+          </Menu>
+        </Sider>
+      ) : (
+        <Popover placement="bottomLeft" trigger="click" 
+          content={<Menu {...menuProps} >{this.renderMenus()}</Menu>}
+        >
+          <div className='navbar'>
+            <div className='icon'><Icon type="bars" /></div>
+          </div>
+        </Popover>
+      )
   }
 }
 
@@ -130,7 +139,8 @@ export default Utils.connect({
       route: state.common.route,
       breadcrumb: state.common.breadcrumb,
       openKeys: state.common.openKeys,
-      collapsed: state.common.collapsed
+      collapsed: state.common.collapsed,
+      isMobile: state.common.isMobile
     }
   },
   mapDispatchToProps: dispatch => ({

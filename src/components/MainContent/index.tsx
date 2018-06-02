@@ -5,6 +5,7 @@ import Utils from '@utils'
 
 interface IProps {
   collapsed: boolean,
+  isMobile: boolean,
   actions: {
     toggleCollapse(): void
   }
@@ -12,9 +13,9 @@ interface IProps {
 
 class MainContent extends React.Component<IProps> {
   render() {
-    const { children, collapsed } = this.props
+    const { children, collapsed, isMobile } = this.props
     return (
-      <Layout style={{ marginLeft: !collapsed ? 200 : 80, height: '100%' }}>
+      <Layout style={{ marginLeft: isMobile ? !collapsed ? 200 : 80 : 0, height: '100%' }}>
         { children }
       </Layout>
     )
@@ -24,6 +25,7 @@ class MainContent extends React.Component<IProps> {
 export default Utils.connect({
   component: MainContent,
   mapStateToProps: state => ({
-    collapsed: state.common.collapsed
+    collapsed: state.common.collapsed,
+    isMobile: state.common.isMobile
   })
 })

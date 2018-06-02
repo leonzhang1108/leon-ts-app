@@ -39,6 +39,14 @@ export default {
             : true
     )
     innerFindBreadcrumb(menus)
+  },
+
+  debounce: (action, idle) => {
+    let last
+    return () => {
+      clearTimeout(last)
+      last = setTimeout(() => action(), idle)
+    }
   }
 }
 
