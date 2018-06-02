@@ -55,16 +55,8 @@ class Matrix extends React.Component<{}, IMatrixState> {
       step: 0,
       level: 0, 
       editable: true,
-      v1: [
-        [1, 2, 3],  
-        [1, 2, 3],
-        [1, 2, 3]
-      ],
-      v2: [
-        [1, 0, 0],
-        [0, 1, 0],
-        [0, 0, 1]
-      ],
+      v1: [[1]],
+      v2: [[1]],
       v3: undefined,
       v3Hilight: undefined,
       top: 0,

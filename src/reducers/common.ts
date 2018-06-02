@@ -51,7 +51,7 @@ const initOpenKeys = (state, action) => {
       openKeys.push(bc.key)
     }
   })
-
+  console.log(openKeys)
   return openKeys
 
 }

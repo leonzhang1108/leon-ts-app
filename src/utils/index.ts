@@ -32,7 +32,7 @@ export default {
         menu.childs 
           ? innerFindBreadcrumb(menu.childs, parents.concat(menu))
           : menu.route === route 
-            ? !!f({
+            ? f({
                 breadcrumb: parents.concat(menu),
                 route: menu.route
               })
