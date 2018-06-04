@@ -51,9 +51,8 @@ const initOpenKeys = (state, action) => {
       openKeys.push(bc.key)
     }
   })
-  console.log(openKeys)
-  return openKeys
 
+  return openKeys
 }
 
 const common = (state: IProp = initState, action: any) => {

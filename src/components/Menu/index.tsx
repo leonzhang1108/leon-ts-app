@@ -44,7 +44,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     })
   }
 
-  getRoute = () => window.location.pathname.split('/').filter(i => i).join('/')
+  getRoute = () => window.location.hash.split('/').filter(i => i && i !== '#').join('/')
 
   componentWillMount() {
     Utils.findBreadcrumb(this.getRoute(), ({ breadcrumb }) => {
