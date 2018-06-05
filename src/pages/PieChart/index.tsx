@@ -27,7 +27,7 @@ class PieChart extends React.Component<IProps> {
     legend: {
       orient: 'vertical',
       left: 'left',
-      data: ['Superman', 'WW', 'Aquaman', 'The Flash', 'Batman'],
+      data: ['Batman', 'Superman', 'WW', 'Aquaman', 'The Flash'],
     },
     series: [
       {
@@ -47,15 +47,19 @@ class PieChart extends React.Component<IProps> {
             shadowBlur: 10,
             shadowOffsetX: 0,
             shadowColor: 'rgba(0, 0, 0, 0.5)',
-          },
-        },
-      },
-    ],
+          }
+        }
+      }
+    ]
   })
 
   componentDidMount() {
     this.myChart = Echarts.init(this.echarts)
     this.myChart.setOption(this.getOptions())
+    setTimeout(this.myChart.resize, 0)
+  }
+
+  componentWillUpdate() {
     setTimeout(this.myChart.resize, 0)
   }
 
