@@ -9,6 +9,7 @@ import Vector3 from './Vector3'
 import { Button } from 'antd'
 
 interface IMatrixState { 
+  [x: number]: any,
   v1: number[][],
   v2: number[][],
   v3?: number[][],
