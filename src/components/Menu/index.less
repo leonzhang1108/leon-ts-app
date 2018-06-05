@@ -15,22 +15,19 @@
 }
 .navbar {
   background: #fff;
-  .icon,
-  .logout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 56px;
-    width: 56px;
-    font-size: 18px;
-  }
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  z-index: 1;
   .icon {
-    float: left;
-  }
-  .logout {
-    float: right;
-  }
-  &:after {
-    clear: both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 40px;
+    width: 40px;
+    font-size: 18px;    
+    box-shadow: 2px 2px 8px rgba(0,0,0,.15);
   }
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './index.less'
-import { Menu, Icon, Popconfirm } from 'antd'
+import { Menu, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { RouteComponentProps } from 'react-router'
@@ -122,9 +122,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
             <div className='icon'><Icon type="bars" /></div>
           </Popover> */}
           <div className='icon'><Icon type="bars" onClick={this.doCollapse}/></div>
-          <Popconfirm placement="bottomRight" title='Logout?' onConfirm={this.doLogout} okText="Yes" cancelText="No">
+          {/* <Popconfirm placement="bottomRight" title='Logout?' onConfirm={this.doLogout} okText="Yes" cancelText="No">
             <div className='logout' onClick={this.doLogout}><Icon type="user" /></div>
-          </Popconfirm>
+          </Popconfirm> */}
         </div>
       ) : (
         <Sider
