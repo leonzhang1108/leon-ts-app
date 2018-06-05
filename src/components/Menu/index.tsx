@@ -55,18 +55,21 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     })
   }
 
-  changeBreadcrumb = (menu: any, parents: any[] = []) => {
+  changeBreadcrumb = (menu: any, parents: any[] = [], e: any) => {
     const { route } = menu
     this.props.actions.changeBreadcrumb({
       breadcrumb: parents.concat(menu),
       route
     })
+    this.doCollapse()
+    e.stopPropagation()
   }
 
-  onTitleClick = key => {
+  onTitleClick = (key, e) => {
     if (!this.props.collapsed) {
       this.props.actions.toggleOpenKeys({key})
     }
+    e.domEvent.stopPropagation()
   }
 
   renderMenus = (currMenus: any = menus, parents: any[] = []) => currMenus.map(menu => 
@@ -93,8 +96,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     console.log('dologout')
   }
 
-  doCollapse = () => {
+  doCollapse = (e?) => {
     this.props.actions.toggleCollapse()
+    if (e && e.stopPropagation) { e.stopPropagation() }
   }
 
   render() {
@@ -115,7 +119,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     return isMobile 
       ? (
-        <div className='navbar' style={{ transform: `translateX(${ collapsed ? 0 : -200 }px)`}}>
+        <div className='navbar' onClick={this.doCollapse} style={{ transform: `translateX(${ collapsed ? 0 : -200 }px)`}}>
           <Menu {...menuProps} style={{ height: '100%'}} >{this.renderMenus()}</Menu>
           <div className='icon'><Icon type="bars" onClick={this.doCollapse}/></div>
         </div>
