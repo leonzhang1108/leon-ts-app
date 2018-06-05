@@ -83,7 +83,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         <Menu.Item key={`/${menu.route}`}>
           <Icon type={menu.icon} />
           <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu, parents)} >
-            <span className={this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
+            <span className={!this.props.isMobile && this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
           </Link>
         </Menu.Item>
       )
@@ -115,16 +115,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     return isMobile 
       ? (
-        <div className='navbar'>
-          {/* <Popover placement="bottomLeft" trigger="click" 
-            content={<Menu {...menuProps} >{this.renderMenus()}</Menu>}
-          >
-            <div className='icon'><Icon type="bars" /></div>
-          </Popover> */}
+        <div className='navbar' style={{ transform: `translateX(${ collapsed ? 0 : -200 }px)`}}>
+          <Menu {...menuProps} style={{ height: '100%'}} >{this.renderMenus()}</Menu>
           <div className='icon'><Icon type="bars" onClick={this.doCollapse}/></div>
-          {/* <Popconfirm placement="bottomRight" title='Logout?' onConfirm={this.doLogout} okText="Yes" cancelText="No">
-            <div className='logout' onClick={this.doLogout}><Icon type="user" /></div>
-          </Popconfirm> */}
         </div>
       ) : (
         <Sider

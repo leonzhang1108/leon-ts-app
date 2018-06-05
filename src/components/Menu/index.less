@@ -14,11 +14,13 @@
   }
 }
 .navbar {
+  transition: all 200ms;
   background: #fff;
   position: absolute;
   bottom: 40px;
-  left: 0;
+  top: 0;
   z-index: 1;
+  height: 100%;
   .icon {
     display: flex;
     align-items: center;
@@ -29,5 +31,17 @@
     width: 40px;
     font-size: 18px;    
     box-shadow: 2px 2px 8px rgba(0,0,0,.15);
+    position: absolute;
+    background-color: #fff;
+    right: -40px;
+    bottom: 60px;
   }
+}
+.mask {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  background: #000;
+  opacity: .3;
+  z-index: 2;
 }
