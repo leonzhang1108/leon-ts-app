@@ -13,3 +13,24 @@
     }
   }
 }
+.navbar {
+  background: #fff;
+  .icon,
+  .logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    width: 56px;
+    font-size: 18px;
+  }
+  .icon {
+    float: left;
+  }
+  .logout {
+    float: right;
+  }
+  &:after {
+    clear: both;
+  }
+}

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './index.less'
-import { Menu, Icon, Popover } from 'antd'
+import { Menu, Icon, Popconfirm } from 'antd'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { RouteComponentProps } from 'react-router'
@@ -89,6 +89,14 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       )
   )
 
+  doLogout = () => {
+    console.log('dologout')
+  }
+
+  doCollapse = () => {
+    this.props.actions.toggleCollapse()
+  }
+
   render() {
     const { collapsed, actions, route, openKeys, isMobile} = this.props
 
@@ -107,6 +115,18 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     return isMobile 
       ? (
+        <div className='navbar'>
+          {/* <Popover placement="bottomLeft" trigger="click" 
+            content={<Menu {...menuProps} >{this.renderMenus()}</Menu>}
+          >
+            <div className='icon'><Icon type="bars" /></div>
+          </Popover> */}
+          <div className='icon'><Icon type="bars" onClick={this.doCollapse}/></div>
+          <Popconfirm placement="bottomRight" title='Logout?' onConfirm={this.doLogout} okText="Yes" cancelText="No">
+            <div className='logout' onClick={this.doLogout}><Icon type="user" /></div>
+          </Popconfirm>
+        </div>
+      ) : (
         <Sider
           style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
           collapsible
@@ -118,18 +138,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
             { this.renderMenus() }
           </Menu>
         </Sider>
-      ) : (
-        <Popover placement="bottomLeft" trigger="click" 
-          content={<Menu {...menuProps} >{this.renderMenus()}</Menu>}
-        >
-          <div className='navbar'>
-            <div className='icon'><Icon type="bars" /></div>
-          </div>
-        </Popover>
       )
   }
 }
-
 
 export default Utils.connect({
   component: MenuComponent,

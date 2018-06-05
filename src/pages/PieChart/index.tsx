@@ -51,7 +51,7 @@ class PieChart extends React.Component<IProps> {
         }
       }
     ]
-  })
+  })  
 
   componentDidMount() {
     this.myChart = Echarts.init(this.echarts)

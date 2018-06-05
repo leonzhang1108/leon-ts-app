@@ -14,8 +14,9 @@ interface IProps {
 class MainContent extends React.Component<IProps> {
   render() {
     const { children, collapsed, isMobile } = this.props
+    console.log(isMobile)
     return (
-      <Layout style={{ marginLeft: isMobile ? !collapsed ? 200 : 80 : 0, height: '100%' }}>
+      <Layout style={{ marginLeft: isMobile ? 0 : !collapsed ? 200 : 80, height: '100%', transform: `translateX(${ isMobile ? collapsed ? 100 : 0 : 0 }px)` }}>
         { children }
       </Layout>
     )

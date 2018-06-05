@@ -67,7 +67,7 @@ const common = (state: IProp = initState, action: any) => {
 
     case actionTypes.ON_RESIZE:
       const { width } = action.payload
-      const isMobile = width > 900 
+      const isMobile = width < 900 
       return {
         ...state,
         ...action.payload,
