@@ -61,7 +61,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       breadcrumb: parents.concat(menu),
       route
     })
-    this.doCollapse()
+    if (this.props.isMobile) {
+      this.doCollapse()
+    }
     e.stopPropagation()
   }
 
