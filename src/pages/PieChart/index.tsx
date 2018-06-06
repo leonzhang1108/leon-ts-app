@@ -59,6 +59,10 @@ class PieChart extends React.Component<IProps> {
     setTimeout(this.myChart.resize, 0)
   }
 
+  componentWillReceiveProps() {
+    setTimeout(this.myChart.resize, 0)
+  }
+
   componentWillUpdate() {
     setTimeout(this.myChart.resize, 0)
   }

@@ -123,7 +123,12 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       ? (
         <div className='navbar' onClick={this.doCollapse} style={{ transform: `translateX(${ collapsed ? 0 : -200 }px)`}}>
           <Menu {...menuProps} style={{ height: '100%'}} >{this.renderMenus()}</Menu>
-          <div className='icon' style={{right: `-${ collapsed ? 40 : 48 }px`}}><Icon type="bars" onClick={this.doCollapse}/></div>
+          <div className='icon' 
+            style={{right: `-${ collapsed ? 40 : 48 }px`}} 
+            onClick={this.doCollapse}
+          >
+            <Icon type="bars"/>
+          </div>
         </div>
       ) : (
         <Sider

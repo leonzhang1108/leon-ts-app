@@ -8,6 +8,8 @@ import registerServiceWorker from './registerServiceWorker'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from '@reducers'
+import initReactFastclick from 'react-fastclick'
+initReactFastclick()
 
 const store = createStore(reducer)
 
