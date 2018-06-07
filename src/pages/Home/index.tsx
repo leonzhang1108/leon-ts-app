@@ -34,28 +34,6 @@ class Home extends React.Component<null, IState> {
 
   userMedia = () => navigator.getUserMedia = navi.getUserMedia || navi.webkitGetUserMedia || navi.mozGetUserMedia || navi.msGetUserMedia || null
 
-  startCamera = () => {
-    if (this.userMedia()) {
-      const constraints = {
-        video: true,
-        audio: false
-      }
-      navigator.getUserMedia(constraints, stream => {
-        const v = ReactDOM.findDOMNode(this.v) as any
-        const url = w.URL || w.webkitURL
-        if (v) {
-          v.src = url ? url.createObjectURL(stream) : stream
-          v.play()
-        }
-      }, error => {
-        console.log('ERROR')
-        console.log(error)
-      })
-    } else {
-      console.log('不支持')
-    }
-  }
-
   startDrawing = () => {
     if (this.userMedia()) {
       navigator.getUserMedia({
@@ -69,11 +47,9 @@ class Home extends React.Component<null, IState> {
     } else {
       this.setState({ hasCamera: false })
     }
-    
   }
 
   doDrawing = () => {
-
     const { ObjectTracker } = tracking
     const tracker = new ObjectTracker('face')
     tracker.setInitialScale(4)
@@ -81,7 +57,6 @@ class Home extends React.Component<null, IState> {
     tracker.setEdgesDensity(0.1)
     this.task = tracking.track('#video', tracker, { camera: true })
     tracker.on('track', event => {
-      console.log('fuck')
       event.data.forEach(rect => {
         const { x, y, width, height } = rect
         this.setState({ x, y, width, height})
@@ -123,7 +98,6 @@ class Home extends React.Component<null, IState> {
       ) : (
         <div className='empty'><span>没有摄像头</span></div>
       )
-
   }
 }
 
