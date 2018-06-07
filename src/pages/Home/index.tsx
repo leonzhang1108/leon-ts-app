@@ -10,7 +10,11 @@ const navi = navigator as any
 const tracking = w.tracking
 
 interface IState {
-  hasCamera: boolean
+  hasCamera: boolean,
+  x: number,
+  y: number,
+  height: number,
+  width: number
 }
 
 class Home extends React.Component<null, IState> {
@@ -20,7 +24,11 @@ class Home extends React.Component<null, IState> {
   constructor(props) {
     super(props)
     this.state = {
-      hasCamera: true
+      hasCamera: true,
+      x: 0,
+      y: 0,
+      height: 150,
+      width: 150
     }
   }
 
@@ -40,11 +48,11 @@ class Home extends React.Component<null, IState> {
           v.play()
         }
       }, error => {
-        console.log("ERROR")
+        console.log('ERROR')
         console.log(error)
       })
     } else {
-      console.log("不支持")
+      console.log('不支持')
     }
   }
 
@@ -65,26 +73,18 @@ class Home extends React.Component<null, IState> {
   }
 
   doDrawing = () => {
-    const canvas = document.getElementsByClassName('canvas')[0] as any
-    const dom = ReactDOM.findDOMNode(this.v) as HTMLElement
-    const height = dom.offsetHeight
-    const width = dom.offsetWidth
-    canvas.height = height
-    canvas.width = width
-    const context = canvas.getContext('2d')
+
     const { ObjectTracker } = tracking
-    const tracker = new ObjectTracker("face")
+    const tracker = new ObjectTracker('face')
     tracker.setInitialScale(4)
     tracker.setStepSize(1) 
     tracker.setEdgesDensity(0.1)
     this.task = tracking.track('#video', tracker, { camera: true })
     tracker.on('track', event => {
-      context.clearRect(0, 0, canvas.width, canvas.height)
+      console.log('fuck')
       event.data.forEach(rect => {
-        context.strokeStyle = '#FF0000'
-        context.strokeRect(rect.x, rect.y, rect.width, rect.height)
-        context.font = '11px Helvetica'
-        context.fillStyle = "#fff"
+        const { x, y, width, height } = rect
+        this.setState({ x, y, width, height})
       })
     })
     this.task.run()
@@ -101,13 +101,24 @@ class Home extends React.Component<null, IState> {
   }
 
   render() {
-    const { hasCamera } = this.state
+    const { hasCamera, x, y, height, width } = this.state
 
     return hasCamera 
       ? (
         <div className='home'>
-          <canvas className="canvas"/>
-          <video id='video' className='video' width="100%" height="100%" ref={el => this.v = el} autoPlay/>
+          <div className='frame-wrapper' style={{ transform: `translate3d( ${x}px, ${y}px, 0)` }}>
+            <div className='frame big threat' style={{ height: `${height}px`, width: `${width}px` }}>
+              <div className='top-left corner'/>
+              <div className='top-right corner'/>
+              <div className='bottom-right corner'/>
+              <div className='bottom-left corner'/>
+              <div className='top line'/>
+              <div className='left line'/>
+              <div className='right line'/>
+              <div className='bottom line'/>
+            </div>
+          </div>
+          <video id='video' className='video' width='100%' height='100%' ref={el => this.v = el} autoPlay/>
         </div>
       ) : (
         <div className='empty'><span>没有摄像头</span></div>
