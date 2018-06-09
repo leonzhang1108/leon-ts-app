@@ -14,12 +14,15 @@ interface IState {
   x: number,
   y: number,
   height: number,
-  width: number
+  width: number,
+  index: number
 }
 
 class Home extends React.Component<null, IState> {
   v
   task
+
+  frame = ['threat', 'big threat', 'machine', 'analog', 'gov', 'president']
 
   constructor(props) {
     super(props)
@@ -28,7 +31,8 @@ class Home extends React.Component<null, IState> {
       x: 0,
       y: 0,
       height: 150,
-      width: 150
+      width: 150,
+      index: this.random(0, 5)
     }
   }
 
@@ -97,14 +101,16 @@ class Home extends React.Component<null, IState> {
     this.startDrawing()
   }
 
+  random = (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower
+
   render() {
-    const { hasCamera, x, y, height, width } = this.state
+    const { hasCamera, x, y, height, width, index } = this.state
 
     return hasCamera 
       ? (
         <div className='home'>
           <div className='frame-wrapper' style={{ transform: `translate3d( ${x}px, ${y}px, 0)` }}>
-            <div className='frame big threat' style={{ height: `${height}px`, width: `${width}px` }}>
+            <div className={`frame ${this.frame[index]}`} style={{ height: `${height}px`, width: `${width}px` }}>
               <div className='top-left corner'/>
               <div className='top-right corner'/>
               <div className='bottom-right corner'/>
