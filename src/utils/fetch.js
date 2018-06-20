@@ -2,7 +2,7 @@
  * @Author: Leon Zhang
  * @Date: 2018-01-02 16:43:15
  * @Last Modified by: Leon Zhang
- * @Last Modified time: 2018-05-22 18:26:27
+ * @Last Modified time: 2018-06-20 14:40:45
  */
 
 import Axios from 'axios'
@@ -15,14 +15,14 @@ const api = {}
 if (process.env.NODE_ENV === 'production') {
   axiosModel.defaults.baseURL = webConfig.web_prod_domain
 } else {
-  axiosModel.defaults.baseURL = 'https://easy-mock.com/mock/5b03ebd28c8fa50a72105c19/ts-demo'
+  axiosModel.defaults.baseURL = '/'
 }
 
 axiosModel.defaults.headers.post['Content-Type'] = 'application/json'
 
 axiosModel.defaults.timeout = 50000
 
-axiosModel.defaults.responseType = 'json'
+// axiosModel.defaults.responseType = 'json'
 
 axiosModel.defaults.transformRequest = [data => JSON.stringify(data)]
 
