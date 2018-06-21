@@ -16,6 +16,7 @@
     // class内默认public
     "member-access": [true, "no-public"],
     // jsx布尔值可不设值
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "no-debugger": false
 	}
 }

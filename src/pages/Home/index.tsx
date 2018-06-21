@@ -1,7 +1,6 @@
 
 import * as React from 'react'
 import './index.less'
-import * as ReactDOM from 'react-dom'
 import 'tracking'
 import 'tracking/build/data/face-min.js'
 
@@ -37,28 +36,6 @@ class Home extends React.Component<null, IState> {
   }
 
   userMedia = () => navigator.getUserMedia = navi.getUserMedia || navi.webkitGetUserMedia || navi.mozGetUserMedia || navi.msGetUserMedia || null
-
-  startCamera = () => {
-    if (this.userMedia()) {
-      const constraints = {
-        video: true,
-        audio: false
-      }
-      navigator.getUserMedia(constraints, stream => {
-        const v = ReactDOM.findDOMNode(this.v) as any
-        const url = w.URL || w.webkitURL
-        if (v) {
-          v.src = url ? url.createObjectURL(stream) : stream
-          v.play()
-        }
-      }, error => {
-        console.log('ERROR')
-        console.log(error)
-      })
-    } else {
-      console.log('不支持')
-    }
-  }
 
   startDrawing = () => {
     if (this.userMedia()) {
@@ -126,7 +103,6 @@ class Home extends React.Component<null, IState> {
       ) : (
         <div className='empty'><span>没有摄像头</span></div>
       )
-
   }
 }
 
