@@ -21,6 +21,10 @@ export default [{
   icon: 'codepen',
   title: 'Matrix Multiplication'
 }, {
+  route: 'food',
+  icon: 'shopping-cart',
+  title: 'Food'
+}, {
   route: 'op3',
   icon: 'inbox',
   title: 'Option 3'

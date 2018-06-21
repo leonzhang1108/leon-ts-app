@@ -18,7 +18,7 @@ module.exports = function override(config, env) {
       before: [ tsImportPluginFactory({
         libraryDirectory: 'es',
         libraryName: 'antd',
-        style: true,
+        style: 'css',
       }) ]
     })
   }
