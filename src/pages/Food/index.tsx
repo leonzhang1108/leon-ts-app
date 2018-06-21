@@ -10,13 +10,16 @@ class Food extends React.Component {
   canvas
   wrapper
   words = {}
+  timeout
 
   onSearch = v => {
     console.log(v)
   }
 
   componentDidMount() {
-    this.initCanvas()
+    setTimeout(() => {
+      this.initCanvas()
+    }, 0)
   }
 
   initCanvas = () => {
@@ -25,11 +28,10 @@ class Food extends React.Component {
     const wordsAttr: any[] = []
     const { offsetHeight: h, offsetWidth: w } = this.wrapper
     this.stringHandle(lyric)
-    const canvas = document.getElementById('c') as any
-    canvas.width = w
-    canvas.height = h
+    this.canvas.width = w
+    this.canvas.height = h
     const words = this.words
-    const c = canvas.getContext('2d')
+    const c = this.canvas.getContext('2d')
 
     c.fillStyle = '#000'
     c.globalAlpha = 0.2
@@ -61,11 +63,15 @@ class Food extends React.Component {
       move()
     }
 
-    setInterval(() => {
+    this.timeout = setInterval(() => {
       c.clearRect(0, 0, w, h)
       animation()
     }, 24)
 
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout)
   }
 
   stringHandle = str => {
