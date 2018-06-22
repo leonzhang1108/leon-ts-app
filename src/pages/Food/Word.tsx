@@ -1,5 +1,6 @@
+import Utils from '@utils'
 export default class Word {
-  text: any
+  text: string
   x: number
   y: number
   font: string
@@ -9,9 +10,6 @@ export default class Word {
     this.x = Math.random() * w;
     this.y = Math.random() * h;
     this.font = words[key] * 10 + 'px arial'
-    this.speed = (words[key])
-    // const random = Math.floor(Math.random()*5+1)
-    // this.font = random * 10 + 'px arial'
-    // this.speed = random
+    this.speed = (words[key] > 5 ? words[key] - 2.5 : words[key]) + Utils.random(0, 5)
   }
 }

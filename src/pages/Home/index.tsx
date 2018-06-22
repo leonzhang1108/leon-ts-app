@@ -3,6 +3,7 @@ import * as React from 'react'
 import './index.less'
 import 'tracking'
 import 'tracking/build/data/face-min.js'
+import Utils from '@utils'
 
 const w = window as any
 const navi = navigator as any
@@ -31,7 +32,7 @@ class Home extends React.Component<null, IState> {
       y: 0,
       height: 150,
       width: 150,
-      index: this.random(0, 5)
+      index: Utils.random(0, 5)
     }
   }
 
@@ -77,8 +78,6 @@ class Home extends React.Component<null, IState> {
   componentDidMount() {
     this.startDrawing()
   }
-
-  random = (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower
 
   render() {
     const { hasCamera, x, y, height, width, index } = this.state

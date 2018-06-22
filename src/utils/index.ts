@@ -47,7 +47,9 @@ export default {
       clearTimeout(last)
       last = setTimeout(() => action(), idle)
     }
-  }
+  },
+
+  random: (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower
 }
 
 interface IConnectProps {
