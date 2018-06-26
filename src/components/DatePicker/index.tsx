@@ -82,14 +82,19 @@ class DatePicker extends React.Component<{}, IState> {
 
   itemClick = ({ year, month, day }) => {
     if (!day) { return }
-    const { fromDate, toDate } = this.state
+    const { fromDate, step } = this.state
     if (!fromDate) {
       this.setState({ fromDate: { year, month, day }, step: 1 })
     } else {
-      if (fromDate && toDate) {
+      if (step === 2) {
         this.setState({ fromDate: { year, month, day }, toDate: undefined, step: 0 })
       } else {
-        this.setState({ toDate: { year, month, day }, step: 2 })
+        const { year: fromYear, month: fromMonth, day: fromDay } = fromDate
+        if (new Date(fromYear, fromMonth, fromDay) > new Date(year, month, day)) {
+          this.setState({ fromDate: { year, month, day }, step: 1 })
+        } else {
+          this.setState({ toDate: { year, month, day }, step: 2 })
+        }
       }
     }
   }
@@ -97,7 +102,6 @@ class DatePicker extends React.Component<{}, IState> {
   itemMouseEnter = ({ year, month, day }) => {
     const { fromDate, step } = this.state
     if (!fromDate || step === 2 || !day) { return }
-    
     this.setState({ toDate: { year, month, day } })
   }
 
@@ -122,9 +126,8 @@ class DatePicker extends React.Component<{}, IState> {
       const { year: toYear, month: toMonth, day: toDay } = toDate
       return new Date(year, month, day) > new Date(fromYear, fromMonth, fromDay) 
           && new Date(year, month, day) < new Date(toYear, toMonth, toDay)
-    } else {
-      return false
-    }
+    } 
+    return false
   }
 
   renderRow = ({ row, rowIdx, year, month }) => (
@@ -135,9 +138,8 @@ class DatePicker extends React.Component<{}, IState> {
               item 
               ${day ? 'date' : ''}
               ${this.isLinked({ year, month, day }) ? 'linked' : ''} 
-              ${this.isFromSelected({ year, month, day }) 
-                || this.isToSelected({ year, month, day }) 
-                  ? 'selected': ''}
+              ${this.isFromSelected({ year, month, day }) ? 'selectedFrom': '' }
+              ${this.isToSelected({ year, month, day }) ? 'selectedTo': '' }
             `} 
             key={itemIdx}
             onClick={Util.handle(this.itemClick, { year, month, day })}

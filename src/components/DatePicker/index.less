@@ -36,13 +36,22 @@
             color: #409eff;
           }
         }
-        &.selected {
-          background-color: #409eff;
+        &.selectedFrom,
+        &.selectedTo {
           color: #fff;
-          border-radius: 100px;
           &:hover {
             color: #fff;
           }
+        }
+        &.selectedFrom {
+          border-top-left-radius: 100px;
+          border-bottom-left-radius: 100px;
+          background: linear-gradient(to right, #409eff, #f2f6fc);
+        }
+        &.selectedTo {
+          border-top-right-radius: 100px;
+          border-bottom-right-radius: 100px;
+          background: linear-gradient(to right, #f2f6fc, #409eff);
         }
         &.linked {
           background-color: #f2f6fc;
