@@ -23,6 +23,10 @@ export default [{
   icon: 'pie-chart',
   title: 'Pie Chart'
 }, {
+  route: 'widgets',
+  icon: 'tool',
+  title: 'Widgets'
+}, {
   route: 'matrix',
   icon: 'codepen',
   title: 'Matrix Multiplication'

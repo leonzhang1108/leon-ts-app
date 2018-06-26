@@ -49,7 +49,24 @@ export default {
     }
   },
 
-  random: (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower
+  random: (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower,
+
+  getMonthList: (year, month) => {
+    let row = 0
+    let weekDay = new Date(`${year}-${month}-1`).getDay()
+    const days = new Date(year, month, 0).getDate()
+    const list: any[] = [new Array(7).fill(0)]
+    for(let i = 1; i <= days; i++) {
+      if (list[row][weekDay] === undefined) {
+        row++
+        weekDay = 0
+        list.push(new Array(7).fill(0))
+      }
+      list[row][weekDay] = i
+      weekDay++
+    }
+    return { year, month, list }
+  }
 }
 
 interface IConnectProps {

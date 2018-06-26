@@ -5,12 +5,22 @@ import Word from './Word'
 import Api from '@utils/fetch.js'
 const Search = Input.Search
 
-class Food extends React.Component {
+interface IFoodState{
+  showCanvas: boolean
+}
+
+class Food extends React.Component<{}, IFoodState> {
 
   canvas
   wrapper
   words = {}
-  timeout
+  interval
+
+  componentWillMount() {
+    this.state = {
+      showCanvas: false
+    }
+  }
 
   onSearch = v => {
     console.log(v)
@@ -21,6 +31,7 @@ class Food extends React.Component {
   }
 
   initCanvas = res => {
+    this.setState({ showCanvas: true })
     this.words = res
     const wordsAttr: any[] = []
     const { offsetHeight: h, offsetWidth: w } = this.wrapper
@@ -71,16 +82,17 @@ class Food extends React.Component {
       }
       loop()
     } else {
-      this.timeout = setInterval(init, 24)
+      this.interval = setInterval(init, 24)
     }
 
   }
 
   componentWillUnmount() {
-    clearInterval(this.timeout)
+    clearInterval(this.interval)
   }
 
   render() {
+    const { showCanvas } = this.state
     return (
       <div className='food' ref={el => this.wrapper = el}>
         <div className='input'>
@@ -91,7 +103,7 @@ class Food extends React.Component {
             onSearch={this.onSearch}
           />
         </div>
-        <canvas id='c' className='canvas' ref={el => this.canvas = el} />
+        <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: showCanvas ? 1 : 0}}/>
       </div>
     )
   }
