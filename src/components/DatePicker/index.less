@@ -28,7 +28,25 @@
         display: inline-block;
         height: 30px;
         width: 30px;
+        line-height: 30px;
         text-align: center;
+        &.date {
+          cursor: pointer;
+          &:hover {
+            color: #409eff;
+          }
+        }
+        &.selected {
+          background-color: #409eff;
+          color: #fff;
+          border-radius: 100px;
+          &:hover {
+            color: #fff;
+          }
+        }
+        &.linked {
+          background-color: #f2f6fc;
+        }
       }
     }
   }

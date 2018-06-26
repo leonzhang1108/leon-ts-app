@@ -66,7 +66,9 @@ export default {
       weekDay++
     }
     return { year, month, list }
-  }
+  },
+
+  handle: (func, ...args) => () => func(...args)
 }
 
 interface IConnectProps {
