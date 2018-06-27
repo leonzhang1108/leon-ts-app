@@ -29,6 +29,7 @@
         height: 30px;
         width: 30px;
         line-height: 30px;
+        margin-bottom: 5px;
         text-align: center;
         &.date {
           cursor: pointer;
@@ -36,25 +37,35 @@
             color: #409eff;
           }
         }
+        .item-inner {
+          width: 24px;
+          height: 24px;
+          border-radius: 100px;
+          display: block;
+          margin: 2px;
+          line-height: 24px;
+        }
         &.selectedFrom,
         &.selectedTo {
           color: #fff;
+          background-color: #d4e6fe;
           &:hover {
             color: #fff;
+          }
+          .item-inner {
+            background-color: #2182fc;
           }
         }
         &.selectedFrom {
           border-top-left-radius: 100px;
           border-bottom-left-radius: 100px;
-          background: linear-gradient(to right, #409eff, #f2f6fc);
         }
         &.selectedTo {
           border-top-right-radius: 100px;
           border-bottom-right-radius: 100px;
-          background: linear-gradient(to right, #f2f6fc, #409eff);
         }
-        &.linked {
-          background-color: #f2f6fc;
+        &.in-range {
+          background-color: #d4e6fe;
         }
       }
     }

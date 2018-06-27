@@ -105,21 +105,13 @@ class DatePicker extends React.Component<{}, IState> {
     this.setState({ toDate: { year, month, day } })
   }
 
-  isFromSelected = ({ year, month, day }) => {
-    const { fromDate } = this.state
-    if (!fromDate) { return false }
-    const { year: fromYear, month: fromMonth, day: fromDay } = fromDate
-    return year === fromYear && month === fromMonth && day === fromDay
+  isSelected = ({ year, month, day, date }) => {
+    if (!date) { return false }
+    const { year: dYear, month: dMonth, day: dDay } = date
+    return year === dYear && month === dMonth && day === dDay
   }
 
-  isToSelected = ({ year, month, day }) => {
-    const { toDate } = this.state
-    if (!toDate) { return false }
-    const { year: toYear, month: toMonth, day: toDay } = toDate
-    return year === toYear && month === toMonth && day === toDay
-  }
-
-  isLinked = ({ year, month, day }) => {
+  isInRange = ({ year, month, day }) => {
     const { fromDate, toDate } = this.state
     if (fromDate && toDate && day) {
       const { year: fromYear, month: fromMonth, day: fromDay } = fromDate
@@ -135,17 +127,17 @@ class DatePicker extends React.Component<{}, IState> {
       {row.map((day, itemIdx) => {
         return (
           <td className={`
-              item 
+              item
               ${day ? 'date' : ''}
-              ${this.isLinked({ year, month, day }) ? 'linked' : ''} 
-              ${this.isFromSelected({ year, month, day }) ? 'selectedFrom': '' }
-              ${this.isToSelected({ year, month, day }) ? 'selectedTo': '' }
+              ${this.isInRange({ year, month, day }) ? 'in-range' : ''}
+              ${this.isSelected({ year, month, day, date: this.state.fromDate }) ? 'selectedFrom': '' }
+              ${this.isSelected({ year, month, day, date: this.state.toDate }) ? 'selectedTo': '' }
             `} 
             key={itemIdx}
             onClick={Util.handle(this.itemClick, { year, month, day })}
             onMouseEnter={Util.handle(this.itemMouseEnter, { year, month, day })}
           >
-            {day || ''}
+            <span className='item-inner'>{day || ''}</span>
           </td>
         )
       })}

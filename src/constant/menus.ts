@@ -35,7 +35,7 @@ export default [{
   icon: 'shopping-cart',
   title: 'Food'
 }, {
-  route: 'op3',
+  route: 'the-fuck-is-that',
   icon: 'inbox',
-  title: 'Option 3'
+  title: 'The Fuck Is That'
 }]
