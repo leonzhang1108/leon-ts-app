@@ -33,8 +33,8 @@ class DatePicker extends React.Component<IProps, IState> {
     const date = new Date()
     const { fromDate, toDate } = this.props
     this.setState({
-      year: date.getFullYear(),
-      month: date.getMonth(),
+      year: fromDate ? fromDate.getFullYear() : date.getFullYear(),
+      month: fromDate ? fromDate.getMonth() : date.getMonth(),
       weekList: ['日', '一', '二', '三', '四', '五', '六'],
       visible: false,
       fromDate: fromDate ? this.initDate(fromDate) : undefined,
