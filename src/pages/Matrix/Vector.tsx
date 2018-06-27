@@ -37,12 +37,7 @@ const renderCol = (row, rowIndex, props) => {
     <ul className={`row ${rowTransform ? 'row-transform' : ''}`} 
       key={rowIndex}
     >
-      {
-        row.map((col, colIndex) => {
-
-          return renderItem(col, colIndex, rowIndex, props, rowTransform)
-        })
-      }
+      { row.map((col, colIndex) => renderItem(col, colIndex, rowIndex, props, rowTransform)) }
     </ul>
   )
 }

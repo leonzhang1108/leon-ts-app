@@ -3,32 +3,56 @@ import Util from '@utils'
 import './index.less'
 import { Icon } from 'antd'
 
+interface IProps {
+  fromDate?: Date,
+  toDate?: Date,
+}
+
 interface IState {
   year: number,
   month: number,
   step: number,
-  title: string[],
+  weekList: string[],
   fromDate?: {
     year: number,
     month: number,
-    day: number
+    day: number,
+    week: number
   },
   toDate?: {
     year: number,
     month: number,
-    day: number
-  }
+    day: number,
+    week: number
+  },
+  visible: boolean
 }
 
-class DatePicker extends React.Component<{}, IState> {
+class DatePicker extends React.Component<IProps, IState> {
   componentWillMount() {
     const date = new Date()
+    const { fromDate, toDate } = this.props
     this.setState({
-      step: 0,
       year: date.getFullYear(),
       month: date.getMonth(),
-      title: ['日', '一', '二', '三', '四', '五', '六']
+      weekList: ['日', '一', '二', '三', '四', '五', '六'],
+      visible: false,
+      fromDate: fromDate ? this.initDate(fromDate) : undefined,
+      toDate: toDate ? this.initDate(toDate) : undefined,
+      step: fromDate && toDate ? 2 : 0
     })
+    document.addEventListener('click', this.hideCalender)
+  }
+
+  initDate = date => ({
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    week: date.getDay()
+  })
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.hideCalender)
   }
 
   next = () => {
@@ -72,43 +96,54 @@ class DatePicker extends React.Component<{}, IState> {
   }
 
   renderTitle = () => {
-    const { title } = this.state
+    const { weekList } = this.state
     return (
       <tr className='c-row'>
-        {title.map((item, i) => <td className='item' key={i}>{item}</td>)}
+        {weekList.map((item, i) => <td className='item' key={i}>{item}</td>)}
       </tr>
     )
   }
 
-  itemClick = ({ year, month, day }) => {
+  itemClick = ({ year, month, day, week }) => {
     if (!day) { return }
     const { fromDate, step } = this.state
     if (!fromDate) {
-      this.setState({ fromDate: { year, month, day }, step: 1 })
+      this.setState({ fromDate: { year, month, day, week }, step: 1 })
     } else {
       if (step === 2) {
-        this.setState({ fromDate: { year, month, day }, toDate: undefined, step: 0 })
+        this.setState({ fromDate: { year, month, day, week }, toDate: undefined, step: 0 })
       } else {
         const { year: fromYear, month: fromMonth, day: fromDay } = fromDate
         if (new Date(fromYear, fromMonth, fromDay) > new Date(year, month, day)) {
-          this.setState({ fromDate: { year, month, day }, step: 1 })
+          this.setState({ fromDate: { year, month, day, week }, step: 1 })
         } else {
-          this.setState({ toDate: { year, month, day }, step: 2 })
+          this.setState({ toDate: { year, month, day, week }, step: 2, visible: false })
         }
       }
     }
   }
 
-  itemMouseEnter = ({ year, month, day }) => {
+  itemMouseEnter = ({ year, month, day, week }) => {
     const { fromDate, step } = this.state
     if (!fromDate || step === 2 || !day) { return }
-    this.setState({ toDate: { year, month, day } })
+    this.setState({ toDate: { year, month, day, week } })
   }
 
   isSelected = ({ year, month, day, date }) => {
     if (!date) { return false }
     const { year: dYear, month: dMonth, day: dDay } = date
     return year === dYear && month === dMonth && day === dDay
+  }
+  
+  toggleVisible = (res?) => this.setState({ visible: res === undefined ? !this.state.visible : res})
+
+  hideCalender = () => this.toggleVisible(false)
+
+  stopBubbling = e => e.nativeEvent.stopImmediatePropagation()
+
+  inputClick = e => {
+    this.toggleVisible()
+    e.nativeEvent.stopImmediatePropagation()
   }
 
   isInRange = ({ year, month, day }) => {
@@ -122,9 +157,18 @@ class DatePicker extends React.Component<{}, IState> {
     return false
   }
 
+  formatDate = date => {
+    if (!date) { return {} }
+    const { year, month, day, week } = date
+    return {
+      date: year && month && day ? `${year}-${month}-${day}` : '',
+      week
+    }
+  }
+
   renderRow = ({ row, rowIdx, year, month }) => (
     <tr className='c-row' key={rowIdx}>
-      {row.map((day, itemIdx) => {
+      {row.map((day, week) => {
         return (
           <td className={`
               item
@@ -133,9 +177,9 @@ class DatePicker extends React.Component<{}, IState> {
               ${this.isSelected({ year, month, day, date: this.state.fromDate }) ? 'selectedFrom': '' }
               ${this.isSelected({ year, month, day, date: this.state.toDate }) ? 'selectedTo': '' }
             `} 
-            key={itemIdx}
-            onClick={Util.handle(this.itemClick, { year, month, day })}
-            onMouseEnter={Util.handle(this.itemMouseEnter, { year, month, day })}
+            key={week}
+            onClick={Util.handle(this.itemClick, { year, month, day, week })}
+            onMouseEnter={Util.handle(this.itemMouseEnter, { year, month, day, week })}
           >
             <span className='item-inner'>{day || ''}</span>
           </td>
@@ -159,17 +203,39 @@ class DatePicker extends React.Component<{}, IState> {
   )
 
   render() {
-    const { year: leftYear, month: leftMonth } = this.state
+    const { year: leftYear, month: leftMonth, fromDate, toDate, visible, step, weekList } = this.state
     const { year: rightYear, month: rightMonth } = this.nextMonth()
     const left = Util.getMonthList(leftYear, leftMonth + 1)
     const right = Util.getMonthList(rightYear, rightMonth + 1)
+    const { date: fDate, week: fWeek } = this.formatDate(fromDate)
+    const { date: tDate, week: tWeek } = this.formatDate(toDate)
 
     return (
-      <div className='calender-wrapper'>
-        <Icon type="left" className='left' onClick={this.pre}/>
-        <Icon type="right" className='right' onClick={this.next}/>
-        {this.renderCalender(left)}
-        {this.renderCalender(right)}
+      <div className='calender-component'>
+        <div className='calender-input' onClick={this.inputClick}>
+          <div className='input'>
+            <span className='icon'><Icon type="calendar" /></span>
+            <span className='date-content'>{fDate}</span>
+            <span className='week'>{fWeek ? weekList[fWeek] : ''}</span>
+          </div>
+          <div className='input'>
+            <span className='icon'><Icon type="calendar" /></span>
+            <span className='date-content'>{step === 2 ? tDate : ''}</span>
+            <span className='week'>{step === 2 ? tWeek ? weekList[tWeek] : '' : ''}</span>
+          </div>
+        </div>
+        {
+          visible ? (
+            <div className='floating'>
+              <div className='calender-wrapper' onClick={this.stopBubbling}>
+                <Icon type="left" className='left' onClick={this.pre}/>
+                <Icon type="right" className='right' onClick={this.next}/>
+                {this.renderCalender(left)}
+                {this.renderCalender(right)}
+              </div>
+            </div>
+          ) : null
+        }
       </div>
     )
   }

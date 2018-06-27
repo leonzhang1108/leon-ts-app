@@ -94,7 +94,7 @@ class Food extends React.Component<{}, IFoodState> {
   render() {
     const { showCanvas } = this.state
     return (
-      <div className='food' ref={el => this.wrapper = el}>
+      <div className='food-wrapper' ref={el => this.wrapper = el}>
         <div className='input'>
           <Search
             placeholder="food you want"

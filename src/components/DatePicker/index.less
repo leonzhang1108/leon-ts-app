@@ -1,71 +1,109 @@
-.calender-wrapper {
-  display: inline-block;
+.calender-component {
+  padding: 10px;
   position: relative;
-  .left, .right {
-    top: 5px;
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+  .calender-input {
+    display: table;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
     cursor: pointer;
-  }
-  .left {
-    left: 18px;
-    text-align: left;
-  }
-  .right {
-    right: 18px;
-    text-align: right;
-  }
-  .calender {
-    display: inline-block;
-    padding: 10px;
-    .year-month {
-      text-align: center;
+    .input {
+      display: table-cell;
+      height: 40px;
+      line-height: 40px;
+      text-align: left;
+      width: 160px;
+      font-size: 18px;
+      .icon {
+        margin-left: 10px;
+        margin-right: 5px;
+      }
+      .date-content {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .week {
+        font-weight: bold;
+        color: #999;
+      }
     }
-    .c-row {
-      .item {
-        display: inline-block;
-        height: 30px;
+  }
+  
+  .floating {
+    position: absolute;
+    top: 60px;
+    background-color: #fff;
+    .calender-wrapper {
+      position: relative;
+      border-radius: 3px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.15);
+      .left, .right {
+        top: 5px;
+        position: absolute;
         width: 30px;
+        height: 30px;
         line-height: 30px;
-        margin-bottom: 5px;
-        text-align: center;
-        &.date {
-          cursor: pointer;
-          &:hover {
-            color: #409eff;
+        cursor: pointer;
+      }
+      .left {
+        left: 18px;
+        text-align: left;
+      }
+      .right {
+        right: 18px;
+        text-align: right;
+      }
+      .calender {
+        display: inline-block;
+        padding: 10px;
+        .year-month {
+          text-align: center;
+          font-weight: bold;
+        }
+        .c-row {
+          .item {
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+            margin-bottom: 5px;
+            text-align: center;
+            &.date {
+              cursor: pointer;
+              &:hover {
+                color: #409eff;
+              }
+            }
+            .item-inner {
+              width: 24px;
+              height: 24px;
+              border-radius: 100px;
+              display: block;
+              margin: 2px;
+              line-height: 24px;
+            }
+            &.selectedFrom,
+            &.selectedTo {
+              color: #fff;
+              background-color: #d4e6fe;
+              &:hover {
+                color: #fff;
+              }
+              .item-inner {
+                background-color: #2182fc;
+              }
+            }
+            &.selectedFrom {
+              border-top-left-radius: 100px;
+              border-bottom-left-radius: 100px;
+            }
+            &.selectedTo {
+              border-top-right-radius: 100px;
+              border-bottom-right-radius: 100px;
+            }
+            &.in-range {
+              background-color: #d4e6fe;
+            }
           }
-        }
-        .item-inner {
-          width: 24px;
-          height: 24px;
-          border-radius: 100px;
-          display: block;
-          margin: 2px;
-          line-height: 24px;
-        }
-        &.selectedFrom,
-        &.selectedTo {
-          color: #fff;
-          background-color: #d4e6fe;
-          &:hover {
-            color: #fff;
-          }
-          .item-inner {
-            background-color: #2182fc;
-          }
-        }
-        &.selectedFrom {
-          border-top-left-radius: 100px;
-          border-bottom-left-radius: 100px;
-        }
-        &.selectedTo {
-          border-top-right-radius: 100px;
-          border-bottom-right-radius: 100px;
-        }
-        &.in-range {
-          background-color: #d4e6fe;
         }
       }
     }
