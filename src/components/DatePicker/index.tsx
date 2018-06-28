@@ -170,6 +170,23 @@ class DatePicker extends React.Component<IProps, IState> {
     }
   }
 
+  getMonthList = (year, month) => {
+    let row = 0
+    let weekDay = new Date(`${year}-${month}-1`).getDay()
+    const days = new Date(year, month, 0).getDate()
+    const list: any[] = [new Array(7).fill(0)]
+    for(let i = 1; i <= days; i++) {
+      if (list[row][weekDay] === undefined) {
+        row++
+        weekDay = 0
+        list.push(new Array(7).fill(0))
+      }
+      list[row][weekDay] = i
+      weekDay++
+    }
+    return { year, month, list }
+  }
+
   renderRow = ({ row, rowIdx, year, month }) => (
     <tr className='c-row' key={rowIdx}>
       {row.map((day, week) => {
@@ -209,8 +226,8 @@ class DatePicker extends React.Component<IProps, IState> {
   render() {
     const { year: leftYear, month: leftMonth, fromDate, toDate, visible, step, weekList } = this.state
     const { year: rightYear, month: rightMonth } = this.nextMonth()
-    const left = Util.getMonthList(leftYear, leftMonth + 1)
-    const right = Util.getMonthList(rightYear, rightMonth + 1)
+    const left = this.getMonthList(leftYear, leftMonth + 1)
+    const right = this.getMonthList(rightYear, rightMonth + 1)
     const { date: fDate, week: fWeek } = this.formatDate(fromDate)
     const { date: tDate, week: tWeek } = this.formatDate(toDate)
 
