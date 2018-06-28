@@ -1,4 +1,5 @@
 import actionTypes from '@constant/actionTypes'
+import Utils from '@utils'
 
 interface IProp {
   breadcrumb: any[],
@@ -59,6 +60,7 @@ const common = (state: IProp = initState, action: any) => {
   switch (action.type) {
     case actionTypes.UPDATE_BREADCRUMB:
       const { breadcrumb, route } = action.payload
+      Utils.changeTitle(breadcrumb)
       return {
         ...state,
         breadcrumb,

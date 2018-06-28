@@ -68,7 +68,9 @@ export default {
     return { year, month, list }
   },
 
-  handle: (func, ...args) => () => func(...args)
+  handle: (func, ...args) => () => func(...args),
+
+  changeTitle: breadcrumb => document.title = breadcrumb[breadcrumb.length - 1].title
 }
 
 interface IConnectProps {

@@ -17,9 +17,9 @@ class Food extends React.Component<{}, IFoodState> {
   interval
 
   componentWillMount() {
-    this.state = {
+    this.setState({
       showCanvas: false
-    }
+    })
   }
 
   onSearch = v => {

@@ -220,12 +220,12 @@ class DatePicker extends React.Component<IProps, IState> {
           <div className='input'>
             <span className='icon'><Icon type="calendar" /></span>
             <span className='date-content'>{fDate}</span>
-            <span className='week'>{fWeek ? weekList[fWeek] : ''}</span>
+            <span className='week'>{fWeek >= 0 ? weekList[fWeek] : ''}</span>
           </div>
           <div className='input'>
             <span className='icon'><Icon type="calendar" /></span>
             <span className='date-content'>{step === 2 ? tDate : ''}</span>
-            <span className='week'>{step === 2 ? tWeek ? weekList[tWeek] : '' : ''}</span>
+            <span className='week'>{step === 2 ? tWeek >= 0 ? weekList[tWeek] : '' : ''}</span>
           </div>
         </div>
         {
