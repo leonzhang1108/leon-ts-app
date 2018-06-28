@@ -65,6 +65,10 @@ class DatePicker extends React.Component<IProps, IState> {
     this.setState({ year, month })
   }
 
+  nextYear = () => this.setState({ year: this.state.year + 1 })
+
+  preYear = () => this.setState({ year: this.state.year - 1 })
+
   nextMonth = () => {
     const { year, month } = this.state
     if (month >= 11) {
@@ -230,6 +234,8 @@ class DatePicker extends React.Component<IProps, IState> {
               <div className='calender-wrapper' onClick={this.stopBubbling}>
                 <Icon type="left" className='left' onClick={this.pre}/>
                 <Icon type="right" className='right' onClick={this.next}/>
+                <Icon type="double-left" className='double-left' onClick={this.preYear}/>
+                <Icon type="double-right" className='double-right' onClick={this.nextYear}/>
                 {this.renderCalender(left)}
                 {this.renderCalender(right)}
               </div>

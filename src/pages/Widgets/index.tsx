@@ -1,6 +1,7 @@
 import * as React from 'react'
 import './index.less'
 import DatePicker from '@components/DatePicker'
+import { Row, Col } from 'antd'
 
 class Widgets extends React.Component {
   render() {
@@ -8,7 +9,11 @@ class Widgets extends React.Component {
     const toDate = new Date()
     return (
       <div className='widget-wrapper'>
-        <DatePicker fromDate={fromDate} toDate={toDate}/>
+        <Row gutter={16}>
+          <Col className="gutter-row" span={6}>
+            <DatePicker fromDate={fromDate} toDate={toDate}/>
+          </Col>
+        </Row>
       </div>
     )
   }

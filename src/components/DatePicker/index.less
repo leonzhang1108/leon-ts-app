@@ -1,6 +1,6 @@
 .calender-component {
   padding: 10px;
-  position: relative;
+  position: relative;    
   .calender-input {
     display: table;
     border: 1px solid #dcdfe6;
@@ -32,24 +32,34 @@
     position: absolute;
     top: 60px;
     background-color: #fff;
+    width: 500px;
+    text-align: center;
     .calender-wrapper {
       position: relative;
       border-radius: 3px;
       box-shadow: 0 2px 16px rgba(0,0,0,.15);
-      .left, .right {
-        top: 5px;
+      .left, .right, .double-left, .double-right {
+        top: 15px;
         position: absolute;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
         cursor: pointer;
+        &:hover {
+          color: #2182fc;
+        }
       }
       .left {
-        left: 18px;
+        left: 48px;
         text-align: left;
       }
       .right {
-        right: 18px;
+        right: 48px;
+        text-align: right;
+      }
+      .double-left {
+        left: 30px;
+        text-align: left;
+      } 
+      .double-right {
+        right: 30px;
         text-align: right;
       }
       .calender {
