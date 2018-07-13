@@ -35,6 +35,10 @@ export default [{
   icon: 'shopping-cart',
   title: 'Food'
 }, {
+  route: 'gobang',
+  icon: 'team',
+  title: 'Gobang'
+}, {
   route: 'the-fuck-is-that',
   icon: 'inbox',
   title: 'The Fuck Is That'
