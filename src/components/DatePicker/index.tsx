@@ -155,8 +155,8 @@ class DatePicker extends React.Component<IProps, IState> {
     if (fromDate && toDate && day) {
       const { year: fromYear, month: fromMonth, day: fromDay } = fromDate
       const { year: toYear, month: toMonth, day: toDay } = toDate
-      return new Date(year, month, day) > new Date(fromYear, fromMonth, fromDay) 
-          && new Date(year, month, day) < new Date(toYear, toMonth, toDay)
+      return new Date(year, month, day) >= new Date(fromYear, fromMonth, fromDay) 
+          && new Date(year, month, day) <= new Date(toYear, toMonth, toDay)
     } 
     return false
   }

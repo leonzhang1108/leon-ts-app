@@ -9,7 +9,6 @@ const renderRouter = (menu, i) =>
 
 const redirectToHome = () => <Redirect to="/home"/>
 
-
 const allMenus: any[] = []
 
 const initRoute = (currMenus: any[]) => {
@@ -34,6 +33,5 @@ const Router = () => (
     <Route component={NotFound} />
   </Switch>
 )
-
 
 export default Router
