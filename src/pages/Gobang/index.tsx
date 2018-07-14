@@ -62,8 +62,7 @@ class Gobang extends React.Component<IProps, IState> {
       checkerboard[rowIndex][itemIndex] = { state }
       this.setState({ checkerboard, step: isClick ? step + 1 : step }, 
         () => {
-          if (isClick) {
-            this.isWin({ rowIndex, itemIndex, state })
+          if (isClick && !this.isWin({ rowIndex, itemIndex, state })) {
             this.isPeace()
           }
         })
@@ -96,6 +95,7 @@ class Gobang extends React.Component<IProps, IState> {
         onOk: this.reset
       })
     }
+    return isWin
   }
 
   isColumnWin = ({ rowIndex, itemIndex, state }) => {
