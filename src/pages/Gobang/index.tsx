@@ -184,6 +184,11 @@ class Gobang extends React.Component<IProps, IState> {
     this.setState({ showNumber: !this.state.showNumber })
   }
 
+  retract = () => {
+    const { step } = this.state
+    console.log(step)
+  }
+
   renderItem = (item, rowIndex, itemIndex) => {
     const { state, index } = item
     const { step, showNumber } = this.state
@@ -225,9 +230,14 @@ class Gobang extends React.Component<IProps, IState> {
             { checkerboard.map(this.renderRow) }
           </tbody>
         </table>
-        <Button type="primary" onClick={this.toggleShowNumber}>
-          { showNumber ? 'hide number' : 'show number'}
-        </Button>
+        <div className='button-wrapper'>
+          <Button type="primary" onClick={this.toggleShowNumber}>
+            { showNumber ? '隐藏数字' : '显示数字'}
+          </Button>
+          <Button type="primary" onClick={this.retract}>
+            悔棋
+          </Button>
+        </div>
       </div>
     )
   }
