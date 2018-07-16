@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Utils from '@utils'
 import './index.less'
-import { Modal } from 'antd'
+import { Modal, Button } from 'antd'
 
 interface IProps {
   isMobile: boolean
@@ -9,6 +9,7 @@ interface IProps {
 
 interface IState {
   size: number,
+  showNumber: boolean,
   checkerboard: any[][],
   step: number,
   renju: number
@@ -24,6 +25,7 @@ class Gobang extends React.Component<IProps, IState> {
     const renju = !this.props.isMobile ? 5 : 3
     this.setState({
       size, renju,
+      showNumber: true,
       step: 0,
       checkerboard: this.calculateCheckerboard(size)
     })
@@ -36,7 +38,10 @@ class Gobang extends React.Component<IProps, IState> {
     for(let i = 0; i < size; i++) {
       const row: any[] = []
       for(let j = 0; j < size; j++) {
-        row.push({ state: 0 })
+        row.push({ 
+          state: 0,
+          index: -1
+        })
       }
       result.push(row)
     }
@@ -59,13 +64,9 @@ class Gobang extends React.Component<IProps, IState> {
   setCheckerboard = ({ state, rowIndex, itemIndex }, isClick?) => {
     const { checkerboard, step } = this.state
     if (checkerboard[rowIndex][itemIndex].state !== 2 && checkerboard[rowIndex][itemIndex].state !== 3) {
-      checkerboard[rowIndex][itemIndex] = { state }
+      checkerboard[rowIndex][itemIndex] = { state, index: isClick ? step : -1 }
       this.setState({ checkerboard, step: isClick ? step + 1 : step }, 
-        () => {
-          if (isClick && !this.isWin({ rowIndex, itemIndex, state })) {
-            this.isPeace()
-          }
-        })
+        () => isClick && !this.isWin({ rowIndex, itemIndex, state }) && this.isPeace())
     }
   }
 
@@ -179,9 +180,13 @@ class Gobang extends React.Component<IProps, IState> {
     return result === renju
   }
 
+  toggleShowNumber = () => {
+    this.setState({ showNumber: !this.state.showNumber })
+  }
+
   renderItem = (item, rowIndex, itemIndex) => {
-    const { state } = item
-    const { step } = this.state
+    const { state, index } = item
+    const { step, showNumber } = this.state
     let className = ''
     switch(state) {
       case 1:
@@ -200,7 +205,7 @@ class Gobang extends React.Component<IProps, IState> {
         onMouseEnter={Utils.handle(this.mouseEnter, { rowIndex, itemIndex })}
         onMouseLeave={Utils.handle(this.mouseLeave, { rowIndex, itemIndex })}
       >
-        <div className={className}/>
+        <div className={className}>{showNumber && index >= 0 ? index + 1 : ''}</div>
       </td>
     )
   }
@@ -212,7 +217,7 @@ class Gobang extends React.Component<IProps, IState> {
   )
 
   render() {
-    const { checkerboard } = this.state
+    const { checkerboard, showNumber } = this.state
     return (
       <div className='gobang-wrapper'>
         <table>
@@ -220,6 +225,9 @@ class Gobang extends React.Component<IProps, IState> {
             { checkerboard.map(this.renderRow) }
           </tbody>
         </table>
+        <Button type="primary" onClick={this.toggleShowNumber}>
+          { showNumber ? 'hide number' : 'show number'}
+        </Button>
       </div>
     )
   }

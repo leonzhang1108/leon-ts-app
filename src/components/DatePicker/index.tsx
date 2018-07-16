@@ -147,7 +147,7 @@ class DatePicker extends React.Component<IProps, IState> {
 
   inputClick = e => {
     this.toggleVisible()
-    e.nativeEvent.stopImmediatePropagation()
+    this.stopBubbling(e)
   }
 
   isInRange = ({ year, month, day }) => {
