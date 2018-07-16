@@ -81,13 +81,10 @@ class Gobang extends React.Component<IProps, IState> {
   }
 
   isWin = ({ rowIndex, itemIndex, state }) => {
-    let isWin = this.isColumnWin({ rowIndex, itemIndex, state })
-    if (!isWin) {
-      isWin = this.isRowWin({ rowIndex, itemIndex, state })
-    }
-    if (!isWin) {
-      isWin = this.isSkewWin({ rowIndex, itemIndex, state })
-    }
+    const isWin = this.isColumnWin({ rowIndex, itemIndex, state })
+      && this.isRowWin({ rowIndex, itemIndex, state })
+      && this.isSkewWin({ rowIndex, itemIndex, state })
+
     if (isWin) {
       Modal.info({
         title: 'Victory',
@@ -136,13 +133,9 @@ class Gobang extends React.Component<IProps, IState> {
     return result === renju
   }
 
-  isSkewWin = ({ rowIndex, itemIndex, state }) => {
-    let result = this.isDownLineWin({ rowIndex, itemIndex, state })
-    if (!result) {
-      result = this.isUpLineWin({ rowIndex, itemIndex, state })
-    }
-    return result
-  }
+  isSkewWin = ({ rowIndex, itemIndex, state }) => 
+    this.isDownLineWin({ rowIndex, itemIndex, state }) 
+      && this.isUpLineWin({ rowIndex, itemIndex, state })
 
   isDownLineWin = ({ rowIndex, itemIndex, state }) => {
     const { size, checkerboard, renju } = this.state
