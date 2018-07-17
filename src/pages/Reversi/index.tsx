@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 import Tools from './tools'
 import './index.less'
@@ -76,7 +75,10 @@ class Reversi extends React.Component<IProps, IState> {
     const { checkerboard, step } = this.state
     const { black, white } = statusMap
     checkerboard[x][y] = step % 2 === 0 ? black : white
-    this.setState({ checkerboard, step: step + 1 })
+    this.setState({ 
+      checkerboard: Tools.clickToCover({ x, y, checkerboard, player: step % 2 }), 
+      step: step + 1 
+    })
   }
 
   renderItem = (item, rowIndex, itemIndex) => {
@@ -117,7 +119,8 @@ class Reversi extends React.Component<IProps, IState> {
   )
 
   render() {
-    const { checkerboard } = this.state
+    const { checkerboard, step } = this.state
+    const className = step % 2 === 1 ? 'current white' : 'current black'
     return (
       <div className='reversi-wrapper'>
         <div className='checkerboard'>
@@ -127,6 +130,7 @@ class Reversi extends React.Component<IProps, IState> {
             </tbody>
           </table>
         </div>
+        <div className={className}/>
       </div>
     )
   }

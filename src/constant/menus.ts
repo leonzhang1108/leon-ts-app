@@ -28,11 +28,11 @@ export default [{
   title: 'Widgets'
 }, {
   route: 'matrix',
-  icon: 'codepen',
+  icon: 'ts-app icon-matrix',
   title: 'Matrix Multiplication'
 }, {
   route: 'food',
-  icon: 'shopping-cart',
+  icon: 'ts-app icon-food',
   title: 'Food'
 }, {
   icon: 'ts-app icon-game',
@@ -49,6 +49,6 @@ export default [{
   }]
 }, {
   route: 'the-fuck-is-that',
-  icon: 'inbox',
+  icon: 'ts-app icon-404',
   title: 'The Fuck Is That'
 }]

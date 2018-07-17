@@ -240,10 +240,10 @@ class Gobang extends React.Component<IProps, IState> {
         </table>
         <div className='button-wrapper'>
           <Button type="primary" onClick={this.toggleShowNumber}>
-            { showNumber ? '隐藏数字' : '显示数字'}
+            { showNumber ? 'hide number' : 'show number'}
           </Button>
           <Button type="primary" disabled={positions.length === 0} onClick={this.retract}>
-            悔棋
+            Retract
           </Button>
         </div>
       </div>
