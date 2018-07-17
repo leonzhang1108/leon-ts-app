@@ -1,0 +1,43 @@
+.reversi-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  table {
+    background-color: #f0f2f5;
+    border-radius: 1rem;
+    z-index: 1;
+    border: 1.5rem solid #f0f2f5;
+    box-shadow: #f0f2f5 0px 0px 100px;
+    .row {
+      .item {
+        width: 3rem;
+        height: 3rem;
+        border: 2px solid #000;
+        position: relative;
+        text-align: center;
+        .chosen {
+          background-color: #fff;
+          height: 2.5rem;
+          width: 2.5rem;
+          line-height: 2.5rem;
+          margin: 0 auto;
+          border-radius: 2rem;
+          font-weight: bold;
+          box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+          &.black {
+            background-image: linear-gradient(180deg, #555, #000);
+            color: #fff;
+            opacity: .8;
+          }
+          &.white {
+            background-image: linear-gradient(180deg, #fff, #f6f6f6);
+            color: #000;
+            opacity: .8;
+          }
+        }
+      }
+    }
+  }
+}
