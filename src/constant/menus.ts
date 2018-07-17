@@ -35,9 +35,18 @@ export default [{
   icon: 'shopping-cart',
   title: 'Food'
 }, {
-  route: 'gobang',
-  icon: 'team',
-  title: 'Gobang'
+  icon: 'ts-app icon-game',
+  title: 'Game',
+  key: 'game',
+  childs: [{
+    route: 'gobang',
+    icon: 'ts-app icon-gobang',
+    title: 'Gobang'
+  }, {
+    route: 'reversi',
+    icon: 'ts-app icon-reversi',
+    title: 'Reversi'
+  }]
 }, {
   route: 'the-fuck-is-that',
   icon: 'inbox',
