@@ -69,16 +69,15 @@ class Reversi extends React.Component<IProps, IState> {
   }
 
   itemClick = ({ rowIndex: x, itemIndex: y }) => {
-    if (!this.couldClick({ x, y })) {
-      return
-    }
     const { checkerboard, step } = this.state
-    const { black, white } = statusMap
-    checkerboard[x][y] = step % 2 === 0 ? black : white
-    this.setState({ 
-      checkerboard: Tools.clickToCover({ x, y, checkerboard, player: step % 2 }), 
-      step: step + 1 
-    })
+    if (checkerboard[x][y] === statusMap.empty && this.couldClick({ x, y })) {
+      const { black, white } = statusMap
+      checkerboard[x][y] = step % 2 === 0 ? black : white
+      this.setState({ 
+        checkerboard: Tools.clickToCover({ x, y, checkerboard, player: step % 2 }), 
+        step: step + 1 
+      })
+    }
   }
 
   renderItem = (item, rowIndex, itemIndex) => {
