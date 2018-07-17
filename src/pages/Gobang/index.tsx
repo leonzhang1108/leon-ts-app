@@ -12,6 +12,7 @@ interface IState {
   showNumber: boolean,
   checkerboard: any[][],
   step: number,
+  positions: any[]
   renju: number
 }
 
@@ -27,6 +28,7 @@ class Gobang extends React.Component<IProps, IState> {
       size, renju,
       showNumber: true,
       step: 0,
+      positions: [],
       checkerboard: this.calculateCheckerboard(size)
     })
   }
@@ -38,10 +40,7 @@ class Gobang extends React.Component<IProps, IState> {
     for(let i = 0; i < size; i++) {
       const row: any[] = []
       for(let j = 0; j < size; j++) {
-        row.push({ 
-          state: 0,
-          index: -1
-        })
+        row.push({ state: 0, index: -1 })
       }
       result.push(row)
     }
@@ -62,11 +61,14 @@ class Gobang extends React.Component<IProps, IState> {
   }
 
   setCheckerboard = ({ state, rowIndex, itemIndex }, isClick?) => {
-    const { checkerboard, step } = this.state
+    const { checkerboard, step, positions: p } = this.state
     if (checkerboard[rowIndex][itemIndex].state !== 2 && checkerboard[rowIndex][itemIndex].state !== 3) {
       checkerboard[rowIndex][itemIndex] = { state, index: isClick ? step : -1 }
-      this.setState({ checkerboard, step: isClick ? step + 1 : step }, 
-        () => isClick && !this.isWin({ rowIndex, itemIndex, state }) && this.isPeace())
+      this.setState({ 
+        checkerboard, 
+        step: isClick ? step + 1 : step, 
+        positions: isClick ? p.concat({ row: rowIndex, column: itemIndex }) : p
+      }, () => isClick && !this.isWin({ rowIndex, itemIndex, state }) && this.isPeace())
     }
   }
 
@@ -83,9 +85,9 @@ class Gobang extends React.Component<IProps, IState> {
 
   isWin = ({ rowIndex, itemIndex, state }) => {
     const isWin = this.isColumnWin({ rowIndex, itemIndex, state })
-      && this.isRowWin({ rowIndex, itemIndex, state })
-      && this.isSkewWin({ rowIndex, itemIndex, state })
-
+      || this.isRowWin({ rowIndex, itemIndex, state })
+      || this.isSkewWin({ rowIndex, itemIndex, state })
+      
     if (isWin) {
       Modal.info({
         title: 'Victory',
@@ -136,7 +138,7 @@ class Gobang extends React.Component<IProps, IState> {
 
   isSkewWin = ({ rowIndex, itemIndex, state }) => 
     this.isDownLineWin({ rowIndex, itemIndex, state }) 
-      && this.isUpLineWin({ rowIndex, itemIndex, state })
+      || this.isUpLineWin({ rowIndex, itemIndex, state })
 
   isDownLineWin = ({ rowIndex, itemIndex, state }) => {
     const { size, checkerboard, renju } = this.state
@@ -185,8 +187,14 @@ class Gobang extends React.Component<IProps, IState> {
   }
 
   retract = () => {
-    const { step } = this.state
-    console.log(step)
+    const { step, positions, checkerboard } = this.state
+    const { row, column } = positions.pop()
+    checkerboard[row][column] = { state: 0, index: -1 }
+    this.setState({
+      step: step - 1,
+      positions,
+      checkerboard
+    })
   }
 
   renderItem = (item, rowIndex, itemIndex) => {
@@ -222,7 +230,7 @@ class Gobang extends React.Component<IProps, IState> {
   )
 
   render() {
-    const { checkerboard, showNumber } = this.state
+    const { checkerboard, showNumber, positions } = this.state
     return (
       <div className='gobang-wrapper'>
         <table>
@@ -234,7 +242,7 @@ class Gobang extends React.Component<IProps, IState> {
           <Button type="primary" onClick={this.toggleShowNumber}>
             { showNumber ? '隐藏数字' : '显示数字'}
           </Button>
-          <Button type="primary" onClick={this.retract}>
+          <Button type="primary" disabled={positions.length === 0} onClick={this.retract}>
             悔棋
           </Button>
         </div>
@@ -247,5 +255,5 @@ export default Utils.connect({
   component: Gobang,
   mapStateToProps: state => ({
     isMobile: state.common.isMobile
-  }),
+  })
 })
