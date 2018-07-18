@@ -123,7 +123,10 @@ class Reversi extends React.Component<IProps, IState> {
         onMouseOver={Utils.handle(this.itemMouseEnter, { rowIndex, itemIndex })}
         onMouseLeave={Utils.handle(this.itemMouseLeave, { rowIndex, itemIndex })}
       >
-        <div className={className.join(' ')} />
+        <div className={className.join(' ')} >
+          <div className='chess front'/>
+          <div className='chess back'/>
+        </div>
       </td>
     )
   }

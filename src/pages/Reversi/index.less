@@ -20,28 +20,53 @@
           position: relative;
           text-align: center;
           .chosen {
-            background-color: #fff;
+            margin: 0 auto;
+            font-weight: bold;
+            transform-style: preserve-3d;
+            position: relative;
             height: 1.5rem;
             width: 1.5rem;
             line-height: 1.5rem;
-            margin: 0 auto;
-            border-radius: 50%;
-            font-weight: bold;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
-            transition: background-color 300ms;
-            &.black {
-              // background-image: linear-gradient(180deg, #555, #000);
-              background-color: #000;
-              color: #fff;
+            .chess {
+              border-radius: 50%;
+              height: 100%;
+              width: 100%;
+              line-height: 100%;
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
               opacity: .9;
+              &.front {
+                background-color: #000;
+                color: #fff;
+                position: absolute;
+                z-index: 1;
+                opacity: 1;
+              }
+              &.back {
+                background-color: #fff;
+                color: #000;
+                position: absolute;
+                transform: rotateY(180deg);
+              }
+            }
+            
+            &.black {
+              &.selected .front {
+                animation: showBlack 300ms 1 forwards;
+              }
+              transition: none;
             }
             &.white {
-              // background-image: linear-gradient(180deg, #fff, #f6f6f6);
-              background-color: #fff;
-              color: #000;
-              opacity: .9;
+              &.selected .front {
+                animation: hideBlack 300ms 1 forwards;
+              }
+              .front {
+                opacity: 0;
+              }
+              transform: rotateY(180deg);
+              transition: none;
             }
             &.selected {
+              transition: transform 300ms;
               opacity: 1;
               animation: riff 300ms 1;
             }
@@ -102,11 +127,28 @@
       }
     }
   }
-
 }
 
 @keyframes riff {
   50% {
     transform: scale(1.2);
+  }
+}
+
+@keyframes hideBlack {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes showBlack {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
