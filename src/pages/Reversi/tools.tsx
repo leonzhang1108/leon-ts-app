@@ -25,9 +25,7 @@ const check = ({ x, y, checkerboard, player, direction }) => {
   x += dx
   y += dy
   while (x >= 0 && x <= borderMax && y >= 0 && y <= borderMax) {
-    if (checkerboard[x][y] === statusMap.empty || result === 2) {
-      break
-    }
+    if (checkerboard[x][y] === statusMap.empty || result === 2) { break }
     if (checkerboard[x][y] === click) {
       result++
       click = !player ? statusMap.black : statusMap.white
@@ -65,9 +63,6 @@ export default {
         }
       }
     })
-    return {
-      c: checkerboard,
-      r: reverse
-    }
+    return { c: checkerboard, r: reverse }
   }
 }

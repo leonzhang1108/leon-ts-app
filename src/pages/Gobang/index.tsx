@@ -91,8 +91,7 @@ class Gobang extends React.Component<IProps, IState> {
     if (isWin) {
       Modal.info({
         title: 'Victory',
-        content: `${state === 2 ? '黑' : '白'}胜`,
-        onOk: this.reset
+        content: `${state === 2 ? 'black' : 'white'} wins`
       })
     }
     return isWin

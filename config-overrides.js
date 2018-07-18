@@ -18,13 +18,16 @@ module.exports = function override(config, env) {
       before: [ tsImportPluginFactory({
         libraryDirectory: 'es',
         libraryName: 'antd',
-        style: 'css',
+        style: true,
       }) ]
     })
   }
 
+  // 修改基础样式
   config = rewireLess.withLoaderOptions({
-    modifyVars: { "@primary-color": "#1DA57A" },
+    // modifyVars: { 
+    //   "@primary-color": "#1DA57A" 
+    // },
   })(config, env)  
 
   return config
