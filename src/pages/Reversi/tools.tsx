@@ -40,40 +40,9 @@ const check = ({ x, y, checkerboard, player, direction }) => {
   return result === 2
 }
 
-const couldRight = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[0] })
-
-const couldLeft = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[1] })
-
-const couldTop = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[2] })
-
-const couldBottom = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[3] })
-
-const couldTopLeft = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[4] })
-
-const couldTopRight = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[5] })
-
-const couldBottomLeft = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[6] })
-
-const couldBottomRight = ({ x, y, checkerboard, player }) => 
-  check({ x, y, checkerboard, player, direction: directionMap[7] })
-
 export default {
   couldClick: ({ x, y, checkerboard, player }) => 
-    couldRight({ x, y, checkerboard, player })
-    || couldLeft({ x, y, checkerboard, player })
-    || couldTop({ x, y, checkerboard, player })
-    || couldBottom({ x, y, checkerboard, player })
-    || couldTopLeft({ x, y, checkerboard, player })
-    || couldTopRight({ x, y, checkerboard, player })
-    || couldBottomLeft({ x, y, checkerboard, player })
-    || couldBottomRight({ x, y, checkerboard, player }),
+    directionMap.some(direction => check({ x, y, checkerboard, player, direction })),
 
   clickToCover: ({ x, y, checkerboard, player }) => {
     const reverse: IReverse[] = []
