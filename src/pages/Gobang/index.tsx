@@ -239,8 +239,11 @@ class Gobang extends React.Component<IProps, IState> {
           </tbody>
         </table>
         <div className='button-wrapper'>
+          <Button type="primary" disabled={positions.length === 0} onClick={this.reset}>
+            Reset
+          </Button>
           <Button type="primary" onClick={this.toggleShowNumber}>
-            { showNumber ? 'hide number' : 'show number'}
+            { showNumber ? 'Hide steps' : 'Show steps'}
           </Button>
           <Button type="primary" disabled={positions.length === 0} onClick={this.retract}>
             Retract

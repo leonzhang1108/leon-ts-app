@@ -147,6 +147,9 @@ class Reversi extends React.Component<IProps, IState> {
           </table>
         </div>
         <div className='reversi-bottom'>
+          <Button type="primary" disabled={history.length === 0} onClick={this.reset}>
+            Reset
+          </Button>
           <div className={className}/>
           <Button type="primary" disabled={history.length === 0} onClick={this.retract}>
             Retract
