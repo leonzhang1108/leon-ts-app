@@ -22,7 +22,7 @@ class Gobang extends React.Component<IProps, IState> {
   }
 
   reset = () => {
-    const size = !this.props.isMobile ? 11 : 3
+    const size = !this.props.isMobile ? 15 : 3
     const renju = !this.props.isMobile ? 5 : 3
     this.setState({
       size, renju,
@@ -77,8 +77,7 @@ class Gobang extends React.Component<IProps, IState> {
     if (size * size === step) {
       Modal.info({
         title: 'Peace',
-        content: `和`,
-        onOk: this.reset
+        content: `和`
       })
     }
   }

@@ -136,10 +136,11 @@ class Reversi extends React.Component<IProps, IState> {
 
   render() {
     const { checkerboard, step, history } = this.state
-    const className = step % 2 === 1 ? 'current white' : 'current black'
+    const { isMobile } = this.props
+    const className = step % 2 === 1 ? ['current', 'white'] : ['current', 'black']
     return (
       <div className='reversi-wrapper'>
-        <div className='checkerboard'>
+        <div className={ isMobile ? 'checkerboard' : 'checkerboard bigger' }>
           <table>
             <tbody>
               {checkerboard.map(this.renderRow)}
@@ -150,7 +151,7 @@ class Reversi extends React.Component<IProps, IState> {
           <Button type="primary" disabled={history.length === 0} onClick={this.reset}>
             Reset
           </Button>
-          <div className={className}/>
+          <div className={ isMobile ? className.join(' ') : className.concat('bigger').join(' ') } />
           <Button type="primary" disabled={history.length === 0} onClick={this.retract}>
             Retract
           </Button>
