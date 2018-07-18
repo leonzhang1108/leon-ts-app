@@ -13,6 +13,11 @@ const statusMap = {
 
 const borderMax = 7
 
+interface IReverse {
+  x: number,
+  y: number
+}
+
 const check = ({ x, y, checkerboard, player, direction }) => {
   const [ dx, dy ] = direction
   let result = 0
@@ -59,7 +64,6 @@ const couldBottomLeft = ({ x, y, checkerboard, player }) =>
 const couldBottomRight = ({ x, y, checkerboard, player }) => 
   check({ x, y, checkerboard, player, direction: directionMap[7] })
 
-
 export default {
   couldClick: ({ x, y, checkerboard, player }) => 
     couldRight({ x, y, checkerboard, player })
@@ -72,13 +76,13 @@ export default {
     || couldBottomRight({ x, y, checkerboard, player }),
 
   clickToCover: ({ x, y, checkerboard, player }) => {
+    const reverse: IReverse[] = []
     directionMap.forEach(direction => {
       const [dx, dy] = direction
       let cx = x 
       let cy = y
       cx += dx
       cy += dy
-
       if (check({ x, y, checkerboard, player, direction })) {
         while (cx >= 0 && cx <= borderMax && cy >= 0 && cy <= borderMax) {
           if (checkerboard[cx][cy] === statusMap.empty 
@@ -86,11 +90,15 @@ export default {
             break
           }
           checkerboard[cx][cy] = player ? statusMap.white : statusMap.black
+          reverse.push({ x: cx, y: cy })
           cx += dx
           cy += dy
         }
       }
     })
-    return checkerboard
+    return {
+      c: checkerboard,
+      r: reverse
+    }
   }
 }

@@ -2,6 +2,7 @@ import * as React from 'react'
 import Tools from './tools'
 import './index.less'
 import Utils from '@utils'
+import { Button } from 'antd'
 
 interface IProps {
   isMobile: boolean
@@ -69,15 +70,31 @@ class Reversi extends React.Component<IProps, IState> {
   }
 
   itemClick = ({ rowIndex: x, itemIndex: y }) => {
-    const { checkerboard, step } = this.state
-    if (checkerboard[x][y] === statusMap.empty && this.couldClick({ x, y })) {
-      const { black, white } = statusMap
+    const { checkerboard, step, history } = this.state
+    const { black, white } = statusMap
+    if (checkerboard[x][y] !== black && checkerboard[x][y] !== white && this.couldClick({ x, y })) {
       checkerboard[x][y] = step % 2 === 0 ? black : white
+      const { c, r } = Tools.clickToCover({ x, y, checkerboard, player: step % 2 })
+      history.push({ curr: { x, y }, reverse: r })
       this.setState({ 
-        checkerboard: Tools.clickToCover({ x, y, checkerboard, player: step % 2 }), 
-        step: step + 1 
+        checkerboard: c, 
+        step: history.length,
+        history
       })
     }
+  }
+
+  retract = () => {
+    const { history, checkerboard } = this.state
+    const { curr, reverse } = history.pop()
+    const { x, y } = curr
+    const { empty, black, white } = statusMap
+    checkerboard[x][y] = empty
+    reverse.forEach(r => {
+      checkerboard[r.x][r.y] = checkerboard[r.x][r.y] === white ? black : white
+    })
+
+    this.setState({ history, step: history.length, checkerboard })
   }
 
   renderItem = (item, rowIndex, itemIndex) => {
@@ -118,7 +135,7 @@ class Reversi extends React.Component<IProps, IState> {
   )
 
   render() {
-    const { checkerboard, step } = this.state
+    const { checkerboard, step, history } = this.state
     const className = step % 2 === 1 ? 'current white' : 'current black'
     return (
       <div className='reversi-wrapper'>
@@ -129,7 +146,12 @@ class Reversi extends React.Component<IProps, IState> {
             </tbody>
           </table>
         </div>
-        <div className={className}/>
+        <div className='reversi-bottom'>
+          <div className={className}/>
+          <Button type="primary" disabled={history.length === 0} onClick={this.retract}>
+            Retract
+          </Button>
+        </div>
       </div>
     )
   }

@@ -1,3 +1,4 @@
+@backgroundColor: #dcdcdc;
 .reversi-wrapper {
   width: 100%;
   display: flex;
@@ -5,12 +6,12 @@
   align-items: center;
   flex-direction: column;
   .checkerboard {
-    border: 1.5rem solid #f0f2f5;
+    border: 1.5rem solid @backgroundColor;
     border-radius: 1rem;
     table {
-      background-color: #f0f2f5;
+      background-color: @backgroundColor;
       z-index: 1;
-      box-shadow: #f0f2f5 0px 0px 100px;
+      box-shadow: @backgroundColor 0px 0px 100px;
       .row {
         .item {
           width: 2rem;
@@ -27,48 +28,66 @@
             border-radius: 50%;
             font-weight: bold;
             box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+            transition: background-color 300ms;
             &.black {
-              background-image: linear-gradient(180deg, #555, #000);
+              // background-image: linear-gradient(180deg, #555, #000);
+              background-color: #000;
               color: #fff;
               opacity: .9;
             }
             &.white {
-              background-image: linear-gradient(180deg, #fff, #f6f6f6);
+              // background-image: linear-gradient(180deg, #fff, #f6f6f6);
+              background-color: #fff;
               color: #000;
               opacity: .9;
             }
             &.selected {
               opacity: 1;
+              animation: riff 300ms 1;
             }
           }
         }
       }
     }
   }
-  .current {
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 2px solid #000;
+  .reversi-bottom {
     display: flex;
+    justify-content: center;
     align-items: center;
-    background-color: #c7c7c7;
-    &:before {
-      content: '';
-      height: 1.5rem;
-      width: 1.5rem;
-      border-radius: 50%;
-      display: block;
-      line-height: 1.5rem;
-      margin: 0 auto;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+    margin-top: 1rem;
+    .current {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      background-color: @backgroundColor;
+      margin-right: 3rem;
+      &:before {
+        content: '';
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 50%;
+        display: block;
+        line-height: 1.5rem;
+        margin: 0 auto;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+      }
+      &.black:before {
+        background-image: linear-gradient(180deg, #555, #000);
+        color: #fff;
+      }
+      &.white:before {
+        background-image: linear-gradient(180deg, #fff, #f6f6f6);
+        color: #000;
+      }
     }
-    &.black:before {
-      background-image: linear-gradient(180deg, #555, #000);
-      color: #fff;
-    }
-    &.white:before {
-      background-image: linear-gradient(180deg, #fff, #f6f6f6);
-      color: #000;
-    }
+  }
+
+}
+
+@keyframes riff {
+  50% {
+    transform: scale(1.2);
   }
 }
