@@ -137,12 +137,30 @@ class Reversi extends React.Component<IProps, IState> {
     </tr>
   )
 
+  getScore = () => {
+    const { checkerboard } = this.state
+    let black = 0
+    let white = 0
+    checkerboard.forEach(row => {
+      row.forEach(item => {
+        if (item === statusMap.black) { black++ }
+        if (item === statusMap.white) { white++ }
+      })
+    })
+    return { black, white }
+  }
+
   render() {
     const { checkerboard, step, history } = this.state
     const { isMobile } = this.props
     const className = step % 2 === 1 ? ['current', 'white'] : ['current', 'black']
+    const { black, white } = this.getScore()
     return (
       <div className='reversi-wrapper'>
+        <div className='reversi-top'>
+          <div className={`top black ${isMobile ? '' : 'bigger'}`}>{black}</div>
+          <div className={`top white ${isMobile ? '' : 'bigger'}`}>{white}</div>
+        </div>
         <div className={ isMobile ? 'checkerboard' : 'checkerboard bigger' }>
           <table>
             <tbody>
