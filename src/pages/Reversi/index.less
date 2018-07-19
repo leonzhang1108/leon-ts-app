@@ -11,14 +11,16 @@
     .top {
       width: 2.5rem;
       height: 2.5rem;
-      border: 2px solid #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: @backgroundColor;
       margin: 0 1.5rem;
       position: relative;
       z-index: 1;
+      transition: transform 300ms;
+      &.current {
+        transform: scale(1.2);
+      }
       &.bigger {
         width: 3.5rem;
         height: 3.5rem;
@@ -103,9 +105,12 @@
                   animation: hide 300ms 1 forwards;
                 }
               }
-              transition: none;
             }
             &.white {
+              transform: rotateY(180deg);
+              .front {
+                opacity: 0;
+              }
               &.selected {
                 .front {
                   animation: hide 300ms 1 forwards;
@@ -114,19 +119,11 @@
                   animation: show 300ms 1 forwards;
                 }
               }
-              .front {
-                opacity: 0;
-              }
-              transform: rotateY(180deg);
-              transition: none;
             }
             &.selected {
               transition: transform 300ms;
-              animation: scale 300ms 1;
+              animation: showMove 300ms 1;
               cursor: inherit;
-              .front, .back {
-                opacity: 1;
-              }
             }
           }
         }
@@ -149,40 +146,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
-    .current {
-      width: 2.5rem;
-      height: 2.5rem;
-      border: 2px solid #000;
-      display: flex;
-      align-items: center;
-      background-color: @backgroundColor;
-      margin: 0 1.5rem;
-      &.bigger {
-        width: 3.5rem;
-        height: 3.5rem;
-        &:before {
-          height: 2.4rem;
-          width: 2.4rem;
-        }
-      }
-      &:before {
-        content: '';
-        height: 1.5rem;
-        width: 1.5rem;
-        border-radius: 50%;
-        display: block;
-        line-height: 1.5rem;
-        margin: 0 auto;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
-      }
-      &.black:before {
-        background-image: linear-gradient(180deg, #555, #000);
-        color: #fff;
-      }
-      &.white:before {
-        background-image: linear-gradient(180deg, #fff, #f6f6f6);
-        color: #000;
-      }
+    button {
+      margin: 0 1rem;
     }
   }
 }
