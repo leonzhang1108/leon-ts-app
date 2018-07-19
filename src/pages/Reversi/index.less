@@ -79,13 +79,13 @@
               width: 100%;
               line-height: 100%;
               box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
-              opacity: .9;
+              opacity: .7;
+              animation: scale 500ms infinite;
               &.front {
                 background-color: #000;
                 color: #fff;
                 position: absolute;
                 z-index: 1;
-                opacity: 1;
               }
               &.back {
                 background-color: #fff;
@@ -124,6 +124,9 @@
               transition: transform 300ms;
               animation: scale 300ms 1;
               cursor: inherit;
+              .front, .back {
+                opacity: 1;
+              }
             }
           }
         }
