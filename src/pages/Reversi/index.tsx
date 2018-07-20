@@ -54,7 +54,6 @@ class Reversi extends React.Component<IProps, IState> {
       size: this.flatten(checkerboard).length
     }
   }
-
   
   flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? this.flatten(b) : b), [])
 
@@ -95,7 +94,6 @@ class Reversi extends React.Component<IProps, IState> {
       })
     }
   }
-
   
   pass = () => {
     const { history } = this.state
@@ -117,7 +115,6 @@ class Reversi extends React.Component<IProps, IState> {
         checkerboard[r.x][r.y] = checkerboard[r.x][r.y] === white ? black : white
       })
     }
-    
 
     this.setState({ history, step: history.length, checkerboard })
   }
@@ -166,12 +163,10 @@ class Reversi extends React.Component<IProps, IState> {
     const { checkerboard } = this.state
     let black = 0
     let white = 0
-    checkerboard.forEach(row => {
-      row.forEach(item => {
-        if (item === statusMap.black) { black++ }
-        if (item === statusMap.white) { white++ }
-      })
-    })
+    checkerboard.forEach(row => row.forEach(item => {
+      if (item === statusMap.black) { black++ }
+      if (item === statusMap.white) { white++ }
+    }))
     return { black, white }
   }
 
@@ -190,7 +185,7 @@ class Reversi extends React.Component<IProps, IState> {
         content = 'nobody win and nobody lose'
       }
     } else if (!black || !white) {
-      if (black ) {
+      if (black) {
         title = 'Victory'
         content = 'black wins'
       } else if (white) {
