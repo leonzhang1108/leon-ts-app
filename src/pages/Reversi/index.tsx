@@ -2,7 +2,7 @@ import * as React from 'react'
 import Tools from './tools'
 import './index.less'
 import Utils from '@utils'
-import { Button } from 'antd'
+import { Button, Modal } from 'antd'
 
 interface IProps {
   isMobile: boolean
@@ -11,7 +11,8 @@ interface IProps {
 interface IState {
   checkerboard: any[][],
   step: number,
-  history: any[]
+  history: any[],
+  size: number
 }
 
 const statusMap = {
@@ -28,23 +29,34 @@ class Reversi extends React.Component<IProps, IState> {
   }
 
   reset = () => {
+    const { checkerboard, size } = this.initCheckerboard()
     this.setState({
-      checkerboard: this.initCheckerboard(),
+      checkerboard,
       history: [],
-      step: 0
+      step: 0,
+      size
     })
   }
 
-  initCheckerboard = () => [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-  ]
+  initCheckerboard = () => {
+    const checkerboard = [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 1, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+    ]
+    return {
+      checkerboard,
+      size: this.flatten(checkerboard).length
+    }
+  }
+
+  
+  flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? this.flatten(b) : b), [])
 
   couldClick = ({ x, y }) => {
     const { checkerboard, step } = this.state
@@ -84,15 +96,28 @@ class Reversi extends React.Component<IProps, IState> {
     }
   }
 
+  
+  pass = () => {
+    const { history } = this.state
+    history.push({})
+    this.setState({
+      step: history.length,
+      history
+    })
+  }
+
   retract = () => {
     const { history, checkerboard } = this.state
     const { curr, reverse } = history.pop()
-    const { x, y } = curr
-    const { empty, black, white } = statusMap
-    checkerboard[x][y] = empty
-    reverse.forEach(r => {
-      checkerboard[r.x][r.y] = checkerboard[r.x][r.y] === white ? black : white
-    })
+    if (curr) {
+      const { x, y } = curr
+      const { empty, black, white } = statusMap
+      checkerboard[x][y] = empty
+      reverse.forEach(r => {
+        checkerboard[r.x][r.y] = checkerboard[r.x][r.y] === white ? black : white
+      })
+    }
+    
 
     this.setState({ history, step: history.length, checkerboard })
   }
@@ -150,10 +175,39 @@ class Reversi extends React.Component<IProps, IState> {
     return { black, white }
   }
 
+  isWin = ({ black, white, size }) => {
+    let title = ''
+    let content 
+    if (black + white === size) {
+      if (black > white) {
+        title = 'Victory'
+        content = 'black wins'
+      } else if (black < white) {
+        title = 'Victory'
+        content = 'white wins'
+      } else {
+        title = 'Peace'
+        content = 'nobody win and nobody lose'
+      }
+    } else if (!black || !white) {
+      if (black ) {
+        title = 'Victory'
+        content = 'black wins'
+      } else if (white) {
+        title = 'Victory'
+        content = 'white wins'
+      }
+    }
+
+    if (title && content) { Modal.info({ title, content }) }
+  }
+
   render() {
-    const { checkerboard, history, step } = this.state
+    const { checkerboard, history, step, size } = this.state
     const { isMobile } = this.props
     const { black, white } = this.getScore()
+    const disablePass = black + white === size || (history.length && Object.keys(history[history.length - 1]).length === 0)
+    this.isWin({ black, white, size })
     return (
       <div className='reversi-wrapper'>
         <div className='reversi-top'>
@@ -171,6 +225,9 @@ class Reversi extends React.Component<IProps, IState> {
           <Button type="primary" disabled={history.length === 0} onClick={this.reset}>
             Reset
           </Button>
+          <Button type="primary" disabled={disablePass} onClick={this.pass}>
+            Pass
+          </Button>
           <Button type="primary" disabled={history.length === 0} onClick={this.retract}>
             Retract
           </Button>
@@ -184,5 +241,5 @@ export default Utils.connect({
   component: Reversi,
   mapStateToProps: state => ({
     isMobile: state.common.isMobile
-  }),
+  })
 })
