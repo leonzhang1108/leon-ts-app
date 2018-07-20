@@ -41,7 +41,6 @@
 }
 
 @keyframes scale {
-
   50% {
     transform: scale(1.2);
   }
@@ -52,12 +51,20 @@
 
 @keyframes showMove {
   0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes showMoveAndScale {
+  0% {
     transform: scale(0);
     opacity: 0;
   }
   50% {
     transform: scale(1.2);
-    opacity: .5;
   }
   100% {
     transform: scale(1);
