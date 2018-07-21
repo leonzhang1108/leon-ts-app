@@ -26,7 +26,7 @@ class Gobang extends React.Component<IProps, IState> {
     const renju = !this.props.isMobile ? 5 : 3
     this.setState({
       size, renju,
-      showNumber: true,
+      showNumber: false,
       step: 0,
       positions: [],
       checkerboard: this.calculateCheckerboard(size)

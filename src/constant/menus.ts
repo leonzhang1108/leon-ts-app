@@ -46,6 +46,10 @@ export default [{
     route: 'reversi',
     icon: 'ts-app icon-reversi',
     title: 'Reversi'
+  }, {
+    route: '2048',
+    icon: 'ts-app icon-2048',
+    title: '2048'
   }]
 }, {
   route: 'the-fuck-is-that',

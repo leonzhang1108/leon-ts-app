@@ -1,4 +1,5 @@
 @backgroundColor: #dcdcdc;
+@animationTime: 300ms;
 .reversi-wrapper {
   width: 100%;
   display: flex;
@@ -17,7 +18,7 @@
       margin: 0 1.5rem;
       position: relative;
       z-index: 1;
-      transition: transform 300ms;
+      transition: transform @animationTime;
       &.current {
         transform: scale(1.2);
       }
@@ -99,10 +100,10 @@
             &.black {
               &.selected {
                 .front {
-                  animation: show 300ms 1 forwards;
+                  animation: show @animationTime 1 forwards;
                 }
                 .back {
-                  animation: hide 300ms 1 forwards;
+                  animation: hide @animationTime 1 forwards;
                 }
               }
             }
@@ -113,16 +114,16 @@
               }
               &.selected {
                 .front {
-                  animation: hide 300ms 1 forwards;
+                  animation: hide @animationTime 1 forwards;
                 }
                 .back {
-                  animation: show 300ms 1 forwards;
+                  animation: show @animationTime 1 forwards;
                 }
               }
             }
             &.selected {
-              transition: transform 300ms;
-              animation: showMove 300ms 1;
+              transition: transform @animationTime;
+              animation: showMove @animationTime 1;
               cursor: inherit;
             }
           }

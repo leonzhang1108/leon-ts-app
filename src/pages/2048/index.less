@@ -1,0 +1,102 @@
+@space: .7rem;
+@size: 6rem;
+@step: @space + @size;
+@smallSpace: .5rem;
+@smallSize: 4rem;
+@smallStep: @smallSpace + @smallSize;
+
+
+.game2048-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  .game2048-container {
+    margin: 0 auto;
+    padding: @space;
+    background-color: #bbada0;
+    border-radius: 6px;
+    position: relative;
+    .grid {
+      .row {
+        display: flex;
+        &:not(:last-child) {
+          margin-bottom: @space;
+        }
+        .item {
+          width: @size;
+          height: @size;
+          background-color: rgba(238, 228, 218, 0.35);
+          border-radius: 3px;
+          &:not(:last-child) {
+            margin-right: @space;
+          }
+        }
+      }
+    }
+    .piece-contanier {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: @space;
+      .piece-position(4);
+      .piece {
+        width: @size;
+        height: @size;
+        border-radius: 3px;
+        background-color: #eee4da;
+        transition: transform .1s;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .game2048-wrapper .game2048-container  {
+    padding: @smallSpace;
+    .grid .row {
+      &:not(:last-child) {
+        margin-bottom: @smallSpace;
+      }
+      .item {
+        width: @smallSize;
+        height: @smallSize;
+        &:not(:last-child) {
+          margin-right: @smallSpace;
+        }
+      }
+    }
+    .piece-contanier {
+      padding: @smallSpace;
+      .piece-position-mobile(4);
+      .piece {
+        width: @smallSize;
+        height: @smallSize;
+      }
+    }
+  }
+}
+
+.piece-position (@n, @i:0) when (@i < 4) {
+  .piece-position-item(@i);
+  .piece-position(@n, @i + 1)
+}
+
+.piece-position-item(@n, @i:0) when (@i < 4)  {
+  .piece-position-@{n}-@{i} {
+    transform: translate((@step * @n), (@step * @i));
+  }
+  .piece-position-item(@n, @i + 1)
+}
+
+.piece-position-mobile (@n, @i:0) when (@i < 4) {
+  .piece-position-item-mobile(@i);
+  .piece-position-mobile(@n, @i + 1)
+}
+
+.piece-position-item-mobile(@n, @i:0) when (@i < 4)  {
+  .piece-position-@{n}-@{i} {
+    transform: translate((@smallStep * @n), (@smallStep * @i));
+  }
+  .piece-position-item-mobile(@n, @i + 1)
+}

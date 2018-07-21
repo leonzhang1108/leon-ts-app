@@ -1,12 +1,17 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import Utils from '@utils'
 import './index.less'
 import Vector1 from './Vector1'
 import Vector2 from './Vector2'
 import Vector2Display from './Vector2Display'
 import Vector3 from './Vector3'
 import { Button } from 'antd'
+
+interface IProps {
+  isMobile: boolean
+}
 
 interface IMatrixState { 
   [x: number]: any,
@@ -38,7 +43,7 @@ interface IMatrixState {
   }
 }
 
-class Matrix extends React.Component<{}, IMatrixState> {
+class Matrix extends React.Component<IProps, IMatrixState> {
 
   dom
   dom2
@@ -56,8 +61,8 @@ class Matrix extends React.Component<{}, IMatrixState> {
       step: 0,
       level: 0, 
       editable: true,
-      v1: [[1]],
-      v2: [[1]],
+      v1: this.getMatrix(),
+      v2: this.getMatrix(),
       v3: undefined,
       v3Hilight: undefined,
       top: 0,
@@ -79,6 +84,19 @@ class Matrix extends React.Component<{}, IMatrixState> {
         v1, v2
       })
     }
+  }
+
+  getMatrix = () => {
+    const size = this.props.isMobile ? 1 : 6
+    const result: any[][] = []
+    for(let i = 0; i < size; i++) {
+      const row: any[] = []
+      for(let j = 0; j < size; j++) {
+        row.push(1)
+      }
+      result.push(row)
+    }
+    return result
   }
 
   onInput = e => {
@@ -178,17 +196,16 @@ class Matrix extends React.Component<{}, IMatrixState> {
         }, 600)
       }
     })
-    
   }
 
   doMultiply = () => {
     const dom = ReactDOM.findDOMNode(this.dom) as HTMLElement
+    const dom2 = ReactDOM.findDOMNode(this.dom2) as HTMLElement
+    const span = ReactDOM.findDOMNode(this.span) as HTMLElement
     const height1 = dom.offsetHeight
     const width1 = dom.offsetWidth
-    const dom2 = ReactDOM.findDOMNode(this.dom2) as HTMLElement
     const height2 = dom2.offsetHeight
     const width2 = dom2.offsetWidth
-    const span = ReactDOM.findDOMNode(this.span) as HTMLElement
     const spanWidth = span.offsetWidth
 
     this.setState({
@@ -391,4 +408,9 @@ class Matrix extends React.Component<{}, IMatrixState> {
   }
 }
 
-export default Matrix
+export default Utils.connect({
+  component: Matrix,
+  mapStateToProps: state => ({
+    isMobile: state.common.isMobile
+  })
+})
