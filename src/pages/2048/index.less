@@ -1,10 +1,12 @@
 @space: .7rem;
 @size: 6rem;
 @step: @space + @size;
-@smallSpace: .5rem;
-@smallSize: 4rem;
-@smallStep: @smallSpace + @smallSize;
+@fontSize: 4rem;
 
+@mobileSpace: .5rem;
+@mobileSize: 4rem;
+@mobileStep: @mobileSpace + @mobileSize;
+@mobileFontSize: 3rem;
 
 .game2048-wrapper {
   width: 100%;
@@ -45,7 +47,16 @@
         height: @size;
         border-radius: 3px;
         background-color: #eee4da;
-        transition: transform .1s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform .3s;
+        position: absolute;
+        .item {
+          animation: showFromNothing 300ms 1;
+          font-weight: bold;
+          font-size: @fontSize;
+        }
       }
     }
   }
@@ -53,25 +64,29 @@
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .game2048-wrapper .game2048-container  {
-    padding: @smallSpace;
+    padding: @mobileSpace;
     .grid .row {
       &:not(:last-child) {
-        margin-bottom: @smallSpace;
+        margin-bottom: @mobileSpace;
       }
       .item {
-        width: @smallSize;
-        height: @smallSize;
+        width: @mobileSize;
+        height: @mobileSize;
         &:not(:last-child) {
-          margin-right: @smallSpace;
+          margin-right: @mobileSpace;
         }
       }
     }
     .piece-contanier {
-      padding: @smallSpace;
+      padding: @mobileSpace;
       .piece-position-mobile(4);
       .piece {
-        width: @smallSize;
-        height: @smallSize;
+        width: @mobileSize;
+        height: @mobileSize;
+        .item {
+          font-weight: bold;
+          font-size: @mobileFontSize;
+        }
       }
     }
   }
@@ -96,7 +111,7 @@
 
 .piece-position-item-mobile(@n, @i:0) when (@i < 4)  {
   .piece-position-@{n}-@{i} {
-    transform: translate((@smallStep * @n), (@smallStep * @i));
+    transform: translate((@mobileStep * @n), (@mobileStep * @i));
   }
   .piece-position-item-mobile(@n, @i + 1)
 }

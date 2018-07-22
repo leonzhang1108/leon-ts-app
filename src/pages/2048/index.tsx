@@ -1,5 +1,7 @@
 import * as React from 'react'
 import './index.less'
+import Utils from '@utils'
+import Tools from './tools'
 
 const keyCode = {
   left: 37,
@@ -8,10 +10,15 @@ const keyCode = {
   down: 40
 }
 
-interface IState {
-  size: number,
+interface IPiece {
   x: number,
   y: number,
+  v: number
+}
+
+interface IState {
+  size: number,
+  pieces: IPiece[],
   cached: {
     x: number,
     y: number
@@ -24,13 +31,25 @@ interface IProp {
 
 class Page2048 extends React.Component<IProp, IState> {
 
-  grid
+  gameContainer
 
   componentWillMount() {
+
+    // const origin = []
+    // this.addRandom(origin)
+    // this.addRandom(origin)
+
     this.setState({
       size: 4,
-      x: 0,
-      y: 0,
+      pieces: [{
+        x: 0,
+        y: 0,
+        v: 2
+      }, {
+        x: 1,
+        y: 0,
+        v: 2
+      }],
       cached: {
         x: 0,
         y: 0
@@ -41,9 +60,16 @@ class Page2048 extends React.Component<IProp, IState> {
   }
 
   componentDidMount() {
-    this.grid.addEventListener('touchstart', this.touchstart)
-    this.grid.addEventListener('touchmove', this.touchmove)
-    this.grid.addEventListener('touchend', this.touchend)
+    this.gameContainer.addEventListener('touchstart', this.touchstart)
+    this.gameContainer.addEventListener('touchmove', this.touchmove)
+    this.gameContainer.addEventListener('touchend', this.touchend)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.keydown)
+    this.gameContainer.removeEventListener('touchstart', this.touchstart)
+    this.gameContainer.removeEventListener('touchmove', this.touchmove)
+    this.gameContainer.removeEventListener('touchend', this.touchend)
   }
 
   touchstart = e => {
@@ -51,50 +77,66 @@ class Page2048 extends React.Component<IProp, IState> {
     this.setState({ cached: { x: pageX, y: pageY }})
   }
 
-  touchmove = e => e.stopPropagation()
+  touchmove = e => e.preventDefault()
 
   touchend = e => {
     const { x: sx, y: sy } = this.state.cached
     const { pageX : ex, pageY: ey } = e.changedTouches[0]
-    let { x, y } = this.state
-    
+    let code = 0
     if (Math.abs(sx - ex) > Math.abs(sy - ey)) {
-      x = sx - ex > 0 ? 0 : 3
+      code = sx - ex > 0 ? keyCode.left : keyCode.right
+    } else if (Math.abs(sx - ex) < Math.abs(sy - ey)) {
+      code = sy - ey > 0 ? keyCode.up : keyCode.down
     } else {
-      y = sy - ey > 0 ? 0 : 3
+      return
     }
-    this.setState({ x, y })
+    this.doMove(code)
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown',this.keydown)
-    this.grid.removeEventListener('touchstart', this.touchstart)
-    this.grid.removeEventListener('touchmove', this.touchmove)
-    this.grid.removeEventListener('touchend', this.touchend)
-  }
+  keydown = e => this.doMove(e.keyCode)
 
-  keydown = e => {
-    console.log('f')
-    let { x, y } = this.state
-    switch(e.keyCode) {
+  doMove = code => {
+    const { pieces } = this.state
+    let p: IPiece[] = pieces
+    switch(code) {
       case keyCode.up:
-        y = 0
+        const { p: up, changed: uc } = Tools.moveUp(pieces)
+        if (uc) { p = this.addRandom(up) }
         break
       case keyCode.down:
-        y = 3
+        const { p: dp, changed: dc } = Tools.moveDown(pieces)
+        if (dc) { p = this.addRandom(dp) }
         break
       case keyCode.left:
-        x = 0
+        const { p: lp, changed: lc } = Tools.moveLeft(pieces)
+        if (lc) { p = this.addRandom(lp) }
         break
       case keyCode.right:
-        x = 3
+        const { p: rp, changed: rc } = Tools.moveRight(pieces)
+        if (rc) { p = this.addRandom(rp) }
         break
     }
-
-    this.setState({ x, y })
+    this.setState({ pieces: p })
   }
 
-  renderGrid = () => new Array(this.state.size).fill(0).map((v1, x) => (
+  addRandom = p => {
+    const i = this.doAddRandom(p)
+    if (i) { p.push(i) }
+    return p
+  }
+
+  doAddRandom = p => {
+    if (p.length === 16) { return null}
+    const x = Utils.random(0, 4)
+    const y = Utils.random(0, 4)
+    return p.some(i => i.x === x && i.y === y)
+      ? this.doAddRandom(p)
+      : { x, y, v: this.get4or2() }
+  }
+
+  get4or2 = () => Math.random() > .7 ? 4 : 2
+
+  renderGrid = () => new Array(this.state.size).fill(null).map((v1, x) => (
     <div className='row' key={x}>
       {
         new Array(this.state.size).fill(null).map((v2, y) => (
@@ -105,15 +147,21 @@ class Page2048 extends React.Component<IProp, IState> {
   ))
 
   render() {
-    const{ x, y } = this.state
+    const{ pieces } = this.state
     return (
       <div className='game2048-wrapper'>
-        <div className='game2048-container'>
-          <div className='grid' ref={dom => this.grid = dom}>
+        <div className='game2048-container' ref={dom => this.gameContainer = dom}>
+          <div className='grid'>
             { this.renderGrid() }
           </div>
           <div className='piece-contanier'>
-            <div className={`piece piece-position-${x}-${y}`} />
+            {
+              pieces.map((item, index) => (
+                <div className={`piece piece-position-${item.x}-${item.y}`} key={index} >
+                  <div className='item'>{item.v}</div>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>

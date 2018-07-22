@@ -77,7 +77,7 @@ class Gobang extends React.Component<IProps, IState> {
     if (size * size === step) {
       Modal.info({
         title: 'Peace',
-        content: `和`
+        content: 'Draw'
       })
     }
   }

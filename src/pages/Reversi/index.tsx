@@ -182,7 +182,7 @@ class Reversi extends React.Component<IProps, IState> {
         content = 'white wins'
       } else {
         title = 'Peace'
-        content = 'nobody win and nobody lose'
+        content = 'Draw'
       }
     } else if (!black || !white) {
       if (black) {
