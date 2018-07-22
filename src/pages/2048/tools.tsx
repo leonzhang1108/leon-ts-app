@@ -1,7 +1,22 @@
 interface IPiece {
   x: number,
   y: number,
-  v: number
+  v: number,
+  merged?: boolean,
+  id: number
+}
+
+const getValue = (x, y, p) => {
+  let res = {
+    v: 0,
+    index: 0
+  }
+  p.some((i, index) => {
+    const same = i.x === x && i.y === y
+    if (same) { res = { v: i.v, index } }
+    return same
+  })
+  return res
 }
 
 export default {
@@ -14,13 +29,29 @@ export default {
         const isOccupied = p.some((i, index) => {
           const occupied = i.x === (x + 1) && i.y === y
           if (i.x === x && i.y === y) { curr = index }
-          if (occupied) { max -- }
+          if (occupied) { max-- }
           return occupied
         })
         if (!isOccupied && curr >= 0) {
           p[curr].x = max
           changed = true
           max--
+        }
+      }
+
+      for (let x = 2; x >= 0; x--) {
+        const { v: currV, index: currIndex } = getValue(x, y, p)
+        const { v: nextV, index: nextIndex } = getValue(x + 1, y, p)
+        if (currV && nextV && currV === nextV) {
+          p[currIndex].x = p[currIndex].x + 1
+          p[currIndex].merged = true
+          p[nextIndex].merged = true
+          for(let v = x - 1; v >= 0; v--) {
+            const { index: i } = getValue(v, y, p)
+            p[i].x = p[i].x < 3 ? p[i].x + 1 : p[i].x
+          }
+          p.push({ x: x + 1, y, v: currV * 2, id: Math.random()})
+          changed = true
         }
       }
     }
@@ -51,7 +82,7 @@ export default {
     let changed = false
     for (let y = 0; y < 4; y++) {
       let min = 0
-      for (let x = 1; x <= 3; x++) {
+      for (let x = 1; x < 4; x++) {
         let curr = -1
         const isOccupied = p.some((i, index) => {
           const occupied = i.x === (x - 1) && i.y === y
@@ -72,7 +103,7 @@ export default {
     let changed = false
     for (let x = 0; x < 4; x++) {
       let min = 0
-      for (let y = 0; y <= 3; y++) {
+      for (let y = 1; y < 4; y++) {
         let curr = -1
         const isOccupied = p.some((i, index) => {
           const occupied = i.x === x && i.y === (y - 1)
