@@ -55,11 +55,14 @@
         justify-content: center;
         align-items: center;
         transition: transform .3s;
+        opacity: 0;
+        animation: fadein .3s ease .1s 1 forwards;
         position: absolute;
         .item {
           display: flex;
           i {
             font-size: @fontSize;
+            color: #555;
           }
         }
         &.piece-2 {
