@@ -2,6 +2,7 @@ import * as React from 'react'
 import './index.less'
 import Utils from '@utils'
 import Tools from './tools'
+import { Button, Icon } from 'antd'
 
 const keyCode = {
   left: 37,
@@ -36,21 +37,19 @@ class Page2048 extends React.Component<IProp, IState> {
   gameContainer
 
   componentWillMount() {
+    this.reset()
+    document.addEventListener('keydown', this.keydown)
+  }
 
+  reset = () => {
     const pieces = []
     this.addRandom(pieces)
     this.addRandom(pieces)
-
     this.setState({
       size: 4,
       pieces,
-      cached: {
-        x: 0,
-        y: 0
-      }
+      cached: { x: 0, y: 0 }
     })
-
-    document.addEventListener('keydown', this.keydown)
   }
 
   componentDidMount() {
@@ -160,11 +159,22 @@ class Page2048 extends React.Component<IProp, IState> {
             {
               pieces.map(item => (
                 <div className={`piece piece-${item.v} piece-position-${item.x}-${item.y} ${item.merged ? 'merged' : ''}`} key={item.id} >
-                  <div className='item'>{item.v}</div>
+                  <div className='item'>
+                    {
+                      item.v === 2048
+                        ? <Icon type="ts-app icon-batman" />
+                        : item.v
+                    }
+                  </div>
                 </div>
               ))
             }
           </div>
+        </div>
+        <div className='btn-container'>
+          <Button type="primary"  onClick={this.reset}>
+            Reset
+          </Button>
         </div>
       </div>
     )

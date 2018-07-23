@@ -16,7 +16,8 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   .game2048-container {
     margin: 0 auto;
     padding: @space;
@@ -55,6 +56,12 @@
         align-items: center;
         transition: transform .3s;
         position: absolute;
+        .item {
+          display: flex;
+          i {
+            font-size: @fontSize;
+          }
+        }
         &.piece-2 {
           color: #776e65;
           background-color: #eee4da;
@@ -150,6 +157,11 @@
       }
     }
   }
+  .btn-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -176,6 +188,9 @@
         .item {
           font-weight: bold;
           font-size: @mobileFontSize;
+          i {
+            font-size: @mobileFontSize;
+          }
         }
       }
     }
