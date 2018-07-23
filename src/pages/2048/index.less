@@ -52,8 +52,11 @@
         align-items: center;
         transition: transform .3s;
         position: absolute;
+        &.merged {
+          animation: fadeout 300ms 1 forwards;
+        }
         .item {
-          animation: showFromNothing 300ms 1;
+          animation: showFromNothing 300ms 1 forwards;
           font-weight: bold;
           font-size: @fontSize;
         }

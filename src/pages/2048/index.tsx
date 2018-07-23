@@ -37,54 +37,13 @@ class Page2048 extends React.Component<IProp, IState> {
 
   componentWillMount() {
 
-    const origin = []
-    this.addRandom(origin)
-    this.addRandom(origin)
+    const pieces = []
+    this.addRandom(pieces)
+    this.addRandom(pieces)
 
-    // {
-    //   x: 0,
-    //   y: 0,
-    //   v: 2,
-    //   id: Math.random()
-    // },{
-    //   x: 0,
-    //   y: 1,
-    //   v: 2,
-    //   id: Math.random()
-    // },{
-    //   x: 0,
-    //   y: 2,
-    //   v: 2,
-    //   id: Math.random()
-    // },{
-    //   x: 0,
-    //   y: 3,
-    //   v: 4,
-    //   id: Math.random()
-    // }
     this.setState({
       size: 4,
-      pieces: [{
-        x: 0,
-        y: 0,
-        v: 2,
-        id: Math.random()
-      },{
-        x: 1,
-        y: 0,
-        v: 2,
-        id: Math.random()
-      },{
-        x: 2,
-        y: 0,
-        v: 2,
-        id: Math.random()
-      },{
-        x: 3,
-        y: 0,
-        v: 4,
-        id: Math.random()
-      }],
+      pieces,
       cached: {
         x: 0,
         y: 0
