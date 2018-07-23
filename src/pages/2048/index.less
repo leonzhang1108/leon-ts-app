@@ -1,12 +1,16 @@
 @space: .7rem;
 @size: 6rem;
 @step: @space + @size;
-@fontSize: 4rem;
+@fontSize: 3rem;
+@fontSizeSmaller: 2rem;
+@fontSizeSmallest: 1.5rem;
 
 @mobileSpace: .5rem;
 @mobileSize: 4rem;
 @mobileStep: @mobileSpace + @mobileSize;
 @mobileFontSize: 3rem;
+
+@animationTime: 300ms;
 
 .game2048-wrapper {
   width: 100%;
@@ -46,19 +50,102 @@
         width: @size;
         height: @size;
         border-radius: 3px;
-        background-color: #eee4da;
         display: flex;
         justify-content: center;
         align-items: center;
         transition: transform .3s;
         position: absolute;
+        &.piece-2 {
+          color: #776e65;
+          background-color: #eee4da;
+          .item {
+            font-size: @fontSize;
+          }
+        }
+        &.piece-4 {
+          color: #776e65;
+          background-color: #ede0c8;
+          .item {
+            font-size: @fontSize;
+          }
+        }
+        &.piece-8 {
+          color: #f9f6f2;
+          background-color: #f2b179;
+          .item {
+            font-size: @fontSize;
+          }
+        }
+        &.piece-16 {
+          color: #f9f6f2;
+          background-color: #f59563;
+          .item {
+            font-size: @fontSize;
+          }
+        }
+        &.piece-32 {
+          color: #f9f6f2;
+          background-color: #f67c5f;
+          .item {
+            font-size: @fontSize;
+          }
+        }
+        &.piece-64 {
+          color: #f9f6f2;
+          background-color: #f65e3b;
+          .item {
+            font-size: @fontSize;
+          }
+        }
+        &.piece-128 {
+          color: #f9f6f2;
+          background-color: #edcf72;
+          .item {
+            font-size: @fontSizeSmaller;
+          }
+        }
+        &.piece-256 {
+          color: #f9f6f2;
+          background-color: #edcc61;
+          .item {
+            font-size: @fontSizeSmaller;
+          }
+        }
+        &.piece-512 {
+          color: #f9f6f2;
+          background-color: #edc850;
+          .item {
+            font-size: @fontSizeSmaller;
+          }
+        }
+        &.piece-1024 {
+          color: #f9f6f2;
+          background-color: #edc53f;
+          .item {
+            font-size: @fontSizeSmallest;
+          }
+        }
+        &.piece-2048 {
+          color: #f9f6f2;
+          background-color: #e4be3d;
+          .item {
+            font-size: @fontSizeSmallest;
+          }
+        }
+        &.piece-4096 {
+          color: #f9f6f2;
+          background-color: #e4b13d;
+          .item {
+            font-size: @fontSizeSmallest;
+          }
+        }
         &.merged {
-          animation: fadeout 300ms 1 forwards;
+          animation: fadeout @animationTime 1 forwards;
+          z-index: 1;
         }
         .item {
-          animation: showFromNothing 300ms 1 forwards;
+          animation: showFromNothing @animationTime 1 forwards;
           font-weight: bold;
-          font-size: @fontSize;
         }
       }
     }

@@ -72,7 +72,6 @@ export default {
           min++
         }
       }
-
       for (let x = 1; x < 4; x++) {
         const { v: currV, index: currIndex } = getValue(x, y, p)
         const { v: nextV, index: nextIndex } = getValue(x - 1, y, p)
@@ -84,7 +83,6 @@ export default {
             const { index: i } = getValue(v, y, p)
             if ( i >= 0) { p[i].x = p[i].x > 0 ? p[i].x - 1 : p[i].x }
           }
-          console.log(x)
           p.push({ x: x - 1, y, v: currV * 2, id: Math.random()})
           changed = true
         }

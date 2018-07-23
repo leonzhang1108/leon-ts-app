@@ -136,7 +136,7 @@ class Page2048 extends React.Component<IProp, IState> {
       : { x, y, v: this.get4or2(), id: Math.random() }
   }
 
-  get4or2 = () => Math.random() > .7 ? 4 : 2
+  get4or2 = () => Math.random() > .9 ? 4 : 2
 
   renderGrid = () => new Array(this.state.size).fill(null).map((v1, x) => (
     <div className='row' key={x}>
@@ -159,7 +159,7 @@ class Page2048 extends React.Component<IProp, IState> {
           <div className='piece-contanier'>
             {
               pieces.map(item => (
-                <div className={`piece piece-position-${item.x}-${item.y} ${item.merged ? 'merged' : ''}`} key={item.id} >
+                <div className={`piece piece-${item.v} piece-position-${item.x}-${item.y} ${item.merged ? 'merged' : ''}`} key={item.id} >
                   <div className='item'>{item.v}</div>
                 </div>
               ))
