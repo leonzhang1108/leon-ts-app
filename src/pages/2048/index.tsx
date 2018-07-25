@@ -45,8 +45,8 @@ class Page2048 extends React.Component<IProp, IState> {
   reset = (pieces?) => {
     if (!pieces) {
       pieces = []
-      this.addRandom(pieces)
-      this.addRandom(pieces)
+      this.addRandom(pieces, true)
+      this.addRandom(pieces, true)
       storage.set('pieces', null)
     }
     
@@ -125,10 +125,16 @@ class Page2048 extends React.Component<IProp, IState> {
     })
   }
 
-  addRandom = p => {
+  addRandom = (p, isReset?) => {
+    if (!isReset) { 
+      setTimeout(() => {
+        this.setStorage(p)
+        console.log(this.isGameOver(p))
+      }, 0) 
+    }
     const i = this.doAddRandom(p)
     if (i) { p.push(i) }
-    this.setStorage(p)
+    
     return p
   }
 
@@ -159,6 +165,16 @@ class Page2048 extends React.Component<IProp, IState> {
       }
     </div>
   ))
+
+  isGameOver = pieces => {
+    const result = true 
+    const { size } = this.state
+    if (pieces.filter(p => !p.merged).length !== size * size) {
+      return false
+    }
+
+    return result
+  }
 
   render() {
     const{ pieces } = this.state
