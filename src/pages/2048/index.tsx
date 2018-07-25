@@ -2,7 +2,8 @@ import * as React from 'react'
 import './index.less'
 import Utils from '@utils'
 import Tools from './tools'
-import { Button, Icon } from 'antd'
+import { Button, Icon, Popconfirm } from 'antd'
+const storage = new Utils.Storage('2048')
 
 const keyCode = {
   left: 37,
@@ -37,14 +38,18 @@ class Page2048 extends React.Component<IProp, IState> {
   gameContainer
 
   componentWillMount() {
-    this.reset()
+    this.reset(storage.get('pieces'))
     document.addEventListener('keydown', this.keydown)
   }
 
-  reset = () => {
-    const pieces = []
-    this.addRandom(pieces)
-    this.addRandom(pieces)
+  reset = (pieces?) => {
+    if (!pieces) {
+      pieces = []
+      this.addRandom(pieces)
+      this.addRandom(pieces)
+      storage.set('pieces', null)
+    }
+    
     this.setState({
       size: 4,
       pieces,
@@ -82,9 +87,9 @@ class Page2048 extends React.Component<IProp, IState> {
     const { x: sx, y: sy } = this.state.cached
     const { pageX : ex, pageY: ey } = e.changedTouches[0]
     let code = 0
-    if (Math.abs(sx - ex) > Math.abs(sy - ey)) {
+    if (Math.abs(sx - ex) > Math.abs(sy - ey) && Math.abs(sx - ex) > 20) {
       code = sx - ex > 0 ? keyCode.left : keyCode.right
-    } else if (Math.abs(sx - ex) < Math.abs(sy - ey)) {
+    } else if (Math.abs(sx - ex) < Math.abs(sy - ey) && Math.abs(sy - ey) > 20) {
       code = sy - ey > 0 ? keyCode.up : keyCode.down
     } else {
       return
@@ -123,7 +128,15 @@ class Page2048 extends React.Component<IProp, IState> {
   addRandom = p => {
     const i = this.doAddRandom(p)
     if (i) { p.push(i) }
+    this.setStorage(p)
     return p
+  }
+
+  setStorage = p => {
+    storage.set('pieces', Utils.clone(p).filter((item, i) => {
+      item.id = i
+      return !item.merged
+    }))
   }
 
   doAddRandom = p => {
@@ -172,9 +185,11 @@ class Page2048 extends React.Component<IProp, IState> {
           </div>
         </div>
         <div className='btn-container'>
-          <Button type="primary"  onClick={this.reset}>
-            Reset
-          </Button>
+          <Popconfirm title="Sure about that?" onConfirm={Utils.handle(this.reset)} okText="Yes" cancelText="No">
+            <Button type="primary" >
+              Reset
+            </Button>
+          </Popconfirm>
         </div>
       </div>
     )
