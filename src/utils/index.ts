@@ -2,10 +2,12 @@ import { connect } from 'react-redux'
 import * as Loadable from 'react-loadable'
 import PageLoading from '@components/PageLoading'
 import menus from '@constant/menus'
-import request from './fetch.js'
+import request from './fetch'
+import Storage from './storage'
 
 export default {
   request,
+  Storage,
   connect: ({
     component,
     mapStateToProps,
