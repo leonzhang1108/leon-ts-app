@@ -167,13 +167,38 @@ class Page2048 extends React.Component<IProp, IState> {
   ))
 
   isGameOver = pieces => {
-    const result = true 
     const { size } = this.state
     if (pieces.filter(p => !p.merged).length !== size * size) {
       return false
     }
 
-    return result
+    const list: number[][] = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ]
+
+    pieces.forEach(({ x, y, v }) => list[x][y] = v)
+
+    return this.canMove(list)
+  }
+
+  canMove = data => {
+    for (let r = 0; r < data.length; r++) {
+      for (let c = 0; c < data[r].length; c++) {
+        if (data[r][c] === 0) {
+          return false
+        } else if (c < data[r].length - 1
+          && data[r][c] === data[r][c + 1]) {
+          return false
+        } else if (r < data.length - 1
+          && data[r][c] === data[r + 1][c]) {
+          return false
+        }
+      }
+    }
+    return true
   }
 
   render() {
