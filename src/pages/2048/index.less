@@ -159,6 +159,20 @@
         }
       }
     }
+    .mask {
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 3rem;
+      border-radius: 6px;
+      transition: opacity .3s;
+      &.hidden {
+        opacity: 0;
+      }
+    }
   }
   .btn-container {
     margin-top: 1rem;

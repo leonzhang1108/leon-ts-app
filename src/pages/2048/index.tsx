@@ -202,7 +202,7 @@ class Page2048 extends React.Component<IProp, IState> {
   }
 
   render() {
-    const{ pieces } = this.state
+    const { pieces } = this.state
     return (
       <div className='game2048-wrapper'>
         <div className='game2048-container' ref={dom => this.gameContainer = dom}>
@@ -223,6 +223,9 @@ class Page2048 extends React.Component<IProp, IState> {
                 </div>
               ))
             }
+          </div>
+          <div className={this.isGameOver(pieces) ? 'mask' : 'mask hidden'}>
+            Game Over
           </div>
         </div>
         <div className='btn-container'>
