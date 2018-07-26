@@ -126,15 +126,9 @@ class Page2048 extends React.Component<IProp, IState> {
   }
 
   addRandom = (p, isReset?) => {
-    if (!isReset) { 
-      setTimeout(() => {
-        this.setStorage(p)
-        console.log(this.isGameOver(p))
-      }, 0) 
-    }
+    if (!isReset) { setTimeout(() => this.setStorage(p), 0) }
     const i = this.doAddRandom(p)
     if (i) { p.push(i) }
-    
     return p
   }
 
