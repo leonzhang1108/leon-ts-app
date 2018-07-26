@@ -50,6 +50,10 @@ export default [{
     route: '2048',
     icon: 'ts-app icon-2048',
     title: '2048'
+  }, {
+    route: 'tetris',
+    icon: 'ts-app icon-tetris',
+    title: 'Tetris'
   }]
 }, {
   route: 'the-fuck-is-that',
