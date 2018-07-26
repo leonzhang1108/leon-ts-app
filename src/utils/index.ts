@@ -47,7 +47,7 @@ export default {
     let last
     return () => {
       clearTimeout(last)
-      last = setTimeout(() => action(), idle)
+      last = setTimeout(action, idle)
     }
   },
 

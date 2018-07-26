@@ -2,7 +2,7 @@
  * @Author: Leon Zhang 
  * @Date: 2018-07-25 15:23:09 
  * @Last Modified by: Leon Zhang
- * @Last Modified time: 2018-07-25 15:32:51
+ * @Last Modified time: 2018-07-26 18:17:35
  */
 class Storage {
   storage = window.localStorage
