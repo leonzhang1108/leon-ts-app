@@ -2,14 +2,12 @@ import Utils from '@utils'
 
 const blockMap = {
   L: [
-    [1, 0],
-    [1, 0],
-    [1, 1]
+    [0, 0, 1],
+    [1, 1, 1]
   ],
   J: [
-    [0, 1],
-    [0, 1],
-    [1, 1]
+    [1, 0, 0],
+    [1, 1, 1]
   ],
   O: [
     [1, 1],
@@ -28,10 +26,7 @@ const blockMap = {
     [1, 1, 0]
   ],
   I: [
-    [1],
-    [1],
-    [1],
-    [1]
+    [1, 1, 1, 1]
   ]
 
 }
@@ -69,6 +64,8 @@ export default {
       length--
       index--
     }
+
+    console.log(y, length)
 
     return { playboard, x }
   }

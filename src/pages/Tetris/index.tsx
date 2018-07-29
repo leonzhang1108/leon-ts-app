@@ -35,7 +35,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: 'I',
+      cBlock: 'L',
       y: 0,
       x: 0
     })
@@ -50,14 +50,14 @@ class Tetris extends React.Component<IProps, IStates> {
     switch(code) {
       case keyCode.left:
         x = cx - 1
-        const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my - 1, cBlock, screen })
+        const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen })
         playboard = lp
         x = lx
         this.setState({ playboard, x })
         return
       case keyCode.right:
         x = cx + 1
-        const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my - 1, cBlock, screen })
+        const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen })
         playboard = rp
         x = rx
         this.setState({ playboard, x })
@@ -92,7 +92,7 @@ class Tetris extends React.Component<IProps, IStates> {
   movePlayboard = ({ x, y }) => {
     const { screen, cBlock, row } = this.state
     const { playboard } = Tools.getCurrPosition({ x, y, cBlock, screen })
-    this.setState({ playboard, y: y < row ? y + 1 : row })
+    this.setState({ playboard, y: y < row ? y + 1 : 0 })
   }
 
   componentWillUnmount() {
