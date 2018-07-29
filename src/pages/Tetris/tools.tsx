@@ -58,7 +58,8 @@ export default {
     }
 
     while (index > 0 && length > 0) {
-      const curr = index - 1
+      let curr = index - 1
+      curr = curr > 20 ? 20 : curr
       const row = block[length - 1]
       for(let i = 0; i < 10; i++) {
         if(i < row.length) {

@@ -35,7 +35,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: 'O',
+      cBlock: 'I',
       y: 0,
       x: 0
     })
@@ -44,7 +44,7 @@ class Tetris extends React.Component<IProps, IStates> {
   keydown = e => this.doMove(e.keyCode)
 
   doMove = code => {
-    const { x: cx, y: my, screen, cBlock } = this.state
+    const { x: cx, y: my, screen, cBlock, interval, row } = this.state
     let playboard = [[]]
     let x = cx
     switch(code) {
@@ -53,33 +53,46 @@ class Tetris extends React.Component<IProps, IStates> {
         const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my - 1, cBlock, screen })
         playboard = lp
         x = lx
-        break
+        this.setState({ playboard, x })
+        return
       case keyCode.right:
         x = cx + 1
         const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my - 1, cBlock, screen })
         playboard = rp
         x = rx
-        break
-      default:
+        this.setState({ playboard, x })
         return
+      case keyCode.down: 
+        if (my > row) { return }
+        const { playboard: dp } = Tools.getCurrPosition({ x, y: my, cBlock, screen })
+        playboard = dp
+        if (interval) { clearInterval(interval)}
+        this.doMovePlayboard()
+        return
+      default:
+        
     }
-
-    this.setState({ playboard, x })
   }
 
   componentDidMount() {
+    this.doMovePlayboard()
+  }
+
+  doMovePlayboard = () => {
+    const { x: ix, y: iy } = this.state
     const interval = setInterval(() => {
       const { x, y, row } = this.state
       this.movePlayboard({ x, y })
-      if (y === row) { this.setState({ y: 0 }) }
+      if (y >= row) { this.setState({ y: 0 }) }
     }, 1000)
+    this.movePlayboard({ x: ix, y: iy})
     this.setState({ interval })
   }
 
   movePlayboard = ({ x, y }) => {
-    const { screen, cBlock } = this.state
+    const { screen, cBlock, row } = this.state
     const { playboard } = Tools.getCurrPosition({ x, y, cBlock, screen })
-    this.setState({ playboard, y: y + 1 })
+    this.setState({ playboard, y: y < row ? y + 1 : row })
   }
 
   componentWillUnmount() {
