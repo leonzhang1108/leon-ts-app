@@ -113,11 +113,9 @@ class Tetris extends React.Component<IProps, IStates> {
   // 0: empty, 1: full
   calculateScreen = ({ row: r, column: c }) => {
     const result: number[][] = []
-    for(let i = 0; i < r; i++) {
+    for (let i = 0; i < r; i++) {
       const row: number[] = []
-      for(let j = 0; j < c; j++) {
-        row.push(0)
-      }
+      for (let j = 0; j < c; j++) { row.push(0) }
       result.push(row)
     }
     return result
