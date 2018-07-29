@@ -11,7 +11,8 @@ interface IStates {
   cBlock: string,
   interval?: any,
   y: number,
-  x: number
+  x: number,
+  rotate: number,
 }
 
 interface IProps {
@@ -35,39 +36,47 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: 'L',
+      cBlock: 'S',
       y: 0,
-      x: 0
+      x: 0,
+      rotate: 0
     })
   }
 
   keydown = e => this.doMove(e.keyCode)
 
   doMove = code => {
-    const { x: cx, y: my, screen, cBlock, interval, row } = this.state
+    const { x: cx, y: my, screen, cBlock, interval, row, rotate } = this.state
     let playboard = [[]]
     let x = cx
     switch(code) {
       case keyCode.left:
         x = cx - 1
-        const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen })
+        const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
         playboard = lp
         x = lx
         this.setState({ playboard, x })
         return
       case keyCode.right:
         x = cx + 1
-        const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen })
+        const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
         playboard = rp
         x = rx
         this.setState({ playboard, x })
         return
       case keyCode.down: 
         if (my > row) { return }
-        const { playboard: dp } = Tools.getCurrPosition({ x, y: my, cBlock, screen })
+        const { playboard: dp } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate })
         playboard = dp
         if (interval) { clearInterval(interval)}
         this.doMovePlayboard()
+        return
+      case keyCode.up:
+        let r = rotate
+        r = r >= 3 ? 0 : r + 1
+        const { playboard: up } = Tools.getCurrPosition({ x: cx, y: my ? my - 1 : 20, cBlock, screen, rotate: r })
+        playboard = up
+        this.setState({ playboard, rotate: r })
         return
       default:
         
@@ -90,8 +99,8 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   movePlayboard = ({ x, y }) => {
-    const { screen, cBlock, row } = this.state
-    const { playboard } = Tools.getCurrPosition({ x, y, cBlock, screen })
+    const { screen, cBlock, row, rotate } = this.state
+    const { playboard } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate })
     this.setState({ playboard, y: y < row ? y + 1 : 0 })
   }
 

@@ -1,41 +1,10 @@
 import Utils from '@utils'
-
-const blockMap = {
-  L: [
-    [0, 0, 1],
-    [1, 1, 1]
-  ],
-  J: [
-    [1, 0, 0],
-    [1, 1, 1]
-  ],
-  O: [
-    [1, 1],
-    [1, 1]
-  ],
-  T: [
-    [0, 1, 0],
-    [1, 1, 1]
-  ],
-  Z: [
-    [1, 1, 0],
-    [0, 1, 1]
-  ],
-  S: [
-    [0, 1, 1],
-    [1, 1, 0]
-  ],
-  I: [
-    [1, 1, 1, 1]
-  ]
-
-}
-
+import blockMap from './block'
 
 export default {
-  getCurrPosition: ({ x, y, cBlock, screen: s }) => {
+  getCurrPosition: ({ x, y, cBlock, screen: s, rotate }) => {
     const playboard = Utils.clone(s)
-    const block = blockMap[cBlock]
+    const block = blockMap[cBlock][rotate]
     const width = block[0].length
     const min = 0
     const max = 10 - width
@@ -64,8 +33,6 @@ export default {
       length--
       index--
     }
-
-    console.log(y, length)
 
     return { playboard, x }
   }
