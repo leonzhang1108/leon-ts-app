@@ -1,53 +1,95 @@
 import * as React from 'react'
 import './index.less'
 import Utils from '@utils'
+import Tools from './tools'
 
 interface IStates {
   row: number,
   column: number,
-  playboard: number[][]
-  interval?: any
+  screen: number[][],
+  playboard: number[][],
+  cBlock: string,
+  interval?: any,
+  y: number,
+  x: number
 }
 
 interface IProps {
   isMobile: boolean
 }
 
-class Widgets extends React.Component<IProps, IStates> {
+const keyCode = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+}
+
+class Tetris extends React.Component<IProps, IStates> {
 
   componentWillMount() {
     const row = 20
     const column = 10
+    const screen = this.calculateScreen({ row, column })
+    document.addEventListener('keydown', this.keydown)
     this.setState({
-      row, column,
-      playboard: this.calculatePlayboard({ row, column })
+      row, column, screen,
+      playboard: screen,
+      cBlock: 'O',
+      y: 0,
+      x: 0
     })
   }
 
+  keydown = e => this.doMove(e.keyCode)
+
+  doMove = code => {
+    const { x: cx, y: my, screen, cBlock } = this.state
+    let playboard = [[]]
+    let x = cx
+    switch(code) {
+      case keyCode.left:
+        x = cx - 1
+        const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my - 1, cBlock, screen })
+        playboard = lp
+        x = lx
+        break
+      case keyCode.right:
+        x = cx + 1
+        const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my - 1, cBlock, screen })
+        playboard = rp
+        x = rx
+        break
+      default:
+        return
+    }
+
+    this.setState({ playboard, x })
+  }
+
   componentDidMount() {
-    let index = 0
     const interval = setInterval(() => {
-      this.movePlayboard(index)
-      index++
-      if(index === 20) { index = 0 }
-    }, 50)
+      const { x, y, row } = this.state
+      this.movePlayboard({ x, y })
+      if (y === row) { this.setState({ y: 0 }) }
+    }, 1000)
     this.setState({ interval })
   }
 
-  movePlayboard = i => {
-    const { row, column } = this.state
-    const playboard = this.calculatePlayboard({ row, column })
-    playboard[i] = new Array(10).fill(1)
-    this.setState({ playboard })
+  movePlayboard = ({ x, y }) => {
+    const { screen, cBlock } = this.state
+    const { playboard } = Tools.getCurrPosition({ x, y, cBlock, screen })
+    this.setState({ playboard, y: y + 1 })
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.interval)
+    if (this.state.interval) { clearInterval(this.state.interval) }
+    document.removeEventListener('keydown', this.keydown)
   }
 
   // state 
   // 0: empty, 1: full
-  calculatePlayboard = ({ row: r, column: c }) => {
+  calculateScreen = ({ row: r, column: c }) => {
     const result: number[][] = []
     for(let i = 0; i < r; i++) {
       const row: number[] = []
@@ -79,7 +121,7 @@ class Widgets extends React.Component<IProps, IStates> {
 }
 
 export default Utils.connect({
-  component: Widgets,
+  component: Tetris,
   mapStateToProps: state => ({
     isMobile: state.common.isMobile
   })
