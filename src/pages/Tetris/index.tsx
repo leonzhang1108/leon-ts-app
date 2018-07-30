@@ -13,6 +13,7 @@ interface IStates {
   y: number,
   x: number,
   rotate: number,
+  intervalTime: number
 }
 
 interface IProps {
@@ -36,51 +37,75 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: 'S',
+      cBlock: 'T',
       y: 0,
       x: 0,
-      rotate: 0
+      rotate: 0,
+      intervalTime: 500
     })
+  }
+
+  reset = (f?) => {
+    this.setState({
+      y: 1,
+      x: 0,
+      rotate: 0,
+    }, f)
   }
 
   keydown = e => this.doMove(e.keyCode)
 
   doMove = code => {
-    const { x: cx, y: my, screen, cBlock, interval, row, rotate } = this.state
+    const { x: cx, y: my, screen, cBlock, row, rotate } = this.state
     let playboard = [[]]
     let x = cx
     switch(code) {
       case keyCode.left:
         x = cx - 1
-        const { playboard: lp, x: lx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
-        playboard = lp
-        x = lx
-        this.setState({ playboard, x })
+        const { playboard: lp, x: lx, couldMove: lc } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
+        if (lc) { 
+          x = lx 
+          playboard = lp
+          this.setState({ playboard, x })
+        }
         return
       case keyCode.right:
         x = cx + 1
-        const { playboard: rp, x: rx } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
-        playboard = rp
-        x = rx
-        this.setState({ playboard, x })
+        const { playboard: rp, x: rx, couldMove: rc } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
+        if (rc) { 
+          x = rx 
+          playboard = rp
+          this.setState({ playboard, x })
+        }
         return
       case keyCode.down: 
         if (my > row) { return }
-        const { playboard: dp } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate })
-        playboard = dp
-        if (interval) { clearInterval(interval)}
-        this.doMovePlayboard()
+        const { couldMove } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate })
+        if (!couldMove) {
+          this.isDropComplete(true)
+          this.reset(this.newInterval)
+        } else {
+          this.newInterval()
+        }
         return
       case keyCode.up:
         let r = rotate
         r = r >= 3 ? 0 : r + 1
-        const { playboard: up } = Tools.getCurrPosition({ x: cx, y: my ? my - 1 : 20, cBlock, screen, rotate: r })
-        playboard = up
-        this.setState({ playboard, rotate: r })
+        const { playboard: up, couldMove: uc } = Tools.getCurrPosition({ x: cx, y: my ? my - 1 : 20, cBlock, screen, rotate: r })
+        if (uc) {
+          playboard = up
+          this.setState({ playboard, rotate: r })
+        }
         return
       default:
         
     }
+  }
+
+  newInterval = () => {
+    const { interval } = this.state
+    if (interval) { clearInterval(interval)}
+    this.doMovePlayboard()
   }
 
   componentDidMount() {
@@ -88,20 +113,34 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   doMovePlayboard = () => {
-    const { x: ix, y: iy } = this.state
+    const { x: ix, y: iy, intervalTime } = this.state
     const interval = setInterval(() => {
-      const { x, y, row } = this.state
+      const { x, y } = this.state
       this.movePlayboard({ x, y })
-      if (y >= row) { this.setState({ y: 0 }) }
-    }, 1000)
+    }, intervalTime)
     this.movePlayboard({ x: ix, y: iy})
     this.setState({ interval })
   }
 
   movePlayboard = ({ x, y }) => {
     const { screen, cBlock, row, rotate } = this.state
-    const { playboard } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate })
-    this.setState({ playboard, y: y < row ? y + 1 : 0 })
+    const { playboard, couldMove } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate })
+    if (couldMove) {
+      this.setState({ playboard, y: y < row ? y + 1 : 0 }, () => this.isDropComplete())
+    } else {
+      this.isDropComplete(true, this.reset)
+      
+    }
+    
+  }
+
+  isDropComplete = (res?, f?) => {
+    const { y } = this.state
+    if (y === 0 || res) {
+      this.setState({ 
+        screen: Utils.clone(this.state.playboard)
+      }, f) 
+    }
   }
 
   componentWillUnmount() {
