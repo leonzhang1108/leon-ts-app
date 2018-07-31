@@ -37,7 +37,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: 'T',
+      cBlock: 'L',
       y: 0,
       x: 0,
       rotate: 0,
