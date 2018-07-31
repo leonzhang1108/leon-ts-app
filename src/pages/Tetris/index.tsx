@@ -129,9 +129,7 @@ class Tetris extends React.Component<IProps, IStates> {
       this.setState({ playboard, y: y < row ? y + 1 : 0 }, () => this.isDropComplete())
     } else {
       this.isDropComplete(true, this.reset)
-      
     }
-    
   }
 
   isDropComplete = (res?, f?) => {
