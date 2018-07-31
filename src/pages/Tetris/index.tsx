@@ -37,7 +37,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: 'L',
+      cBlock: 'I',
       y: 0,
       x: 0,
       rotate: 0,
@@ -62,7 +62,7 @@ class Tetris extends React.Component<IProps, IStates> {
     switch(code) {
       case keyCode.left:
         x = cx - 1
-        const { playboard: lp, x: lx, couldMove: lc } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
+        const { playboard: lp, x: lx, couldMove: lc } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate, moveTo: keyCode.left })
         if (lc) { 
           x = lx 
           playboard = lp
@@ -71,7 +71,7 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.right:
         x = cx + 1
-        const { playboard: rp, x: rx, couldMove: rc } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate })
+        const { playboard: rp, x: rx, couldMove: rc } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate, moveTo: keyCode.right })
         if (rc) { 
           x = rx 
           playboard = rp
@@ -80,7 +80,7 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.down: 
         if (my > row) { return }
-        const { couldMove } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate })
+        const { couldMove } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate, moveTo: keyCode.down })
         if (!couldMove) {
           this.isDropComplete(true)
           this.reset(this.newInterval)
@@ -91,7 +91,7 @@ class Tetris extends React.Component<IProps, IStates> {
       case keyCode.up:
         let r = rotate
         r = r >= 3 ? 0 : r + 1
-        const { playboard: up, couldMove: uc } = Tools.getCurrPosition({ x: cx, y: my ? my - 1 : 20, cBlock, screen, rotate: r })
+        const { playboard: up, couldMove: uc } = Tools.getCurrPosition({ x: cx, y: my ? my - 1 : 20, cBlock, screen, rotate: r, moveTo: keyCode.up })
         if (uc) {
           playboard = up
           this.setState({ playboard, rotate: r })
@@ -124,7 +124,7 @@ class Tetris extends React.Component<IProps, IStates> {
 
   movePlayboard = ({ x, y }) => {
     const { screen, cBlock, row, rotate } = this.state
-    const { playboard, couldMove } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate })
+    const { playboard, couldMove } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate, moveTo: keyCode.down })
     if (couldMove) {
       this.setState({ playboard, y: y < row ? y + 1 : 0 }, () => this.isDropComplete())
     } else {

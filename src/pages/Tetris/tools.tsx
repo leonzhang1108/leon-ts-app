@@ -1,28 +1,30 @@
 import Utils from '@utils'
 import blockMap from './block'
 
-export default {
-  getCurrPosition: ({ x, y, cBlock, screen, rotate }) => {
-    const playboard = Utils.clone(screen)
-    const block: number[][] = blockMap[cBlock][rotate]
-    const width = block[0].length
-    const min = 0
-    const max = 10 - width
-    const center = Math.floor((10 - width) / 2)
-    const bottomBlockList: any[] = []
-    let length = block.length
-    let couldMove = true
-    let index = y
-    let rx = center + x
-    if (rx < min) {
-      rx = min
-      x = -center
-    }
-    if (rx > max) {
-      rx = max
-      x = width % 2 === 1 ? center + 1 : center
-    }
+const keyCode = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+}
 
+const couldMoveFun = {
+  [keyCode.up]: ({ width, block, rx, y, playboard, length }) => {
+    let couldMove = true
+    block.every((row, dy) => {
+      row.every((item, dx) => {
+        const nx = dx + rx
+        const ny = y + dy - length
+        if (ny >= 0 && ny < 20 && playboard[ny][nx]) { couldMove = false }
+        return couldMove
+      })
+      return couldMove
+    })
+    return couldMove
+  },
+  [keyCode.down]: ({ width, block, rx, y, playboard, length }) => {
+    let couldMove = true
+    const bottomBlockList: any[] = []
     for (let i = 0; i < width; i++) {
       let l = block.length - 1
       let next = true
@@ -34,19 +36,43 @@ export default {
         l--
       }
     }
-
     bottomBlockList.every(b => {
       const { x: ox, y: oy } = b
       const nx = ox + rx
       const ny = y + oy - length
       if (ny >= 0 && ny < 20 && playboard[ny][nx]) {
-        console.log(ny, nx)
         couldMove = false
       }
       return couldMove
     })
+    return couldMove
+  },
+  [keyCode.left]: () => true,
+  [keyCode.right]: () => true
+}
 
-    if (couldMove) {
+export default {
+  getCurrPosition: ({ x, y, cBlock, screen, rotate, moveTo }) => {
+    const playboard = Utils.clone(screen)
+    const block: number[][] = blockMap[cBlock][rotate]
+    const width = block[0].length
+    const min = 0
+    const max = 10 - width
+    const center = Math.floor((10 - width) / 2)
+    let length = block.length
+    let index = y
+    let rx = center + x
+    if (rx < min) {
+      rx = min
+      x = -center
+    }
+    if (rx > max) {
+      rx = max
+      x = width % 2 === 1 ? center + 1 : center
+    }
+    const cm = couldMoveFun[moveTo]({ width, block, rx, y, playboard, length })
+
+    if (cm) {
       while (index > 0 && length > 0) {
         let curr = --index
         const row = block[length - 1]
@@ -63,6 +89,6 @@ export default {
       }
     }
 
-    return { playboard, x, screen, couldMove }
+    return { playboard, x, screen, couldMove: cm }
   }
 }
