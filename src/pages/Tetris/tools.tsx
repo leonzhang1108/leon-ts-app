@@ -8,6 +8,29 @@ const keyCode = {
   down: 40
 }
 
+const couldMoveLeftOrRight = ({ width, block, rx, y, playboard, length }) => {
+  const leftBlockList: any[] = []
+  let couldMove = true
+  block.forEach((row, dy) => {
+    row.every((item, dx) => {
+      if (item) {
+        leftBlockList.push({ x: dx, y: dy })
+      }
+      return true
+    })
+  })
+  leftBlockList.every(item => {
+    const { x: ox, y: oy } = item
+    const nx = ox + rx
+    const ny = y + oy - length
+    if (ny >= 0 && ny < 20 && playboard[ny][nx]) {
+      couldMove = false
+    }
+    return couldMove
+  })
+  return couldMove
+}
+
 const couldMoveFun = {
   [keyCode.up]: ({ width, block, rx, y, playboard, length }) => {
     let couldMove = true
@@ -23,6 +46,7 @@ const couldMoveFun = {
     return couldMove
   },
   [keyCode.down]: ({ width, block, rx, y, playboard, length }) => {
+    if (y === 21) { return false }
     let couldMove = true
     const bottomBlockList: any[] = []
     for (let i = 0; i < width; i++) {
@@ -47,54 +71,8 @@ const couldMoveFun = {
     })
     return couldMove
   },
-  [keyCode.left]: ({ width, block, rx, y, playboard, length }) => {
-    const leftBlockList: any[] = []
-    let couldMove = true
-    block.forEach((row, dy) => {
-      row.every((item, dx) => {
-        if (item) {
-          leftBlockList.push({ x: dx, y: dy })
-          return false
-        }
-        return true
-      })
-    })
-    leftBlockList.every(item => {
-      const { x: ox, y: oy } = item
-      const nx = ox + rx
-      const ny = y + oy - length
-      if (ny >= 0 && ny < 20 && playboard[ny][nx]) {
-        couldMove = false
-      }
-      return couldMove
-    })
-    
-    return couldMove
-  },
-  [keyCode.right]: ({ width, block, rx, y, playboard, length }) => {
-    const leftBlockList: any[] = []
-    let couldMove = true
-    block.forEach((row, dy) => {
-      row.every((item, dx) => {
-        if (item) {
-          leftBlockList.push({ x: dx, y: dy })
-          return false
-        }
-        return true
-      })
-    })
-    leftBlockList.every(item => {
-      const { x: ox, y: oy } = item
-      const nx = ox + rx
-      const ny = y + oy - length
-      if (ny >= 0 && ny < 20 && playboard[ny][nx]) {
-        couldMove = false
-      }
-      return couldMove
-    })
-    
-    return couldMove
-  },
+  [keyCode.left]: couldMoveLeftOrRight,
+  [keyCode.right]: couldMoveLeftOrRight,
 }
 
 export default {

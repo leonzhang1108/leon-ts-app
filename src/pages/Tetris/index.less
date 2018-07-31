@@ -24,10 +24,16 @@
         border: 2px solid #879372;
         margin: 0 2px 2px 0;
         float: left;
-        &.full {
+        &.block {
           border: 2px solid #000;
           &:after {
             background: #000;
+          }
+        }
+        &.full {
+          border: 2px solid #666;
+          &:after {
+            background: #666;
           }
         }
         &:after {
@@ -39,6 +45,21 @@
           overflow: hidden;
         }
       }
+    }
+  }
+  .btn-wrapper {
+    text-align: center;
+    i {
+      font-size: 3rem;
+      transition: all .3s;
+      transform: scale(1);
+      &:active {
+        color: #000;
+        transform: scale(1.2);
+      }
+    }
+    .middle i:first-child {
+      margin-right: 2.5rem;
     }
   }
 }
