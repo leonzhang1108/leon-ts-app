@@ -41,6 +41,7 @@ class Tetris extends React.Component<IProps, IStates> {
     const column = 10
     const screen = this.calculateScreen({ row, column })
     document.addEventListener('keydown', this.keydown)
+    document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
       row, column, screen,
       playboard: screen,
@@ -53,14 +54,11 @@ class Tetris extends React.Component<IProps, IStates> {
     })
   }
 
-  reset = (f?) => {
-    this.setState({
-      cBlock: blocks[Utils.random(0, 7)],
-      y: 1,
-      x: 0,
-      rotate: 0,
-      screen: this.clearRow(this.state.playboard)
-    }, f)
+  visibilitychange = () => {
+    if ((!this.state.pause && document.visibilityState === 'hidden')
+        || (this.state.pause && document.visibilityState !== 'hidden')) {
+      this.togglePause()
+    }
   }
 
   clearRow = playboard => {
@@ -112,8 +110,7 @@ class Tetris extends React.Component<IProps, IStates> {
         if (my > row) { return }
         const { couldMove } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate, moveTo: keyCode.down })
         if (!couldMove) {
-          this.isDropComplete(true)
-          this.reset(this.newInterval)
+          this.reset()
         } else {
           this.newInterval()
         }
@@ -162,24 +159,26 @@ class Tetris extends React.Component<IProps, IStates> {
     const { screen, cBlock, rotate } = this.state
     const { playboard, couldMove } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate, moveTo: keyCode.down })
     if (couldMove) {
-      this.setState({ playboard, y: y + 1 }, this.isDropComplete)
+      this.setState({ playboard, y: y + 1 })
     } else {
-      this.isDropComplete(true, this.reset)
+      this.reset()
     }
   }
 
-  isDropComplete = (res?, f?) => {
-    const { y } = this.state
-    if (y === 0 || res) {
-      this.setState({ 
-        screen: Utils.clone(this.state.playboard).map(row => row.map(item => item ? 2 : 0))
-      }, f)
-    }
+  reset = () => {
+    this.setState({
+      cBlock: blocks[Utils.random(0, 7)],
+      y: 1,
+      x: 0,
+      rotate: 0,
+      screen: this.clearRow(this.state.playboard)
+    })
   }
 
   componentWillUnmount() {
     if (this.interval) { clearTimeout(this.interval) }
     document.removeEventListener('keydown', this.keydown)
+    document.removeEventListener('visibilitychange', this.visibilitychange)
   }
 
   // state 
