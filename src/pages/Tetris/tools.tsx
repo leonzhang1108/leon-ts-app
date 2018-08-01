@@ -9,17 +9,17 @@ const keyCode = {
 }
 
 const couldMoveLeftOrRight = ({ width, block, rx, y, playboard, length }) => {
-  const leftBlockList: any[] = []
+  const blockList: any[] = []
   let couldMove = true
   block.forEach((row, dy) => {
     row.every((item, dx) => {
       if (item) {
-        leftBlockList.push({ x: dx, y: dy })
+        blockList.push({ x: dx, y: dy })
       }
       return true
     })
   })
-  leftBlockList.every(item => {
+  blockList.every(item => {
     const { x: ox, y: oy } = item
     const nx = ox + rx
     const ny = y + oy - length

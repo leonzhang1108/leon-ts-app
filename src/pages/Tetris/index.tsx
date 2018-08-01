@@ -74,10 +74,11 @@ class Tetris extends React.Component<IProps, IStates> {
     return result
   }
 
-  keydown = e => !this.state.pause && this.doMove(e.keyCode)
+  keydown = e => this.doMove(e.keyCode)
 
   doMove = code => {
-    const { x: cx, y: my, screen, cBlock, row, rotate } = this.state
+    const { x: cx, y: my, screen, cBlock, row, rotate, pause } = this.state
+    if (pause) { return }
     let playboard = [[]]
     let x = cx
     switch(code) {
