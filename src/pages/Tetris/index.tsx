@@ -86,7 +86,7 @@ class Tetris extends React.Component<IProps, IStates> {
           playboard: lp, 
           x: lx, 
           couldMove: lc 
-        } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate, moveTo: keyCode.left })
+        } = Tools.getCurrPosition({ x, y: my ? my : 20, cBlock, screen, rotate, moveTo: keyCode.left })
         if (lc) { 
           x = lx 
           playboard = lp
@@ -99,7 +99,7 @@ class Tetris extends React.Component<IProps, IStates> {
           playboard: rp, 
           x: rx, 
           couldMove: rc 
-        } = Tools.getCurrPosition({ x, y: my ? my - 1 : 20, cBlock, screen, rotate, moveTo: keyCode.right })
+        } = Tools.getCurrPosition({ x, y: my ? my : 20, cBlock, screen, rotate, moveTo: keyCode.right })
         if (rc) { 
           x = rx 
           playboard = rp
@@ -108,11 +108,12 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.down: 
         if (my > row) { return }
-        const { couldMove } = Tools.getCurrPosition({ x, y: my, cBlock, screen, rotate, moveTo: keyCode.down })
-        if (!couldMove) {
-          this.reset()
-        } else {
+        const { couldMove, playboard: dp } = Tools.getCurrPosition({ x, y: my + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+        if (couldMove) {
           this.newInterval()
+          this.setState({ y: my + 1, playboard: dp})
+        } else {
+          this.reset()
         }
         return
       case keyCode.up:
@@ -121,7 +122,7 @@ class Tetris extends React.Component<IProps, IStates> {
         const { 
           playboard: up, 
           couldMove: uc 
-        } = Tools.getCurrPosition({ x: cx, y: my ? my - 1 : 20, cBlock, screen, rotate: r, moveTo: keyCode.up })
+        } = Tools.getCurrPosition({ x: cx, y: my ? my : 20, cBlock, screen, rotate: r, moveTo: keyCode.up })
         if (uc) {
           playboard = up
           this.setState({ playboard, rotate: r })
@@ -132,18 +133,20 @@ class Tetris extends React.Component<IProps, IStates> {
     }
   }
 
-  newInterval = () => {
+  newInterval = (next?) => {
     if (this.interval) { clearTimeout(this.interval)}
-    this.doMovePlayboard()
+    this.doMovePlayboard(next)
   }
 
   componentDidMount() {
     this.doMovePlayboard()
   }
 
-  doMovePlayboard = () => {
-    const { x: ix, y: iy } = this.state
-    this.movePlayboard({ x: ix, y: iy})
+  doMovePlayboard = (next?) => {
+    if (next) {
+      const { x: ix, y: iy } = this.state
+      this.movePlayboard({ x: ix, y: iy})
+    }
     this.doTimeout()
   }
 
@@ -157,7 +160,7 @@ class Tetris extends React.Component<IProps, IStates> {
 
   movePlayboard = ({ x, y }) => {
     const { screen, cBlock, rotate } = this.state
-    const { playboard, couldMove } = Tools.getCurrPosition({ x, y, cBlock, screen, rotate, moveTo: keyCode.down })
+    const { playboard, couldMove } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
     if (couldMove) {
       this.setState({ playboard, y: y + 1 })
     } else {
@@ -168,11 +171,9 @@ class Tetris extends React.Component<IProps, IStates> {
   reset = () => {
     this.setState({
       cBlock: blocks[Utils.random(0, 7)],
-      y: 1,
-      x: 0,
-      rotate: 0,
+      y: 0, x: 0, rotate: 0,
       screen: this.clearRow(this.state.playboard)
-    })
+    }, () => this.newInterval(true))
   }
 
   componentWillUnmount() {
