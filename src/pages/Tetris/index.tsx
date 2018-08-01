@@ -49,7 +49,7 @@ class Tetris extends React.Component<IProps, IStates> {
       y: 0,
       x: 0,
       rotate: 0,
-      intervalTime: 500,
+      intervalTime: 1000,
       pause: false
     })
   }
@@ -221,6 +221,7 @@ class Tetris extends React.Component<IProps, IStates> {
         <div className='btn-wrapper'>
           <div className='functional-btn'>
             <Icon type={`ts-app icon-${pause ? 'play' : 'pause'}`} onClick={this.togglePause}/>
+            <Icon type={`ts-app icon-down`}/>
           </div>
           <div className='direction'>
             <Icon type='ts-app icon-up-circle' onClick={Utils.handle(this.doMove, keyCode.up)}/>
