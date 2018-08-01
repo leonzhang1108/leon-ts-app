@@ -2,7 +2,8 @@ import * as React from 'react'
 import './index.less'
 import Utils from '@utils'
 import Tools from './tools'
-import { Icon } from 'antd'
+import { Icon, Button } from 'antd'
+import blockMap from './block'
 
 interface IStates {
   row: number,
@@ -16,7 +17,8 @@ interface IStates {
   rotate: number,
   intervalTime: number,
   couldMove: boolean,
-  pause: boolean
+  pause: boolean,
+  gameover: boolean
 }
 
 interface IProps {
@@ -27,7 +29,8 @@ const keyCode = {
   left: 37,
   up: 38,
   right: 39,
-  down: 40
+  down: 40,
+  space: 32
 }
 
 const blocks = ['I', 'L', 'J', 'T', 'Z', 'S', 'O']
@@ -37,11 +40,16 @@ class Tetris extends React.Component<IProps, IStates> {
   interval
 
   componentWillMount() {
+    document.addEventListener('keydown', this.keydown)
+    document.addEventListener('visibilitychange', this.visibilitychange)
+    this.resetGame()
+  }
+
+  resetGame = () => {
+    if (this.interval) { clearInterval(this.interval) }
     const row = 20
     const column = 10
     const screen = this.calculateScreen({ row, column })
-    document.addEventListener('keydown', this.keydown)
-    document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
       row, column, screen,
       playboard: screen,
@@ -50,8 +58,9 @@ class Tetris extends React.Component<IProps, IStates> {
       x: 0,
       rotate: 0,
       intervalTime: 1000,
-      pause: false
-    })
+      pause: false,
+      gameover: false
+    }, this.doMovePlayboard)
   }
 
   visibilitychange = () => {
@@ -59,6 +68,12 @@ class Tetris extends React.Component<IProps, IStates> {
         || (this.state.pause && document.visibilityState !== 'hidden')) {
       this.togglePause()
     }
+  }
+
+  isGameOver = () => {
+    const { x, y, cBlock, screen, rotate } = this.state
+    const { couldMove } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+    return !(couldMove || blockMap[cBlock][rotate].length < y - 1)
   }
 
   clearRow = playboard => {
@@ -75,8 +90,8 @@ class Tetris extends React.Component<IProps, IStates> {
   keydown = e => this.doMove(e.keyCode)
 
   doMove = code => {
-    const { x: cx, y: my, screen, cBlock, row, rotate, pause } = this.state
-    if (pause) { return }
+    const { x: cx, y: my, screen, cBlock, row, rotate, pause, gameover } = this.state
+    if (pause || gameover) { return }
     let playboard = [[]]
     let x = cx
     switch(code) {
@@ -108,7 +123,10 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.down: 
         if (my > row) { return }
-        const { couldMove, playboard: dp } = Tools.getCurrPosition({ x, y: my + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+        const { 
+          couldMove, 
+          playboard: dp 
+        } = Tools.getCurrPosition({ x, y: my + 1, cBlock, screen, rotate, moveTo: keyCode.down })
         if (couldMove) {
           this.newInterval()
           this.setState({ y: my + 1, playboard: dp})
@@ -128,18 +146,22 @@ class Tetris extends React.Component<IProps, IStates> {
           this.setState({ playboard, rotate: r })
         }
         return
+      case keyCode.space:
+        this.goToBottom()
+      break
       default:
         
     }
   }
 
   newInterval = (next?) => {
-    if (this.interval) { clearTimeout(this.interval)}
-    this.doMovePlayboard(next)
-  }
-
-  componentDidMount() {
-    this.doMovePlayboard()
+    if (this.interval) { clearInterval(this.interval)}
+    if (this.isGameOver()) { 
+      if (this.interval) { clearInterval(this.interval) }
+      this.setState({ gameover: true })
+    } else {
+      this.doMovePlayboard(next)
+    }
   }
 
   doMovePlayboard = (next?) => {
@@ -151,10 +173,9 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   doTimeout = () => {
-    this.interval = setTimeout(() => {
+    this.interval = setInterval(() => {
       const { x, y } = this.state
       this.movePlayboard({ x, y })
-      this.doTimeout()
     }, this.state.intervalTime)
   }
 
@@ -168,6 +189,23 @@ class Tetris extends React.Component<IProps, IStates> {
     }
   }
 
+  goToBottom = () => {
+    const { x, cBlock, rotate, screen } = this.state
+    let { y } = this.state
+    let couldGoDown = true
+    let p 
+    while (couldGoDown) {
+      const { couldMove, playboard } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+      couldGoDown = couldMove
+      if (couldMove) {
+        y++
+        p = playboard
+      } else {
+        this.setState({ playboard: p, y }, () => this.newInterval(true))
+      }
+    }
+  }
+
   reset = () => {
     this.setState({
       cBlock: blocks[Utils.random(0, 7)],
@@ -177,7 +215,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   componentWillUnmount() {
-    if (this.interval) { clearTimeout(this.interval) }
+    if (this.interval) { clearInterval(this.interval) }
     document.removeEventListener('keydown', this.keydown)
     document.removeEventListener('visibilitychange', this.visibilitychange)
   }
@@ -202,8 +240,8 @@ class Tetris extends React.Component<IProps, IStates> {
 
   togglePause = () => {
     const { pause } = this.state
-    if (!pause) {
-      if (this.interval) { clearTimeout(this.interval)}
+    if (!pause && this.interval) {
+      clearInterval(this.interval)
     } else {
       this.newInterval()
     }
@@ -213,16 +251,23 @@ class Tetris extends React.Component<IProps, IStates> {
   
   render() {
     const { isMobile } = this.props
-    const { pause } = this.state
+    const { pause, gameover } = this.state
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
         <div className='tetris-screen'>
           { this.renderPlayboard() }
+          {
+            gameover ? (
+              <div className='game-over'>
+                <Button type="primary" onClick={this.resetGame}>Reset</Button>
+              </div>
+            ) : null
+          }
         </div>
         <div className='btn-wrapper'>
           <div className='functional-btn'>
+            <Icon type={`ts-app icon-down`} onClick={this.goToBottom}/>
             <Icon type={`ts-app icon-${pause ? 'play' : 'pause'}`} onClick={this.togglePause}/>
-            <Icon type={`ts-app icon-down`}/>
           </div>
           <div className='direction'>
             <Icon type='ts-app icon-up-circle' onClick={Utils.handle(this.doMove, keyCode.up)}/>
