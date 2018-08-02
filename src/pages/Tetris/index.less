@@ -26,7 +26,11 @@
       background-color: #9ead86;
       padding: 10px;
       border-radius: 8px;
-      position: relative;
+      position: relative;    
+      transition: transform .1s;
+      &.touch-buttom {
+        transform: translateY(5px);
+      }
       .game-over {
         height: 100%;
         width: 100%;

@@ -3,7 +3,8 @@ import './index.less'
 import Utils from '@utils'
 import Tools from './tools'
 import { Button } from 'antd'
-import blockMap from './block'
+import Constant from './constant'
+const { block: blockMap, keyCode } = Constant
 
 interface IStates {
   row: number,
@@ -18,19 +19,12 @@ interface IStates {
   intervalTime: number,
   couldMove: boolean,
   pause: boolean,
-  gameover: boolean
+  gameover: boolean,
+  touchDown: boolean
 }
 
 interface IProps {
   isMobile: boolean
-}
-
-const keyCode = {
-  left: 37,
-  up: 38,
-  right: 39,
-  down: 40,
-  space: 32
 }
 
 const blocks = ['I', 'L', 'J', 'T', 'Z', 'S', 'O']
@@ -74,8 +68,9 @@ class Tetris extends React.Component<IProps, IStates> {
       rotate:  Utils.random(0, 4),
       intervalTime: 1000,
       pause: false,
-      gameover: false
-    }, this.doMovePlayboard)
+      gameover: false,
+      touchDown: false
+    }, () => this.doMovePlayboard(true))
   }
 
   visibilitychange = () => {
@@ -216,9 +211,10 @@ class Tetris extends React.Component<IProps, IStates> {
         y++
         p = playboard
       } else {
-        this.setState({ playboard: p, y }, () => this.newInterval(true))
+        this.setState({ playboard: p, y, touchDown: true }, () => this.newInterval(true))
       }
     }
+    setTimeout(() => this.setState({ touchDown: false}), 100)
   }
 
   reset = () => {
@@ -264,11 +260,11 @@ class Tetris extends React.Component<IProps, IStates> {
   
   render() {
     const { isMobile } = this.props
-    const { pause, gameover } = this.state
+    const { pause, gameover, touchDown } = this.state
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
         <div className='tetris-screen-wrapper'>
-          <div className='tetris-screen'>
+          <div className={`tetris-screen ${touchDown ? 'touch-buttom' : ''}`}>
             { this.renderPlayboard() }
             {
               gameover ? (

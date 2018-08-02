@@ -1,12 +1,6 @@
 import Utils from '@utils'
-import blockMap from './block'
-
-const keyCode = {
-  left: 37,
-  up: 38,
-  right: 39,
-  down: 40
-}
+import Constant from './constant'
+const { block: blockMap, keyCode } = Constant
 
 const couldMoveLeftOrRight = ({ width, block, rx, y, playboard, length }) => {
   const blockList: any[] = []
