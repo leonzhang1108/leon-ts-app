@@ -44,7 +44,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   componentWillUnmount() {
-    if (this.interval) { clearInterval(this.interval) }
+    this.clearInterval()
     this.clearBtnInterval()
     document.removeEventListener('keydown', this.clearBtnInterval)
     document.removeEventListener('touchend', this.clearBtnInterval)
@@ -54,9 +54,13 @@ class Tetris extends React.Component<IProps, IStates> {
   clearBtnInterval = () => {
     if (this.btnInterval) { clearInterval(this.btnInterval) }
   }
+  
+  clearInterval = () => {
+    if (this.interval) { clearInterval(this.interval) }
+  }
 
   resetGame = () => {
-    if (this.interval) { clearInterval(this.interval) }
+    this.clearInterval()
     const row = 20
     const column = 10
     const screen = this.calculateScreen({ row, column })
@@ -169,9 +173,8 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   newInterval = (next?) => {
-    if (this.interval) { clearInterval(this.interval)}
+    this.clearInterval()
     if (this.isGameOver()) { 
-      if (this.interval) { clearInterval(this.interval) }
       this.setState({ gameover: true })
     } else {
       this.doMovePlayboard(next)
@@ -222,7 +225,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   isRowNeedClear = (couldCalculate?) => {
-    if (this.interval) { clearInterval(this.interval) }
+    this.clearInterval()
     const { playboard, score } = this.state
     const { screen, clearedList } = this.clearRow(playboard)
     if (clearedList.length) { 
@@ -277,7 +280,7 @@ class Tetris extends React.Component<IProps, IStates> {
   togglePause = () => {
     const { pause } = this.state
     if (!pause && this.interval) {
-      clearInterval(this.interval)
+      this.clearInterval()
     } else {
       this.newInterval()
     }
