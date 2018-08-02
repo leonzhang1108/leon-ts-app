@@ -1,3 +1,5 @@
+@hilight-color: #dc6666;
+
 .tetris-wrapper {
   width: 100%;
   height: 100%;
@@ -13,21 +15,16 @@
     }
   }
   .tetris-screen-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: center;
     position: relative;
-    width: 100%;
+    margin: 3rem 20%;
     text-align: center;
-    height: 70%;
     .tetris-screen {
-      margin: 0 auto;
       background-color: #9ead86;
       padding: 10px;
       border-radius: 8px;
-      position: relative;    
-      transition: transform .1s;
+      position: relative;   
+      display: inline-block; 
+      // transition: transform .1s;
       &.touch-buttom {
         transform: translateY(5px);
       }
@@ -45,10 +42,9 @@
         opacity: 1;
       }
       .row {
-        &:after {
-          content: '';
-          clear: both;
-        }
+        display: block;
+        overflow: hidden;
+        zoom: 1;
         .item {
           width: 20px;
           height: 20px;
@@ -64,10 +60,13 @@
           }
           &.full {
             border: 2px solid #666;
-            animation: hilight .3s 1 forwards;
+            animation: hilight 300ms 1 forwards;
             &:after {
               background: #666;
             }
+          }
+          &.cleared {
+            animation: twinkle 300ms 1 forwards;
           }
           &:after {
             content: "";
@@ -79,6 +78,10 @@
           }
         }
       }
+    }
+    .score {
+      margin-top: .5rem;
+      font-size: 2rem;
     }
   }
   
@@ -121,6 +124,20 @@
 }
 @keyframes hilight {
   50% {
-    background: red;
+    background-color: @hilight-color;
+  }
+}
+@keyframes twinkle {
+  25% {
+    background-color: @hilight-color;
+  }
+  50% {
+    background-color: inherit;
+  }
+  75% {
+    background-color: @hilight-color;
+  }
+  100% {
+    background-color: inherit;
   }
 }

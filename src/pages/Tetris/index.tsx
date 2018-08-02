@@ -20,7 +20,8 @@ interface IStates {
   couldMove: boolean,
   pause: boolean,
   gameover: boolean,
-  touchDown: boolean
+  touchDown: boolean,
+  score: number
 }
 
 interface IProps {
@@ -44,7 +45,7 @@ class Tetris extends React.Component<IProps, IStates> {
 
   componentWillUnmount() {
     if (this.interval) { clearInterval(this.interval) }
-    if (this.btnInterval) { clearInterval(this.btnInterval) }
+    this.clearBtnInterval()
     document.removeEventListener('keydown', this.clearBtnInterval)
     document.removeEventListener('touchend', this.clearBtnInterval)
     document.removeEventListener('visibilitychange', this.visibilitychange)
@@ -69,7 +70,8 @@ class Tetris extends React.Component<IProps, IStates> {
       intervalTime: 1000,
       pause: false,
       gameover: false,
-      touchDown: false
+      touchDown: false,
+      score: 0
     }, () => this.doMovePlayboard(true))
   }
 
@@ -87,14 +89,16 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   clearRow = playboard => {
-    const result = Utils.clone(playboard).map(row => row.map(item => item ? 2 : 0))
+    const screen = Utils.clone(playboard).map(row => row.map(item => item ? 2 : 0))
+    const clearedList: number[] = []
     playboard.forEach((row, i) => {
       if (row.every(item => item)) {
-        result.splice(i, 1)
-        result.unshift(new Array(10).fill(0))
+        screen.splice(i, 1)
+        screen.unshift(new Array(10).fill(0))
+        clearedList.push(i)
       }
     })
-    return result
+    return { screen, clearedList }
   }
 
   keydown = e => this.doMove(e.keyCode)
@@ -211,22 +215,35 @@ class Tetris extends React.Component<IProps, IStates> {
         y++
         p = playboard
       } else {
-        this.setState({ playboard: p, y, touchDown: true }, () => this.newInterval(true))
+        this.setState({ playboard: p, y, touchDown: true }, this.isRowNeedClear)
       }
     }
-    setTimeout(() => this.setState({ touchDown: false}), 100)
+    setTimeout(() => this.setState({ touchDown: false}), 50)
+  }
+
+  isRowNeedClear = (couldCalculate?) => {
+    if (this.interval) { clearInterval(this.interval) }
+    const { playboard, score } = this.state
+    const { screen, clearedList } = this.clearRow(playboard)
+    if (clearedList.length) { 
+      clearedList.forEach(index => playboard[index] = new Array(10).fill(3))
+      this.setState({ screen: playboard })
+      const state = couldCalculate ? { screen, score: score + clearedList.length } : { screen, score }
+      setTimeout(() => { this.setState(state, () => this.newInterval(true)) }, 300)
+    } else {
+      this.setState({ screen }, () => this.newInterval(true))
+    }
   }
 
   reset = () => {
     this.setState({
       cBlock: blocks[Utils.random(0, 7)],
-      y: 0, x: 0, rotate: Utils.random(0, 4),
-      screen: this.clearRow(this.state.playboard)
-    }, () => this.newInterval(true))
+      y: 0, x: 0, rotate: Utils.random(0, 4)
+    }, () => this.isRowNeedClear(true))
   }
 
   // state 
-  // 0: empty, 1: full
+  // 0: empty, 1: block 2: full 3: cleared
   calculateScreen = ({ row: r, column: c }) => {
     const result: number[][] = []
     for (let i = 0; i < r; i++) {
@@ -239,7 +256,21 @@ class Tetris extends React.Component<IProps, IStates> {
 
   renderPlayboard = () => this.state.playboard ? this.state.playboard.map((r, i) => (
     <div className='row' key={i}>
-      { r.map((c, j) => <div key={j} className={`item ${c ? c === 1 ? 'block' : 'full' : ''}`}/>) }
+      { r.map((c, j) => {
+        let cName = ''
+        switch (c) {
+          case 1: 
+            cName = 'block'
+            break
+          case 2: 
+            cName = 'full'
+            break
+          case 3: 
+            cName = 'cleared'
+            break
+        }
+        return <div key={j} className={`item ${cName}`}/>
+      }) }
     </div>
   )) : null
 
@@ -255,12 +286,12 @@ class Tetris extends React.Component<IProps, IStates> {
 
   touchStart = code => {
     this.doMove(code)
-    this.btnInterval = setInterval(() => this.doMove(code), 200)
+    this.btnInterval = setInterval(() => this.doMove(code), 150)
   }
   
   render() {
     const { isMobile } = this.props
-    const { pause, gameover, touchDown } = this.state
+    const { pause, gameover, touchDown, score } = this.state
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
         <div className='tetris-screen-wrapper'>
@@ -274,6 +305,7 @@ class Tetris extends React.Component<IProps, IStates> {
               ) : null
             }
           </div>
+          <div className='score'>{score}</div>
         </div>
         <div className='btn-wrapper'>
           <div className='functional-btn'>
