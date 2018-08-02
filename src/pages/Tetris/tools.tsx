@@ -112,7 +112,7 @@ export default {
         length--
       }
     }
-
+    
     return { playboard, x, screen, couldMove: cm }
   }
 }

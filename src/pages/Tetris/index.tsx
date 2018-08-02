@@ -56,7 +56,7 @@ class Tetris extends React.Component<IProps, IStates> {
       cBlock: blocks[Utils.random(0, 7)],
       y: 0,
       x: 0,
-      rotate: 0,
+      rotate:  Utils.random(0, 4),
       intervalTime: 1000,
       pause: false,
       gameover: false
@@ -129,7 +129,7 @@ class Tetris extends React.Component<IProps, IStates> {
         } = Tools.getCurrPosition({ x, y: my + 1, cBlock, screen, rotate, moveTo: keyCode.down })
         if (couldMove) {
           this.newInterval()
-          this.setState({ y: my + 1, playboard: dp})
+          this.setState({ playboard: dp, y: my + 1 })
         } else {
           this.reset()
         }
@@ -192,9 +192,8 @@ class Tetris extends React.Component<IProps, IStates> {
   goToBottom = () => {
     const { x, cBlock, rotate, screen, gameover } = this.state
     if (gameover) { return }
-    let { y } = this.state
+    let { y, playboard: p } = this.state
     let couldGoDown = true
-    let p 
     while (couldGoDown) {
       const { couldMove, playboard } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
       couldGoDown = couldMove
@@ -210,7 +209,7 @@ class Tetris extends React.Component<IProps, IStates> {
   reset = () => {
     this.setState({
       cBlock: blocks[Utils.random(0, 7)],
-      y: 0, x: 0, rotate: 0,
+      y: 0, x: 0, rotate: Utils.random(0, 4),
       screen: this.clearRow(this.state.playboard)
     }, () => this.newInterval(true))
   }
@@ -233,11 +232,11 @@ class Tetris extends React.Component<IProps, IStates> {
     return result
   }
 
-  renderPlayboard = () => this.state.playboard.map((r, i) => (
+  renderPlayboard = () => this.state.playboard ? this.state.playboard.map((r, i) => (
     <div className='row' key={i}>
       { r.map((c, j) => <div key={j} className={`item ${c ? c === 1 ? 'block' : 'full' : ''}`}/>) }
     </div>
-  ))
+  )) : null
 
   togglePause = () => {
     const { pause } = this.state
@@ -246,7 +245,7 @@ class Tetris extends React.Component<IProps, IStates> {
     } else {
       this.newInterval()
     }
-    this.setState({ pause: !pause})
+    this.setState({ pause: !pause })
   }
 
   
