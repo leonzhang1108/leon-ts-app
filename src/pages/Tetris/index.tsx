@@ -2,7 +2,7 @@ import * as React from 'react'
 import './index.less'
 import Utils from '@utils'
 import Tools from './tools'
-import { Icon, Button } from 'antd'
+import { Button } from 'antd'
 import blockMap from './block'
 
 interface IStates {
@@ -268,16 +268,16 @@ class Tetris extends React.Component<IProps, IStates> {
         </div>
         <div className='btn-wrapper'>
           <div className='functional-btn'>
-            <Icon type={`ts-app icon-down`} onClick={this.goToBottom}/>
-            <Icon type={`ts-app icon-${pause ? 'play' : 'pause'}`} onClick={this.togglePause}/>
+            <div onTouchStart={this.togglePause} className={`anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
+            <div onTouchStart={this.goToBottom} className={`anticon anticon-ts-app icon-down`}/>
           </div>
           <div className='direction'>
-            <Icon type='ts-app icon-up-circle' onClick={Utils.handle(this.doMove, keyCode.up)}/>
+            <div onTouchStart={Utils.handle(this.doMove, keyCode.up)} className='anticon anticon-ts-app icon-up-circle'/>
             <div className='middle'>
-              <Icon type='ts-app icon-left-circle' onClick={Utils.handle(this.doMove, keyCode.left)}/>
-              <Icon type='ts-app icon-right-circle' onClick={Utils.handle(this.doMove, keyCode.right)}/>
+              <div onTouchStart={Utils.handle(this.doMove, keyCode.left)} className='anticon anticon-ts-app icon-left-circle'/>
+              <div onTouchStart={Utils.handle(this.doMove, keyCode.right)} className='anticon anticon-ts-app icon-right-circle'/>
             </div>
-            <Icon type='ts-app icon-down-circle' onClick={Utils.handle(this.doMove, keyCode.down)}/>
+            <div onTouchStart={Utils.handle(this.doMove, keyCode.down)} className='anticon anticon-ts-app icon-down-circle'/>
           </div>
         </div>
       </div>
