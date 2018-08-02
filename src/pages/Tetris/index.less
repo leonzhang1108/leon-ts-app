@@ -60,6 +60,7 @@
           }
           &.full {
             border: 2px solid #666;
+            animation: hilight .3s 1 forwards;
             &:after {
               background: #666;
             }
@@ -112,5 +113,10 @@
         transform: scale(1.1);
       }
     }
+  }
+}
+@keyframes hilight {
+  50% {
+    background: red;
   }
 }
