@@ -1,68 +1,82 @@
 .tetris-wrapper {
-  &.mobile {
-    .tetris-screen {
-      transform: scale(.8);
-    }
-  }
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
+  &.mobile {
+    .tetris-screen-wrapper .tetris-screen .row .item {
+      width: 14px;
+      height: 14px;
+      margin: 0 1px 1px 0;
+      &:after {
+        width: 6px;
+        height: 6px;
+      }
+    }
+  }
   .tetris-screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    position: relative;
     width: 100%;
     text-align: center;
-  }
-  .tetris-screen {
-    margin: 0 auto;
-    background-color: #9ead86;
-    padding: 10px;
-    border-radius: 8px;
-    .game-over {
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, .5);
-      position: absolute;
-      left: 0;
-      top: 0;
-      border-radius: 6px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 1;
-    }
-    .row {
-      .item {
-        width: 20px;
-        height: 20px;
-        padding: 2px;
-        border: 2px solid #879372;
-        margin: 0 2px 2px 0;
-        float: left;
-        &.block {
-          border: 2px solid #000;
-          &:after {
-            background: #000;
-          }
-        }
-        &.full {
-          border: 2px solid #666;
-          &:after {
-            background: #666;
-          }
-        }
+    .tetris-screen {
+      margin: 0 auto;
+      background-color: #9ead86;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 2rem;
+      position: relative;
+      .game-over {
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+      }
+      .row {
         &:after {
-          content: "";
-          display: block;
-          width: 12px;
-          height: 12px;
-          background: #879372;
-          overflow: hidden;
+          content: '';
+          clear: both;
+        }
+        .item {
+          width: 20px;
+          height: 20px;
+          padding: 2px;
+          border: 2px solid #879372;
+          margin: 0 2px 2px 0;
+          float: left;
+          &.block {
+            border: 2px solid #000;
+            &:after {
+              background: #000;
+            }
+          }
+          &.full {
+            border: 2px solid #666;
+            &:after {
+              background: #666;
+            }
+          }
+          &:after {
+            content: "";
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: #879372;
+            overflow: hidden;
+          }
         }
       }
     }
   }
+  
   .btn-wrapper {
     text-align: center;
     position: absolute;
@@ -77,19 +91,26 @@
     }
     .direction {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .middle {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        max-width: 17rem;
+      }
     }
+    
     i {
-      font-size: 2.5rem;
+      font-size: 3.5rem;
       transform: scale(1);
       opacity: .5;
-      transition: all .1s;
+      transition: all .1s linear;
       &:active {
         color: #000;
         transform: scale(1.1);
       }
-    }
-    .middle i:first-child {
-      margin-right: 2.5rem;
     }
   }
 }

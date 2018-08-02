@@ -190,7 +190,8 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   goToBottom = () => {
-    const { x, cBlock, rotate, screen } = this.state
+    const { x, cBlock, rotate, screen, gameover } = this.state
+    if (gameover) { return }
     let { y } = this.state
     let couldGoDown = true
     let p 
@@ -254,15 +255,17 @@ class Tetris extends React.Component<IProps, IStates> {
     const { pause, gameover } = this.state
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
-        <div className='tetris-screen'>
-          { this.renderPlayboard() }
-          {
-            gameover ? (
-              <div className='game-over'>
-                <Button type="primary" onClick={this.resetGame}>Reset</Button>
-              </div>
-            ) : null
-          }
+        <div className='tetris-screen-wrapper'>
+          <div className='tetris-screen'>
+            { this.renderPlayboard() }
+            {
+              gameover ? (
+                <div className='game-over'>
+                  <Button type="primary" onClick={this.resetGame}>Reset</Button>
+                </div>
+              ) : null
+            }
+          </div>
         </div>
         <div className='btn-wrapper'>
           <div className='functional-btn'>
