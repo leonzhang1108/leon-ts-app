@@ -39,10 +39,25 @@ class Tetris extends React.Component<IProps, IStates> {
 
   interval
 
+  btnInterval
+
   componentWillMount() {
     document.addEventListener('keydown', this.keydown)
+    document.addEventListener('touchend', this.clearBtnInterval)
     document.addEventListener('visibilitychange', this.visibilitychange)
     this.resetGame()
+  }
+
+  componentWillUnmount() {
+    if (this.interval) { clearInterval(this.interval) }
+    if (this.btnInterval) { clearInterval(this.btnInterval) }
+    document.removeEventListener('keydown', this.clearBtnInterval)
+    document.removeEventListener('touchend', this.clearBtnInterval)
+    document.removeEventListener('visibilitychange', this.visibilitychange)
+  }
+
+  clearBtnInterval = () => {
+    if (this.btnInterval) { clearInterval(this.btnInterval) }
   }
 
   resetGame = () => {
@@ -214,12 +229,6 @@ class Tetris extends React.Component<IProps, IStates> {
     }, () => this.newInterval(true))
   }
 
-  componentWillUnmount() {
-    if (this.interval) { clearInterval(this.interval) }
-    document.removeEventListener('keydown', this.keydown)
-    document.removeEventListener('visibilitychange', this.visibilitychange)
-  }
-
   // state 
   // 0: empty, 1: full
   calculateScreen = ({ row: r, column: c }) => {
@@ -248,6 +257,10 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({ pause: !pause })
   }
 
+  touchStart = code => {
+    this.doMove(code)
+    this.btnInterval = setInterval(() => this.doMove(code), 200)
+  }
   
   render() {
     const { isMobile } = this.props
@@ -274,10 +287,10 @@ class Tetris extends React.Component<IProps, IStates> {
           <div className='direction'>
             <div onTouchStart={Utils.handle(this.doMove, keyCode.up)} className='anticon anticon-ts-app icon-up-circle'/>
             <div className='middle'>
-              <div onTouchStart={Utils.handle(this.doMove, keyCode.left)} className='anticon anticon-ts-app icon-left-circle'/>
-              <div onTouchStart={Utils.handle(this.doMove, keyCode.right)} className='anticon anticon-ts-app icon-right-circle'/>
+              <div onTouchStart={Utils.handle(this.touchStart, keyCode.left)} className='anticon anticon-ts-app icon-left-circle'/>
+              <div onTouchStart={Utils.handle(this.touchStart, keyCode.right)} className='anticon anticon-ts-app icon-right-circle'/>
             </div>
-            <div onTouchStart={Utils.handle(this.doMove, keyCode.down)} className='anticon anticon-ts-app icon-down-circle'/>
+            <div onTouchStart={Utils.handle(this.touchStart, keyCode.down)} className='anticon anticon-ts-app icon-down-circle'/>
           </div>
         </div>
       </div>
