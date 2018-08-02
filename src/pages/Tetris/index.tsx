@@ -295,6 +295,7 @@ class Tetris extends React.Component<IProps, IStates> {
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
         <div className='tetris-screen-wrapper'>
+          <div className='score'>{score}</div>
           <div className={`tetris-screen ${touchDown ? 'touch-buttom' : ''}`}>
             { this.renderPlayboard() }
             {
@@ -305,7 +306,6 @@ class Tetris extends React.Component<IProps, IStates> {
               ) : null
             }
           </div>
-          <div className='score'>{score}</div>
         </div>
         <div className='btn-wrapper'>
           <div className='functional-btn'>
