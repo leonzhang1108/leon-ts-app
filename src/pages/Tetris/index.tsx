@@ -307,6 +307,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   touchStart = code => {
+    this.clearBtnInterval()
     const interval = code === keyCode.down ? 50 : 100
     this.doMove(code)
     if (code !== keyCode.up) {
