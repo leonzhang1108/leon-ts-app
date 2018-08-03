@@ -243,7 +243,7 @@ class Tetris extends React.Component<IProps, IStates> {
     const { screen, clearedList } = this.clearRow(playboard)
     if (clearedList.length) { 
       clearedList.forEach(index => playboard[index] = new Array(10).fill(3))
-      this.setState({ screen: playboard, pressed: false })
+      this.setState({ screen: playboard })
       const state = couldCalculate ? { screen, score: score + clearedList.length } : { screen, score }
       setTimeout(() => { this.setState(state, () => this.newInterval(true)) }, 300)
     } else {
@@ -302,8 +302,9 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   touchStart = code => {
+    const interval = code === keyCode.down ? 50 : 100
     this.doMove(code)
-    this.btnInterval = setInterval(() => this.doMove(code), 150)
+    this.btnInterval = setInterval(() => this.doMove(code), interval)
   }
   
   render() {
