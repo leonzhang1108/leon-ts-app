@@ -17,7 +17,6 @@ interface IStates {
   interval?: any,
   y: number,
   x: number,
-  w: number,
   h: number,
   rotate: number,
   intervalTime: number,
@@ -32,7 +31,6 @@ interface IStates {
 
 interface IProps {
   isMobile: boolean,
-  w: number,
   h: number
 }
 
@@ -316,22 +314,19 @@ class Tetris extends React.Component<IProps, IStates> {
 
   getSize = props => {
     if (!this.props.isMobile) { return {} }
-    let filling = 0
     const { h } = props
-    let scale
-    let css = {}
-    scale = h / 960
-    filling = h - 480
-    css = { paddingTop: (filling - 100) * .6 }
-    css[this.transform] = `scale(${scale + .3})`
-    return css
+    const scale = h / 960
+    const filling = h - 480
+    return {
+      paddingTop: (filling - 100) * .6,
+      [this.transform]: `scale(${scale + .3})`
+    }
   }
   
   render() {
     const { isMobile } = this.props
     const { pause, gameover, touchDown, score, style } = this.state
     const btnStyle = {[this.transform]: style[this.transform]}
-    console.log(style)
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
         <div className='tetris-screen-wrapper' style={style}>
@@ -370,7 +365,6 @@ export default Utils.connect({
   component: Tetris,
   mapStateToProps: state => ({
     isMobile: state.common.isMobile,
-    h: state.common.contentHeight,
-    w: state.common.contentWidth
+    h: state.common.contentHeight
   })
 })
