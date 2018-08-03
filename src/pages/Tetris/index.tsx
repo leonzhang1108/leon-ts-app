@@ -245,9 +245,10 @@ class Tetris extends React.Component<IProps, IStates> {
     const { playboard, score } = this.state
     const { screen, clearedList } = this.clearRow(playboard)
     if (clearedList.length) { 
+      const state = couldCalculate ? { screen, score: score + clearedList.length } : { screen, score }
       clearedList.forEach(index => playboard[index] = new Array(10).fill(3))
       this.setState({ screen: playboard })
-      const state = couldCalculate ? { screen, score: score + clearedList.length } : { screen, score }
+      this.vibrate(100)
       setTimeout(() => { this.setState(state, () => this.newInterval(true)) }, 300)
     } else {
       this.setState({ screen }, () => this.newInterval(true))
@@ -255,6 +256,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   reset = () => {
+    this.vibrate(100)
     this.setState({
       cBlock: blocks[Utils.random(0, 7)],
       y: 0, x: 0, rotate: Utils.random(0, 4)
@@ -322,6 +324,8 @@ class Tetris extends React.Component<IProps, IStates> {
       [this.transform]: `scale(${scale + .3})`
     }
   }
+
+  vibrate = s => false && this.props.isMobile && navigator.vibrate ? navigator.vibrate(s) : null
   
   render() {
     const { isMobile } = this.props
