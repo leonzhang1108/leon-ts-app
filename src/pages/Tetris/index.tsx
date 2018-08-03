@@ -6,6 +6,8 @@ import { Button } from 'antd'
 import Constant from './constant'
 const { block: blockMap, keyCode } = Constant
 
+const blocks = Object.keys(blockMap)
+
 interface IStates {
   row: number,
   column: number,
@@ -28,8 +30,6 @@ interface IStates {
 interface IProps {
   isMobile: boolean
 }
-
-const blocks = ['I', 'L', 'J', 'T', 'Z', 'S', 'O']
 
 class Tetris extends React.Component<IProps, IStates> {
 
@@ -70,11 +70,11 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
-      cBlock: blocks[Utils.random(0, 7)],
+      cBlock: blocks[Utils.random(0, blocks.length)],
       y: 0,
       x: 0,
       rotate:  Utils.random(0, 4),
-      intervalTime: 1000,
+      intervalTime: 800,
       pause: false,
       gameover: false,
       touchDown: false,
@@ -304,7 +304,9 @@ class Tetris extends React.Component<IProps, IStates> {
   touchStart = code => {
     const interval = code === keyCode.down ? 50 : 100
     this.doMove(code)
-    this.btnInterval = setInterval(() => this.doMove(code), interval)
+    if (code !== keyCode.up) {
+      this.btnInterval = setInterval(() => this.doMove(code), interval)
+    }
   }
   
   render() {
