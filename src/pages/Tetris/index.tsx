@@ -21,7 +21,8 @@ interface IStates {
   pause: boolean,
   gameover: boolean,
   touchDown: boolean,
-  score: number
+  score: number,
+  pressed: boolean
 }
 
 interface IProps {
@@ -37,6 +38,7 @@ class Tetris extends React.Component<IProps, IStates> {
   btnInterval
 
   componentWillMount() {
+    document.addEventListener('keyup', this.keyup)
     document.addEventListener('keydown', this.keydown)
     document.addEventListener('touchend', this.clearBtnInterval)
     document.addEventListener('visibilitychange', this.visibilitychange)
@@ -46,6 +48,7 @@ class Tetris extends React.Component<IProps, IStates> {
   componentWillUnmount() {
     this.clearInterval()
     this.clearBtnInterval()
+    document.removeEventListener('keyup', this.keyup)
     document.removeEventListener('keydown', this.clearBtnInterval)
     document.removeEventListener('touchend', this.clearBtnInterval)
     document.removeEventListener('visibilitychange', this.visibilitychange)
@@ -75,7 +78,8 @@ class Tetris extends React.Component<IProps, IStates> {
       pause: false,
       gameover: false,
       touchDown: false,
-      score: 0
+      score: 0,
+      pressed: false
     }, () => this.doMovePlayboard(true))
   }
 
@@ -105,7 +109,16 @@ class Tetris extends React.Component<IProps, IStates> {
     return { screen, clearedList }
   }
 
-  keydown = e => this.doMove(e.keyCode)
+  keyup = () => {
+    this.clearBtnInterval()
+    this.setState({ pressed: false })
+  }
+
+  keydown = e => {
+    if (!this.state.pressed) {
+      this.touchStart(e.keyCode)
+    }
+  }
 
   doMove = code => {
     const { x: cx, y: my, screen, cBlock, row, rotate, pause, gameover } = this.state
@@ -123,7 +136,7 @@ class Tetris extends React.Component<IProps, IStates> {
         if (lc) { 
           x = lx 
           playboard = lp
-          this.setState({ playboard, x })
+          this.setState({ playboard, x, pressed: true })
         }
         return
       case keyCode.right:
@@ -136,7 +149,7 @@ class Tetris extends React.Component<IProps, IStates> {
         if (rc) { 
           x = rx 
           playboard = rp
-          this.setState({ playboard, x })
+          this.setState({ playboard, x, pressed: true })
         }
         return
       case keyCode.down: 
@@ -147,7 +160,7 @@ class Tetris extends React.Component<IProps, IStates> {
         } = Tools.getCurrPosition({ x, y: my + 1, cBlock, screen, rotate, moveTo: keyCode.down })
         if (couldMove) {
           this.newInterval()
-          this.setState({ playboard: dp, y: my + 1 })
+          this.setState({ playboard: dp, y: my + 1, pressed: true })
         } else {
           this.reset()
         }
@@ -161,7 +174,7 @@ class Tetris extends React.Component<IProps, IStates> {
         } = Tools.getCurrPosition({ x: cx, y: my ? my : 20, cBlock, screen, rotate: r, moveTo: keyCode.up })
         if (uc) {
           playboard = up
-          this.setState({ playboard, rotate: r })
+          this.setState({ playboard, rotate: r, pressed: true })
         }
         return
       case keyCode.space:
@@ -207,8 +220,8 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   goToBottom = () => {
-    const { x, cBlock, rotate, screen, gameover } = this.state
-    if (gameover) { return }
+    const { x, cBlock, rotate, screen, gameover, pause } = this.state
+    if (gameover || pause) { return }
     let { y, playboard: p } = this.state
     let couldGoDown = true
     while (couldGoDown) {
@@ -230,7 +243,7 @@ class Tetris extends React.Component<IProps, IStates> {
     const { screen, clearedList } = this.clearRow(playboard)
     if (clearedList.length) { 
       clearedList.forEach(index => playboard[index] = new Array(10).fill(3))
-      this.setState({ screen: playboard })
+      this.setState({ screen: playboard, pressed: false })
       const state = couldCalculate ? { screen, score: score + clearedList.length } : { screen, score }
       setTimeout(() => { this.setState(state, () => this.newInterval(true)) }, 300)
     } else {
@@ -281,6 +294,7 @@ class Tetris extends React.Component<IProps, IStates> {
     const { pause } = this.state
     if (!pause && this.interval) {
       this.clearInterval()
+      this.clearBtnInterval()
     } else {
       this.newInterval()
     }
