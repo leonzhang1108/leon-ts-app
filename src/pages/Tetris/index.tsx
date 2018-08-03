@@ -231,10 +231,10 @@ class Tetris extends React.Component<IProps, IStates> {
         y++
         p = playboard
       } else {
-        this.setState({ playboard: p, y, touchDown: true }, this.isRowNeedClear)
+        this.setState({ playboard: p, y, touchDown: true, pressed: true }, this.isRowNeedClear)
       }
     }
-    setTimeout(() => this.setState({ touchDown: false}), 100)
+    setTimeout(() => this.setState({ touchDown: false }), 100)
   }
 
   isRowNeedClear = (couldCalculate?) => {
