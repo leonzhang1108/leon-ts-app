@@ -57,7 +57,13 @@ export default {
 
   changeTitle: breadcrumb => document.title = breadcrumb[breadcrumb.length - 1].title,
 
-  clone: v => JSON.parse(JSON.stringify(v))
+  clone: v => JSON.parse(JSON.stringify(v)),
+
+  transform: (() => {
+    const trans = ['transform', 'webkitTransform', 'msTransform', 'mozTransform', 'oTransform']
+    const body = document.body
+    return trans.filter((e) => body.style[e] !== undefined)[0]
+  })()
 }
 
 interface IConnectProps {

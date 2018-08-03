@@ -17,6 +17,8 @@ interface IStates {
   interval?: any,
   y: number,
   x: number,
+  w: number,
+  h: number,
   rotate: number,
   intervalTime: number,
   couldMove: boolean,
@@ -24,11 +26,14 @@ interface IStates {
   gameover: boolean,
   touchDown: boolean,
   score: number,
-  pressed: boolean
+  pressed: boolean,
+  style: any,
 }
 
 interface IProps {
-  isMobile: boolean
+  isMobile: boolean,
+  w: number,
+  h: number
 }
 
 class Tetris extends React.Component<IProps, IStates> {
@@ -36,6 +41,8 @@ class Tetris extends React.Component<IProps, IStates> {
   interval
 
   btnInterval
+
+  transform = Utils.transform
 
   componentWillMount() {
     document.addEventListener('keyup', this.keyup)
@@ -54,6 +61,10 @@ class Tetris extends React.Component<IProps, IStates> {
     document.removeEventListener('visibilitychange', this.visibilitychange)
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({style: this.getSize(nextProps)})
+  }
+
   clearBtnInterval = () => {
     if (this.btnInterval) { clearInterval(this.btnInterval) }
   }
@@ -70,16 +81,10 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({
       row, column, screen,
       playboard: screen,
+      style: this.getSize(this.props),
       cBlock: blocks[Utils.random(0, blocks.length)],
-      y: 0,
-      x: 0,
-      rotate:  Utils.random(0, 4),
-      intervalTime: 800,
-      pause: false,
-      gameover: false,
-      touchDown: false,
-      score: 0,
-      pressed: false
+      x: 0, y: 0, intervalTime: 800, score: 0, rotate: Utils.random(0, 4),
+      pause: false, gameover: false, touchDown: false, pressed: false
     }, () => this.doMovePlayboard(true))
   }
 
@@ -179,7 +184,7 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.space:
         this.goToBottom()
-      break
+        break
       default:
         
     }
@@ -308,13 +313,28 @@ class Tetris extends React.Component<IProps, IStates> {
       this.btnInterval = setInterval(() => this.doMove(code), interval)
     }
   }
+
+  getSize = props => {
+    if (!this.props.isMobile) { return {} }
+    let filling = 0
+    const { h } = props
+    let scale
+    let css = {}
+    scale = h / 960
+    filling = h - 480
+    css = { paddingTop: (filling - 100) * .6 }
+    css[this.transform] = `scale(${scale + .3})`
+    return css
+  }
   
   render() {
     const { isMobile } = this.props
-    const { pause, gameover, touchDown, score } = this.state
+    const { pause, gameover, touchDown, score, style } = this.state
+    const btnStyle = {[this.transform]: style[this.transform]}
+    console.log(style)
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
-        <div className='tetris-screen-wrapper'>
+        <div className='tetris-screen-wrapper' style={style}>
           <div className='score'>{score}</div>
           <div className={`tetris-screen ${touchDown ? 'touch-buttom' : ''}`}>
             { this.renderPlayboard() }
@@ -328,11 +348,11 @@ class Tetris extends React.Component<IProps, IStates> {
           </div>
         </div>
         <div className='btn-wrapper'>
-          <div className='functional-btn'>
+          <div className='functional-btn' style={btnStyle}>
             <div onTouchStart={this.togglePause} className={`anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
             <div onTouchStart={this.goToBottom} className={`anticon anticon-ts-app icon-down`}/>
           </div>
-          <div className='direction'>
+          <div className='direction' style={btnStyle}>
             <div onTouchStart={Utils.handle(this.doMove, keyCode.up)} className='anticon anticon-ts-app icon-up-circle'/>
             <div className='middle'>
               <div onTouchStart={Utils.handle(this.touchStart, keyCode.left)} className='anticon anticon-ts-app icon-left-circle'/>
@@ -349,6 +369,8 @@ class Tetris extends React.Component<IProps, IStates> {
 export default Utils.connect({
   component: Tetris,
   mapStateToProps: state => ({
-    isMobile: state.common.isMobile
+    isMobile: state.common.isMobile,
+    h: state.common.contentHeight,
+    w: state.common.contentWidth
   })
 })

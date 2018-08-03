@@ -20,7 +20,7 @@ const initState = {
   contentHeight: 0,
   contentWidth: 0,
   width: 0,
-  isMobile: false
+  isMobile: document.body.clientWidth < 900
 }
 
 const toggleOpenKeys = (state, action) => {
