@@ -119,7 +119,12 @@ class Tetris extends React.Component<IProps, IStates> {
 
   keydown = e => {
     if (!this.state.pressed) {
-      this.touchStart(e.keyCode)
+      const { keyCode: code } = e
+      if (code === keyCode.space) {
+        this.doMove(code)
+      } else {
+        this.touchStart(code)
+      }
     }
   }
 
