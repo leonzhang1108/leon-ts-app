@@ -121,7 +121,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     return isMobile 
       ? (
-        <div className='navbar' onClick={this.doCollapse} style={{ transform: `translateX(${ collapsed ? 0 : -200 }px)`}}>
+        <div className='navbar' onClick={this.doCollapse} style={{ 
+          transform: `translateX(${ collapsed ? 0 : -200 }px)`
+        }}>
           <Menu {...menuProps} style={{ height: '100%'}} >{this.renderMenus()}</Menu>
           <div className='icon' 
             style={{right: `-40px`}} 

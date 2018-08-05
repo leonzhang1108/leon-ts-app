@@ -263,7 +263,7 @@ class Tetris extends React.Component<IProps, IStates> {
   reset = () => {
     this.vibrate(100)
     this.setState({
-      cBlock: blocks[Utils.random(0, 7)],
+      cBlock: blocks[Utils.random(0, blocks.length)],
       y: 0, x: 0, rotate: Utils.random(0, 4)
     }, () => this.isRowNeedClear(true))
   }
@@ -332,6 +332,9 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   vibrate = s => false && this.props.isMobile && navigator.vibrate ? navigator.vibrate(s) : null
+
+  getDirectionBtn = direction => 
+    <div onTouchStart={Utils.handle(direction === 'up' ? this.doMove : this.touchStart, keyCode[direction])} className={`anticon anticon-ts-app icon-${direction}-circle`}/>
   
   render() {
     const { isMobile } = this.props
@@ -358,12 +361,12 @@ class Tetris extends React.Component<IProps, IStates> {
             <div onTouchStart={this.goToBottom} className={`anticon anticon-ts-app icon-down`}/>
           </div>
           <div className='direction' style={btnStyle}>
-            <div onTouchStart={Utils.handle(this.doMove, keyCode.up)} className='anticon anticon-ts-app icon-up-circle'/>
+            { this.getDirectionBtn('up') }
             <div className='middle'>
-              <div onTouchStart={Utils.handle(this.touchStart, keyCode.left)} className='anticon anticon-ts-app icon-left-circle'/>
-              <div onTouchStart={Utils.handle(this.touchStart, keyCode.right)} className='anticon anticon-ts-app icon-right-circle'/>
+              { this.getDirectionBtn('left') }
+              { this.getDirectionBtn('right') }
             </div>
-            <div onTouchStart={Utils.handle(this.touchStart, keyCode.down)} className='anticon anticon-ts-app icon-down-circle'/>
+            { this.getDirectionBtn('down') }
           </div>
         </div>
       </div>
