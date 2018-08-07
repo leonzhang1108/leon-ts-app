@@ -105,7 +105,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   }
 
   render() {
-    const { collapsed, actions, route, openKeys, isMobile} = this.props
+    const { collapsed, actions, route, openKeys, isMobile } = this.props
 
     const { toggleCollapse } = actions
 
@@ -125,7 +125,10 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         <div className='navbar' onClick={this.doCollapse} style={{ 
           transform: `translateX(${ collapsed ? 0 : -200 }px)`
         }}>
-          <Menu {...menuProps} style={{ height: `${this.props.h + 82}px`, overflowX: 'hidden', overflowY: 'scroll' }}>{this.renderMenus()}</Menu>
+          <Menu {...menuProps} style={{
+            height: `${this.props.h + 82}px`, 
+            overflowX: 'hidden', overflowY: 'auto' 
+          }}>{this.renderMenus()}</Menu>
           <div className='icon' 
             style={{right: `-40px`}} 
             onClick={this.doCollapse}
@@ -141,7 +144,10 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
           onCollapse={toggleCollapse}
         >
           <div className="logo" />
-          <Menu mode='inline' {...menuProps} >
+          <Menu mode='inline' {...menuProps} style={{
+            height: `${document.body.clientHeight - 98}px`, 
+            overflowX: 'hidden', overflowY: 'auto' 
+          }}>
             { this.renderMenus() }
           </Menu>
         </Sider>
