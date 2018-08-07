@@ -18,6 +18,7 @@ interface IProps {
   isMobile: boolean,
   breadcrumb: any[],
   openKeys: any[],
+  h: number,
   actions: {
     changeBreadcrumb(v: any): void,
     toggleCollapse(): void,
@@ -124,7 +125,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         <div className='navbar' onClick={this.doCollapse} style={{ 
           transform: `translateX(${ collapsed ? 0 : -200 }px)`
         }}>
-          <Menu {...menuProps} style={{ height: '100%'}} >{this.renderMenus()}</Menu>
+          <Menu {...menuProps} style={{ height: `${this.props.h + 82}px`, overflowX: 'hidden', overflowY: 'scroll' }}>{this.renderMenus()}</Menu>
           <div className='icon' 
             style={{right: `-40px`}} 
             onClick={this.doCollapse}
@@ -156,7 +157,8 @@ export default Utils.connect({
       breadcrumb: state.common.breadcrumb,
       openKeys: state.common.openKeys,
       collapsed: state.common.collapsed,
-      isMobile: state.common.isMobile
+      isMobile: state.common.isMobile,
+      h: state.common.contentHeight
     }
   },
   mapDispatchToProps: dispatch => ({
