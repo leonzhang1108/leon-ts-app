@@ -1,4 +1,6 @@
 @hilight-color: #dc6666;
+@empty-color: #c7c7c7;
+@full-color: #999;
 
 .tetris-wrapper {
   width: 100%;
@@ -12,7 +14,7 @@
       width: 12px;
       height: 12px;
       margin: 0 1px 1px 0;
-      border: 2px solid #b3b3b3;
+      border: 2px solid @empty-color;
       &:after {
         width: 4px;
         height: 4px;
@@ -63,7 +65,7 @@
           width: 20px;
           height: 20px;
           padding: 2px;
-          border: 2px solid #b3b3b3;
+          border: 2px solid @empty-color;
           margin: 0 2px 2px 0;
           float: left;
           &.block {
@@ -73,10 +75,10 @@
             }
           }
           &.full {
-            border: 2px solid #666;
+            border: 2px solid @full-color;
             animation: hilight 300ms ease-in-out forwards;
             &:after {
-              background: #666;
+              background: @full-color;
             }
           }
           &.cleared {
@@ -87,7 +89,7 @@
             display: block;
             width: 12px;
             height: 12px;
-            background: #b3b3b3;
+            background: @empty-color;
             overflow: hidden;
           }
         }
