@@ -6,7 +6,9 @@
   align-items: center;
   flex-direction: column;
   &.loading {
-    canvas, .control-zone {
+    canvas, 
+    .volumn-zone, 
+    .time-zone {
       display: none;
     }
   }
@@ -22,7 +24,7 @@
     font-size: 2rem;
     flex-direction: column;
   }
-  .control-zone {
+  .volumn-zone {
     display: flex;
     align-items: center;
     width: 70vw;
@@ -32,6 +34,13 @@
     }
     .slider {
       width: 100%;
+      margin: 0 1rem;
     }
+  }
+  .time-zone {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 70vw;
   }
 }

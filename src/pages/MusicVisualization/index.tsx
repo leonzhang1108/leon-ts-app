@@ -17,7 +17,9 @@ interface IState {
   bars: number, 
   barColor: string[] | string,
   loading: boolean,
-  percent: number
+  percent: number,
+  totalTime: number,
+  currentTime: 0
 }
 
 interface IProps {
@@ -38,7 +40,9 @@ class MusicVisualization extends React.Component<IProps, IState> {
       pause: false,
       volume: 0.3,
       loading: true,
-      percent: 0
+      percent: 0,
+      totalTime: 0,
+      currentTime: 0
     })
   }
 
@@ -72,14 +76,20 @@ class MusicVisualization extends React.Component<IProps, IState> {
     const ctx = this.canvas.getContext('2d')
     const { height, width, bars, barColor, volume } = this.state
     const param = { ctx, height, width, bars, barColor }
+    const { currentTime } = this
     this.setState({
       visualizer: new Visualizer({
         size: bars,
         draw: tools.draw(param),
-        volume
+        volume,
+        currentTime
       })
     }, this.play)
     this.resize()
+  }
+
+  currentTime = ({ curr: currentTime, total: totalTime}) => {
+    this.setState({ currentTime, totalTime })
   }
 
   componentWillUnmount() {
@@ -104,16 +114,27 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   formatPercent = percent => `${percent.toFixed(1)}%`
 
+  formatTime = () => {
+    const { currentTime, totalTime } = this.state
+    const c = Utils.secondFormatToTime(currentTime % totalTime)
+    const t = Utils.secondFormatToTime(totalTime)
+    return `${c}/${t}`
+  }
+
   render() {
-    const { pause, loading, percent } = this.state
+    const { pause, loading, percent, currentTime, totalTime } = this.state
 
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }}/>
-        <div className='control-zone'>
+        <div className='volumn-zone'>
           <div className='icon anticon anticon-ts-app icon-volumn'/>
           <Slider className='slider' defaultValue={30} onChange={this.changeVolumn}/>
           <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
+        </div>
+        <div className='time-zone'>
+          <Progress percent={currentTime / totalTime * 100} showInfo={false}/>
+          <div>{this.formatTime()}</div>
         </div>
         <div className='loading-mask'>
           <Progress type="circle" percent={percent} format={this.formatPercent}/>
