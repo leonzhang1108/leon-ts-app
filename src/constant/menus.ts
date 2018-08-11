@@ -35,6 +35,10 @@ export default [{
   icon: 'ts-app icon-food',
   title: 'Food'
 }, {
+  route: 'music-visualization',
+  icon: 'ts-app icon-music',
+  title: 'Music Visualization'
+}, {
   icon: 'ts-app icon-game',
   title: 'Game',
   key: 'game',
