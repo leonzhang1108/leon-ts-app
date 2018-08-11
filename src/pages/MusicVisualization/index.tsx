@@ -3,6 +3,7 @@ import * as React from 'react'
 import './index.less'
 import tools from './tools'
 import Visualizer from './visualizer'
+import { Slider } from 'antd'
 
 interface IState {
   visualizer: Visualizer,
@@ -23,9 +24,9 @@ class MusicVisualization extends React.Component<null, IState> {
     this.setState({
       src: './battle_heart_bgm.mp3',
       bars: 64,
-      barColor: ['gold', 'black'],
+      barColor: ['gold', 'aqua'],
       height: 300,
-      width: 600,
+      width: 300,
       pause: false,
       volume: 0.3
     })
@@ -63,38 +64,36 @@ class MusicVisualization extends React.Component<null, IState> {
     this.resize()
   }
 
-  componentDidUpdate(prevProps) {
-    const {
-      src: prevSrc,
-      pause: prevPause,
-      volume: prevVolume,
-      height: prevHeight,
-      width: prevWidth
-    } = prevProps
-    const { visualizer } = this.state
-    const { src, pause, volume, height, width } = this.state
-    if (prevSrc !== src) {
-      this.play()
-    }
-    if (prevPause !== pause) {
-      visualizer[pause ? 'pause' : 'resume']()
-    }
-    if (prevVolume !== volume) {
-      visualizer.updateVolume(volume)
-    }
-    if (prevHeight !== height || prevWidth !== width) {
-      this.resize()
-    }
-  }
-
   componentWillUnmount() {
     this.state.visualizer.stop()
   }
 
+  changeVolumn = v => {
+    this.state.visualizer.updateVolume(v / 100)
+  }
+
+  togglePause = () => {
+    const { visualizer, pause } = this.state
+    
+    if (pause) {
+      visualizer.resume()
+    } else {
+      visualizer.pause()
+    }
+
+    this.setState({ pause: !pause })
+  }
+
   render() {
+    const { pause } = this.state
     return (
       <div className="music-visualization">
         <canvas ref={ref => { this.canvas = ref }}/>
+        <div className='control-zone'>
+          <div className='icon anticon anticon-ts-app icon-volumn'/>
+          <Slider className='slider' defaultValue={30} onChange={this.changeVolumn}/>
+          <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
+        </div>
       </div>
     )
   }
