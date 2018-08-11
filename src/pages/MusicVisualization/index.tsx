@@ -1,9 +1,11 @@
 
 import * as React from 'react'
 import './index.less'
+import Utils from '@utils'
 import tools from './tools'
 import Visualizer from './visualizer'
 import { Slider } from 'antd'
+import { Icon } from 'antd'
 
 interface IState {
   visualizer: Visualizer,
@@ -13,10 +15,15 @@ interface IState {
   pause: boolean
   volume: number,
   bars: number, 
-  barColor: string[] | string
+  barColor: string[] | string,
+  loading: boolean
 }
 
-class MusicVisualization extends React.Component<null, IState> {
+interface IProps {
+  isMobile: boolean
+}
+
+class MusicVisualization extends React.Component<IProps, IState> {
 
   canvas
 
@@ -25,10 +32,11 @@ class MusicVisualization extends React.Component<null, IState> {
       src: './battle_heart_bgm.mp3',
       bars: 64,
       barColor: ['gold', 'aqua'],
-      height: 300,
-      width: 300,
+      height: 400,
+      width: this.props.isMobile ? 300 : 600,
       pause: false,
-      volume: 0.3
+      volume: 0.3,
+      loading: true
     })
   }
 
@@ -46,8 +54,12 @@ class MusicVisualization extends React.Component<null, IState> {
       fileReader.onload = e => e && e.target && e.target.result && this.state.visualizer.play(e.target.result)
       fileReader.readAsArrayBuffer(src)
     } else if (typeof src === 'string') {
-      this.state.visualizer.play(src)
+      this.state.visualizer.play(src, this.afterLoading)
     }
+  }
+
+  afterLoading = () => {
+    this.setState({ loading: false})
   }
 
   componentDidMount() {
@@ -74,7 +86,7 @@ class MusicVisualization extends React.Component<null, IState> {
 
   togglePause = () => {
     const { visualizer, pause } = this.state
-    
+
     if (pause) {
       visualizer.resume()
     } else {
@@ -85,18 +97,28 @@ class MusicVisualization extends React.Component<null, IState> {
   }
 
   render() {
-    const { pause } = this.state
+    const { pause, loading } = this.state
+
     return (
-      <div className="music-visualization">
+      <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }}/>
         <div className='control-zone'>
           <div className='icon anticon anticon-ts-app icon-volumn'/>
           <Slider className='slider' defaultValue={30} onChange={this.changeVolumn}/>
           <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
         </div>
+        <div className='loading-mask'>
+          <Icon type='loading' />
+          <div>loading music</div>
+        </div>
       </div>
     )
   }
 }
 
-export default MusicVisualization
+export default Utils.connect({
+  component: MusicVisualization,
+  mapStateToProps: state => ({
+    isMobile: state.common.isMobile
+  })
+})

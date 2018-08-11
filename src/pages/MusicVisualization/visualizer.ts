@@ -7,6 +7,8 @@ export default class Visualizer {
   gainNode
   analyser
   rafId
+  xhr
+  volume
 
   constructor({ draw, size, volume }) {
     this.source = null
@@ -16,7 +18,7 @@ export default class Visualizer {
     this.size = size
 
     this.gainNode = this.ac.createGain()
-    this.gainNode.gain.value = volume
+    this.gainNode.gain.value = this.volume = volume
     this.gainNode.connect(this.ac.destination)
     this.analyser = this.ac.createAnalyser()
     this.analyser.fftSize = this.size * 2
@@ -24,30 +26,38 @@ export default class Visualizer {
   }
 
   load = (url, callback) => {
-    const xhr = new XMLHttpRequest()
-    xhr.abort()
-    xhr.open('GET', url)
-    xhr.responseType = 'arraybuffer'
-    xhr.onload = () => {
-      callback(xhr.response)
+    this.xhr = new XMLHttpRequest()
+    this.abort()
+    this.xhr.open('GET', url)
+    this.xhr.responseType = 'arraybuffer'
+    this.xhr.onload = () => {
+      callback(this.xhr.response)
     }
-    xhr.send()
+    this.xhr.send()
   }
 
-  play = src => {
+  abort = () => this.xhr && this.xhr.abort()
+
+  play = (src, cb?) => {
     const n = ++this.count
     if (this.source) {
       this.source.stop()
     }
     const decodeCallback = buffer => {
-      if (n !== this.count) { return }
-      const bufferSource = this.ac.createBufferSource()
-      bufferSource.buffer = buffer
-      bufferSource.loop = true
-      bufferSource.connect(this.analyser)
-      bufferSource.start(0)
-      this.source = bufferSource
-      this.visualize()
+      if (n === this.count && this.ac) { 
+        try {
+          const bufferSource = this.ac.createBufferSource()
+          bufferSource.buffer = buffer
+          bufferSource.loop = true
+          bufferSource.connect(this.analyser)
+          bufferSource.start(0)
+          this.source = bufferSource
+          this.visualize()
+          cb()
+        } catch(e) {
+          console.log(e)
+        }
+      }
     }
     if (src instanceof ArrayBuffer) {
       this.ac.decodeAudioData(src, decodeCallback)
@@ -59,7 +69,7 @@ export default class Visualizer {
   }
 
   updateVolume = vol => {
-    this.gainNode.gain.value = vol
+    this.gainNode.gain.value = this.volume = vol
   }
 
   visualize = () => {
@@ -67,7 +77,7 @@ export default class Visualizer {
     const raf = window.requestAnimationFrame
     const fn = () => {
       this.analyser.getByteFrequencyData(arr)
-      this.draw(arr)
+      this.draw(arr, this.volume)
       this.rafId = raf(fn)
     }
     fn()
@@ -84,6 +94,7 @@ export default class Visualizer {
   }
 
   stop = () => {
+    this.abort()
     this.ac.close()
     window.cancelAnimationFrame(this.rafId)
   }

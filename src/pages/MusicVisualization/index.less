@@ -5,6 +5,23 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  &.loading {
+    canvas, .control-zone {
+      display: none;
+    }
+  }
+  &.loaded {
+    .loading-mask {
+      display: none;
+    }
+  }
+  .loading-mask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    flex-direction: column;
+  }
   .control-zone {
     display: flex;
     align-items: center;

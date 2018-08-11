@@ -1,7 +1,8 @@
 export default {
   draw: param => {
     const { ctx, height, width, bars, barColor } = param
-    return arr => {
+    return (arr, volumn) => {
+      const vol = volumn
       ctx.clearRect(0, 0, width, height)
       if (Array.isArray(barColor)) {
         const line = ctx.createLinearGradient(0, 0, 0, height)
@@ -15,9 +16,9 @@ export default {
       }
       const rectWidth = width / bars
       const barWidth = rectWidth * 0.5
-      const capHeight = Math.min(barWidth, 10)
+      const capHeight = Math.min(barWidth, 10) * vol
       for (let i = 0; i < bars; i++) {
-        const rectHeight = arr[i] / 256 * height
+        const rectHeight = arr[i] / 256 * height * vol
         const capDistance = arr[i] > 0
           ? Math.min(rectHeight + 40, height - capHeight)
           : 0
