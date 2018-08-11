@@ -5,7 +5,7 @@ import Utils from '@utils'
 import tools from './tools'
 import Visualizer from './visualizer'
 import { Slider } from 'antd'
-import { Icon } from 'antd'
+import { Progress } from 'antd'
 
 interface IState {
   visualizer: Visualizer,
@@ -16,7 +16,8 @@ interface IState {
   volume: number,
   bars: number, 
   barColor: string[] | string,
-  loading: boolean
+  loading: boolean,
+  percent: number
 }
 
 interface IProps {
@@ -36,7 +37,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
       width: this.props.isMobile ? 300 : 600,
       pause: false,
       volume: 0.3,
-      loading: true
+      loading: true,
+      percent: 0
     })
   }
 
@@ -54,8 +56,12 @@ class MusicVisualization extends React.Component<IProps, IState> {
       fileReader.onload = e => e && e.target && e.target.result && this.state.visualizer.play(e.target.result)
       fileReader.readAsArrayBuffer(src)
     } else if (typeof src === 'string') {
-      this.state.visualizer.play(src, this.afterLoading)
+      this.state.visualizer.play({src, cb: this.afterLoading, progressCb: this.progress})
     }
+  }
+
+  progress = v => {
+    this.setState({ percent: v })
   }
 
   afterLoading = () => {
@@ -96,8 +102,10 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.setState({ pause: !pause })
   }
 
+  formatPercent = percent => `${percent.toFixed(1)}%`
+
   render() {
-    const { pause, loading } = this.state
+    const { pause, loading, percent } = this.state
 
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
@@ -108,8 +116,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
           <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
         </div>
         <div className='loading-mask'>
-          <Icon type='loading' />
-          <div>loading music</div>
+          <Progress type="circle" percent={percent} format={this.formatPercent}/>
         </div>
       </div>
     )

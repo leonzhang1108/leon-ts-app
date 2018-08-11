@@ -25,7 +25,7 @@ export default class Visualizer {
     this.analyser.connect(this.gainNode)
   }
 
-  load = (url, callback) => {
+  load = (url, callback, progressCb) => {
     this.xhr = new XMLHttpRequest()
     this.abort()
     this.xhr.open('GET', url)
@@ -33,12 +33,16 @@ export default class Visualizer {
     this.xhr.onload = () => {
       callback(this.xhr.response)
     }
+    this.xhr.onprogress = v => {
+      const { loaded, total } = v
+      progressCb(loaded / total * 100)
+    }
     this.xhr.send()
   }
 
   abort = () => this.xhr && this.xhr.abort()
 
-  play = (src, cb?) => {
+  play = ({src, cb, progressCb}) => {
     const n = ++this.count
     if (this.source) {
       this.source.stop()
@@ -64,7 +68,7 @@ export default class Visualizer {
     } else {
       this.load(src, arrayBuffer => {
         this.ac.decodeAudioData(arrayBuffer, decodeCallback)
-      })
+      }, progressCb)
     }
   }
 
