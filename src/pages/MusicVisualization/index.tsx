@@ -92,22 +92,22 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.restartVisualizer()
   }
 
-  componentWillUpdate() {
-    const { currentTime, durationOffset, totalTime } = this.state
-    const curr = totalTime ? parseInt(currentTime / totalTime * 100 + '', 10) : 0
-    const offset = parseInt(durationOffset + '', 10)
-    if (curr + offset >= 100) { 
-      this.setState({
-        totalTime: 0,
-        currentTime: 0,
-        durationOffset: 0,
-        slideDuration: null
-      }, () => {
-        this.state.visualizer.stop()
-        this.restartVisualizer()
-      })
-    }
-  }
+  // componentWillUpdate() {
+  //   const { currentTime, durationOffset, totalTime } = this.state
+  //   const curr = totalTime ? parseInt(currentTime / totalTime * 100 + '', 10) : 0
+  //   const offset = parseInt(durationOffset + '', 10)
+  //   if (curr + offset >= 100) { 
+  //     this.setState({
+  //       totalTime: 0,
+  //       currentTime: 0,
+  //       durationOffset: 0,
+  //       slideDuration: null
+  //     }, () => {
+  //       this.state.visualizer.stop()
+  //       this.restartVisualizer()
+  //     })
+  //   }
+  // }
 
   restartVisualizer = () => {
     const ctx = this.canvas.getContext('2d')
@@ -154,8 +154,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   formatTime = () => {
     const { currentTime, totalTime, durationOffset, slideDuration } = this.state
-    const c = Utils.secondFormatToTime(currentTime % totalTime + this.durationToSecond(slideDuration || durationOffset)) || '00'
-    const t = Utils.secondFormatToTime(totalTime) || '00'
+    const c = Utils.secondFormatToTime(totalTime ? ((currentTime % totalTime + this.durationToSecond(slideDuration || durationOffset)) % totalTime) : 0)
+    const t = Utils.secondFormatToTime(totalTime)
     return `${c} / ${t}`
   }
 
@@ -185,7 +185,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
         </div>
         <div className='time-zone'>
           <Slider className='duration-slider' 
-            value={parseInt((slideDuration || durationOffset) + '', 10) + curr}
+            value={totalTime ? (parseInt((slideDuration || durationOffset) + '', 10) + curr) % 100 : 0}
             onChange={this.durationChanging}
             onAfterChange={this.durationChanged}
             tipFormatter={null}
