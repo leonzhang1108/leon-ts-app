@@ -85,29 +85,14 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   afterLoading = () => {
-    this.setState({ loading: false })
+    this.setState({ loading: false }, () => {
+      this.state.visualizer.setCurrent(0)
+    })
   }
 
   componentDidMount() {
     this.restartVisualizer()
   }
-
-  // componentWillUpdate() {
-  //   const { currentTime, durationOffset, totalTime } = this.state
-  //   const curr = totalTime ? parseInt(currentTime / totalTime * 100 + '', 10) : 0
-  //   const offset = parseInt(durationOffset + '', 10)
-  //   if (curr + offset >= 100) { 
-  //     this.setState({
-  //       totalTime: 0,
-  //       currentTime: 0,
-  //       durationOffset: 0,
-  //       slideDuration: null
-  //     }, () => {
-  //       this.state.visualizer.stop()
-  //       this.restartVisualizer()
-  //     })
-  //   }
-  // }
 
   restartVisualizer = () => {
     const ctx = this.canvas.getContext('2d')
