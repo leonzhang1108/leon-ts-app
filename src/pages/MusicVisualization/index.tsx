@@ -150,7 +150,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   durationChanged = duration => {
-    this.setState({ slideDuration: null, durationOffset: duration, pause: false, currentTime: 0 }, () => {
+    this.setState({ slideDuration: null, durationOffset: duration, currentTime: 0 }, () => {
       this.state.visualizer.setCurrent(this.durationToSecond(duration))
     })
   }
