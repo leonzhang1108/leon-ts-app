@@ -25,7 +25,8 @@ interface IState {
 }
 
 interface IProps {
-  isMobile: boolean
+  isMobile: boolean,
+  h: number
 }
 
 class MusicVisualization extends React.Component<IProps, IState> {
@@ -38,7 +39,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
       src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534163555&Signature=BO-gYmnOqR9upJldK3~qyOE4rm3a3Hk~yKAKQsGZJQVxZwnKKELk-FH50qTB6PuI5hTpAMTM9momeWySA7mnYxkf0E32gbuyb6BShZCkvF1lffK-uh3z7iJrb8Cg0WuEn6nGrTULGCsPMUcx6uH4U~rQ~u9mWQGYdcGnbiduLBI_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
       bars: 64,
       barColor: ['gold', 'aqua'],
-      height: 400,
+      height: this.props.isMobile ? this.props.h * .5 : 400,
       width: this.props.isMobile ? 300 : 600,
       pause: false,
       volume: 0.77,
@@ -188,6 +189,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
 export default Utils.connect({
   component: MusicVisualization,
   mapStateToProps: state => ({
-    isMobile: state.common.isMobile
+    isMobile: state.common.isMobile,
+    h: state.common.contentHeight
   })
 })
