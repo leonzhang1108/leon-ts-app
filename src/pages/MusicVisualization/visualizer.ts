@@ -9,7 +9,7 @@ export default class Visualizer {
   rafId
   xhr
   volume
-  duration
+  buffer
   currentTime
   curr
   total
@@ -17,16 +17,22 @@ export default class Visualizer {
   constructor({ draw, size, volume, currentTime }) {
     this.source = null
     this.count = 0
-    this.ac = new AudioContext()
     this.draw = draw
     this.size = size
+    this.volume = volume
+    this.currentTime = currentTime
+    this.initAC()
+   
+  }
+
+  initAC = () => {
+    this.ac = new AudioContext()
     this.gainNode = this.ac.createGain()
-    this.gainNode.gain.value = this.volume = volume
+    this.gainNode.gain.value = this.volume
     this.gainNode.connect(this.ac.destination)
     this.analyser = this.ac.createAnalyser()
     this.analyser.fftSize = this.size * 2
     this.analyser.connect(this.gainNode)
-    this.currentTime = currentTime
   }
 
   load = (url, callback, progressCb) => {
@@ -46,23 +52,16 @@ export default class Visualizer {
 
   abort = () => this.xhr && this.xhr.abort()
 
-  play = ({src, cb, progressCb}) => {
+  play = ({ src, cb, progressCb }) => {
     const n = ++this.count
     if (this.source) {
       this.source.stop()
     }
     const decodeCallback = buffer => {
-      this.duration = buffer.duration
+      this.buffer = buffer
       if (n === this.count && this.ac) { 
         try {
-          const bufferSource = this.ac.createBufferSource()
-          bufferSource.buffer = buffer
-          bufferSource.loop = true
-          bufferSource.connect(this.analyser)
-          bufferSource.start()
-          this.source = bufferSource
-          this.visualize()
-          cb()
+          this.createBufferSource({ buffer, cb })
         } catch(e) {
           console.log(e)
         }
@@ -77,6 +76,19 @@ export default class Visualizer {
     }
   }
 
+  createBufferSource = ({ buffer, start = 0, cb }) => {
+    if (this.source) { this.source.stop() }
+    if (!this.buffer) { return }
+    const bufferSource = this.ac.createBufferSource()
+    bufferSource.buffer = this.buffer = buffer
+    bufferSource.loop = true
+    bufferSource.connect(this.analyser)
+    bufferSource.start(0, start)
+    this.source = bufferSource
+    this.visualize()
+    cb()
+  }
+
   updateVolume = vol => {
     this.gainNode.gain.value = this.volume = vol
   }
@@ -84,18 +96,26 @@ export default class Visualizer {
   visualize = () => {
     const arr = new Uint8Array(this.analyser.frequencyBinCount)
     const raf = window.requestAnimationFrame
+    const { duration } = this.buffer
     const fn = () => {
       this.analyser.getByteFrequencyData(arr)
       this.draw(arr, this.volume)
       this.rafId = raf(fn)
       const curr = this.ac.currentTime.toFixed(0)
-      const total = this.duration.toFixed(0)
+      const total = duration.toFixed(0)
       if (!this.curr || this.curr !== curr) {
         this.curr = curr
         this.currentTime({ curr, total })
       }
     }
     fn()
+  }
+
+  setCurrent = start => {
+    const { buffer } = this
+    const cb = console.log
+    this.initAC()
+    this.createBufferSource({ buffer, start, cb })
   }
 
   pause = () => {

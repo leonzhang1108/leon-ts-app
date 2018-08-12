@@ -14,12 +14,14 @@ interface IState {
   src: any,
   pause: boolean
   volume: number,
-  bars: number, 
+  bars: number,
   barColor: string[] | string,
   loading: boolean,
   percent: number,
   totalTime: number,
-  currentTime: 0
+  currentTime: number,
+  durationOffset: number,
+  slideDuration: number | null
 }
 
 interface IProps {
@@ -31,19 +33,33 @@ class MusicVisualization extends React.Component<IProps, IState> {
   canvas
 
   componentWillMount() {
+    document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
-      src: './battle_heart_bgm.mp3',
+      src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534163555&Signature=BO-gYmnOqR9upJldK3~qyOE4rm3a3Hk~yKAKQsGZJQVxZwnKKELk-FH50qTB6PuI5hTpAMTM9momeWySA7mnYxkf0E32gbuyb6BShZCkvF1lffK-uh3z7iJrb8Cg0WuEn6nGrTULGCsPMUcx6uH4U~rQ~u9mWQGYdcGnbiduLBI_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: 400,
       width: this.props.isMobile ? 300 : 600,
       pause: false,
-      volume: 0.3,
+      volume: 0.77,
       loading: true,
       percent: 0,
       totalTime: 0,
-      currentTime: 0
+      currentTime: 0,
+      durationOffset: 0,
+      slideDuration: null
     })
+  }
+
+  visibilitychange = () => {
+    const { visualizer } = this.state
+    if (document.visibilityState === 'hidden') {
+      visualizer.pause()
+      this.setState({ pause: true })
+    } else {
+      visualizer.resume()
+      this.setState({ pause: false })
+    }
   }
 
   resize = () => {
@@ -60,7 +76,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
       fileReader.onload = e => e && e.target && e.target.result && this.state.visualizer.play(e.target.result)
       fileReader.readAsArrayBuffer(src)
     } else if (typeof src === 'string') {
-      this.state.visualizer.play({src, cb: this.afterLoading, progressCb: this.progress})
+      this.state.visualizer.play({ src, cb: this.afterLoading, progressCb: this.progress })
     }
   }
 
@@ -69,10 +85,31 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   afterLoading = () => {
-    this.setState({ loading: false})
+    this.setState({ loading: false })
   }
 
   componentDidMount() {
+    this.restartVisualizer()
+  }
+
+  componentWillUpdate() {
+    const { currentTime, durationOffset, totalTime } = this.state
+    const curr = totalTime ? parseInt(currentTime / totalTime * 100 + '', 10) : 0
+    const offset = parseInt(durationOffset + '', 10)
+    if (curr + offset >= 100) { 
+      this.setState({
+        totalTime: 0,
+        currentTime: 0,
+        durationOffset: 0,
+        slideDuration: null
+      }, () => {
+        this.state.visualizer.stop()
+        this.restartVisualizer()
+      })
+    }
+  }
+
+  restartVisualizer = () => {
     const ctx = this.canvas.getContext('2d')
     const { height, width, bars, barColor, volume } = this.state
     const param = { ctx, height, width, bars, barColor }
@@ -88,12 +125,13 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.resize()
   }
 
-  currentTime = ({ curr: currentTime, total: totalTime}) => {
+  currentTime = ({ curr: currentTime, total: totalTime }) => {
     this.setState({ currentTime, totalTime })
   }
 
   componentWillUnmount() {
     this.state.visualizer.stop()
+    document.removeEventListener('visibilitychange', this.visibilitychange)
   }
 
   changeVolumn = v => {
@@ -115,29 +153,47 @@ class MusicVisualization extends React.Component<IProps, IState> {
   formatPercent = percent => `${percent.toFixed(1)}%`
 
   formatTime = () => {
-    const { currentTime, totalTime } = this.state
-    const c = Utils.secondFormatToTime(currentTime % totalTime)
-    const t = Utils.secondFormatToTime(totalTime)
-    return `${c}/${t}`
+    const { currentTime, totalTime, durationOffset, slideDuration } = this.state
+    const c = Utils.secondFormatToTime(currentTime % totalTime + this.durationToSecond(slideDuration || durationOffset)) || '00'
+    const t = Utils.secondFormatToTime(totalTime) || '00'
+    return `${c} / ${t}`
   }
 
-  render() {
-    const { pause, loading, percent, currentTime, totalTime } = this.state
+  durationChanging = duration => {
+    this.setState({ slideDuration: duration, currentTime: 0 })
+  }
 
+  durationChanged = duration => {
+    this.setState({ slideDuration: null, durationOffset: duration, pause: false, currentTime: 0 }, () => {
+      this.state.visualizer.setCurrent(this.durationToSecond(duration))
+    })
+  }
+
+  durationToSecond = duration => parseInt((duration / 100 * this.state.totalTime).toFixed(0), 10)
+
+  render() {
+    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime } = this.state
+    const curr = totalTime ? parseInt(((currentTime % totalTime) / totalTime * 100).toFixed(0), 10) : 0
+    
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
-        <canvas ref={ref => { this.canvas = ref }}/>
+        <canvas ref={ref => { this.canvas = ref }} />
         <div className='volumn-zone'>
-          <div className='icon anticon anticon-ts-app icon-volumn'/>
-          <Slider className='slider' defaultValue={30} onChange={this.changeVolumn}/>
-          <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
+          <div className='icon anticon anticon-ts-app icon-volumn' />
+          <Slider className='slider' defaultValue={77} onChange={this.changeVolumn} tipFormatter={null} />
+          <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`} />
         </div>
         <div className='time-zone'>
-          <Progress percent={currentTime / totalTime * 100} showInfo={false}/>
+          <Slider className='duration-slider' 
+            value={parseInt((slideDuration || durationOffset) + '', 10) + curr}
+            onChange={this.durationChanging}
+            onAfterChange={this.durationChanged}
+            tipFormatter={null}
+          />
           <div>{this.formatTime()}</div>
         </div>
         <div className='loading-mask'>
-          <Progress type="circle" percent={percent} format={this.formatPercent}/>
+          <Progress type="circle" percent={percent} format={this.formatPercent} />
         </div>
       </div>
     )
