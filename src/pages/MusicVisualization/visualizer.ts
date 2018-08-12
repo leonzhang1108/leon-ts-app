@@ -61,7 +61,7 @@ export default class Visualizer {
       this.buffer = buffer
       if (n === this.count && this.ac) { 
         try {
-          this.createBufferSource({ buffer, cb })
+          this.createBufferSource({ buffer }, cb)
         } catch(e) {
           console.log(e)
         }
@@ -76,7 +76,7 @@ export default class Visualizer {
     }
   }
 
-  createBufferSource = ({ buffer, start = 0, cb }) => {
+  createBufferSource = ({ buffer, start = 0 }, cb?) => {
     if (this.source) { this.source.stop() }
     if (!this.buffer) { return }
     const bufferSource = this.ac.createBufferSource()
@@ -86,7 +86,7 @@ export default class Visualizer {
     bufferSource.start(0, start)
     this.source = bufferSource
     this.visualize()
-    cb()
+    if(cb) { cb() }
   }
 
   updateVolume = vol => {
@@ -113,9 +113,8 @@ export default class Visualizer {
 
   setCurrent = start => {
     const { buffer } = this
-    const cb = console.log
     this.initAC()
-    this.createBufferSource({ buffer, start, cb })
+    this.createBufferSource({ buffer, start })
   }
 
   pause = () => {
