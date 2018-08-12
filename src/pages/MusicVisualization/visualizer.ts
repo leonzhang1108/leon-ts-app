@@ -13,6 +13,7 @@ export default class Visualizer {
   currentTime
   curr
   total
+  interval
 
   constructor({ draw, size, volume, currentTime }) {
     this.source = null
@@ -96,35 +97,39 @@ export default class Visualizer {
   visualize = () => {
     const arr = new Uint8Array(this.analyser.frequencyBinCount)
     const raf = window.requestAnimationFrame
-    const { duration } = this.buffer
     const fn = () => {
       this.analyser.getByteFrequencyData(arr)
       this.draw(arr, this.volume)
       this.rafId = raf(fn)
-      const curr = this.ac.currentTime.toFixed(0)
-      const total = duration.toFixed(0)
-      if (!this.curr || this.curr !== curr) {
-        this.curr = curr
-        this.currentTime({ curr, total })
-      }
     }
     fn()
   }
 
   setCurrent = start => {
     const { buffer } = this
-    this.initAC()
+    this.curr = 0
     this.createBufferSource({ buffer, start })
+    this.setInterval()
+  }
+
+  setInterval = () => {
+    if (this.interval) { clearInterval(this.interval) }
+    this.interval = setInterval(() => {
+      const total = this.buffer.duration.toFixed(0)
+      this.currentTime({ curr: ++this.curr, total })
+    }, 1000)
   }
 
   pause = () => {
     this.ac.suspend()
     window.cancelAnimationFrame(this.rafId)
+    if (this.interval) { clearInterval(this.interval) }
   }
 
   resume = () => {
     this.ac.resume()
     this.visualize()
+    this.setInterval()
   }
 
   stop = () => {
