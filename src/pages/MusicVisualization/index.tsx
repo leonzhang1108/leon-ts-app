@@ -35,7 +35,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
-      src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534163555&Signature=BO-gYmnOqR9upJldK3~qyOE4rm3a3Hk~yKAKQsGZJQVxZwnKKELk-FH50qTB6PuI5hTpAMTM9momeWySA7mnYxkf0E32gbuyb6BShZCkvF1lffK-uh3z7iJrb8Cg0WuEn6nGrTULGCsPMUcx6uH4U~rQ~u9mWQGYdcGnbiduLBI_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
+      src: 'https://m10.music.126.net/20180813191409/788556f52243825281036f6779e9558f/ymusic/fcc0/f5a9/dbb2/6572c024438329e20cfcdd9fb3bda993.mp3',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,
@@ -135,7 +135,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.setState({ pause: !pause })
   }
 
-  formatPercent = percent => `${percent.toFixed(1)}%`
+  formatPercent = percent => percent === 100 ? 'decoding' : `${percent.toFixed(1)}%`
 
   formatTime = () => {
     const { currentTime, totalTime, durationOffset, slideDuration } = this.state
