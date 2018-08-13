@@ -5,7 +5,7 @@ import Word from './Word'
 import Api from '@utils/fetch.js'
 const Search = Input.Search
 
-interface IFoodState{
+interface IFoodState {
   showCanvas: boolean
 }
 
@@ -16,7 +16,7 @@ class Food extends React.Component<{}, IFoodState> {
   words = {}
   interval
 
-  componentWillMount() {
+  componentWillMount () {
     this.setState({
       showCanvas: false
     })
@@ -26,7 +26,7 @@ class Food extends React.Component<{}, IFoodState> {
     console.log(v)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Api.get('data/food.json').then(this.initCanvas)
   }
 
@@ -64,7 +64,7 @@ class Food extends React.Component<{}, IFoodState> {
       wordsAttr.forEach((_, i) => {
         c.font = wordsAttr[i].font
         c.fillText(wordsAttr[i].text, wordsAttr[i].x, wordsAttr[i].y)
-				wordsAttr[i].width = c.measureText(wordsAttr[i].text).width
+        wordsAttr[i].width = c.measureText(wordsAttr[i].text).width
         c.stroke()
       })
       move()
@@ -87,27 +87,26 @@ class Food extends React.Component<{}, IFoodState> {
 
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     clearInterval(this.interval)
   }
 
-  render() {
+  render () {
     const { showCanvas } = this.state
     return (
       <div className='food-wrapper' ref={el => this.wrapper = el}>
         <div className='input'>
           <Search
-            placeholder="food you want"
-            enterButton="Add"
-            size="large"
+            placeholder='food you want'
+            enterButton='Add'
+            size='large'
             onSearch={this.onSearch}
           />
         </div>
-        <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: showCanvas ? 1 : 0}}/>
+        <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: showCanvas ? 1 : 0 }}/>
       </div>
     )
   }
 }
-
 
 export default Food

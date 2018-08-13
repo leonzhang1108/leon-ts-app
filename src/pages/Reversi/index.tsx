@@ -24,7 +24,7 @@ const statusMap = {
 }
 
 class Reversi extends React.Component<IProps, IState> {
-  componentWillMount() {
+  componentWillMount () {
     this.reset()
   }
 
@@ -47,14 +47,14 @@ class Reversi extends React.Component<IProps, IState> {
       [0, 0, 0, 1, 2, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
     ]
     return {
       checkerboard,
       size: this.flatten(checkerboard).length
     }
   }
-  
+
   flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? this.flatten(b) : b), [])
 
   couldClick = ({ x, y }) => {
@@ -87,14 +87,14 @@ class Reversi extends React.Component<IProps, IState> {
       checkerboard[x][y] = step % 2 === 0 ? black : white
       const { c, r } = Tools.clickToCover({ x, y, checkerboard, player: step % 2 })
       history.push({ curr: { x, y }, reverse: r })
-      this.setState({ 
-        checkerboard: c, 
+      this.setState({
+        checkerboard: c,
         step: history.length,
         history
       })
     }
   }
-  
+
   pass = () => {
     const { history } = this.state
     history.push({})
@@ -172,7 +172,7 @@ class Reversi extends React.Component<IProps, IState> {
 
   isWin = ({ black, white, size }) => {
     let title = ''
-    let content 
+    let content
     if (black + white === size) {
       if (black > white) {
         title = 'Victory'
@@ -197,7 +197,7 @@ class Reversi extends React.Component<IProps, IState> {
     if (title && content) { Modal.info({ title, content }) }
   }
 
-  render() {
+  render () {
     const { checkerboard, history, step, size } = this.state
     const { isMobile } = this.props
     const { black, white } = this.getScore()
@@ -217,13 +217,13 @@ class Reversi extends React.Component<IProps, IState> {
           </table>
         </div>
         <div className='reversi-bottom'>
-          <Button type="primary" disabled={history.length === 0} onClick={this.reset}>
+          <Button type='primary' disabled={history.length === 0} onClick={this.reset}>
             Reset
           </Button>
-          <Button type="primary" disabled={disablePass} onClick={this.pass}>
+          <Button type='primary' disabled={disablePass ? true : false} onClick={this.pass}>
             Pass
           </Button>
-          <Button type="primary" disabled={history.length === 0} onClick={this.retract}>
+          <Button type='primary' disabled={history.length === 0} onClick={this.retract}>
             Retract
           </Button>
         </div>

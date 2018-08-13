@@ -3,7 +3,7 @@ import './index.less'
 import DatePicker from '@components/DatePicker'
 
 class Widgets extends React.Component {
-  render() {
+  render () {
     const fromDate = new Date('1991-11-8')
     const toDate = new Date()
     return (

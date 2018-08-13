@@ -17,7 +17,7 @@ export default [{
 //       title: 'Pie Chart'
 //     }]
 //   }]
-// }, 
+// },
 {
   route: 'pie-chart',
   icon: 'pie-chart',

@@ -4,8 +4,7 @@ import './index.less'
 import Utils from '@utils'
 import tools from './tools'
 import Visualizer from './visualizer'
-import { Slider } from 'antd'
-import { Progress } from 'antd'
+import { Slider, Progress } from 'antd'
 
 interface IState {
   visualizer: Visualizer,
@@ -33,10 +32,10 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   canvas
 
-  componentWillMount() {
+  componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
-      src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534163555&Signature=BO-gYmnOqR9upJldK3~qyOE4rm3a3Hk~yKAKQsGZJQVxZwnKKELk-FH50qTB6PuI5hTpAMTM9momeWySA7mnYxkf0E32gbuyb6BShZCkvF1lffK-uh3z7iJrb8Cg0WuEn6nGrTULGCsPMUcx6uH4U~rQ~u9mWQGYdcGnbiduLBI_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
+      src: 'https://m10.music.126.net/20180813150101/20f1968e60196266c841cca8c98c03f5/ymusic/0380/f226/954f/67cbee57f4a74952f85efe21561314e7.mp3',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,
@@ -91,7 +90,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.restartVisualizer()
   }
 
@@ -115,7 +114,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.setState({ currentTime, totalTime })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.state.visualizer.stop()
     document.removeEventListener('visibilitychange', this.visibilitychange)
   }
@@ -140,7 +139,11 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   formatTime = () => {
     const { currentTime, totalTime, durationOffset, slideDuration } = this.state
-    const c = Utils.secondFormatToTime(totalTime ? ((currentTime % totalTime + this.durationToSecond(slideDuration || durationOffset)) % totalTime) : 0)
+    const c = Utils.secondFormatToTime(
+      totalTime
+        ? ((currentTime % totalTime + this.durationToSecond(slideDuration || durationOffset)) % totalTime)
+        : 0
+    )
     const t = Utils.secondFormatToTime(totalTime)
     return `${c} / ${t}`
   }
@@ -158,10 +161,10 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   durationToSecond = duration => parseInt((duration / 100 * this.state.totalTime).toFixed(0), 10)
 
-  render() {
+  render () {
     const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime } = this.state
     const curr = totalTime ? parseInt(((currentTime % totalTime) / totalTime * 100).toFixed(0), 10) : 0
-    
+
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }} />
@@ -171,7 +174,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
           <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`} />
         </div>
         <div className='time-zone'>
-          <Slider className='duration-slider' 
+          <Slider className='duration-slider'
             value={totalTime ? (parseInt((slideDuration || durationOffset) + '', 10) + curr) % 100 : 0}
             onChange={this.durationChanging}
             onAfterChange={this.durationChanged}
@@ -180,7 +183,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
           <div>{this.formatTime()}</div>
         </div>
         <div className='loading-mask'>
-          <Progress type="circle" percent={percent} format={this.formatPercent} />
+          <Progress type='circle' percent={percent} format={this.formatPercent} />
         </div>
       </div>
     )

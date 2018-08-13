@@ -13,7 +13,7 @@ interface IProps {
   isMobile: boolean
 }
 
-interface IMatrixState { 
+interface IMatrixState {
   [x: number]: any,
   v1: number[][],
   v2: number[][],
@@ -49,17 +49,17 @@ class Matrix extends React.Component<IProps, IMatrixState> {
   dom2
   span
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.reset(true)
   }
 
-  reset(isInit?) {
+  reset (isInit?) {
     const initObj = {
       offset: 10,
       cubeSize: 50,
       step: 0,
-      level: 0, 
+      level: 0,
       editable: true,
       v1: this.getMatrix(),
       v2: this.getMatrix(),
@@ -89,9 +89,9 @@ class Matrix extends React.Component<IProps, IMatrixState> {
   getMatrix = () => {
     const size = this.props.isMobile ? 1 : 6
     const result: any[][] = []
-    for(let i = 0; i < size; i++) {
+    for (let i = 0; i < size; i++) {
       const row: any[] = []
-      for(let j = 0; j < size; j++) {
+      for (let j = 0; j < size; j++) {
         row.push(1)
       }
       result.push(row)
@@ -108,8 +108,8 @@ class Matrix extends React.Component<IProps, IMatrixState> {
   onBlur = e => {
     const { v, col, row } = this.getInputValue(e)
     v[row][col] = this.isNumber(e.target.value)
-      ? v[row][col] = e.target.value !== '0' 
-        ? e.target.value.replace(/\b(0+)/gi,"") 
+      ? v[row][col] = e.target.value !== '0'
+        ? e.target.value.replace(/\b(0+)/gi,'')
         : e.target.value
       : 1
 
@@ -124,25 +124,25 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     return { v, col, row }
   }
 
-  isNumber = v => !(/^(-)?\d+(\.\d+)?$/.exec(v) === null || v === "")
+  isNumber = v => !(/^(-)?\d+(\.\d+)?$/.exec(v) === null || v === '')
 
   doClick = () => {
-    switch(this.state.step) {
+    switch (this.state.step) {
       case 0:
         this.doMultiply()
         break
-      case 1: 
+      case 1:
         this.doStep()
         break
-      case 2: 
+      case 2:
         this.reset()
         break
-      default: 
+      default:
         this.doMultiply()
     }
   }
 
-  doAutoComplete = async() => {
+  doAutoComplete = async () => {
     const { level, step } = this.state
     if (level >= 0 && step === 1) {
       await this.doStep()
@@ -150,7 +150,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     }
   }
 
-  doStep = async() => {
+  doStep = async () => {
     await new Promise(resolve => {
       const { level, height1, width1, height2, width2, cubeSize } = this.state
       const left = height1 / 2 + width1 / 2 + (width2 - height2) / 2 - 2
@@ -159,7 +159,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
       const rowStart = total - currentLevel - (width2 - 2) / cubeSize
       const colStart = total - currentLevel - (height1 - 2) / cubeSize
       const end = total - currentLevel - 1
-  
+
       if (level) {
         this.setState({
           left: left - cubeSize * (total - currentLevel),
@@ -233,7 +233,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     const v3: number[][] = []
     const v3Hilight: number[][] = []
     v1.forEach(() => {
-      const res:any[] = []
+      const res: any[] = []
       v2[0].forEach(() => res.push(''))
       v3.push(res)
       v3Hilight.push(res.map(() => 0))
@@ -248,7 +248,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     for (let i = 0; i <= forIndex; i++) {
       let res = 0
       if (!v3 || index < v3.length) {
-        v1[index].forEach((v, idx) => 
+        v1[index].forEach((v, idx) =>
           res += v * v2[idx][i]
         )
         if (v3 && index < v3.length && i < v3[0].length) {
@@ -267,8 +267,8 @@ class Matrix extends React.Component<IProps, IMatrixState> {
 
   setResult = (v, x, y) => {
     const { v3 } = this.state
-    if (v3) { 
-      v3[x][y] = v 
+    if (v3) {
+      v3[x][y] = v
     }
     this.setState({ v3 })
   }
@@ -279,29 +279,29 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     if (step !== 0) {
       return
     }
-    switch(Number(id)) {
-      case 1: 
+    switch (Number(id)) {
+      case 1:
         this.setState({ v1: this.deleteRow(v1) })
         break
-      case 2: 
+      case 2:
         this.setState({ v1: this.addRow(v1) })
         break
       case 3:
-        this.setState({ 
-          v1: this.deleteCol(v1), 
+        this.setState({
+          v1: this.deleteCol(v1),
           v2: this.deleteRow(v2)
         })
         break
       case 4:
-        this.setState({ 
-          v1: this.addCol(v1), 
+        this.setState({
+          v1: this.addCol(v1),
           v2: this.addRow(v2)
         })
         break
-      case 5: 
+      case 5:
         this.setState({ v2: this.deleteCol(v2) })
         break
-      case 6: 
+      case 6:
         this.setState({ v2: this.addCol(v2) })
         break
       default:
@@ -330,27 +330,27 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     return v
   }
 
-  render() {
+  render () {
     let text = ''
     let symbol = ''
     let opacity = 0
-    switch(this.state.step) {
+    switch (this.state.step) {
       case 0:
         text = 'Multiply'
         symbol = '×'
         opacity = 1
-        break;
-      case 1: 
+        break
+      case 1:
         text = 'Next'
         symbol = '='
         opacity = 0
         break
-      case 2: 
+      case 2:
         text = 'Reset'
         symbol = '×'
         opacity = 0
         break
-      default: 
+      default:
         text = 'Multiply'
         symbol = '×'
         opacity = 1
@@ -359,29 +359,29 @@ class Matrix extends React.Component<IProps, IMatrixState> {
     return (
       <div className='matrix-wrapper'>
         <div className='matrix-content'>
-          <Vector1 
-            ref={el => this.dom = el} 
-            ventorList={this.state.v1} editable={this.state.editable} 
+          <Vector1
+            ref={el => this.dom = el}
+            ventorList={this.state.v1} editable={this.state.editable}
             onInput={this.onInput}
-            onBlur={this.onBlur} 
+            onBlur={this.onBlur}
             transformRow={this.state.transformRow}
             opacity={opacity}
             btnEdit={this.btnEdit}
           />
           <span ref={el => this.span = el}>{symbol}</span>
-          <Vector2Display 
+          <Vector2Display
             ventorList={this.state.v2}
             step={this.state.step}
             width={this.state.width2}
           />
-          <Vector2 
-            ref={el => this.dom2 = el} 
-            ventorList={this.state.v2} 
-            editable={this.state.editable} 
-            onInput={this.onInput} 
-            onBlur={this.onBlur} 
-            top={this.state.top} 
-            left={this.state.left} 
+          <Vector2
+            ref={el => this.dom2 = el}
+            ventorList={this.state.v2}
+            editable={this.state.editable}
+            onInput={this.onInput}
+            onBlur={this.onBlur}
+            top={this.state.top}
+            left={this.state.left}
             rotate={this.state.rotate}
             opacity={opacity}
             v2Opacity={this.state.v2Opacity}
@@ -389,17 +389,17 @@ class Matrix extends React.Component<IProps, IMatrixState> {
             transformCol={this.state.transformCol}
           />
           <span style={{
-            transform: `translateX(${-this.state.width2}px)`, 
+            transform: `translateX(${-this.state.width2}px)`,
             opacity: this.state.step === 2 ? 1 : 0,
             width: this.state.step === 2 ? 60 : 0
           }}>=</span>
           <Vector3 ventorList={this.state.v3} hilightList={this.state.v3Hilight}/>
         </div>
         <div className='matrix-bottom'>
-          <Button disabled={this.state.bottomDisable} type="primary" size='large' onClick={this.doClick}>{text}</Button>
+          <Button disabled={this.state.bottomDisable} type='primary' size='large' onClick={this.doClick}>{text}</Button>
           {
-            this.state.step === 1 
-              ? <Button disabled={this.state.bottomDisable} type="primary" size='large' onClick={this.doAutoComplete}>Auto Complete</Button>
+            this.state.step === 1
+              ? <Button disabled={this.state.bottomDisable} type='primary' size='large' onClick={this.doAutoComplete}>Auto Complete</Button>
               : ''
           }
         </div>

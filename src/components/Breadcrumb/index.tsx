@@ -10,29 +10,29 @@ import './index.less'
 interface IProps {
   breadcrumb: any[],
   actions: {
-    changeBreadcrumb(v): void
+    changeBreadcrumb (v): void
   }
 }
 
 class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
-  componentWillMount() {
+  componentWillMount () {
     this.initBreadcrumb()
   }
 
-  initBreadcrumb() {
+  initBreadcrumb () {
     const route = this.props.location.pathname.split('/').filter(i => i).join('/')
 
     Utils.findBreadcrumb(route, this.props.actions.changeBreadcrumb)
 
   }
 
-  render() {
+  render () {
     return (
       <Breadcrumb style={{ margin: '10px 0' }}>
         {
           this.props.breadcrumb.length
-            ? this.props.breadcrumb.map((v, i) => 
+            ? this.props.breadcrumb.map((v, i) =>
               <Breadcrumb.Item key={i}>{v.title}</Breadcrumb.Item>
             ) : <Breadcrumb.Item>home</Breadcrumb.Item>
         }
@@ -41,14 +41,13 @@ class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<a
   }
 }
 
-
 export default Utils.connect({
   component: withRouter(BreadcrumbComponent),
   mapStateToProps: state => ({
     breadcrumb: state.common.breadcrumb
   }),
   mapDispatchToProps: dispatch => ({
-    actions: bindActionCreators({ 
+    actions: bindActionCreators({
       changeBreadcrumb: common.changeBreadcrumb
     }, dispatch)
   })

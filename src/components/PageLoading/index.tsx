@@ -3,7 +3,7 @@ import { Icon } from 'antd'
 import './index.less'
 
 const Loading = ({ isLoading, error }) => {
-  
+
   let res = <span/>
 
   if (error) {

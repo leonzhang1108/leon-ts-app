@@ -37,7 +37,7 @@ class Page2048 extends React.Component<IProp, IState> {
 
   gameContainer
 
-  componentWillMount() {
+  componentWillMount () {
     this.reset(storage.get('pieces'))
     document.addEventListener('keydown', this.keydown)
   }
@@ -49,7 +49,7 @@ class Page2048 extends React.Component<IProp, IState> {
       this.addRandom(pieces, true)
       storage.set('pieces', null)
     }
-    
+
     this.setState({
       size: 4,
       pieces,
@@ -57,13 +57,13 @@ class Page2048 extends React.Component<IProp, IState> {
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.gameContainer.addEventListener('touchstart', this.touchstart)
     this.gameContainer.addEventListener('touchmove', this.touchmove)
     this.gameContainer.addEventListener('touchend', this.touchend)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     document.removeEventListener('keydown', this.keydown)
     this.gameContainer.removeEventListener('touchstart', this.touchstart)
     this.gameContainer.removeEventListener('touchmove', this.touchmove)
@@ -78,7 +78,7 @@ class Page2048 extends React.Component<IProp, IState> {
 
   touchstart = e => {
     const { pageX, pageY } = e.changedTouches[0]
-    this.setState({ cached: { x: pageX, y: pageY }})
+    this.setState({ cached: { x: pageX, y: pageY } })
   }
 
   touchmove = e => e.preventDefault()
@@ -103,7 +103,7 @@ class Page2048 extends React.Component<IProp, IState> {
     this.removeMerged(() => {
       const { pieces } = this.state
       let p: IPiece[] = pieces
-      switch(code) {
+      switch (code) {
         case keyCode.up:
           const { p: up, changed: uc } = Tools.moveUp(pieces)
           if (uc) { p = this.addRandom(up) }
@@ -140,7 +140,7 @@ class Page2048 extends React.Component<IProp, IState> {
   }
 
   doAddRandom = p => {
-    if (p.length === 16) { return null}
+    if (p.length === 16) { return null }
     const x = Utils.random(0, 4)
     const y = Utils.random(0, 4)
     return p.some(i => i.x === x && i.y === y)
@@ -195,7 +195,7 @@ class Page2048 extends React.Component<IProp, IState> {
     return true
   }
 
-  render() {
+  render () {
     const { pieces } = this.state
     return (
       <div className='game2048-wrapper'>
@@ -210,7 +210,7 @@ class Page2048 extends React.Component<IProp, IState> {
                   <div className='item'>
                     {
                       item.v === 2048
-                        ? <Icon type="ts-app icon-batman" />
+                        ? <Icon type='ts-app icon-batman' />
                         : item.v
                     }
                   </div>
@@ -223,8 +223,8 @@ class Page2048 extends React.Component<IProp, IState> {
           </div>
         </div>
         <div className='btn-container'>
-          <Popconfirm title="Sure about that?" onConfirm={Utils.handle(this.reset)} okText="Yes" cancelText="No">
-            <Button type="primary" >
+          <Popconfirm title='Sure about that?' onConfirm={Utils.handle(this.reset)} okText='Yes' cancelText='No'>
+            <Button type='primary' >
               Reset
             </Button>
           </Popconfirm>

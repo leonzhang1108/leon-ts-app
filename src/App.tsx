@@ -15,13 +15,13 @@ class App extends React.Component {
     collapsed: false
   }
 
-  onCollapse = (collapsed:boolean) => {
+  onCollapse = (collapsed: boolean) => {
     this.setState({ collapsed })
-  } 
+  }
 
-  render() {
+  render () {
     return (
-      <Layout className="app">
+      <Layout className='app'>
         <Menu/>
         <MainContent>
           <Content className='content-wrapper'>
@@ -30,7 +30,7 @@ class App extends React.Component {
               <Router/>
             </ContentWrapper>
           </Content>
-          <Footer style={{ textAlign: 'center', padding:'10px 50px' }}>
+          <Footer style={{ textAlign: 'center', padding: '10px 50px' }}>
             BLOG ©2018 Created by Leon
           </Footer>
         </MainContent>

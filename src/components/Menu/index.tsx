@@ -1,16 +1,14 @@
 import * as React from 'react'
 import './index.less'
-import { Menu, Icon } from 'antd'
+import { Menu, Icon, Layout } from 'antd'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { RouteComponentProps } from 'react-router'
 import { common } from '@actions'
 import Utils from '@utils'
 import menus from '@constant/menus'
-import { Layout } from 'antd'
 const { Sider } = Layout
 const SubMenu = Menu.SubMenu
-
 
 interface IProps {
   collapsed: boolean,
@@ -20,9 +18,9 @@ interface IProps {
   openKeys: any[],
   h: number,
   actions: {
-    changeBreadcrumb(v: any): void,
-    toggleCollapse(): void,
-    toggleOpenKeys(v: any): void
+    changeBreadcrumb (v: any): void,
+    toggleCollapse (): void,
+    toggleOpenKeys (v: any): void
   }
 }
 
@@ -36,7 +34,7 @@ interface IMenuProps {
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
-  componentDidMount() {
+  componentDidMount () {
     const { changeBreadcrumb } = this.props.actions
 
     // 前进后退
@@ -47,10 +45,10 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
   getRoute = () => window.location.hash.split('/').filter(i => i && i !== '#').join('/')
 
-  componentWillMount() {
+  componentWillMount () {
     Utils.findBreadcrumb(this.getRoute(), ({ breadcrumb }) => {
       this.props.actions.toggleOpenKeys({
-        breadcrumb, 
+        breadcrumb,
         isInit: true
       })
     })
@@ -70,17 +68,17 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
   onTitleClick = (key, e) => {
     if (!this.props.collapsed) {
-      this.props.actions.toggleOpenKeys({key})
+      this.props.actions.toggleOpenKeys({ key })
     }
     e.domEvent.stopPropagation()
   }
 
-  renderMenus = (currMenus: any = menus, parents: any[] = []) => currMenus.map(menu => 
+  renderMenus = (currMenus: any = menus, parents: any[] = []) => currMenus.map(menu =>
     menu.childs
       ? (
-        <SubMenu 
+        <SubMenu
           onTitleClick={this.onTitleClick.bind(this, menu.key)}
-          key={menu.key} 
+          key={menu.key}
           title={<span><Icon type={menu.icon} /><span>{menu.title}</span></span>}
         >
           { this.renderMenus(menu.childs, parents.concat(menu)) }
@@ -88,8 +86,8 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       ) : (
         <Menu.Item key={`/${menu.route}`}>
           <Icon type={menu.icon} />
-          <Link className="menu-item-link" to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu, parents)} >
-            <span className={!this.props.isMobile && this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>  
+          <Link className='menu-item-link' to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu, parents)} >
+            <span className={!this.props.isMobile && this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>
           </Link>
         </Menu.Item>
       )
@@ -104,14 +102,14 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     if (e && e.stopPropagation) { e.stopPropagation() }
   }
 
-  render() {
+  render () {
     const { collapsed, actions, route, openKeys, isMobile } = this.props
 
     const { toggleCollapse } = actions
 
     const menuProps: IMenuProps = {
       className: 'left-menu',
-      selectedKeys: [route ?  `/${route}` : '/home'],
+      selectedKeys: [route ? `/${route}` : '/home'],
       mode: 'inline',
       theme: ''
     }
@@ -120,20 +118,20 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       menuProps.openKeys = openKeys
     }
 
-    return isMobile 
+    return isMobile
       ? (
-        <div className='navbar' onClick={this.doCollapse} style={{ 
+        <div className='navbar' onClick={this.doCollapse} style={{
           transform: `translateX(${ collapsed ? 0 : -200 }px)`
         }}>
           <Menu {...menuProps} style={{
-            height: `${this.props.h + 82}px`, 
-            overflowX: 'hidden', overflowY: 'auto' 
+            height: `${this.props.h + 82}px`,
+            overflowX: 'hidden', overflowY: 'auto'
           }}>{this.renderMenus()}</Menu>
-          <div className='icon' 
-            style={{right: `-40px`}} 
+          <div className='icon'
+            style={{ right: `-40px` }}
             onClick={this.doCollapse}
           >
-            <Icon type="bars"/>
+            <Icon type='bars'/>
           </div>
         </div>
       ) : (
@@ -143,10 +141,10 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
           collapsed={collapsed}
           onCollapse={toggleCollapse}
         >
-          <div className="logo" />
+          <div className='logo' />
           <Menu mode='inline' {...menuProps} style={{
-            height: `${document.body.clientHeight - 98}px`, 
-            overflowX: 'hidden', overflowY: 'auto' 
+            height: `${document.body.clientHeight - 98}px`,
+            overflowX: 'hidden', overflowY: 'auto'
           }}>
             { this.renderMenus() }
           </Menu>

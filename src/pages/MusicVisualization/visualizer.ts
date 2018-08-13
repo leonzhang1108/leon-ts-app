@@ -18,7 +18,7 @@ export default class Visualizer {
   axiosModel
   axiosCancellation
 
-  constructor({ draw, size, volume, currentTime }) {
+  constructor ({ draw, size, volume, currentTime }) {
     this.source = null
     this.count = 0
     this.draw = draw
@@ -74,10 +74,10 @@ export default class Visualizer {
     }
     const decodeCallback = buffer => {
       this.buffer = buffer
-      if (n === this.count && this.ac) { 
+      if (n === this.count && this.ac) {
         try {
           this.createBufferSource({ buffer }, cb)
-        } catch(e) {
+        } catch (e) {
           console.log(e)
         }
       }
@@ -101,7 +101,7 @@ export default class Visualizer {
     bufferSource.start(0, start)
     this.source = bufferSource
     this.visualize()
-    if(cb) { cb() }
+    if (cb) { cb() }
   }
 
   updateVolume = vol => {

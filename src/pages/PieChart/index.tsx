@@ -15,7 +15,7 @@ class PieChart extends React.Component<IProps> {
   echarts: HTMLDivElement | null
   myChart: any
 
-  componentDidMount() {
+  componentDidMount () {
     Api.get('data/echarts.json').then(res => {
       this.myChart = Echarts.init(this.echarts)
       this.myChart.setOption(res)
@@ -23,15 +23,15 @@ class PieChart extends React.Component<IProps> {
     })
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps () {
     setTimeout(this.myChart.resize, 0)
   }
 
-  componentWillUpdate() {
+  componentWillUpdate () {
     setTimeout(this.myChart.resize, 0)
   }
 
-  render() {
+  render () {
     return (
       <div className='pie-chart-wrapper'>
         <div ref={dom => this.echarts = dom} className='echarts' />
@@ -45,5 +45,5 @@ export default Utils.connect({
   mapStateToProps: state => ({
     contentHeight: state.common.contentHeight,
     contentWidth: state.common.contentWidth
-  }),
+  })
 })

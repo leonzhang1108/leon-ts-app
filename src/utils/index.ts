@@ -76,7 +76,7 @@ export default {
     }
 
     const zero = v => v < 10 ? '0' + v : v
-    return zero(i) && zero(s) ? [zero(i), zero(s)].join(":") : '00:00'
+    return zero(i) && zero(s) ? [zero(i), zero(s)].join(':') : '00:00'
   }
 }
 

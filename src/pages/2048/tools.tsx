@@ -42,11 +42,11 @@ export default {
           p[currIndex].x = x + 1
           p[currIndex].merged = true
           p[nextIndex].merged = true
-          for(let v = x - 1; v >= 0; v--) {
+          for (let v = x - 1; v >= 0; v--) {
             const { index: i } = getValue(v, y, p)
-            if ( i >= 0) { p[i].x = p[i].x < 3 ? p[i].x + 1 : p[i].x }
+            if (i >= 0) { p[i].x = p[i].x < 3 ? p[i].x + 1 : p[i].x }
           }
-          p.push({ x: x + 1, y, v: currV * 2, id: Math.random()})
+          p.push({ x: x + 1, y, v: currV * 2, id: Math.random() })
           changed = true
         }
       }
@@ -81,16 +81,16 @@ export default {
           p[nextIndex].merged = true
           for (let v = x; v <= 3; v++) {
             const { index: i } = getValue(v, y, p)
-            if ( i >= 0) { p[i].x = p[i].x > 0 ? p[i].x - 1 : p[i].x }
+            if (i >= 0) { p[i].x = p[i].x > 0 ? p[i].x - 1 : p[i].x }
           }
-          p.push({ x: x - 1, y, v: currV * 2, id: Math.random()})
+          p.push({ x: x - 1, y, v: currV * 2, id: Math.random() })
           changed = true
         }
       }
     }
     return { p, changed }
   },
-  
+
   moveDown: (p: IPiece[]) => {
     let changed = false
     for (let x = 0; x < 4; x++) {
@@ -116,18 +116,18 @@ export default {
           p[currIndex].y = y + 1
           p[currIndex].merged = true
           p[nextIndex].merged = true
-          for(let v = y - 1; v >= 0; v--) {
+          for (let v = y - 1; v >= 0; v--) {
             const { index: i } = getValue(x, v, p)
-            if ( i >= 0) { p[i].y = p[i].y < 3 ? p[i].y + 1 : p[i].y }
+            if (i >= 0) { p[i].y = p[i].y < 3 ? p[i].y + 1 : p[i].y }
           }
-          p.push({ x, y: y + 1, v: currV * 2, id: Math.random()})
+          p.push({ x, y: y + 1, v: currV * 2, id: Math.random() })
           changed = true
         }
       }
     }
     return { p, changed }
   },
-  
+
   moveUp: (p: IPiece[]) => {
     let changed = false
     for (let x = 0; x < 4; x++) {
@@ -153,11 +153,11 @@ export default {
           p[currIndex].y = y - 1
           p[currIndex].merged = true
           p[nextIndex].merged = true
-          for(let v = y; v <= 3; v++) {
+          for (let v = y; v <= 3; v++) {
             const { index: i } = getValue(x, v, p)
-            if ( i >= 0) { p[i].y = p[i].y > 0 ? p[i].y - 1 : p[i].y }
+            if (i >= 0) { p[i].y = p[i].y > 0 ? p[i].y - 1 : p[i].y }
           }
-          p.push({ x, y: y - 1, v: currV * 2, id: Math.random()})
+          p.push({ x, y: y - 1, v: currV * 2, id: Math.random() })
           changed = true
         }
       }

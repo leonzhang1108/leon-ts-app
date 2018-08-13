@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 interface IProps {
   actions: {
-    onResize(v): void
+    onResize (v): void
   }
 }
 
@@ -14,7 +14,7 @@ class ContentWrapper extends React.Component<IProps> {
 
   content: HTMLDivElement | null
 
-  onResize() {
+  onResize () {
     const root = document.getElementById('root')
     const width = root ? root.clientWidth : 0
     this.props.actions.onResize({
@@ -24,12 +24,12 @@ class ContentWrapper extends React.Component<IProps> {
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.onResize()
     window.onresize = Utils.debounce(this.onResize.bind(this), 300)
   }
 
-  render() {
+  render () {
     const { children } = this.props
     return (
       <div className='content' ref={dom => this.content = dom}>

@@ -37,13 +37,13 @@ const toggleOpenKeys = (state, action) => {
   }
 
   return openKeys
-} 
+}
 
 const initOpenKeys = (state, action) => {
   const { breadcrumb } = action.payload
   const openKeys: string[] = []
-  
-  if(breadcrumb.length <= 1) {
+
+  if (breadcrumb.length <= 1) {
     return []
   }
 
@@ -69,7 +69,7 @@ const common = (state: IProp = initState, action: any) => {
 
     case actionTypes.ON_RESIZE:
       const { width } = action.payload
-      const isMobile = width < 900 
+      const isMobile = width < 900
       return {
         ...state,
         ...action.payload,
@@ -85,11 +85,11 @@ const common = (state: IProp = initState, action: any) => {
     case actionTypes.TOGGLE_OPENKEYS:
       return {
         ...state,
-        openKeys: action.payload.isInit 
-          ? initOpenKeys(state, action) 
+        openKeys: action.payload.isInit
+          ? initOpenKeys(state, action)
           : toggleOpenKeys(state, action)
       }
-      
+
     default:
       return state
   }

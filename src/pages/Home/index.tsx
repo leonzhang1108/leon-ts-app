@@ -24,7 +24,7 @@ class Home extends React.Component<null, IState> {
 
   frame = ['threat', 'big threat', 'machine', 'analog', 'gov', 'president']
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       hasCamera: true,
@@ -47,6 +47,7 @@ class Home extends React.Component<null, IState> {
         this.doDrawing.apply(this)
       }, error => {
         this.setState({ hasCamera: false })
+        console.log(error)
       })
     } else {
       this.setState({ hasCamera: false })
@@ -57,32 +58,32 @@ class Home extends React.Component<null, IState> {
     const { ObjectTracker } = tracking
     const tracker = new ObjectTracker('face')
     tracker.setInitialScale(4)
-    tracker.setStepSize(1) 
+    tracker.setStepSize(1)
     tracker.setEdgesDensity(0.1)
     this.task = tracking.track('#video', tracker, { camera: true })
     tracker.on('track', event => {
       event.data.forEach(rect => {
         const { x, y, width, height } = rect
-        this.setState({ x, y, width, height})
+        this.setState({ x, y, width, height })
       })
     })
     this.task.run()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.task && this.task.stop) {
       this.task.stop()
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.startDrawing()
   }
 
-  render() {
+  render () {
     const { hasCamera, x, y, height, width, index } = this.state
 
-    return hasCamera 
+    return hasCamera
       ? (
         <div className='home'>
           <div className='frame-wrapper' style={{ transform: `translate3d( ${x}px, ${y}px, 0)` }}>

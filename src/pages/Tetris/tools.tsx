@@ -66,7 +66,7 @@ const couldMoveFun = {
     return couldMove
   },
   [keyCode.left]: couldMoveLeftOrRight,
-  [keyCode.right]: couldMoveLeftOrRight,
+  [keyCode.right]: couldMoveLeftOrRight
 }
 
 export default {
@@ -106,7 +106,7 @@ export default {
         length--
       }
     }
-    
+
     return { playboard, x, screen, couldMove: cm }
   }
 }

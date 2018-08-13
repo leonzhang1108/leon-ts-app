@@ -9,7 +9,7 @@ interface IProps {
   collapsed: boolean,
   isMobile: boolean,
   actions: {
-    toggleCollapse(): void
+    toggleCollapse (): void
   }
 }
 
@@ -18,14 +18,14 @@ class MainContent extends React.Component<IProps> {
     this.props.actions.toggleCollapse()
   }
 
-  render() {
+  render () {
     const { children, collapsed, isMobile } = this.props
     const className = isMobile && collapsed ? 'mask' : ''
     return (
-      <Layout style={{ 
-        marginLeft: isMobile ? 0 : !collapsed ? 200 : 80, 
-        height: '100%', 
-        transform: `translateX(${ isMobile ? collapsed ? 100 : 0 : 0 }px)` 
+      <Layout style={{
+        marginLeft: isMobile ? 0 : !collapsed ? 200 : 80,
+        height: '100%',
+        transform: `translateX(${ isMobile ? collapsed ? 100 : 0 : 0 }px)`
       }}>
         <div className={className} onClick={this.toggleCollapse}/>
         { children }

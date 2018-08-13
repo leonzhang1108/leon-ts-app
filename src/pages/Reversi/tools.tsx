@@ -39,20 +39,20 @@ const check = ({ x, y, checkerboard, player, direction }) => {
 }
 
 export default {
-  couldClick: ({ x, y, checkerboard, player }) => 
+  couldClick: ({ x, y, checkerboard, player }) =>
     directionMap.some(direction => check({ x, y, checkerboard, player, direction })),
 
   clickToCover: ({ x, y, checkerboard, player }) => {
     const reverse: IReverse[] = []
     directionMap.forEach(direction => {
       const [dx, dy] = direction
-      let cx = x 
+      let cx = x
       let cy = y
       cx += dx
       cy += dy
       if (check({ x, y, checkerboard, player, direction })) {
         while (cx >= 0 && cx <= borderMax && cy >= 0 && cy <= borderMax) {
-          if (checkerboard[cx][cy] === statusMap.empty 
+          if (checkerboard[cx][cy] === statusMap.empty
             || checkerboard[cx][cy] === (player ? statusMap.white : statusMap.black)) {
             break
           }
