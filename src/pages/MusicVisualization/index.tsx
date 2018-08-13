@@ -35,7 +35,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
-      src: 'https://m10.music.126.net/20180813150101/20f1968e60196266c841cca8c98c03f5/ymusic/0380/f226/954f/67cbee57f4a74952f85efe21561314e7.mp3',
+      src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534163555&Signature=BO-gYmnOqR9upJldK3~qyOE4rm3a3Hk~yKAKQsGZJQVxZwnKKELk-FH50qTB6PuI5hTpAMTM9momeWySA7mnYxkf0E32gbuyb6BShZCkvF1lffK-uh3z7iJrb8Cg0WuEn6nGrTULGCsPMUcx6uH4U~rQ~u9mWQGYdcGnbiduLBI_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,

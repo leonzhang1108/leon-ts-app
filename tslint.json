@@ -1,9 +1,11 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-standard"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
-      "node_modules/**/*.ts"
+      "node_modules/**/*.ts",
+      "src/**/*.less",
+      "src/registerServiceWorker.ts"
     ]
   },
   "rules": {
@@ -17,7 +19,6 @@
     "member-access": [true, "no-public"],
     // jsx布尔值可不设值
     "jsx-boolean-value": false,
-    "no-debugger": false,
-    "no-floating-promises": false
+    "no-debugger": false
 	}
 }
