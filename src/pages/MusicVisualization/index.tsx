@@ -20,7 +20,8 @@ interface IState {
   totalTime: number,
   currentTime: number,
   durationOffset: number,
-  slideDuration: number | null
+  slideDuration: number | null,
+  loadingFail: boolean
 }
 
 interface IProps {
@@ -35,7 +36,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
-      src: 'https://m10.music.126.net/20180813191409/788556f52243825281036f6779e9558f/ymusic/fcc0/f5a9/dbb2/6572c024438329e20cfcdd9fb3bda993.mp3',
+      src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534259413&Signature=j0pKh8V7hL6ZPRpX~Bz5sDLfQHNb3RoCThMi3oYscbApTIY4Nud~W-3L5KGF5fvYg1~h0HULu69e9gVTHGEzRdJakzJ4do3zBQCFjNJknxso9gYhBRUBRM~Zzk4j7V-~AUpAoXgUujgzuAIQoxUJw0Y203c1Rq66CCwywRtnwXE_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,
@@ -47,7 +48,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
       totalTime: 0,
       currentTime: 0,
       durationOffset: 0,
-      slideDuration: null
+      slideDuration: null,
+      loadingFail: false
     })
   }
 
@@ -81,7 +83,11 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   progress = v => {
-    this.setState({ percent: v })
+    if (isNaN(v)) {
+      this.setState({ percent: 0, loadingFail: true })
+    } else {
+      this.setState({ percent: v })
+    }
   }
 
   afterLoading = () => {
@@ -135,7 +141,13 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.setState({ pause: !pause })
   }
 
-  formatPercent = percent => percent === 100 ? 'decoding' : `${percent.toFixed(1)}%`
+  formatPercent = percent => {
+    return percent === 100 
+      ? 'decoding' 
+      : this.state.loadingFail 
+        ? 'loading fail' 
+        : `${percent.toFixed(1)}%`
+  }
 
   formatTime = () => {
     const { currentTime, totalTime, durationOffset, slideDuration } = this.state
@@ -162,7 +174,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   durationToSecond = duration => parseInt((duration / 100 * this.state.totalTime).toFixed(0), 10)
 
   render () {
-    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime } = this.state
+    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail } = this.state
     const curr = totalTime ? parseInt(((currentTime % totalTime) / totalTime * 100).toFixed(0), 10) : 0
 
     return (
@@ -183,7 +195,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
           <div>{this.formatTime()}</div>
         </div>
         <div className='loading-mask'>
-          <Progress type='circle' percent={percent} format={this.formatPercent} />
+          <Progress type='circle' percent={Number(percent) ? percent : 0} format={this.formatPercent} status={loadingFail ? 'exception' : Number(percent) === 100 ? 'success' : 'active' } />
         </div>
       </div>
     )

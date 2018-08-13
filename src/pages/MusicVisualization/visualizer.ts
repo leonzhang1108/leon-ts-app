@@ -56,7 +56,7 @@ export default class Visualizer {
       if (Axios.isCancel(thrown)) {
         console.log('Request canceled', thrown.message)
       } else {
-        console.log('other errors')
+        progressCb('error')
       }
     })
   }
@@ -129,7 +129,7 @@ export default class Visualizer {
   setInterval = () => {
     if (this.interval) { clearInterval(this.interval) }
     this.interval = setInterval(() => {
-      const total = this.buffer.duration.toFixed(0)
+      const total = this.buffer ? this.buffer.duration.toFixed(0) : 0
       this.currentTime({ curr: ++this.curr, total })
     }, 1000)
   }
