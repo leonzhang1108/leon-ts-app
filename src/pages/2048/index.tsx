@@ -35,8 +35,6 @@ interface IProp {
 
 class Page2048 extends React.Component<IProp, IState> {
 
-  gameContainer
-
   componentWillMount () {
     this.reset(storage.get('pieces'))
     document.addEventListener('keydown', this.keydown)
@@ -58,16 +56,16 @@ class Page2048 extends React.Component<IProp, IState> {
   }
 
   componentDidMount () {
-    this.gameContainer.addEventListener('touchstart', this.touchstart)
-    this.gameContainer.addEventListener('touchmove', this.touchmove)
-    this.gameContainer.addEventListener('touchend', this.touchend)
+    document.addEventListener('touchstart', this.touchstart)
+    document.addEventListener('touchmove', this.touchmove)
+    document.addEventListener('touchend', this.touchend)
   }
 
   componentWillUnmount () {
     document.removeEventListener('keydown', this.keydown)
-    this.gameContainer.removeEventListener('touchstart', this.touchstart)
-    this.gameContainer.removeEventListener('touchmove', this.touchmove)
-    this.gameContainer.removeEventListener('touchend', this.touchend)
+    document.removeEventListener('touchstart', this.touchstart)
+    document.removeEventListener('touchmove', this.touchmove)
+    document.removeEventListener('touchend', this.touchend)
   }
 
   removeMerged = f => {
@@ -199,7 +197,7 @@ class Page2048 extends React.Component<IProp, IState> {
     const { pieces } = this.state
     return (
       <div className='game2048-wrapper'>
-        <div className='game2048-container' ref={dom => this.gameContainer = dom}>
+        <div className='game2048-container' >
           <div className='grid'>
             { this.renderGrid() }
           </div>
