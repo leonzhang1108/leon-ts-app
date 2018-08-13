@@ -1,3 +1,5 @@
+import Axios from 'axios'
+
 export default class Visualizer {
   source
   count
@@ -7,13 +9,14 @@ export default class Visualizer {
   gainNode
   analyser
   rafId
-  xhr
   volume
   buffer
   currentTime
   curr
   total
   interval
+  axiosModel
+  axiosCancellation
 
   constructor({ draw, size, volume, currentTime }) {
     this.source = null
@@ -23,7 +26,6 @@ export default class Visualizer {
     this.volume = volume
     this.currentTime = currentTime
     this.initAC()
-   
   }
 
   initAC = () => {
@@ -37,21 +39,33 @@ export default class Visualizer {
   }
 
   load = (url, callback, progressCb) => {
-    this.xhr = new XMLHttpRequest()
     this.abort()
-    this.xhr.open('GET', url)
-    this.xhr.responseType = 'arraybuffer'
-    this.xhr.onload = () => {
-      callback(this.xhr.response)
-    }
-    this.xhr.onprogress = v => {
-      const { loaded, total } = v
-      progressCb(loaded / total * 100)
-    }
-    this.xhr.send()
+    Axios({
+      url,
+      responseType: 'arraybuffer',
+      onDownloadProgress: v => {
+        const { loaded, total } = v
+        progressCb(loaded / total * 100)
+      },
+      cancelToken: new Axios.CancelToken(c => {
+        this.axiosCancellation = c
+      })
+    }).then(response => {
+      callback(response.data)
+    }).catch(thrown => {
+      if (Axios.isCancel(thrown)) {
+        console.log('Request canceled', thrown.message)
+      } else {
+        console.log('other errors')
+      }
+    })
   }
 
-  abort = () => this.xhr && this.xhr.abort()
+  abort = () => {
+    if (this.axiosCancellation) {
+      this.axiosCancellation('abort')
+    }
+  }
 
   play = ({ src, cb, progressCb }) => {
     const n = ++this.count
@@ -105,7 +119,7 @@ export default class Visualizer {
     fn()
   }
 
-  setCurrent = start => {
+  setCurrent = (start = 0) => {
     const { buffer } = this
     this.curr = 0
     this.createBufferSource({ buffer, start })
