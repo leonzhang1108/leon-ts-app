@@ -124,6 +124,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   currentTime = ({ curr: currentTime, total: totalTime }) => {
+    if (!this.mounted) { return }
     this.setState({ currentTime, totalTime })
   }
 
