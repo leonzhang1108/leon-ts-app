@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Icon } from 'antd'
 import './index.less'
 
 const Loading = ({ isLoading, error }) => {
@@ -11,7 +10,7 @@ const Loading = ({ isLoading, error }) => {
   }
 
   if (isLoading) {
-    res = <Icon type='loading' />
+    res = <div className='loader'/>
   }
 
   return <div className='loading-center'>{res}</div>

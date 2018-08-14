@@ -6,7 +6,7 @@ import tools from './tools'
 import Visualizer from './visualizer'
 import VolumnBar from './volumn-bar'
 import TimeBar from './time-bar'
-import { Progress } from 'antd'
+import FileLoading from './file-loading'
 
 interface IState {
   visualizer: Visualizer,
@@ -215,13 +215,11 @@ class MusicVisualization extends React.Component<IProps, IState> {
         }
         {
           loading ? (
-            <div className='loading-mask'>
-              <Progress type='circle'
-                percent={Number(percent) ? percent : 0}
-                format={this.formatPercent}
-                status={loadingFail ? 'exception' : Number(percent) === 100 ? 'success' : 'active' }
-              />
-            </div>
+            <FileLoading
+              percent={percent}
+              formatPercent={this.formatPercent}
+              loadingFail={loadingFail}
+            />
           ) : ''
         }
       </div>
