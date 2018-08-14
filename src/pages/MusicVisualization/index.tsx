@@ -4,7 +4,9 @@ import './index.less'
 import Utils from '@utils'
 import tools from './tools'
 import Visualizer from './visualizer'
-import { Slider, Progress } from 'antd'
+import VolumnBar from './volumn-bar'
+import TimeBar from './time-bar'
+import { Progress } from 'antd'
 
 interface IState {
   visualizer: Visualizer,
@@ -189,20 +191,20 @@ class MusicVisualization extends React.Component<IProps, IState> {
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }} />
-        <div className='volumn-zone'>
-          <div className='icon anticon anticon-ts-app icon-volumn' />
-          <Slider className='slider' defaultValue={77} onChange={this.changeVolumn} tipFormatter={null} />
-          <div onClick={this.togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`} />
-        </div>
-        <div className='time-zone'>
-          <Slider className='duration-slider'
-            value={totalTime ? (parseInt((slideDuration || durationOffset) + '', 10) + curr) % 100 : 0}
-            onChange={this.durationChanging}
-            onAfterChange={this.durationChanged}
-            tipFormatter={null}
-          />
-          <div>{this.formatTime()}</div>
-        </div>
+        <VolumnBar
+          pause={pause}
+          togglePause={this.togglePause}
+          changeVolumn={this.changeVolumn}
+        />
+        <TimeBar
+          curr={curr}
+          totalTime={totalTime}
+          formatTime={this.formatTime}
+          slideDuration={slideDuration}
+          durationOffset={durationOffset}
+          durationChanged={this.durationChanged}
+          durationChanging={this.durationChanging}
+        />
         <div className='loading-mask'>
           <Progress type='circle' percent={Number(percent) ? percent : 0} format={this.formatPercent} status={loadingFail ? 'exception' : Number(percent) === 100 ? 'success' : 'active' } />
         </div>
