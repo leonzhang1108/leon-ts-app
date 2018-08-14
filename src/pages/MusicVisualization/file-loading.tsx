@@ -13,7 +13,7 @@ class FileLoading extends React.Component<IProps> {
     return (
       <div className='loading-mask'>
         {
-          percent === 0 ? (
+          percent === 0 && !loadingFail ? (
             <div className='loader'/>
           ) : (
             <Progress type='circle'
