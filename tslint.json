@@ -20,6 +20,14 @@
     // jsx布尔值可不设值
     "jsx-boolean-value": false,
     "no-debugger": false,
-    "no-floating-promises": false
+    "no-floating-promises": false,
+    // warning
+    "no-unused-variable": false,
+    "no-use-before-declare": false,
+    "await-promise": false,
+    "deprecation": false,
+    "no-unnecessary-qualifier": false,
+    "no-unnecessary-type-assertion": false,
+    "strict-type-predicates": false
 	}
 }
