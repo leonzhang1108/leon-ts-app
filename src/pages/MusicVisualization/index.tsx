@@ -33,6 +33,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   canvas
 
+  mounted: boolean
+
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilitychange)
     this.setState({
@@ -51,6 +53,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
       slideDuration: null,
       loadingFail: false
     })
+    this.mounted = true
   }
 
   visibilitychange = () => {
@@ -83,6 +86,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   progress = v => {
+    if (!this.mounted) { return }
     if (isNaN(v)) {
       this.setState({ percent: 0, loadingFail: true })
     } else {
@@ -123,6 +127,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   componentWillUnmount () {
     this.state.visualizer.stop()
     document.removeEventListener('visibilitychange', this.visibilitychange)
+    this.mounted = false
   }
 
   changeVolumn = v => {
