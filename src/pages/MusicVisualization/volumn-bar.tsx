@@ -10,11 +10,12 @@ interface IProps {
 
 class Volumn extends React.Component<IProps> {
   render () {
+    const { changeVolumn, togglePause, pause } = this.props
     return (
       <div className='volumn-zone'>
         <div className='icon anticon anticon-ts-app icon-volumn' />
-        <Slider className='slider' defaultValue={77} onChange={this.props.changeVolumn} tipFormatter={null} />
-        <div onClick={this.props.togglePause} className={`icon anticon anticon-ts-app icon-${this.props.pause ? 'play' : 'pause'}`} />
+        <Slider className='slider' defaultValue={77} onChange={changeVolumn} tipFormatter={null} />
+        <div onClick={togglePause} className={`icon anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`} />
       </div>
     )
   }

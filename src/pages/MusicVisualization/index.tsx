@@ -38,7 +38,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   mounted: boolean
 
   componentWillMount () {
-    document.addEventListener('visibilitychange', this.visibilitychange)
+    document.addEventListener('visibilitychange', this.visibilityChange)
     this.setState({
       src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534259413&Signature=j0pKh8V7hL6ZPRpX~Bz5sDLfQHNb3RoCThMi3oYscbApTIY4Nud~W-3L5KGF5fvYg1~h0HULu69e9gVTHGEzRdJakzJ4do3zBQCFjNJknxso9gYhBRUBRM~Zzk4j7V-~AUpAoXgUujgzuAIQoxUJw0Y203c1Rq66CCwywRtnwXE_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
       bars: 64,
@@ -58,7 +58,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     this.mounted = true
   }
 
-  visibilitychange = () => {
+  visibilityChange = () => {
     const { visualizer } = this.state
     if (document.visibilityState === 'hidden') {
       visualizer.pause()
@@ -132,7 +132,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   componentWillUnmount () {
     this.state.visualizer.stop()
-    document.removeEventListener('visibilitychange', this.visibilitychange)
+    document.removeEventListener('visibilitychange', this.visibilityChange)
     this.mounted = false
   }
 
@@ -191,23 +191,39 @@ class MusicVisualization extends React.Component<IProps, IState> {
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }} />
-        <VolumnBar
-          pause={pause}
-          togglePause={this.togglePause}
-          changeVolumn={this.changeVolumn}
-        />
-        <TimeBar
-          curr={curr}
-          totalTime={totalTime}
-          formatTime={this.formatTime}
-          slideDuration={slideDuration}
-          durationOffset={durationOffset}
-          durationChanged={this.durationChanged}
-          durationChanging={this.durationChanging}
-        />
-        <div className='loading-mask'>
-          <Progress type='circle' percent={Number(percent) ? percent : 0} format={this.formatPercent} status={loadingFail ? 'exception' : Number(percent) === 100 ? 'success' : 'active' } />
-        </div>
+        {
+          !loading ? (
+            <VolumnBar
+              pause={pause}
+              togglePause={this.togglePause}
+              changeVolumn={this.changeVolumn}
+            />
+          ) : ''
+        }
+        {
+          !loading ? (
+            <TimeBar
+              curr={curr}
+              totalTime={totalTime}
+              formatTime={this.formatTime}
+              slideDuration={slideDuration}
+              durationOffset={durationOffset}
+              durationChanged={this.durationChanged}
+              durationChanging={this.durationChanging}
+            />
+          ) : ''
+        }
+        {
+          loading ? (
+            <div className='loading-mask'>
+              <Progress type='circle'
+                percent={Number(percent) ? percent : 0}
+                format={this.formatPercent}
+                status={loadingFail ? 'exception' : Number(percent) === 100 ? 'success' : 'active' }
+              />
+            </div>
+          ) : ''
+        }
       </div>
     )
   }

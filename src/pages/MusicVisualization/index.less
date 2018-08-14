@@ -5,6 +5,13 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  canvas {
+    margin-bottom: 1rem;
+  }
+  &.loading,
+  &.loaded {
+    animation: fadeToShow .3s 1 forwards;
+  }
   &.loading {
     canvas, 
     .volumn-zone, 
