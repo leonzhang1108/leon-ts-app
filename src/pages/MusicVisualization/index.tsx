@@ -147,10 +147,10 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   formatPercent = percent => {
-    return percent === 100 
-      ? 'decoding' 
-      : this.state.loadingFail 
-        ? 'loading fail' 
+    return percent === 100
+      ? 'decoding'
+      : this.state.loadingFail
+        ? 'loading fail'
         : `${percent.toFixed(1)}%`
   }
 

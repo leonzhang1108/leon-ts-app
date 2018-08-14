@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-standard"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -19,6 +19,7 @@
     "member-access": [true, "no-public"],
     // jsx布尔值可不设值
     "jsx-boolean-value": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "no-floating-promises": false
 	}
 }
