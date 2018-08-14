@@ -77,9 +77,12 @@ class MusicVisualization extends React.Component<IProps, IState> {
   play = () => {
     const { src } = this.state
     if (src instanceof Blob) {
-      const fileReader = new FileReader()
-      fileReader.onload = e => e && e.target && e.target.result && this.state.visualizer.play(e.target.result)
-      fileReader.readAsArrayBuffer(src)
+      // const fileReader = new FileReader()
+      // fileReader.onload = e => {
+      //   console.log(e)
+      //   e && e.target && e.target.result && this.state.visualizer.play(e.target.result)
+      // }
+      // fileReader.readAsArrayBuffer(src)
     } else if (typeof src === 'string') {
       this.state.visualizer.play({ src, cb: this.afterLoading, progressCb: this.progress })
     }
