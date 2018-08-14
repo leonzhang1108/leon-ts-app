@@ -23,7 +23,6 @@ class FileLoading extends React.Component<IProps> {
             />
           )
         }
-
       </div>
     )
   }
