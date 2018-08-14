@@ -32,6 +32,15 @@ interface IProps {
   h: number
 }
 
+interface FileReaderEventTarget extends EventTarget {
+  result: ArrayBuffer
+}
+
+interface FileReaderEvent extends Event {
+  currentTarget: FileReaderEventTarget
+  getMessage (): string
+}
+
 declare global {
   interface Window { AudioContext: any }
 }
@@ -41,6 +50,8 @@ window.AudioContext = window.AudioContext || undefined
 class MusicVisualization extends React.Component<IProps, IState> {
 
   canvas
+
+  input
 
   mounted: boolean
 
@@ -165,7 +176,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     return percent === 100
       ? 'decoding'
       : this.state.loadingFail
-        ? 'loading fail'
+        ? 'Fail'
         : `${percent.toFixed(1)}%`
   }
 
@@ -192,6 +203,15 @@ class MusicVisualization extends React.Component<IProps, IState> {
   }
 
   durationToSecond = duration => parseInt((duration / 100 * this.state.totalTime).toFixed(0), 10)
+
+  fileChange = e => {
+    if (!this.input.files[0]) { return }
+    const reader: any = new FileReader()
+    reader.readAsArrayBuffer(this.input.files[0])
+    reader.onload = (res: FileReaderEvent) => {
+      this.state.visualizer.play({ src: res.currentTarget.result, cb: this.afterLoading, progressCb: this.progress })
+    }
+  }
 
   render () {
     const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible } = this.state
@@ -236,6 +256,10 @@ class MusicVisualization extends React.Component<IProps, IState> {
             />
           ) : ''
         }
+        <a href='javascript:;' className='upload'>
+          choose song
+          <input className='change' ref={ref => { this.input = ref }} id='file' type='file' accept='audio/mpeg' name='test' onChange={this.fileChange}/>
+        </a>
       </div>
     )
   }
