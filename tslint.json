@@ -28,6 +28,8 @@
     "deprecation": false,
     "no-unnecessary-qualifier": false,
     "no-unnecessary-type-assertion": false,
-    "strict-type-predicates": false
+    "strict-type-predicates": false,
+    // 接口定义首字母不强制为大写I
+    "interface-name": [false]
 	}
 }

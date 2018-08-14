@@ -23,13 +23,20 @@ interface IState {
   currentTime: number,
   durationOffset: number,
   slideDuration: number | null,
-  loadingFail: boolean
+  loadingFail: boolean,
+  compatible: boolean
 }
 
 interface IProps {
   isMobile: boolean,
   h: number
 }
+
+declare global {
+  interface Window { AudioContext: any }
+}
+
+window.AudioContext = window.AudioContext || undefined
 
 class MusicVisualization extends React.Component<IProps, IState> {
 
@@ -53,9 +60,20 @@ class MusicVisualization extends React.Component<IProps, IState> {
       currentTime: 0,
       durationOffset: 0,
       slideDuration: null,
-      loadingFail: false
+      loadingFail: false,
+      compatible: !!window.AudioContext
     })
     this.mounted = true
+  }
+
+  componentDidMount () {
+    this.restartVisualizer()
+  }
+
+  componentWillUnmount () {
+    this.state.visualizer.stop()
+    document.removeEventListener('visibilitychange', this.visibilityChange)
+    this.mounted = false
   }
 
   visibilityChange = () => {
@@ -105,11 +123,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
     })
   }
 
-  componentDidMount () {
-    this.restartVisualizer()
-  }
-
   restartVisualizer = () => {
+    if (!this.state.compatible) { return }
     const ctx = this.canvas.getContext('2d')
     const { height, width, bars, barColor, volume } = this.state
     const param = { ctx, height, width, bars, barColor }
@@ -128,12 +143,6 @@ class MusicVisualization extends React.Component<IProps, IState> {
   currentTime = ({ curr: currentTime, total: totalTime }) => {
     if (!this.mounted) { return }
     this.setState({ currentTime, totalTime })
-  }
-
-  componentWillUnmount () {
-    this.state.visualizer.stop()
-    document.removeEventListener('visibilitychange', this.visibilityChange)
-    this.mounted = false
   }
 
   changeVolumn = v => {
@@ -185,7 +194,12 @@ class MusicVisualization extends React.Component<IProps, IState> {
   durationToSecond = duration => parseInt((duration / 100 * this.state.totalTime).toFixed(0), 10)
 
   render () {
-    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail } = this.state
+    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible } = this.state
+
+    if (!compatible) {
+      return <div className='music-visualization'>not compatible</div>
+    }
+
     const curr = totalTime ? parseInt(((currentTime % totalTime) / totalTime * 100).toFixed(0), 10) : 0
 
     return (
