@@ -25,7 +25,8 @@ interface IState {
   slideDuration: number | null,
   loadingFail: boolean,
   compatible: boolean,
-  showAdd: boolean
+  showAdd: boolean,
+  musicName: string
 }
 
 interface IProps {
@@ -74,7 +75,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
       slideDuration: null,
       loadingFail: false,
       compatible: !!window.AudioContext,
-      showAdd: false
+      showAdd: false,
+      musicName: ''
     })
     this.mounted = true
   }
@@ -205,16 +207,17 @@ class MusicVisualization extends React.Component<IProps, IState> {
     if (!this.input.files[0]) { return }
     this.setState({ showAdd: false }, () => {
       const reader: any = new FileReader()
+      const { name } = this.input.files[0]
       reader.readAsArrayBuffer(this.input.files[0])
       reader.onload = (res: IFileReaderEvent) => {
         this.play({ src: res.currentTarget.result, cb: this.afterLoading, progressCb: this.progress })
-        this.setState({ loadingFail: false, loading: true, durationOffset: 0 })
+        this.setState({ loadingFail: false, loading: true, durationOffset: 0, musicName: name })
       }
     })
   }
 
   render () {
-    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd } = this.state
+    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd, musicName } = this.state
 
     if (!compatible) {
       return <div className='music-visualization'>not compatible</div>
@@ -225,6 +228,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }} />
+        <div className='music-name'>{musicName}</div>
         {
           !loading ? (
             <VolumnBar
