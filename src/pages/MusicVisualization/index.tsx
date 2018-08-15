@@ -32,12 +32,12 @@ interface IProps {
   h: number
 }
 
-interface FileReaderEventTarget extends EventTarget {
+interface IFileReaderEventTarget extends EventTarget {
   result: ArrayBuffer
 }
 
-interface FileReaderEvent extends Event {
-  currentTarget: FileReaderEventTarget
+interface IFileReaderEvent extends Event {
+  currentTarget: IFileReaderEventTarget
   getMessage (): string
 }
 
@@ -58,7 +58,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilityChange)
     this.setState({
-      src: 'https://d28julafmv4ekl.cloudfront.net/64%2F30%2F211549645_S64.mp3?response-content-type=audio%2Fmpeg&Expires=1534259413&Signature=j0pKh8V7hL6ZPRpX~Bz5sDLfQHNb3RoCThMi3oYscbApTIY4Nud~W-3L5KGF5fvYg1~h0HULu69e9gVTHGEzRdJakzJ4do3zBQCFjNJknxso9gYhBRUBRM~Zzk4j7V-~AUpAoXgUujgzuAIQoxUJw0Y203c1Rq66CCwywRtnwXE_&Key-Pair-Id=APKAJVZTZLZ7I5XDXGUQ',
+      src: 'ironman sucks',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,
@@ -105,15 +105,10 @@ class MusicVisualization extends React.Component<IProps, IState> {
     canvas.height = height
   }
 
-  play = () => {
+  play = (v?) => {
     const { src } = this.state
-    if (src instanceof Blob) {
-      // const fileReader = new FileReader()
-      // fileReader.onload = e => {
-      //   console.log(e)
-      //   e && e.target && e.target.result && this.state.visualizer.play(e.target.result)
-      // }
-      // fileReader.readAsArrayBuffer(src)
+    if (v) {
+      this.state.visualizer.play(v)
     } else if (typeof src === 'string') {
       this.state.visualizer.play({ src, cb: this.afterLoading, progressCb: this.progress })
     }
@@ -176,7 +171,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     return percent === 100
       ? 'decoding'
       : this.state.loadingFail
-        ? 'Fail'
+        ? '↓'
         : `${percent.toFixed(1)}%`
   }
 
@@ -204,12 +199,14 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   durationToSecond = duration => parseInt((duration / 100 * this.state.totalTime).toFixed(0), 10)
 
-  fileChange = e => {
+  fileChange = () => {
     if (!this.input.files[0]) { return }
+    this.state.visualizer.pause()
     const reader: any = new FileReader()
     reader.readAsArrayBuffer(this.input.files[0])
-    reader.onload = (res: FileReaderEvent) => {
-      this.state.visualizer.play({ src: res.currentTarget.result, cb: this.afterLoading, progressCb: this.progress })
+    reader.onload = (res: IFileReaderEvent) => {
+      this.play({ src: res.currentTarget.result, cb: this.afterLoading, progressCb: this.progress })
+      this.setState({ loadingFail: false, loading: true, durationOffset: 0 })
     }
   }
 

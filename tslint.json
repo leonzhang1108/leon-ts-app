@@ -4,7 +4,6 @@
     "exclude": [
       "config/**/*.js",
       "node_modules/**/*.ts",
-      "src/**/*.less",
       "src/registerServiceWorker.ts"
     ]
   },

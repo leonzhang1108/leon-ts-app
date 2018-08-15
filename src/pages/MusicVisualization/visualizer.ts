@@ -128,10 +128,15 @@ export default class Visualizer {
 
   setInterval = () => {
     if (this.interval) { clearInterval(this.interval) }
+    this.setCurrTime(true)
     this.interval = setInterval(() => {
-      const total = this.buffer ? this.buffer.duration.toFixed(0) : 0
-      this.currentTime({ curr: ++this.curr, total })
+      this.setCurrTime()
     }, 1000)
+  }
+
+  setCurrTime = (isFirst?) => {
+    const total = this.buffer ? this.buffer.duration.toFixed(0) : 0
+    this.currentTime({ curr: isFirst ? 0 : ++this.curr , total })
   }
 
   pause = () => {
