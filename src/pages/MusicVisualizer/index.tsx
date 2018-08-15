@@ -61,7 +61,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilityChange)
     this.setState({
-      src: 'WaysToGetRich',
+      src: 'https://golb-1256296192.cos.ap-shanghai.myqcloud.com/1.mp3',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,
@@ -206,7 +206,8 @@ class MusicVisualizer extends React.Component<IProps, IState> {
 
   fileChange = () => {
     if (!this.input.files[0]) { return }
-    this.setState({ showAdd: false }, () => {
+    this.state.visualizer.abort()
+    this.setState({ showAdd: false, percent: 0 }, () => {
       const reader: any = new FileReader()
       const { name } = this.input.files[0]
       reader.readAsArrayBuffer(this.input.files[0])
