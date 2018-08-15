@@ -58,7 +58,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilityChange)
     this.setState({
-      src: 'ironman sucks',
+      src: 'WaysToGetRich',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,
@@ -201,7 +201,6 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   fileChange = () => {
     if (!this.input.files[0]) { return }
-    this.state.visualizer.pause()
     const reader: any = new FileReader()
     reader.readAsArrayBuffer(this.input.files[0])
     reader.onload = (res: IFileReaderEvent) => {

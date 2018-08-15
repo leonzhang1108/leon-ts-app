@@ -123,12 +123,12 @@ export default class Visualizer {
     const { buffer } = this
     this.curr = 0
     this.createBufferSource({ buffer, start })
-    this.setInterval()
+    this.setInterval(true)
   }
 
-  setInterval = () => {
+  setInterval = (isFirst?) => {
     if (this.interval) { clearInterval(this.interval) }
-    this.setCurrTime(true)
+    this.setCurrTime(isFirst)
     this.interval = setInterval(() => {
       this.setCurrTime()
     }, 1000)
