@@ -35,9 +35,9 @@ export default [{
   icon: 'ts-app icon-food',
   title: 'Food'
 }, {
-  route: 'music-visualization',
+  route: 'music-visualizer',
   icon: 'ts-app icon-music',
-  title: 'Music Visualization'
+  title: 'Music Visualizer'
 }, {
   icon: 'ts-app icon-game',
   title: 'Game',

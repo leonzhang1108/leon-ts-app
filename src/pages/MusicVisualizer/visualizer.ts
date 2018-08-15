@@ -128,7 +128,7 @@ export default class Visualizer {
 
   setInterval = (isFirst?) => {
     if (this.interval) { clearInterval(this.interval) }
-    this.setCurrTime(isFirst)
+    if (isFirst) { this.setCurrTime(isFirst) }
     this.interval = setInterval(() => {
       this.setCurrTime()
     }, 1000)

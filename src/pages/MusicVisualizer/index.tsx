@@ -50,7 +50,7 @@ declare global {
 
 window.AudioContext = window.AudioContext || undefined
 
-class MusicVisualization extends React.Component<IProps, IState> {
+class MusicVisualizer extends React.Component<IProps, IState> {
 
   canvas
 
@@ -221,13 +221,13 @@ class MusicVisualization extends React.Component<IProps, IState> {
     const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd, musicName } = this.state
 
     if (!compatible) {
-      return <div className='music-visualization'>not compatible</div>
+      return <div className='music-visualizer'>not compatible</div>
     }
 
     const curr = totalTime ? parseInt(((currentTime % totalTime) / totalTime * 100).toFixed(0), 10) : 0
 
     return (
-      <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
+      <div className={`music-visualizer ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }} />
         <FloatingTitle musicName={musicName}/>
         {
@@ -275,7 +275,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
 }
 
 export default Utils.connect({
-  component: MusicVisualization,
+  component: MusicVisualizer,
   mapStateToProps: state => ({
     isMobile: state.common.isMobile,
     h: state.common.contentHeight
