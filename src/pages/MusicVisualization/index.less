@@ -54,17 +54,28 @@
     }
   }
   .upload, .change {
-    height: 2rem;
-    width: 10rem;
+    height: 4rem;
+    width: 4rem;
   }
   .upload{
     padding: .4rem 1rem;
     text-align: center;
     position: relative;
-    border: 1px solid #999;
+    border: 1px dashed #999;
     text-decoration: none;
     color: #666;
     margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.disappear {
+      height: 0;
+      opacity: 0;
+      margin: 0;
+    }
+    .icon-add {
+      font-size: 2rem;
+    }
   }
   .change{
     overflow: hidden;

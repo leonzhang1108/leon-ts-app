@@ -24,7 +24,8 @@ interface IState {
   durationOffset: number,
   slideDuration: number | null,
   loadingFail: boolean,
-  compatible: boolean
+  compatible: boolean,
+  showAdd: boolean
 }
 
 interface IProps {
@@ -72,7 +73,8 @@ class MusicVisualization extends React.Component<IProps, IState> {
       durationOffset: 0,
       slideDuration: null,
       loadingFail: false,
-      compatible: !!window.AudioContext
+      compatible: !!window.AudioContext,
+      showAdd: false
     })
     this.mounted = true
   }
@@ -117,14 +119,14 @@ class MusicVisualization extends React.Component<IProps, IState> {
   progress = v => {
     if (!this.mounted) { return }
     if (isNaN(v)) {
-      this.setState({ percent: 0, loadingFail: true })
+      this.setState({ percent: 0, loadingFail: true, showAdd: true })
     } else {
-      this.setState({ percent: v })
+      this.setState({ percent: v, showAdd: true })
     }
   }
 
   afterLoading = () => {
-    this.setState({ loading: false }, () => {
+    this.setState({ loading: false, showAdd: true }, () => {
       this.state.visualizer.setCurrent(0)
     })
   }
@@ -201,16 +203,18 @@ class MusicVisualization extends React.Component<IProps, IState> {
 
   fileChange = () => {
     if (!this.input.files[0]) { return }
-    const reader: any = new FileReader()
-    reader.readAsArrayBuffer(this.input.files[0])
-    reader.onload = (res: IFileReaderEvent) => {
-      this.play({ src: res.currentTarget.result, cb: this.afterLoading, progressCb: this.progress })
-      this.setState({ loadingFail: false, loading: true, durationOffset: 0 })
-    }
+    this.setState({ showAdd: false }, () => {
+      const reader: any = new FileReader()
+      reader.readAsArrayBuffer(this.input.files[0])
+      reader.onload = (res: IFileReaderEvent) => {
+        this.play({ src: res.currentTarget.result, cb: this.afterLoading, progressCb: this.progress })
+        this.setState({ loadingFail: false, loading: true, durationOffset: 0 })
+      }
+    })
   }
 
   render () {
-    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible } = this.state
+    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd } = this.state
 
     if (!compatible) {
       return <div className='music-visualization'>not compatible</div>
@@ -252,9 +256,13 @@ class MusicVisualization extends React.Component<IProps, IState> {
             />
           ) : ''
         }
-        <a href='javascript:;' className='upload'>
-          choose song
-          <input className='change' ref={ref => { this.input = ref }} id='file' type='file' accept='audio/mpeg' name='test' onChange={this.fileChange}/>
+        <a href='javascript:;' className={`upload ${!showAdd ? 'disappear' : ''}`}>
+          <div className={`anticon anticon-ts-app icon-add`}/>
+          <input className='change'
+            ref={ref => { this.input = ref }}
+            type='file' accept='audio/mpeg'
+            onChange={this.fileChange}
+          />
         </a>
       </div>
     )
