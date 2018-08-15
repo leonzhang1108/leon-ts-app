@@ -7,6 +7,7 @@ import Visualizer from './visualizer'
 import VolumnBar from './volumn-bar'
 import TimeBar from './time-bar'
 import FileLoading from './file-loading'
+import FloatingTitle from './floating-title'
 
 interface IState {
   visualizer: Visualizer,
@@ -228,7 +229,7 @@ class MusicVisualization extends React.Component<IProps, IState> {
     return (
       <div className={`music-visualization ${loading ? 'loading' : 'loaded'}`}>
         <canvas ref={ref => { this.canvas = ref }} />
-        <div className='music-name'>{musicName}</div>
+        <FloatingTitle musicName={musicName}/>
         {
           !loading ? (
             <VolumnBar

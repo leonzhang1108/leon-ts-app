@@ -9,10 +9,20 @@
     margin-bottom: 1rem;
   }
   .music-name {
-    max-width: 10rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width: 200px;
+    height: 20px;
+    position: relative;
+    overflow-x: hidden;
+    &.flex {
+      display: flex;
+      justify-content: center;
+    }
+    .content {
+      position: absolute;
+      transition: transform 2s;
+      text-align: center;
+      white-space: nowrap;
+    }
   }
   &.loading,
   &.loaded {
