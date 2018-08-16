@@ -61,11 +61,7 @@ export default class Visualizer {
     })
   }
 
-  abort = () => {
-    if (this.axiosCancellation) {
-      this.axiosCancellation('abort')
-    }
-  }
+  abort = () => this.axiosCancellation && this.axiosCancellation('abort')
 
   play = ({ src, cb, progressCb }) => {
     const n = ++this.count

@@ -10,31 +10,50 @@ interface IProps {
   contentWidth: number
 }
 
-class PieChart extends React.Component<IProps> {
+interface IState {
+  loaded: boolean
+}
+
+class PieChart extends React.Component<IProps, IState> {
 
   echarts: HTMLDivElement | null
   myChart: any
 
+  componentWillMount () {
+    this.setState({ loaded: false })
+  }
+
   componentDidMount () {
     Api.get('data/echarts.json').then(res => {
+      this.setState({ loaded: true })
       this.myChart = Echarts.init(this.echarts)
       this.myChart.setOption(res)
-      setTimeout(this.myChart.resize, 0)
+      this.resize()
     })
   }
 
   componentWillReceiveProps () {
-    setTimeout(this.myChart.resize, 0)
+    this.resize()
   }
 
   componentWillUpdate () {
-    setTimeout(this.myChart.resize, 0)
+    this.resize()
+  }
+
+  resize = () => {
+    if (this.myChart) { setTimeout(this.myChart.resize, 0) }
   }
 
   render () {
     return (
       <div className='pie-chart-wrapper'>
-        <div ref={dom => this.echarts = dom} className='echarts' />
+      {
+        this.state.loaded ? (
+          <div ref={dom => this.echarts = dom} className='echarts' />
+        ) : (
+          <div className='loader'/>
+        )
+      }
       </div>
     )
   }

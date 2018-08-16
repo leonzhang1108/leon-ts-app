@@ -14,9 +14,7 @@ interface IState {
 class FloatingTitle extends React.Component<IProps, IState> {
 
   dom
-
   wrapper
-
   interval
 
   componentWillMount () {

@@ -114,7 +114,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
     const { src } = this.state
     if (v) {
       this.state.visualizer.play(v)
-    } else if (typeof src === 'string') {
+    } else if (Utils.isString(src)) {
       this.state.visualizer.play({ src, cb: this.afterLoading, progressCb: this.progress })
     }
   }
