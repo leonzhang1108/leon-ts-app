@@ -67,9 +67,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   }
 
   onTitleClick = (key, e) => {
-    if (!this.props.collapsed) {
-      this.props.actions.toggleOpenKeys({ key })
-    }
+    this.props.actions.toggleOpenKeys({ key })
     e.domEvent.stopPropagation()
   }
 
