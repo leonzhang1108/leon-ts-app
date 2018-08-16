@@ -6,7 +6,7 @@ import Api from '@utils/fetch.js'
 const Search = Input.Search
 
 interface IFoodState {
-  showCanvas: boolean
+  loaded: boolean
 }
 
 class Food extends React.Component<{}, IFoodState> {
@@ -18,7 +18,7 @@ class Food extends React.Component<{}, IFoodState> {
 
   componentWillMount () {
     this.setState({
-      showCanvas: false
+      loaded: false
     })
   }
 
@@ -27,11 +27,12 @@ class Food extends React.Component<{}, IFoodState> {
   }
 
   componentDidMount () {
-    Api.get('data/food.json').then(this.initCanvas)
+    Api.get('data/food.json').then(res => {
+      this.setState({ loaded: true }, () => this.initCanvas(res))
+    })
   }
 
   initCanvas = res => {
-    this.setState({ showCanvas: true })
     this.words = res
     const wordsAttr: any[] = []
     const { offsetHeight: h, offsetWidth: w } = this.wrapper
@@ -92,18 +93,27 @@ class Food extends React.Component<{}, IFoodState> {
   }
 
   render () {
-    const { showCanvas } = this.state
+    const { loaded } = this.state
     return (
       <div className='food-wrapper' ref={el => this.wrapper = el}>
-        <div className='input'>
-          <Search
-            placeholder='food you want'
-            enterButton='Add'
-            size='large'
-            onSearch={this.onSearch}
-          />
-        </div>
-        <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: showCanvas ? 1 : 0 }}/>
+      {
+        loaded ? (
+          <div className='input'>
+            <Search
+              placeholder='food you want'
+              enterButton='Add'
+              size='large'
+              onSearch={this.onSearch}
+            />
+          </div>
+        ) : ''
+      }
+      {
+        loaded ? <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: loaded ? 1 : 0 }}/> : ''
+      }
+      {
+        !loaded ? <div className='loader'/> : ''
+      }
       </div>
     )
   }

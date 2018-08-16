@@ -61,7 +61,8 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   componentWillMount () {
     document.addEventListener('visibilitychange', this.visibilityChange)
     this.setState({
-      src: 'https://golb-1256296192.cos.ap-shanghai.myqcloud.com/1.mp3',
+      // src: 'https://golb-1256296192.cos.ap-shanghai.myqcloud.com/1.mp3',
+      src: 'NoMusic',
       bars: 64,
       barColor: ['gold', 'aqua'],
       height: this.props.isMobile ? this.props.h * .5 : 400,

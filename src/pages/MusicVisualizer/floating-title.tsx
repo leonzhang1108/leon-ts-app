@@ -58,7 +58,7 @@ class FloatingTitle extends React.Component<IProps, IState> {
     const { onOff, offsetWidth } = this.state
     this.setState({
       onOff: !onOff,
-      offset: onOff ? offsetWidth : 0
+      offset: onOff ? 0 : offsetWidth
     })
   }
 
