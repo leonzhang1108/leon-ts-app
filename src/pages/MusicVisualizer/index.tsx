@@ -4,7 +4,7 @@ import './index.less'
 import Utils from '@utils'
 import tools from './tools'
 import Visualizer from './visualizer'
-import VolumnBar from './volumn-bar'
+import VolumeBar from './volume-bar'
 import TimeBar from './time-bar'
 import FileLoading from './file-loading'
 import FloatingTitle from './floating-title'
@@ -27,7 +27,8 @@ interface IState {
   loadingFail: boolean,
   compatible: boolean,
   showAdd: boolean,
-  musicName: string
+  musicName: string,
+  mute: boolean
 }
 
 interface IProps {
@@ -78,7 +79,8 @@ class MusicVisualizer extends React.Component<IProps, IState> {
       loadingFail: false,
       compatible: !!window.AudioContext,
       showAdd: false,
-      musicName: ''
+      musicName: '',
+      mute: false
     })
     this.mounted = true
   }
@@ -157,7 +159,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
     this.setState({ currentTime, totalTime })
   }
 
-  changeVolumn = v => {
+  changeVolume = v => {
     this.state.visualizer.updateVolume(v / 100)
   }
 
@@ -219,8 +221,16 @@ class MusicVisualizer extends React.Component<IProps, IState> {
     })
   }
 
+  setMute = () => {
+    const { mute } = this.state
+    this.setState({ mute: !mute }, () => {
+      const { mute: m, volume: v } = this.state
+      this.changeVolume(m ? 0 : v * 100)
+    })
+  }
+
   render () {
-    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd, musicName } = this.state
+    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd, musicName, mute } = this.state
 
     if (!compatible) {
       return <div className='music-visualizer'>not compatible</div>
@@ -234,10 +244,12 @@ class MusicVisualizer extends React.Component<IProps, IState> {
         <FloatingTitle musicName={musicName}/>
         {
           !loading ? (
-            <VolumnBar
+            <VolumeBar
               pause={pause}
+              mute={mute}
+              setMute={this.setMute}
               togglePause={this.togglePause}
-              changeVolumn={this.changeVolumn}
+              changeVolume={this.changeVolume}
             />
           ) : ''
         }

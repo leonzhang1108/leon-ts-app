@@ -1,8 +1,8 @@
 export default {
   draw: param => {
     const { ctx, height, width, bars, barColor } = param
-    return (arr, volumn) => {
-      const vol = volumn
+    return (arr, volume) => {
+      const vol = volume
       ctx.clearRect(0, 0, width, height)
       if (Array.isArray(barColor)) {
         const line = ctx.createLinearGradient(0, 0, 0, height)

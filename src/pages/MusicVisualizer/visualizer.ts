@@ -101,6 +101,7 @@ export default class Visualizer {
   }
 
   updateVolume = vol => {
+    console.log(vol)
     this.gainNode.gain.value = this.volume = vol
   }
 
