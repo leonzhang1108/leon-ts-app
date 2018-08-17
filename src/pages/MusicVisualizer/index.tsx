@@ -230,7 +230,11 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   }
 
   render () {
-    const { pause, loading, percent, durationOffset, slideDuration, currentTime, totalTime, loadingFail, compatible, showAdd, musicName, mute } = this.state
+    const { pause, loading, percent
+      , durationOffset, slideDuration
+      , currentTime, totalTime, loadingFail
+      , compatible, showAdd, musicName, mute
+    } = this.state
 
     if (!compatible) {
       return <div className='music-visualizer'>not compatible</div>
