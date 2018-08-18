@@ -2,23 +2,7 @@ export default [{
   route: 'home',
   icon: 'home',
   title: 'Home'
-},
-// {
-//   icon: 'line-chart',
-//   title: 'Echarts',
-//   key: 'echarts',
-//   childs: [{
-//     icon: 'edit',
-//     title: 'Sub Echarts',
-//     key: 'sub-echarts',
-//     childs: [{
-//       route: 'pie-chart',
-//       icon: 'pie-chart',
-//       title: 'Pie Chart'
-//     }]
-//   }]
-// },
-{
+}, {
   route: 'pie-chart',
   icon: 'pie-chart',
   title: 'Pie Chart'
@@ -28,7 +12,7 @@ export default [{
   title: 'Widgets'
 }, {
   route: 'infinite-list',
-  icon: 'list',
+  icon: 'ts-app icon-list',
   title: 'InfiniteList'
 }, {
   route: 'matrix',
