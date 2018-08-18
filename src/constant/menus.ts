@@ -27,6 +27,10 @@ export default [{
   icon: 'tool',
   title: 'Widgets'
 }, {
+  route: 'infinite-list',
+  icon: 'list',
+  title: 'InfiniteList'
+}, {
   route: 'matrix',
   icon: 'ts-app icon-matrix',
   title: 'Matrix Multiplication'

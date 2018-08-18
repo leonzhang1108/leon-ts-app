@@ -1,0 +1,24 @@
+.infinite-list-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  position: relative;
+  .infinite-list-ghost {
+    position: absolute;
+    right: 0;
+    width: 1px;
+    z-index: -1;
+  }
+  .infinite-list {
+    overflow: auto;
+    width: 100%;
+    .item {
+      text-align: center;
+      line-height: 30px;
+      &:nth-child(odd) {
+        background-color: #eee;
+      }
+    }
+  }
+}
+
