@@ -63,7 +63,7 @@ export default class SadMan {
     t = t % Math.PI * 2
     this.ctx.fillStyle = '#eee'
     this.ctx.save()
-    this.ctx.translate(window.innerWidth * 0.5 - 140, window.innerHeight * 0.5 - 80)
+    this.ctx.translate(window.innerWidth * 0.5 - 80, window.innerHeight * 0.5 - 80)
     this.drawShadow(t)
     this.drawHead(t)
     this.drawBody(t)
