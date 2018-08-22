@@ -27,6 +27,10 @@ export default [{
   icon: 'ts-app icon-music',
   title: 'Music Visualizer'
 }, {
+  route: 'sad-man',
+  icon: 'ts-app icon-sad',
+  title: 'Sad Man'
+}, {
   icon: 'ts-app icon-game',
   title: 'Game',
   key: 'game',
