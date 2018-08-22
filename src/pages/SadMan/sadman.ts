@@ -33,7 +33,7 @@ export default class SadMan {
     this.ctx.save()
     this.ctx.translate(Math.cos(t) * -50, Math.sin(t) > 0 ? Math.sin(t) * -35 : 0)
     if (t < Math.PI) {
-      this.ctx.rotate(Math.sin(t) * Math.PI / 180 * -5)
+      this.ctx.rotate(Math.sin(-Math.PI * t / 2) * Math.PI / 180 * -5)
     }
     this.ctx.fill(foot)
     this.ctx.restore()

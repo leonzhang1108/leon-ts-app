@@ -2,6 +2,7 @@
   "name": "leon-ts-app",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@types/react-router-dom": "^4.3.0",
     "antd": "^3.8.1",
