@@ -11,9 +11,10 @@ class SadManPage extends React.Component {
 
   componentDidMount () {
     this.initCanvas()
-    const loop = () => this.draw() && requestAnimationFrame(loop)
-    loop()
+    this.loop()
   }
+
+  loop = () => this.draw() && requestAnimationFrame(this.loop)
 
   initCanvas = () => {
     const { offsetHeight: h, offsetWidth: w } = this.wrapper
@@ -26,7 +27,7 @@ class SadManPage extends React.Component {
   draw = () => {
     if (!this.canvas) { return false }
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    this.tick += 0.03
+    this.tick += 0.05
     this.sadman.draw(this.tick)
     return true
   }
