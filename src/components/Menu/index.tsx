@@ -34,6 +34,8 @@ interface IMenuProps {
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
+  menuWrapper
+
   componentDidMount () {
     const { changeBreadcrumb } = this.props.actions
 
@@ -105,6 +107,8 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     const { toggleCollapse } = actions
 
+    let width = 0
+
     const menuProps: IMenuProps = {
       className: 'left-menu',
       selectedKeys: [route ? `/${route}` : '/home'],
@@ -116,10 +120,14 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       menuProps.openKeys = openKeys
     }
 
+    if (this.menuWrapper) {
+      width = this.menuWrapper.clientWidth
+    }
+
     return isMobile
       ? (
-        <div className='navbar' onClick={this.doCollapse} style={{
-          transform: `translateX(${ collapsed ? 0 : -200 }px)`
+        <div className='navbar' ref={dom => this.menuWrapper = dom} onClick={this.doCollapse} style={{
+          transform: `translateX(${ collapsed ? 0 : -width }px)`
         }}>
           <Menu {...menuProps} style={{
             height: `${this.props.h + 82}px`,
