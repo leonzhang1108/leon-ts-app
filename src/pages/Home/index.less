@@ -30,7 +30,8 @@
       position: absolute;
       top: 2rem;
       font-size: 2rem;
-      animation: goingdown 1s infinite;
+      animation: goingdown .5s infinite;
+      animation-direction: alternate;
     }
     .bottom {
       position: absolute;
@@ -44,10 +45,7 @@
   0% {
     transform: translateY(-10px);
   }
-  50% {
-    transform: translateY(10px);
-  }
   100% {
-    transform: translateY(-10px);
+    transform: translateY(10px);
   }
 }
