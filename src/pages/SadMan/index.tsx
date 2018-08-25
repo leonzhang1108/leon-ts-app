@@ -1,9 +1,14 @@
 import * as React from 'react'
 import './index.less'
 import SadMan from './sadman'
+import Utils from '@utils'
 
-class SadManPage extends React.Component {
-  wrapper
+interface IProps {
+  h: number,
+  w: number
+}
+
+class SadManPage extends React.Component<IProps> {
   canvas
   ctx
   tick = 0
@@ -17,7 +22,7 @@ class SadManPage extends React.Component {
   loop = () => this.draw() && requestAnimationFrame(this.loop)
 
   initCanvas = () => {
-    const { offsetHeight: h, offsetWidth: w } = this.wrapper
+    const { h, w } = this.props
     this.ctx = this.canvas.getContext('2d')
     this.sadman = new SadMan(this.ctx)
     this.canvas.width = w
@@ -34,11 +39,17 @@ class SadManPage extends React.Component {
 
   render () {
     return (
-      <div className='sad-man-wrapper' ref={el => this.wrapper = el}>
+      <div className='sad-man-wrapper' >
         <canvas ref={el => this.canvas = el}/>
       </div>
     )
   }
 }
 
-export default SadManPage
+export default Utils.connect({
+  component: SadManPage,
+  mapStateToProps: state => ({
+    w: state.common.contentWidth,
+    h: state.common.contentHeight
+  })
+})
