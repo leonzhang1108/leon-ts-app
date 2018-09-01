@@ -1,5 +1,46 @@
 .bat-logo-wrapper {
-  path {
-    fill: #999;
+  width: 100%;
+  text-align: center;
+  .bat-logo {
+    height: 250px;
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    path {
+      fill: #999;
+    }
+  }
+  .meter {
+    font-size: 60px;
+  }
+  .meter::-webkit-meter-bar {
+    width: 5em;
+    height: 1em;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">\
+      <text font-size="80" y=".8em" opacity=".2">💩</text></svg>') 0 / auto 100%;
+    background-color: #fff;
+  }
+  .meter::-webkit-meter-optimum-value{
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">\
+      <text font-size="80" y=".8em">💩</text></svg>') 0 / auto 100%;
+    background-color: #fff;
+  }
+  .ants-border {
+    width: 100px;
+    background: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg">\
+        <style>@keyframes marching-ants {to {stroke-dashoffset: -15px;}}</style>\
+        <rect width="100%" height="100%" style="\
+          stroke: black; stroke-width: 2px;\
+          fill: none; stroke-dasharray: 10px 5px;\
+          animation: marching-ants .3s infinite linear;"\
+        />\
+      </svg>\
+    ');
+    margin: 0 auto;
+  }
+  .slider {
+    width: 300px;
+    margin: 20px auto;
   }
 }
