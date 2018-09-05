@@ -26,7 +26,8 @@
       "@utils": ["./src/utils/index"],
       "@utils/*": ["./src/utils/*"],
       "@reducers": ["./src/reducers/index"],
-      "@actions": ["./src/actions/index"]
+      "@actions": ["./src/actions/index"],
+      "@img/*": ["./src/img/*"],
     }
   },
   "exclude": [
