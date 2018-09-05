@@ -1,0 +1,77 @@
+.calligraphy-wrapper {
+  width: 100%;
+  min-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .title {
+    font-size: 30px;
+  }
+  .person {
+    width: 500px;
+    margin-top: 20px;
+    text-align: right;
+    span {
+      border-bottom: 1px solid #000;
+      display: inline-block;
+      width: 100px;
+    }
+  }
+ 
+  .calligraphy-content {
+    border: 2px solid #000;
+    display: inline-block;
+    margin-top: 20px;
+    position: relative;
+    .anticon {
+      position: absolute;
+      top: -100px;
+      font-size: 5rem;
+      &.icon-teddy {
+        left: 0;
+      }
+      &.icon-brush {
+        right: 0;
+      }
+    }
+    .row {
+      display: flex;
+      &:last-child {
+        border-bottom: 2px solid #000;
+      }
+      table {
+        border-collapse: collapse;
+        &:not(:first-child) {
+          margin-left: -2px;
+        }
+        tr {
+          td {
+            height: 50px;
+            width: 50px;
+            border: 2px solid #000;
+            position: relative;
+            &:before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 50%;
+              height: 50px;
+              width: 50px;
+              border-left: 1px dashed #000;
+            }
+            &:after {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 50%;
+              height: 50px;
+              width: 50px;
+              border-top: 1px dashed #000;
+            }
+          }
+        }
+      }
+    }
+  }
+}

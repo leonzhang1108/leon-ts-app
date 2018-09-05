@@ -101,7 +101,7 @@ class Camera extends React.Component<null, IState> {
           <video id='video' className='video' width='100%' height='100%' ref={el => this.v = el} autoPlay/>
         </div>
       ) : (
-        <div className='empty'><span>没有摄像头</span></div>
+        <div className='empty'><span>no camera</span></div>
       )
   }
 }

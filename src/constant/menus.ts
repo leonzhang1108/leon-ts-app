@@ -7,6 +7,10 @@ export default [{
   icon: 'ts-app icon-batman-logo',
   title: 'Bat Logo'
 }, {
+  route: 'calligraphy',
+  icon: 'ts-app icon-brush',
+  title: 'Calligraphy'
+}, {
   icon: 'profile',
   title: 'Common',
   key: 'common',
