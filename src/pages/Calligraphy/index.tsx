@@ -3,7 +3,7 @@ import * as React from 'react'
 import './index.less'
 import fulei from '@img/fulei.png'
 import bird from '@img/bird.jpg'
-import mountain from '@img/mountain.png'
+import bamboo from '@img/bamboo.png'
 
 const renderSquare = () => (
   <table>
@@ -25,7 +25,7 @@ const Calligraphy = () => (
     <div className='calligraphy-content'>
       <img className='fulei-logo' src={fulei}/>
       <img className='bird' src={bird}/>
-      <img className='mountain' src={mountain}/>
+      <img className='bamboo' src={bamboo}/>
       <div className='row'>
         { renderSquare() }
         { renderSquare() }
