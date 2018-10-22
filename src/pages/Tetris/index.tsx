@@ -54,7 +54,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.clearInterval()
     this.clearBtnInterval()
     document.removeEventListener('keyup', this.keyup)
-    document.removeEventListener('keydown', this.clearBtnInterval)
+    document.removeEventListener('keydown', this.keydown)
     document.removeEventListener('touchend', this.clearBtnInterval)
     document.removeEventListener('visibilitychange', this.visibilitychange)
   }
