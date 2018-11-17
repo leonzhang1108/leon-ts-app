@@ -28,6 +28,7 @@
       "@reducers": ["./src/reducers/index"],
       "@actions": ["./src/actions/index"],
       "@img/*": ["./src/img/*"],
+      "@interface": ["./src/interface"],
     }
   },
   "exclude": [

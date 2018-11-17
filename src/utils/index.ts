@@ -53,7 +53,7 @@ export default {
 
   random: (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower,
 
-  handle: (func, ...args) => () => func(...args),
+  handle: (func, ...args) => v => func(v, ...args),
 
   changeTitle: breadcrumb => document.title = breadcrumb[breadcrumb.length - 1].title,
 
