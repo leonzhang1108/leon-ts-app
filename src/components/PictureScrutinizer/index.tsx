@@ -112,7 +112,7 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
   }
 
   drag = e => {
-    if (['circle', 'line'].indexOf(e.target.tagName) >= 0 || this.isSVGDragging) {
+    if (['circle', 'line', 'polygon'].indexOf(e.target.tagName) >= 0 || this.isSVGDragging) {
       this.isSVGDragging = true
       return
     }
@@ -167,12 +167,11 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
   }
 
   render () {
-    const { times, currentTimes, top, left, lastX, lastY } = this.state
+    const { times, top, left, lastX, lastY } = this.state
     return (
       <div ref={el => this.wrapper = el} >
         <SVGLabelEditor
-          times={times || 0}
-          currentTimes={currentTimes || 0}
+          times={times}
           top={top}
           left={left}
           lastX={lastX}
