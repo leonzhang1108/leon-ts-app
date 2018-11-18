@@ -169,7 +169,7 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
   render () {
     const { times, currentTimes, top, left, lastX, lastY } = this.state
     return (
-      <div ref={el => this.wrapper = el}>
+      <div ref={el => this.wrapper = el} >
         <SVGLabelEditor
           times={times || 0}
           currentTimes={currentTimes || 0}

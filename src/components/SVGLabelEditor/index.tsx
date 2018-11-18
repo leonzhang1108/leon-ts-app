@@ -15,6 +15,7 @@ interface IProps {
 
 interface IStates {
   pointsList: Point[][],
+  tempList: Point[]
   r: number,
   strokeWidth: number,
   oriTop: number | null,
@@ -27,6 +28,10 @@ const baseCirlce = {
 
 const baseLine = {
   stroke: 'rgb(211, 220, 230)'
+}
+
+const basePolygon = {
+  fill: 'rgb(56, 120, 196, .5)'
 }
 
 class SVGLabelEditor extends React.Component<IProps, IStates> {
@@ -43,20 +48,11 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
     return null
   }
 
+  clicked = false
+
   state = {
-    pointsList: [
-      [
-        {
-          x: 100, y: 100
-        }, {
-          x: 150, y: 100
-        }, {
-          x: 150, y: 150
-        }, {
-          x: 100, y: 150
-        }
-      ]
-    ],
+    pointsList: [] as Point[][],
+    tempList: [] as Point[],
     r: 7,
     strokeWidth: 1.5,
     oriTop: null,
@@ -73,38 +69,93 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
 
   calclateTimes = v => v * this.props.times
 
-  onMouseMove = (index, i, p) => {
-    const { pointsList } = this.state
+  onMouseUp = i => {
+    if (!this.clicked || i) return
+    const { tempList, pointsList } = this.state
+    pointsList.push(tempList)
+    this.setState({
+      tempList: [],
+      pointsList
+    })
+  }
+
+  onMouseMove = (i, p: Point) => {
+    const { tempList } = this.state
     const { times } = this.props
     const { x, y } = p
-    const { x: x0, y: y0 } = pointsList[index][i]
-    pointsList[index][i] = {
+    const { x: x0, y: y0 } = tempList[i]
+    tempList[i] = {
       x: x0 + x / times,
       y: y0 + y / times
     }
-    this.setState({ pointsList })
+    this.setState({ tempList })
   }
 
+  wrapperMouseDown = e => {
+    this.clicked = true
+  }
+
+  wrapperMouseMove = e => {
+    this.clicked = false
+  }
+
+  wrapperMouseUp = e => {
+
+    const { clientX, clientY, target } = e
+
+    if (target.tagName !== 'svg' || !this.clicked) return
+
+    const { left: offsetLeft, top: offsetTop } = target.getBoundingClientRect()
+    const { tempList } = this.state
+    const { times, left, top } = this.props
+
+    const x = (clientX - (left || 0) - offsetLeft) / times
+    const y = (clientY - (top || 0) - offsetTop) / times
+
+    tempList.push({ x, y })
+
+    this.setState({ tempList })
+    this.clicked = false
+  }
+
+  convertPoints2String = points =>
+    points.map(({ x, y }) => this.calculatePoint(x, y))
+      .map(({ x, y }) => `${x},${y}`).join(' ')
+
   render () {
-    const { pointsList, r, strokeWidth } = this.state
+    const { pointsList, tempList, r, strokeWidth } = this.state
     const radius = this.calclateTimes(r)
     const width = this.calclateTimes(strokeWidth)
     return (
-      <svg className='svg-wrapper'>
+      <svg className='svg-wrapper'
+        onMouseDown={this.wrapperMouseDown}
+        onMouseMove={this.wrapperMouseMove}
+        onMouseUp={this.wrapperMouseUp}
+      >
       {
-        pointsList.map((points, index) => points.map(({ x, y }, i) => {
-          const { x: xn, y: yn } = i === points.length - 1 ? points[0] : points[i + 1]
+        tempList.map(({ x, y }: Point, i) => {
+          const isLast = i === tempList.length - 1
+          const { x: xn, y: yn } = isLast ? tempList[0] : tempList[i + 1]
           const { x: x1, y: y1 } = this.calculatePoint(x, y)
           const { x: x2, y: y2 } = this.calculatePoint(xn, yn)
           return (
             <React.Fragment key={i}>
-              <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={width} {...baseLine}/>
-              <DragHOC onMouseMove={Utils.handle(this.onMouseMove, index, i)}>
-                <circle cx={x1} cy={y1} r={radius} {...baseCirlce} />
+              {!isLast ? <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={width} {...baseLine}/> : ''}
+              <DragHOC
+                onMouseMove={Utils.handle(this.onMouseMove, i)}
+              >
+                <circle cx={x1} cy={y1} r={radius} {...baseCirlce}
+                  onMouseUp={Utils.handle(this.onMouseUp, i)}
+                />
               </DragHOC>
             </React.Fragment>
           )
-        }))
+        })
+      }
+      {
+        pointsList.map((points, i) => {
+          return <polygon key={i} points={this.convertPoints2String(points)} {...basePolygon} />
+        })
       }
       </svg>
     )
