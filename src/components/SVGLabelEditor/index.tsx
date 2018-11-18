@@ -168,27 +168,30 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
         <polygon points={this.convertPoints2String(points)} {...basePolygon}/>
       </DragHOC>
       {
-        points.map(({ x, y }) => this.calculatePoint(x, y))
-          .map(({ x, y }, index) => {
-            const isLast = index === points.length - 1
-            const { x: xn, y: yn } = isLast ? points[0] : points[index + 1]
-            const { x: x2, y: y2 } = this.calculatePoint(xn, yn)
-            return (
-              <React.Fragment key={index}>
-                <line x1={x} y1={y} x2={x2} y2={y2} strokeWidth={width} {...baseLine}
-                  onClick={Utils.handle(this.onPoligonLineClick, i, index)}
-                />
-                <DragHOC
-                  onMouseMove={Utils.handle(this.onPolygonPointMouseMove, i, index)}
-                >
-                  <circle cx={x} cy={y} r={radius} {...baseCirlce} />
-                </DragHOC>
-              </React.Fragment>
-            )
-          })
+        this.renderPolygonWrapper({ points, i, width, radius })
       }
     </React.Fragment>
   ))
+
+  renderPolygonWrapper = ({ points, width, radius, i }) =>
+    points.map(({ x, y }) => this.calculatePoint(x, y))
+      .map(({ x, y }, index) => {
+        const isLast = index === points.length - 1
+        const { x: xn, y: yn } = isLast ? points[0] : points[index + 1]
+        const { x: x2, y: y2 } = this.calculatePoint(xn, yn)
+        return (
+          <React.Fragment key={index}>
+            <line x1={x} y1={y} x2={x2} y2={y2} strokeWidth={width} {...baseLine}
+              onClick={Utils.handle(this.onPoligonLineClick, i, index)}
+            />
+            <DragHOC
+              onMouseMove={Utils.handle(this.onPolygonPointMouseMove, i, index)}
+            >
+              <circle cx={x} cy={y} r={radius} {...baseCirlce} />
+            </DragHOC>
+          </React.Fragment>
+        )
+      })
 
   render () {
     const { pointsList, tempList, r, strokeWidth } = this.state
