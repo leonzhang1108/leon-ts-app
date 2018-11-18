@@ -73,7 +73,7 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
 
   calclateTimes = v => v * this.props.times
 
-  onMouseMove = (p, index, i) => {
+  onMouseMove = (index, i, p) => {
     const { pointsList } = this.state
     const { times } = this.props
     const { x, y } = p
@@ -82,7 +82,6 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
       x: x0 + x / times,
       y: y0 + y / times
     }
-
     this.setState({ pointsList })
   }
 

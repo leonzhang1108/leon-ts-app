@@ -8,6 +8,7 @@ import VolumeBar from './volume-bar'
 import TimeBar from './time-bar'
 import FileLoading from './file-loading'
 import FloatingTitle from './floating-title'
+import { IFileReaderEvent } from '@interface'
 
 interface IState {
   visualizer: Visualizer,
@@ -34,15 +35,6 @@ interface IState {
 interface IProps {
   isMobile: boolean,
   h: number
-}
-
-interface IFileReaderEventTarget extends EventTarget {
-  result: ArrayBuffer
-}
-
-interface IFileReaderEvent extends Event {
-  currentTarget: IFileReaderEventTarget
-  getMessage (): string
 }
 
 declare global {

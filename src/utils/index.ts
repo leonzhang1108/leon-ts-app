@@ -4,6 +4,7 @@ import PageLoading from '@components/PageLoading'
 import menus from '@constant/menus'
 import request from './fetch'
 import Storage from './storage'
+import { IConnectProps } from '@interface'
 
 export default {
   request,
@@ -53,7 +54,7 @@ export default {
 
   random: (lower, upper) => Math.floor(Math.random() * (upper - lower)) + lower,
 
-  handle: (func, ...args) => v => func(v, ...args),
+  handle: (func, ...args) => v => func(...args, v),
 
   changeTitle: breadcrumb => document.title = breadcrumb[breadcrumb.length - 1].title,
 
@@ -80,10 +81,4 @@ export default {
   },
 
   isString: v => Object.prototype.toString.call(v) === '[object String]'
-}
-
-interface IConnectProps {
-  component,
-  mapStateToProps?,
-  mapDispatchToProps?
 }
