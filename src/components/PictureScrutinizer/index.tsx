@@ -128,8 +128,8 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
     const { top: sTop, left: sLeft, currentTimes, times } = this.state
     const { width, height } = this.calculate(this.img, this.props)
 
-    if (!left || !top) {
-      if (sTop && sLeft) {
+    if (undefined === left || undefined === top) {
+      if (sTop !== null && sLeft !== null) {
         left = sLeft || 0
         top = sTop || 0
       } else {
