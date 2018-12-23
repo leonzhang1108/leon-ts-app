@@ -21,7 +21,7 @@ class BatLogo extends React.Component<IProps, IState> {
   }
 
   componentDidMount () {
-    const pathStrings = Array.from(document.querySelectorAll('path')).map(d => d.getAttribute('d'))
+    const pathStrings = Array.from(document.querySelectorAll('.bat-logo path')).map(d => d.getAttribute('d'))
     const animate = sel => {
       const start = pathStrings.shift() || ''
       const end = pathStrings[0]
@@ -34,11 +34,11 @@ class BatLogo extends React.Component<IProps, IState> {
         .on('end', () => sel.call(animate))
     }
 
-    d3.selectAll('path')
+    d3.selectAll('.bat-logo path')
       .filter((d, i) => i)
       .remove()
 
-    d3.select('path')
+    d3.select('.bat-logo path')
       .style('display', 'block')
       .call(animate)
   }

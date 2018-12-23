@@ -1,12 +1,7 @@
 @import  "./font/iconfont.css";
 
-
-:global(.anticon) {  /* :global() 是为了覆盖全局class .anticon 的样式 */
+:global(.anticon) {
   &:before {
-    /* 优先调用 anticon-user 字体，就是上面图例创建的 anticon-custom，名字对上就行，我自己的程序叫 anticon-user 了 */
-    font-family: "anticon-ts-app", "anticon" !important;   
-    /* 默认样式是这样
-        font-family: "anticon" !important;   
-    */
+    font-family: "anticon-ts-app", "anticon"!important;
   }
 }
