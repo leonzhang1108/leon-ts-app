@@ -40,14 +40,13 @@ class Page2048 extends React.Component<IProp, IState> {
     document.addEventListener('keydown', this.keydown)
   }
 
-  reset = (pieces?) => {
-    if (!pieces) {
+  reset = pieces => {
+    if (!Utils.isArray(pieces)) {
       pieces = []
       this.addRandom(pieces, true)
       this.addRandom(pieces, true)
       storage.set('pieces', null)
     }
-
     this.setState({
       size: 4,
       pieces,
@@ -203,7 +202,7 @@ class Page2048 extends React.Component<IProp, IState> {
           </div>
           <div className='piece-contanier'>
             {
-              pieces.map(item => (
+              (pieces || []).map(item => (
                 <div className={`piece piece-${item.v} piece-position-${item.x}-${item.y} ${item.merged ? 'merged' : ''}`} key={item.id} >
                   <div className='item'>
                     {

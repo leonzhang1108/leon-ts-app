@@ -80,5 +80,7 @@ export default {
     return zero(i) && zero(s) ? [zero(i), zero(s)].join(':') : '00:00'
   },
 
-  isString: v => Object.prototype.toString.call(v) === '[object String]'
+  isString: v => Object.prototype.toString.call(v) === '[object String]',
+
+  isArray: v => Object.prototype.toString.call(v) === '[object Array]'
 }
