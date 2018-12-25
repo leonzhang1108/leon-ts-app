@@ -9,34 +9,21 @@ import MainContent from '@components/MainContent'
 
 const { Content, Footer } = Layout
 
-class App extends React.Component {
-
-  state = {
-    collapsed: false
-  }
-
-  onCollapse = (collapsed: boolean) => {
-    this.setState({ collapsed })
-  }
-
-  render () {
-    return (
-      <Layout className='app'>
-        <Menu/>
-        <MainContent>
-          <Content className='content-wrapper'>
-            <Breadcrumb/>
-            <ContentWrapper>
-              <Router/>
-            </ContentWrapper>
-          </Content>
-          <Footer style={{ textAlign: 'center', padding: '10px 50px' }}>
-            BLOG ©2018 Created by Leon
-          </Footer>
-        </MainContent>
-      </Layout>
-    )
-  }
-}
+const App = () => (
+  <Layout className='app'>
+    <Menu/>
+    <MainContent>
+      <Content className='content-wrapper'>
+        <Breadcrumb/>
+        <ContentWrapper>
+          <Router/>
+        </ContentWrapper>
+      </Content>
+      <Footer style={{ textAlign: 'center', padding: '10px 50px' }}>
+        BLOG ©2018 Created by Leon
+      </Footer>
+    </MainContent>
+  </Layout>
+)
 
 export default App

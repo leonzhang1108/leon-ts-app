@@ -3,6 +3,9 @@ const tsImportPluginFactory = require('ts-import-plugin')
 const { getLoader } = require("react-app-rewired")
 const rewireLess = require('react-app-rewire-less')
 const path = require('path')
+const os = require('os')
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 module.exports = function override(config, env) {
   const tsLoader = getLoader(
@@ -30,6 +33,17 @@ module.exports = function override(config, env) {
     //   "@primary-color": "#1DA57A" 
     // },
   })(config, env)  
+
+  config.plugins.push(
+    new HappyPack({
+      id: 'happyBabel',
+      loaders: [{
+        loader: 'babel-loader?cacheDirectory=true'
+      }],
+      threadPool: happyThreadPool,
+      verbose: true
+    })
+  )
 
   return config
 }
