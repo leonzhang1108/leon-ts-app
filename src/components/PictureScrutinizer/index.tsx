@@ -48,6 +48,10 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
     this.initCanvas()
   }
 
+  componentWillUnmount () {
+    this.removeEvents()
+  }
+
   initCanvas = () => {
     this.img = new Image()
     const { src } = this.props
@@ -73,32 +77,47 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
   }
 
   setEvents = () => {
-    this.wrapper.onwheel = e => {
-      this.lastMouseX && this.lastMouseY && this.zoom(e.wheelDelta / 300)
-      e.preventDefault()
-    }
-    this.wrapper.onmousedown = e => {
-      const { offsetX, offsetY } = e
-      this.clicked = true
-      this.movedX = offsetX
-      this.movedY = offsetY
-      this.resetTopLeft()
-    }
-    this.wrapper.onmousemove = e => {
-      const { offsetX, offsetY } = e
-      const { currentTimes } = this.state
-      this.lastMouseX = offsetX
-      this.lastMouseY = offsetY
-      currentTimes !== 1 && this.setState({ currentTimes: 1 })
-      this.clicked ? this.drag(e) : this.resetTopLeft()
-    }
-    document.onmouseup = () => {
-      this.clicked = false
-      this.movedX = null
-      this.movedY = null
-      this.isSVGDragging = false
-      this.resetTopLeft()
-    }
+    this.wrapper.addEventListener('wheel', this.onMouseWheel, { passive: false })
+    this.wrapper.addEventListener('mousedown', this.onMouseDown)
+    this.wrapper.addEventListener('mousemove', this.onMouseMove)
+    document.addEventListener('mouseup', this.onMouseUp)
+  }
+
+  removeEvents = () => {
+    this.wrapper.removeEventListener('wheel', this.onMouseWheel)
+    this.wrapper.removeEventListener('mousedown', this.onMouseDown)
+    this.wrapper.removeEventListener('mousemove', this.onMouseMove)
+    document.removeEventListener('mouseup', this.onMouseUp)
+  }
+
+  onMouseWheel = e => {
+    this.lastMouseX && this.lastMouseY && this.zoom(e.wheelDelta / 300)
+    e.preventDefault()
+  }
+
+  onMouseDown = e => {
+    const { offsetX, offsetY } = e
+    this.clicked = true
+    this.movedX = offsetX
+    this.movedY = offsetY
+    this.resetTopLeft()
+  }
+
+  onMouseMove = e => {
+    const { offsetX, offsetY } = e
+    const { currentTimes } = this.state
+    this.lastMouseX = offsetX
+    this.lastMouseY = offsetY
+    currentTimes !== 1 && this.setState({ currentTimes: 1 })
+    this.clicked ? this.drag(e) : this.resetTopLeft()
+  }
+
+  onMouseUp = () => {
+    this.clicked = false
+    this.movedX = null
+    this.movedY = null
+    this.isSVGDragging = false
+    this.resetTopLeft()
   }
 
   resetTopLeft = () => {
