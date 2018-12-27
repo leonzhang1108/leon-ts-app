@@ -2,7 +2,7 @@ import * as React from 'react'
 import Utils from '@utils'
 import './index.less'
 // import DatePicker from '@components/DatePicker'
-import PictureScrutinizer from '@components/PictureScrutinizer'
+import ImgZoomer from '@components/ImgZoomer'
 import src from '@img/justice_league.jpg'
 
 interface IProps {
@@ -18,7 +18,7 @@ class Widgets extends React.Component<IProps> {
     return (
       <div className='widget-wrapper'>
         {/* <DatePicker fromDate={fromDate} toDate={toDate}/> */}
-        <PictureScrutinizer
+        <ImgZoomer
           wrapperHeight={height}
           wrapperWidth={width}
           src={src}

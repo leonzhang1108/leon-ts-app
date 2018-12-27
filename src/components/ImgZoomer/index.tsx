@@ -16,7 +16,7 @@ interface IStates {
   lastY: number
 }
 
-class PictureScrutinizer extends React.Component<IProps, IStates> {
+class ImgZoomer extends React.Component<IProps, IStates> {
 
   img
   clicked = false
@@ -202,4 +202,4 @@ class PictureScrutinizer extends React.Component<IProps, IStates> {
   }
 }
 
-export default PictureScrutinizer
+export default ImgZoomer
