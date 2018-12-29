@@ -14,7 +14,7 @@ interface IStates {
   screen: number[][],
   playboard: number[][],
   cBlock: string,
-  interval?: any,
+  interval?: number,
   y: number,
   x: number,
   h: number,
