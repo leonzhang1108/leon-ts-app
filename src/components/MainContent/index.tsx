@@ -27,7 +27,7 @@ class MainContent extends React.Component<IProps> {
         height: '100%',
         transform: `translateX(${ isMobile ? collapsed ? 100 : 0 : 0 }px)`
       }}>
-        <div className={className} onClick={this.toggleCollapse}/>
+        { isMobile ? <div className={className} onClick={this.toggleCollapse}/> : '' }
         { children }
       </Layout>
     )
