@@ -4,7 +4,7 @@ import Utils from '@utils'
 import Tools from './tools'
 import { Button } from 'antd'
 import Constant from './constant'
-const { block: blockMap, keyCode } = Constant
+const { block: blockMap, keyCode, scores } = Constant
 
 const blocks = Object.keys(blockMap)
 
@@ -245,8 +245,9 @@ class Tetris extends React.Component<IProps, IStates> {
     this.clearInterval()
     const { playboard, score } = this.state
     const { screen, clearedList } = this.clearRow(playboard)
-    if (clearedList.length) {
-      const state = couldCalculate ? { screen, score: score + clearedList.length } : { screen, score }
+    const { length } = clearedList
+    if (length) {
+      const state = couldCalculate ? { screen, score: score + scores[length - 1] } : { screen, score }
       clearedList.forEach(index => playboard[index] = new Array(10).fill(3))
       this.setState({ screen: playboard })
       this.vibrate(100)
