@@ -26,7 +26,7 @@ const couldMoveLeftOrRight = ({ width, block, rx, y, playboard, length }) => {
 }
 
 const couldMoveFun = {
-  [keyCode.up]: ({ width, block, rx, y, playboard, length }) => {
+  [keyCode.up]: ({ block, rx, y, playboard, length }) => {
     let couldMove = true
     block.every((row, dy) => {
       row.every((_, dx) => {
