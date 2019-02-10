@@ -5,10 +5,10 @@ import menus from '@constant/menus'
 import request from './fetch'
 import Storage from './storage'
 import { IConnectProps } from '@interface'
-import store from '../store'
-import actionTypes from '@constant/actionTypes'
+// import store from '../store'
+// import actionTypes from '@constant/actionTypes'
 
-const list: string[] = []
+// const list: string[] = []
 
 export default {
   request,
@@ -22,24 +22,8 @@ export default {
     mapDispatchToProps
   )(component),
 
-  load: (c = '') => Loadable({
-    loader: () => new Promise(resolve => {
-      if (list.indexOf(c) < 0) {
-        store.dispatch({
-          type: actionTypes.SET_LOADING,
-          payload: true
-        })
-        list.push(c)
-      }
-
-      import(`../pages/${c}`).then(res => {
-        store.dispatch({
-          type: actionTypes.SET_LOADING,
-          payload: false
-        })
-        resolve(res)
-      })
-    }),
+  load: c => Loadable({
+    loader: () => import(`../pages/${c}`),
     loading: PageLoading
   }),
 

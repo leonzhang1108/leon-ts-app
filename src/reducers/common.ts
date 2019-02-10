@@ -9,8 +9,7 @@ interface IProp {
   contentHeight: number,
   contentWidth: number,
   width: number,
-  isMobile: boolean,
-  loading: boolean
+  isMobile: boolean
 }
 
 const initState = {
@@ -21,8 +20,7 @@ const initState = {
   contentHeight: 0,
   contentWidth: 0,
   width: 0,
-  isMobile: document.body.clientWidth < 900,
-  loading: false
+  isMobile: document.body.clientWidth < 900
 }
 
 const toggleOpenKeys = (state, action) => {
@@ -79,7 +77,6 @@ const common = (state: IProp = initState, action: any) => {
       }
 
     case actionTypes.TOGGLE_COLLAPSE:
-      console.log('fuck')
       return {
         ...state,
         collapsed: !state.collapsed
@@ -91,12 +88,6 @@ const common = (state: IProp = initState, action: any) => {
         openKeys: action.payload.isInit
           ? initOpenKeys(state, action)
           : toggleOpenKeys(state, action)
-      }
-
-    case actionTypes.SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload
       }
 
     default:
