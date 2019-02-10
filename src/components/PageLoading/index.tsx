@@ -1,6 +1,5 @@
 import * as React from 'react'
 import './index.less'
-import { common } from '@actions'
 
 const Loading = ({ isLoading, error }) => {
 
@@ -13,8 +12,6 @@ const Loading = ({ isLoading, error }) => {
   if (isLoading) {
     res = <div className='loader'/>
   }
-
-  common.setLoading(isLoading)
 
   return <div className='loading-center'>{res}</div>
 }

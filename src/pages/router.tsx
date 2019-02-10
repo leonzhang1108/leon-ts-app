@@ -21,40 +21,17 @@ const initRoute = (currMenus: any[]) => {
 
 initRoute(menus)
 
-interface IProps {
-  route: string,
-  isMobile: boolean,
-  loading: boolean
-}
-class Router extends React.Component<IProps> {
+const Router = () => (
+  <Switch>
+    {/* index */}
+    <Route path='/' exact render={redirectToHome} />
 
-  shouldComponentUpdate (props) {
-    return this.props.route !== props.route
-      || this.props.isMobile !== props.isMobile
-      || this.props.loading !== props.loading
-  }
+    {/* menus */}
+    { allMenus.map(renderRouter) }
 
-  render () {
-    return (
-      <Switch>
-        {/* index */}
-        <Route path='/' exact render={redirectToHome} />
+    {/* 404 */}
+    <Route component={NotFound} />
+  </Switch>
+)
 
-        {/* menus */}
-        { allMenus.map(renderRouter) }
-
-        {/* 404 */}
-        <Route component={NotFound} />
-      </Switch>
-    )
-  }
-}
-
-export default Utils.connect({
-  component: Router,
-  mapStateToProps: state => ({
-    route: state.common.route,
-    isMobile: state.common.isMobile,
-    loading: state.common.loading
-  })
-})
+export default Router

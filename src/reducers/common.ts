@@ -79,6 +79,7 @@ const common = (state: IProp = initState, action: any) => {
       }
 
     case actionTypes.TOGGLE_COLLAPSE:
+      console.log('fuck')
       return {
         ...state,
         collapsed: !state.collapsed
@@ -93,7 +94,6 @@ const common = (state: IProp = initState, action: any) => {
       }
 
     case actionTypes.SET_LOADING:
-      console.log('action.payload: ' + action.payload)
       return {
         ...state,
         loading: action.payload
