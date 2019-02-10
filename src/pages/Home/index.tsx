@@ -46,7 +46,7 @@ class Home extends React.Component<{}, IState> {
           </svg>
         </div>
         <div className='scroll-wrapper'>
-          <div className='top anticon anticon-arrow-up'/>
+          <div className='top anticon icon-arrow-up'/>
           <div className='bottom'>Where is Martha!!! </div>
         </div>
       </div>
