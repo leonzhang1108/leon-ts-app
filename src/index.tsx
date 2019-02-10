@@ -4,14 +4,10 @@ import { HashRouter as Router } from 'react-router-dom'
 import App from './App'
 import './index.less'
 import registerServiceWorker from './registerServiceWorker'
-
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import reducer from '@reducers'
 import initReactFastclick from 'react-fastclick'
+import store from './store'
 initReactFastclick()
-
-const store = createStore(reducer)
 
 ReactDOM.render(
   <Provider store={store}>
