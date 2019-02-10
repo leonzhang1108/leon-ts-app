@@ -86,16 +86,17 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       ) : (
         <Menu.Item key={`/${menu.route}`}>
           <Icon type={menu.icon} />
-          <Link className='menu-item-link' to={`/${menu.route}`} onClick={this.changeBreadcrumb.bind(this, menu, parents)} >
+          <Link
+            className='menu-item-link'
+            to={`/${menu.route}`}
+            onClick={this.changeBreadcrumb.bind(this, menu, parents)}
+            replace={menu.route === this.props.route}
+          >
             <span className={!this.props.isMobile && this.props.collapsed ? 'collapsed' : ''}>{menu.title}</span>
           </Link>
         </Menu.Item>
       )
   )
-
-  doLogout = () => {
-    console.log('dologout')
-  }
 
   doCollapse = (e?) => {
     this.props.actions.toggleCollapse()
