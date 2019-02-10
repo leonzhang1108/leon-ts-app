@@ -24,12 +24,11 @@ export default {
 
   load: (c = '') => Loadable({
     loader: () => new Promise(resolve => {
-      if (list.indexOf(c) >= 0) {
+      if (list.indexOf(c) < 0) {
         store.dispatch({
           type: actionTypes.SET_LOADING,
           payload: true
         })
-      } else {
         list.push(c)
       }
 

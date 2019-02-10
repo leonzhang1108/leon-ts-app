@@ -31,7 +31,7 @@ class Router extends React.Component<IProps> {
   shouldComponentUpdate (props) {
     return this.props.route !== props.route
       || this.props.isMobile !== props.isMobile
-      // || this.props.loading !== props.loading
+      || this.props.loading !== props.loading
   }
 
   render () {
