@@ -5,10 +5,6 @@ import menus from '@constant/menus'
 import request from './fetch'
 import Storage from './storage'
 import { IConnectProps } from '@interface'
-// import store from '../store'
-// import actionTypes from '@constant/actionTypes'
-
-// const list: string[] = []
 
 export default {
   request,
