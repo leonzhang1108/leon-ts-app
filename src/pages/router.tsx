@@ -23,12 +23,15 @@ initRoute(menus)
 
 interface IProps {
   route: string,
-  isMobile: boolean
+  isMobile: boolean,
+  loading: boolean
 }
 class Router extends React.Component<IProps> {
 
   shouldComponentUpdate (props) {
-    return this.props.route !== props.route || this.props.isMobile !== props.isMobile
+    return this.props.route !== props.route
+      || this.props.isMobile !== props.isMobile
+      || this.props.loading !== props.loading
   }
 
   render () {
@@ -51,6 +54,7 @@ export default Utils.connect({
   component: Router,
   mapStateToProps: state => ({
     route: state.common.route,
-    isMobile: state.common.isMobile
+    isMobile: state.common.isMobile,
+    loading: state.common.loading
   })
 })

@@ -23,5 +23,11 @@ export default {
       type: actionTypes.TOGGLE_OPENKEYS,
       payload: keys
     }
+  },
+  setLoading: isLoading => {
+    return {
+      type: actionTypes.SET_LOADING,
+      payload: isLoading
+    }
   }
 }
