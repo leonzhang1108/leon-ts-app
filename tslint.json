@@ -1,10 +1,10 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-standard"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
       "node_modules/**/*.ts",
-      "src/registerServiceWorker.ts"
+      "coverage/lcov-report/*.js"
     ]
   },
   "rules": {
@@ -30,5 +30,5 @@
     "strict-type-predicates": false,
     // 接口定义首字母不强制为大写I
     "interface-name": [false]
-	}
+  }
 }

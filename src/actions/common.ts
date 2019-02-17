@@ -3,14 +3,14 @@ import actionTypes from '@constant/actionTypes'
 export default {
   changeBreadcrumb: (breadcrumbs: any[]) => {
     return {
-      type: actionTypes.UPDATE_BREADCRUMB,
-      payload: breadcrumbs
+      payload: breadcrumbs,
+      type: actionTypes.UPDATE_BREADCRUMB
     }
   },
   onResize: size => {
     return {
-      type: actionTypes.ON_RESIZE,
-      payload: size
+      payload: size,
+      type: actionTypes.ON_RESIZE
     }
   },
   toggleCollapse: () => {
@@ -20,8 +20,8 @@ export default {
   },
   toggleOpenKeys: (keys: any[]) => {
     return {
-      type: actionTypes.TOGGLE_OPENKEYS,
-      payload: keys
+      payload: keys,
+      type: actionTypes.TOGGLE_OPENKEYS
     }
   }
 }

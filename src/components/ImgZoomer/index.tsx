@@ -91,7 +91,9 @@ class ImgZoomer extends React.Component<IProps, IStates> {
   }
 
   onMouseWheel = e => {
-    this.lastMouseX && this.lastMouseY && this.zoom(e.wheelDelta / 300)
+    if (this.lastMouseX && this.lastMouseY) {
+      this.zoom(e.wheelDelta / 300)
+    }
     e.preventDefault()
   }
 
@@ -108,7 +110,9 @@ class ImgZoomer extends React.Component<IProps, IStates> {
     const { currentTimes } = this.state
     this.lastMouseX = offsetX
     this.lastMouseY = offsetY
-    currentTimes !== 1 && this.setState({ currentTimes: 1 })
+    if (currentTimes !== 1) {
+      this.setState({ currentTimes: 1 })
+    }
     this.clicked ? this.drag(e) : this.resetTopLeft()
   }
 

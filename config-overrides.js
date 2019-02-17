@@ -6,7 +6,6 @@ const path = require('path')
 const os = require('os')
 const HappyPack = require('happypack')
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
-
 module.exports = function override(config, env) {
   const tsLoader = getLoader(
     config.module.rules,

@@ -203,7 +203,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   doMovePlayboard = (next?) => {
-    next && this.movePlayboard(this.state)
+    if (next) {this.movePlayboard(this.state)}
     this.doTimeout()
   }
 

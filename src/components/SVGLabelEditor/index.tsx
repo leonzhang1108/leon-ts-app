@@ -72,7 +72,7 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
   calclateTimes = v => v * this.props.times
 
   onMouseUp = i => {
-    if (!this.clicked || i) return
+    if (!this.clicked || i) {return}
     const { tempList, pointsList } = this.state
     pointsList.push(tempList)
     this.setState({
@@ -114,7 +114,7 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
 
   wrapperMouseUp = e => {
     const { target } = e
-    if (target.tagName !== 'svg' || !this.clicked) return
+    if (target.tagName !== 'svg' || !this.clicked) {return}
     const { tempList } = this.state
     tempList.push(this.addPoint(e))
     this.setState({ tempList })

@@ -44,7 +44,7 @@ class DragHOC extends React.Component<IProps, IStates> {
     const {
       state: { dragging, x, y }
     } = this
-    if (!dragging) return
+    if (!dragging) {return}
     this.props.onMouseMove({
       x: pageX - x,
       y: pageY - y

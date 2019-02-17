@@ -35,7 +35,9 @@ class InfiniteList extends React.Component<{}, IState> {
 
       const obj: any = { val, height }
 
-      if (!val) obj.offsetTop = height
+      if (!val) {
+        obj.offsetTop = height
+      }
 
       list.push(obj)
     }
@@ -77,10 +79,10 @@ class InfiniteList extends React.Component<{}, IState> {
   calculateOffset = index => {
     const { list } = this.state
 
-    if (index === list.length) return
+    if (index === list.length) {return}
 
     // 取缓存
-    if (list[index].offsetTop) return list[index].offsetTop
+    if (list[index].offsetTop) {return list[index].offsetTop}
 
     let offsetTop = list[index].height
 
@@ -125,9 +127,9 @@ class InfiniteList extends React.Component<{}, IState> {
     let index = 0
 
     while (index < list.length) {
-      !list[index].offsetTop && this.calculateOffset(index)
+      if (!list[index].offsetTop) {this.calculateOffset(index)}
 
-      if (top < list[index].offsetTop) break
+      if (top < list[index].offsetTop) {break}
 
       index++
     }
@@ -175,7 +177,7 @@ class InfiniteList extends React.Component<{}, IState> {
 
     const startIndex = this.findStartIndex(e.target.scrollTop)
 
-    startIndex % interval === 0 && this.setState(this.doCalculate(startIndex))
+    if (startIndex % interval === 0) {this.setState(this.doCalculate(startIndex))}
   }
 
   render () {
