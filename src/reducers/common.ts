@@ -61,34 +61,30 @@ const common = (state: IProp = initState, action: any) => {
     case actionTypes.UPDATE_BREADCRUMB:
       const { breadcrumb, route } = action.payload
       Utils.changeTitle(breadcrumb)
-      return {
-        ...state,
+      return Object.assign({}, state, {
         breadcrumb,
         route
-      }
+      })
 
     case actionTypes.ON_RESIZE:
       const { width } = action.payload
       const isMobile = width < 900
-      return {
-        ...state,
+      return Object.assign({}, state, {
         ...action.payload,
         isMobile
-      }
+      })
 
     case actionTypes.TOGGLE_COLLAPSE:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         collapsed: !state.collapsed
-      }
+      })
 
     case actionTypes.TOGGLE_OPENKEYS:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         openKeys: action.payload.isInit
           ? initOpenKeys(state, action)
           : toggleOpenKeys(state, action)
-      }
+      })
 
     default:
       return state

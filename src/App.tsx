@@ -8,7 +8,6 @@ import Router from '@pages/router'
 import MainContent from '@components/MainContent'
 
 const { Content, Footer } = Layout
-debugger
 const App = () => (
   <Layout className='app'>
     <Menu/>
