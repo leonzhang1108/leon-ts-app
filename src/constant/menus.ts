@@ -51,6 +51,10 @@ export default [{
     route: 'sad-man',
     icon: 'ts-app icon-sad',
     title: 'Sad Man'
+  }, {
+    route: '12bius',
+    icon: 'ts-app icon-12bius',
+    title: '春节十二响'
   }]
 }, {
   icon: 'ts-app icon-game',
