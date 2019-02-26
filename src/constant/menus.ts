@@ -46,11 +46,15 @@ export default [{
   }, {
     route: 'music-visualizer',
     icon: 'ts-app icon-music',
-    title: 'Music Visualizer'
+    title: 'Music Player'
   }, {
     route: 'sad-man',
     icon: 'ts-app icon-sad',
     title: 'Sad Man'
+  }, {
+    route: '12bius',
+    icon: 'ts-app icon-12bius',
+    title: 'Spring 12'
   }]
 }, {
   icon: 'ts-app icon-game',

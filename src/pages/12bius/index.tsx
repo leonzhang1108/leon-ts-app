@@ -1,5 +1,5 @@
 import * as React from 'react'
-
+import Utils from '@utils'
 interface IProps {
   background?: string
   width?: number
@@ -130,10 +130,15 @@ const Fireworks12bius = ({ background, width = 0, height = 0, maxFireworks = 0, 
 
 Fireworks12bius.defaultProps = {
   background: 'black',
-  height: window.innerHeight,
   maxFireworks: 5,
-  maxSparks: 50,
-  width: window.innerWidth
+  maxSparks: 50
 }
 
-export default Fireworks12bius
+
+export default Utils.connect({
+  component: Fireworks12bius,
+  mapStateToProps: state => ({
+    width: state.common.contentWidth,
+    height: state.common.contentHeight
+  })
+})
