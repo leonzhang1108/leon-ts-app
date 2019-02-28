@@ -1,9 +1,9 @@
-import * as React from 'react'
-import './index.less'
-import { Layout } from 'antd'
-import Utils from '@utils'
-import { bindActionCreators } from 'redux'
 import { common } from '@actions'
+import Utils from '@utils'
+import { Layout } from 'antd'
+import * as React from 'react'
+import { bindActionCreators } from 'redux'
+import './index.less'
 
 interface IProps {
   collapsed: boolean,

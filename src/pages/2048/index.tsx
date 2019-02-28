@@ -1,8 +1,8 @@
+import Utils from '@utils'
+import { Button, Icon, Popconfirm } from 'antd'
 import * as React from 'react'
 import './index.less'
-import Utils from '@utils'
 import Tools from './tools'
-import { Button, Icon, Popconfirm } from 'antd'
 const storage = new Utils.Storage('2048')
 
 const keyCode = {

@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { Point } from '@interface'
+import * as React from 'react'
 
 interface IProps {
   children: React.ReactElement<any>,
@@ -44,7 +44,7 @@ class DragHOC extends React.Component<IProps, IStates> {
     const {
       state: { dragging, x, y }
     } = this
-    if (!dragging) {return}
+    if (!dragging) { return }
     this.props.onMouseMove({
       x: pageX - x,
       y: pageY - y

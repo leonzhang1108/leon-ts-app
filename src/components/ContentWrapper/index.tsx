@@ -1,8 +1,8 @@
-import * as React from 'react'
-import './index.less'
-import Utils from '@utils'
 import { common } from '@actions'
+import Utils from '@utils'
+import * as React from 'react'
 import { bindActionCreators } from 'redux'
+import './index.less'
 
 interface IProps {
   actions: {

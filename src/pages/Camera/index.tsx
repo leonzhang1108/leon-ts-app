@@ -1,9 +1,9 @@
 
+import Utils from '@utils'
 import * as React from 'react'
-import './index.less'
 import 'tracking'
 import 'tracking/build/data/face-min.js'
-import Utils from '@utils'
+import './index.less'
 
 const w = window as any
 const navi = navigator as any
@@ -98,7 +98,7 @@ class Camera extends React.Component<null, IState> {
               <div className='bottom line'/>
             </div>
           </div>
-          <video id='video' className='video' width='100%' height='100%' ref={el => this.v = el} autoPlay/>
+          <video id='video' className='video' width='100%' height='100%' ref={el => this.v = el} autoPlay={true}/>
         </div>
       ) : (
         <div className='empty'><span>no camera</span></div>

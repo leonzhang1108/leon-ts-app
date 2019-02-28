@@ -1,8 +1,8 @@
+import Api from '@utils/fetch.js'
+import { Input } from 'antd'
 import * as React from 'react'
 import './index.less'
-import { Input } from 'antd'
 import Word from './Word'
-import Api from '@utils/fetch.js'
 const Search = Input.Search
 
 interface IFoodState {

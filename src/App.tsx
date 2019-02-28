@@ -1,11 +1,11 @@
+import Breadcrumb from '@components/Breadcrumb'
+import ContentWrapper from '@components/ContentWrapper'
+import MainContent from '@components/MainContent'
+import Menu from '@components/Menu'
+import Router from '@pages/router'
 import { Layout } from 'antd'
 import * as React from 'react'
 import './App.less'
-import Menu from '@components/Menu'
-import Breadcrumb from '@components/Breadcrumb'
-import ContentWrapper from '@components/ContentWrapper'
-import Router from '@pages/router'
-import MainContent from '@components/MainContent'
 
 const { Content, Footer } = Layout
 const App = () => (

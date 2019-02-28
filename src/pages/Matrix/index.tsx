@@ -1,12 +1,12 @@
+import Utils from '@utils'
+import { Button } from 'antd'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import Utils from '@utils'
 import './index.less'
 import Vector1 from './Vector1'
 import Vector2 from './Vector2'
 import Vector2Display from './Vector2Display'
 import Vector3 from './Vector3'
-import { Button } from 'antd'
 
 interface IProps {
   isMobile: boolean

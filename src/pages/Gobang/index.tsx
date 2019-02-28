@@ -1,7 +1,7 @@
-import * as React from 'react'
 import Utils from '@utils'
+import { Button, Modal } from 'antd'
+import * as React from 'react'
 import './index.less'
-import { Modal, Button } from 'antd'
 
 interface IProps {
   isMobile: boolean

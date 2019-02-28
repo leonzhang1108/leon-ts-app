@@ -1,13 +1,12 @@
-import * as React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import Utils from '@utils'
 import menus from '@constant/menus'
+import Utils from '@utils'
+import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
-import { withRouter } from 'react-router-dom'
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 const NotFound = Utils.load('NotFound')
 
 const renderRouter = (menu, i) =>
-  <Route key={i} path={`/${menu.route}`} exact component={Utils.load(Utils.toCamelCase(menu.route))} />
+  <Route key={i} path={`/${menu.route}`} exact={true} component={Utils.load(Utils.toCamelCase(menu.route))} />
 
 const redirectToHome = () => <Redirect to='/home'/>
 
@@ -24,14 +23,14 @@ const initRoute = (currMenus: any[]) => {
 initRoute(menus)
 
 class Router extends React.Component<RouteComponentProps<any>> {
-  shouldComponentUpdate(props) {
+  shouldComponentUpdate (props) {
     return props.location.pathname !== this.props.location.pathname
   }
-  render() {
+  render () {
     return (
       <Switch>
         {/* index */}
-        <Route path='/' exact render={redirectToHome} />
+        <Route path='/' exact={true} render={redirectToHome} />
 
         {/* menus */}
         { allMenus.map(renderRouter) }
@@ -42,6 +41,5 @@ class Router extends React.Component<RouteComponentProps<any>> {
     )
   }
 }
-
 
 export default withRouter(Router)

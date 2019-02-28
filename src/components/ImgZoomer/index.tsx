@@ -1,6 +1,6 @@
+import SVGLabelEditor from '@components/SVGLabelEditor'
 import * as React from 'react'
 import './index.less'
-import SVGLabelEditor from '@components/SVGLabelEditor'
 
 interface IProps {
   wrapperHeight: number,

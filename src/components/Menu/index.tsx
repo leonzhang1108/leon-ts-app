@@ -1,12 +1,12 @@
+import { common } from '@actions'
+import menus from '@constant/menus'
+import Utils from '@utils'
+import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
-import './index.less'
-import { Menu, Icon, Layout } from 'antd'
+import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-import { RouteComponentProps } from 'react-router'
-import { common } from '@actions'
-import Utils from '@utils'
-import menus from '@constant/menus'
+import './index.less'
 const { Sider } = Layout
 const SubMenu = Menu.SubMenu
 
@@ -144,7 +144,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       ) : (
         <Sider
           style={{ overflow: 'auto', height: '100%', position: 'fixed', left: 0 }}
-          collapsible
+          collapsible={true}
           collapsed={collapsed}
           onCollapse={toggleCollapse}
         >

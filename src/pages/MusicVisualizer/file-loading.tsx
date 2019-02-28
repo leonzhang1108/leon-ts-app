@@ -1,6 +1,6 @@
 
-import * as React from 'react'
 import { Progress } from 'antd'
+import * as React from 'react'
 interface IProps {
   percent: number,
   loadingFail: boolean,

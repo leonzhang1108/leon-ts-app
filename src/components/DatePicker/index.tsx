@@ -1,7 +1,7 @@
-import * as React from 'react'
 import Util from '@utils'
-import './index.less'
 import { Icon } from 'antd'
+import * as React from 'react'
+import './index.less'
 
 interface IProps {
   fromDate?: Date,

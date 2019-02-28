@@ -1,9 +1,9 @@
-import * as React from 'react'
-import Utils from '@utils'
-import './index.less'
 // import DatePicker from '@components/DatePicker'
 import ImgZoomer from '@components/ImgZoomer'
 import src from '@img/justice_league.jpg'
+import Utils from '@utils'
+import * as React from 'react'
+import './index.less'
 
 interface IProps {
   height: number,

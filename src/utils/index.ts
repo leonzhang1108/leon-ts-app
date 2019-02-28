@@ -1,10 +1,10 @@
-import { connect } from 'react-redux'
-import * as Loadable from 'react-loadable'
 import PageLoading from '@components/PageLoading'
 import menus from '@constant/menus'
+import { IConnectProps } from '@interface'
+import * as Loadable from 'react-loadable'
+import { connect } from 'react-redux'
 import request from './fetch'
 import Storage from './storage'
-import { IConnectProps } from '@interface'
 
 export default {
   request,

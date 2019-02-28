@@ -1,5 +1,5 @@
-import * as React from 'react'
 import Utils from '@utils'
+import * as React from 'react'
 interface IProps {
   background?: string
   width?: number
@@ -133,7 +133,6 @@ Fireworks12bius.defaultProps = {
   maxFireworks: 5,
   maxSparks: 50
 }
-
 
 export default Utils.connect({
   component: Fireworks12bius,

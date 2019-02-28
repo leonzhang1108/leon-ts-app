@@ -1,14 +1,14 @@
 
-import * as React from 'react'
-import './index.less'
+import { IFileReaderEvent } from '@interface'
 import Utils from '@utils'
+import * as React from 'react'
+import FileLoading from './file-loading'
+import FloatingTitle from './floating-title'
+import './index.less'
+import TimeBar from './time-bar'
 import tools from './tools'
 import Visualizer from './visualizer'
 import VolumeBar from './volume-bar'
-import TimeBar from './time-bar'
-import FileLoading from './file-loading'
-import FloatingTitle from './floating-title'
-import { IFileReaderEvent } from '@interface'
 
 interface IState {
   visualizer: Visualizer,

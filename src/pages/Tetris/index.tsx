@@ -1,9 +1,9 @@
-import * as React from 'react'
-import './index.less'
 import Utils from '@utils'
-import Tools from './tools'
 import { Button } from 'antd'
+import * as React from 'react'
 import Constant from './constant'
+import './index.less'
+import Tools from './tools'
 const { block: blockMap, keyCode, scores } = Constant
 
 const blocks = Object.keys(blockMap)
@@ -203,7 +203,7 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   doMovePlayboard = (next?) => {
-    if (next) {this.movePlayboard(this.state)}
+    if (next) { this.movePlayboard(this.state) }
     this.doTimeout()
   }
 
