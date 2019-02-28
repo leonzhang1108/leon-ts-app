@@ -2,10 +2,14 @@ export default [{
   route: 'home',
   icon: 'home',
   title: 'Home'
-}, {
+}/*, {
   route: 'bat-logo',
   icon: 'ts-app icon-batman-logo',
   title: 'Bat Logo'
+}*/, {
+  route: 'batman-history',
+  icon: 'ts-app icon-batman-logo',
+  title: 'bat-history'
 }, {
   route: 'calligraphy',
   icon: 'ts-app icon-brush',

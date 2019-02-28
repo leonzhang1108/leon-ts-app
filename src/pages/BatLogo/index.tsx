@@ -1,20 +1,15 @@
 
-import Utils from '@utils'
 import { Slider } from 'antd'
 import * as d3 from 'd3'
 import * as flubber from 'flubber'
 import * as React from 'react'
 import './index.less'
 
-interface IProps {
-  h: number,
-  w: number
-}
 interface IState {
   point: number
 }
 
-class BatLogo extends React.Component<IProps, IState> {
+class BatLogo extends React.Component<null, IState> {
 
   componentWillMount () {
     this.setState({ point: 3.5 })
@@ -50,7 +45,6 @@ class BatLogo extends React.Component<IProps, IState> {
   changeVolume = v => this.setState({ point: v / 100 * 5 })
 
   render () {
-    // const { h, w } = this.props
     const { point } = this.state
     return (
       <div className='bat-logo-wrapper'>
@@ -69,10 +63,4 @@ class BatLogo extends React.Component<IProps, IState> {
   }
 }
 
-export default Utils.connect({
-  component: BatLogo,
-  mapStateToProps: state => ({
-    w: state.common.contentWidth,
-    h: state.common.contentHeight
-  })
-})
+export default BatLogo
