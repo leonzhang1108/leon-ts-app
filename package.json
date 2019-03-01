@@ -12,6 +12,7 @@
     "d3": "^5.9.1",
     "echarts": "^4.1.0",
     "flubber": "^0.4.2",
+    "imgzoomer": "^1.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-fastclick": "^3.0.2",

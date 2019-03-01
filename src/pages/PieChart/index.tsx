@@ -1,7 +1,7 @@
 
 import Utils from '@utils'
 import Api from '@utils/fetch.js'
-import Echarts from 'echarts'
+import Echarts from '@cpt/echarts'
 import * as React from 'react'
 import './index.less'
 
