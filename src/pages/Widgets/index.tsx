@@ -1,5 +1,5 @@
-// import DatePicker from '@components/DatePicker'
-import ImgZoomer from '@components/ImgZoomer'
+// import DatePicker from '@cpt/DatePicker'
+import ImgZoomer from '@cpt/ImgZoomer'
 import src from '@img/justice_league.jpg'
 import Utils from '@utils'
 import * as React from 'react'

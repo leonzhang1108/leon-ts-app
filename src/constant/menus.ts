@@ -9,7 +9,7 @@ export default [{
 }*/, {
   route: 'batman-history',
   icon: 'ts-app icon-batman-logo',
-  title: 'bat-history'
+  title: 'Bat History'
 }, {
   route: 'calligraphy',
   icon: 'ts-app icon-brush',

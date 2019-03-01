@@ -8,7 +8,7 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDirs": ".",
+    "rootDir": ".",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -16,10 +16,11 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
+    "skipLibCheck": true,
     // alias
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./src/components/*"],
+      "@cpt/*": ["./src/components/*"],
       "@constant/*": ["./src/constant/*"],
       "@pages/*": ["./src/pages/*"],
       "@models/*": ["./src/models/*"],

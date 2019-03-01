@@ -1,4 +1,4 @@
-import PageLoading from '@components/PageLoading'
+import PageLoading from '@cpt/PageLoading'
 import menus from '@constant/menus'
 import { IConnectProps } from '@interface'
 import * as Loadable from 'react-loadable'
