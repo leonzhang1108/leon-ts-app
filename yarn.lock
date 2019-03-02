@@ -1513,10 +1513,6 @@ astral-regex@^1.0.0:
   version "1.0.0"
   resolved "http://r.tools.elenet.me/astral-regex/download/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
 
-async-array-reduce@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/async-array-reduce/-/async-array-reduce-0.2.1.tgz#c8be010a2b5cd00dea96c81116034693dfdd82d1"
-
 async-each@^1.0.0, async-each@^1.0.1:
   version "1.0.1"
   resolved "http://r.tools.elenet.me/async-each/download/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
@@ -4737,10 +4733,6 @@ estraverse@^4.0.0, estraverse@^4.1.0, estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.2.0"
   resolved "http://r.tools.elenet.me/estraverse/download/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"
 
-estree-walker@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/estree-walker/-/estree-walker-0.6.0.tgz#5d865327c44a618dde5699f763891ae31f257dae"
-
 esutils@^1.1.6:
   version "1.1.6"
   resolved "http://r.tools.elenet.me/esutils/download/esutils-1.1.6.tgz#c01ccaa9ae4b897c6d0c3e210ae52f3c7a844375"
@@ -5685,12 +5677,6 @@ has-flag@^3.0.0:
   version "3.0.0"
   resolved "http://r.tools.elenet.me/has-flag/download/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
 
-has-glob@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/has-glob/-/has-glob-1.0.0.tgz#9aaa9eedbffb1ba3990a7b0010fb678ee0081207"
-  dependencies:
-    is-glob "^3.0.0"
-
 has-symbols@^1.0.0:
   version "1.0.0"
   resolved "http://r.tools.elenet.me/has-symbols/download/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
@@ -6044,20 +6030,9 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "http://r.tools.elenet.me/image-size/download/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
-imgzoomer@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/imgzoomer/-/imgzoomer-1.0.0.tgz#97af49b02606ac8812049744fdc2d28cc88be230"
-  dependencies:
-    rollup-plugin-multi-entry "^2.1.0"
-    rollup-watch "^4.3.1"
-
-imgzoomer@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/imgzoomer/-/imgzoomer-1.0.1.tgz#0b02e5a69cfaa36dec74f0b4ce491433867d5368"
-  dependencies:
-    imgzoomer "^1.0.0"
-    rollup-plugin-multi-entry "^2.1.0"
-    rollup-watch "^4.3.1"
+imgzoomer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/imgzoomer/-/imgzoomer-1.0.2.tgz#9b9710ddb64ddd394b205d936013b2fd8f2250b2"
 
 immer@1.10.0:
   version "1.10.0"
@@ -6428,7 +6403,7 @@ is-glob@^2.0.0, is-glob@^2.0.1:
   dependencies:
     is-extglob "^1.0.0"
 
-is-glob@^3.0.0, is-glob@^3.1.0:
+is-glob@^3.1.0:
   version "3.1.0"
   resolved "http://r.tools.elenet.me/is-glob/download/is-glob-3.1.0.tgz#7ba5ae24217804ac70707b96922567486cc3e84a"
   dependencies:
@@ -6572,10 +6547,6 @@ is-typedarray@~1.0.0:
 is-utf8@^0.2.0:
   version "0.2.1"
   resolved "http://r.tools.elenet.me/is-utf8/download/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
-
-is-valid-glob@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/is-valid-glob/-/is-valid-glob-1.0.0.tgz#29bf3eff701be2d4d315dbacc39bc39fe8f601aa"
 
 is-windows@^1.0.1, is-windows@^1.0.2:
   version "1.0.2"
@@ -8061,17 +8032,6 @@ map-visit@^1.0.0:
   resolved "http://r.tools.elenet.me/map-visit/download/map-visit-1.0.0.tgz#ecdca8f13144e660f1b5bd41f12f3479d98dfb8f"
   dependencies:
     object-visit "^1.0.0"
-
-matched@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/matched/-/matched-1.0.2.tgz#1d95d77dd5f1b5075a9e94acde5462ffd85f317a"
-  dependencies:
-    arr-union "^3.1.0"
-    async-array-reduce "^0.2.1"
-    glob "^7.1.2"
-    has-glob "^1.0.0"
-    is-valid-glob "^1.0.0"
-    resolve-dir "^1.0.0"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -11459,10 +11419,6 @@ require-main-filename@^1.0.1:
   version "1.0.1"
   resolved "http://r.tools.elenet.me/require-main-filename/download/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
 
-require-relative@0.8.7:
-  version "0.8.7"
-  resolved "https://registry.npmjs.org/require-relative/-/require-relative-0.8.7.tgz#7999539fc9e047a37928fa196f8e1563dabd36de"
-
 requires-port@^1.0.0:
   version "1.0.0"
   resolved "http://r.tools.elenet.me/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
@@ -11568,27 +11524,6 @@ rmc-feedback@^2.0.0:
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
-
-rollup-plugin-multi-entry@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/rollup-plugin-multi-entry/-/rollup-plugin-multi-entry-2.1.0.tgz#64a7287adfd437cab33bf6364a8d8ab1e7a7725d"
-  dependencies:
-    matched "^1.0.2"
-
-rollup-pluginutils@^2.0.1:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/rollup-pluginutils/-/rollup-pluginutils-2.4.1.tgz#de43ab54965bbf47843599a7f3adceb723de38db"
-  dependencies:
-    estree-walker "^0.6.0"
-    micromatch "^3.1.10"
-
-rollup-watch@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/rollup-watch/-/rollup-watch-4.3.1.tgz#5aa1eaeab787addf368905d102b39d6fc5ce4a8b"
-  dependencies:
-    chokidar "^1.7.0"
-    require-relative "0.8.7"
-    rollup-pluginutils "^2.0.1"
 
 rsvp@^3.3.3:
   version "3.6.2"
