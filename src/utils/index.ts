@@ -82,5 +82,17 @@ export default {
 
   isString: v => Object.prototype.toString.call(v) === '[object String]',
 
-  isArray: v => Object.prototype.toString.call(v) === '[object Array]'
+  isArray: v => Object.prototype.toString.call(v) === '[object Array]',
+
+  getReducer: (obj, type, state) => {
+    const v = obj[type]
+    switch (Object.prototype.toString.call(v)) {
+      case '[object Object]':
+        return v
+      case '[object Function]':
+        return v()
+      default:
+        return state
+    }
+  }
 }
