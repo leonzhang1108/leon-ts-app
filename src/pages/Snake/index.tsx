@@ -162,10 +162,10 @@ class Snake extends React.Component<IProps, IState> {
   }
 
   getHead = v => {
-    const { rowCount, colCount, max } = this
+    const { rowCount, colCount, max, direction } = this
     let next
     let isTouchBorder
-    switch (this.direction) {
+    switch (direction) {
       case Left:
         next = v - 1
         isTouchBorder = ~~(next / rowCount) !== ~~(v / rowCount)
