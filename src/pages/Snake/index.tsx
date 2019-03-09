@@ -26,6 +26,7 @@ interface IState {
 const { Up, Down, Left, Right } = Direction
 const backgroundColor = '#dcdcdc'
 const initSnake = () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const initSpeed = 200
 const getFruit = (snake, max) => {
   const f = Utils.random(0, max - 1)
   return snake.includes(f) ? getFruit(snake, max) : f
@@ -43,7 +44,7 @@ class Snake extends React.Component<IProps, IState> {
   snake = initSnake()
   timeout
   friut = getFruit(this.snake, this.max)
-  speed = 200
+  speed = initSpeed
   count = 0
   state = {
     isGameOver: false
@@ -99,6 +100,7 @@ class Snake extends React.Component<IProps, IState> {
       this.clearReact()
       this.snake = initSnake()
       this.direction = Right
+      this.speed = initSpeed
       this.init()
     })
   }
@@ -121,7 +123,7 @@ class Snake extends React.Component<IProps, IState> {
     // 是否吃到果子
     if (last === this.friut) {
       this.friut = getFruit(this.snake, this.max)
-      if (this.count === 1) {
+      if (this.count === 10) {
         this.speed *= .8
         this.count = 0
       } else {
