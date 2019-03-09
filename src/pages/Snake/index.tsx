@@ -90,7 +90,7 @@ class Snake extends React.Component<IProps, IState> {
 
   init = () => {
     this.drawSnake()
-    this.timeout = setInterval(this.doCycle, this.speed)
+    this.doCycle()
   }
 
   reset = () => {
@@ -106,8 +106,10 @@ class Snake extends React.Component<IProps, IState> {
   }
 
   doCycle = () => {
+    if (this.state.isGameOver) { return }
     this.resetSnake()
     this.drawSnake()
+    this.timeout = setTimeout(this.doCycle, this.speed)
   }
 
   clearReact = () => {
@@ -123,7 +125,8 @@ class Snake extends React.Component<IProps, IState> {
     // 是否吃到果子
     if (last === this.friut) {
       this.friut = getFruit(this.snake, this.max)
-      if (this.count === 10) {
+      // 每吃7个果实 加速
+      if (this.count === 7) {
         this.speed *= .8
         this.count = 0
       } else {
