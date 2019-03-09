@@ -14,15 +14,16 @@ interface IProps {
 
 class Widgets extends React.Component<IProps> {
   svgLabelEditor
+  imgZoomer
 
   componentDidMount () {
     const { height, width } = this.props
     const { Zoomer, SVGLabelEditor } = imgzoomer
-    const imgZoomer = new Zoomer('canvas', { width, height })
-    imgZoomer.draw(src)
+    this.imgZoomer = new Zoomer('canvas', { width, height })
+    this.imgZoomer.draw(src)
 
     this.svgLabelEditor = new SVGLabelEditor('svg-wrapper', {
-      imgZoomer,
+      imgZoomer: this.imgZoomer,
       pointsList: [
         [
           { x: 415.84196194762626, y: 147.26284891271456 },
@@ -37,6 +38,11 @@ class Widgets extends React.Component<IProps> {
         ]
       ]
     })
+  }
+
+  componentWillUnmount () {
+    this.imgZoomer.removeEvents()
+    this.svgLabelEditor.removeEvents()
   }
 
   getPoints = () => {
