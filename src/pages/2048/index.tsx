@@ -3,14 +3,9 @@ import { Button, Icon, Popconfirm } from 'antd'
 import * as React from 'react'
 import './index.less'
 import Tools from './tools'
+import common from '@constant/common'
 const storage = new Utils.Storage('2048')
-
-const keyCode = {
-  left: 37,
-  up: 38,
-  right: 39,
-  down: 40
-}
+const { keyCode } = common
 
 interface IPiece {
   x: number,
@@ -221,7 +216,7 @@ class Page2048 extends React.Component<IProp, IState> {
         </div>
         <div className='btn-container'>
           <Popconfirm title='Sure about that?' onConfirm={Utils.handle(this.reset)} okText='Yes' cancelText='No'>
-            <Button type='primary' >
+            <Button type='primary' className='reset-btn'>
               Reset
             </Button>
           </Popconfirm>

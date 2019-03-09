@@ -29,6 +29,7 @@
     "no-unnecessary-type-assertion": false,
     "strict-type-predicates": false,
     // 接口定义首字母不强制为大写I
-    "interface-name": [false]
+    "interface-name": [false],
+    "no-bitwise": false
   }
 }
