@@ -20,7 +20,8 @@ interface IProps {
 }
 
 interface IState {
-  isGameOver: boolean
+  isGameOver: boolean,
+  hint: string
 }
 
 const { Up, Down, Left, Right } = Direction
@@ -47,7 +48,8 @@ class Snake extends React.Component<IProps, IState> {
   speed = initSpeed
   count = 0
   state = {
-    isGameOver: false
+    isGameOver: false,
+    hint: ''
   }
 
   componentWillMount () {
@@ -138,24 +140,16 @@ class Snake extends React.Component<IProps, IState> {
 
     if (this.snake.includes(next)) {
       // game over
-      this.ctx.font = '40px Arial'
-      this.ctx.fillStyle = 'black'
-      this.ctx.textAlign = 'center'
-      this.ctx.textBaseline = 'middle'
-      this.ctx.fillText('Game Over', this.canvas.width / 2, this.canvas.height / 2)
       clearTimeout(this.timeout)
       this.setState({
+        hint: 'Game Over',
         isGameOver: true
       })
     } else if (this.snake.length === this.max) {
       // you win
-      this.ctx.font = '40px Arial'
-      this.ctx.fillStyle = 'black'
-      this.ctx.textAlign = 'center'
-      this.ctx.textBaseline = 'middle'
-      this.ctx.fillText('You Win!!!', this.canvas.width / 2, this.canvas.height / 2)
       clearTimeout(this.timeout)
       this.setState({
+        hint: 'You Win!!!',
         isGameOver: true
       })
     } else {
@@ -204,12 +198,17 @@ class Snake extends React.Component<IProps, IState> {
 
   render () {
     const { w, h } = this.props
-    const { isGameOver } = this.state
+    const { isGameOver, hint } = this.state
     return (
       <div className='snake-wrapper'>
         <canvas ref={el => this.canvas = el} width={w} height={h} style={{ backgroundColor }} />
         <div className='remote-area' ref={el => this.remote = el}/>
-        { isGameOver ? <div className='reset-btn'><Button type='primary' onClick={this.reset}>Reset</Button></div> : ''}
+        { isGameOver ? (
+          <div className='over'>
+            <div className='hint'>{ hint }</div>
+            <Button type='primary' onClick={this.reset}>Reset</Button>
+          </div>
+        ) : ''}
       </div>
     )
   }
