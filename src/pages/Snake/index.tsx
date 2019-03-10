@@ -63,16 +63,16 @@ class Snake extends React.Component<IProps, IState> {
   keydown = e => {
     switch (e.keyCode) {
       case keyCode.up:
-        this.direction !== Down && (this.direction = Up)
+        this.goUp()
         break
       case keyCode.down:
-        this.direction !== Up && (this.direction = Down)
+        this.goDown()
         break
       case keyCode.left:
-        this.direction !== Right && (this.direction = Left)
+        this.goLeft()
         break
       case keyCode.right:
-        this.direction !== Left && (this.direction = Right)
+        this.goRight()
         break
     }
   }
@@ -84,11 +84,19 @@ class Snake extends React.Component<IProps, IState> {
       zone: this.remote,
       color: '#777'
     })
-    joystick.on('dir:up', () => this.direction !== Down && (this.direction = Up))
-    joystick.on('dir:down', () => this.direction !== Up && (this.direction = Down))
-    joystick.on('dir:left', () => this.direction !== Right && (this.direction = Left))
-    joystick.on('dir:right', () => this.direction !== Left && (this.direction = Right))
+    joystick.on('dir:up', this.goUp)
+    joystick.on('dir:down', this.goDown)
+    joystick.on('dir:left', this.goLeft)
+    joystick.on('dir:right', this.goRight)
   }
+
+  goUp = () => this.direction !== Down && (this.direction = Up)
+
+  goDown = () => this.direction !== Up && (this.direction = Down)
+
+  goLeft = () => this.direction !== Right && (this.direction = Left)
+
+  goRight = () => this.direction !== Left && (this.direction = Right)
 
   init = () => {
     this.drawSnake()
