@@ -65,7 +65,7 @@ class MondrianArt extends React.Component<IProps, IState> {
             key={blocksKey}
             className='mondrian-art'
             style={{
-              height: isMobile ? '300px' : '300px',
+              height: isMobile ? '310px' : '310px',
               width: isMobile ? '250px' : '790px'
             }}
           >
