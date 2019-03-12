@@ -15,9 +15,9 @@ export default [{
   icon: 'ts-app icon-brush',
   title: 'Calligraphy'
 }, {
-  route: 'mondrianArt',
+  route: 'mondrian-art',
   icon: 'ts-app icon-mondrian',
-  title: 'MondrianArt'
+  title: 'Mondrian Art'
 }, {
   icon: 'profile',
   title: 'Common',
