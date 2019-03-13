@@ -41,7 +41,7 @@ const MondrianArt = ({ isMobile, h, w }) => {
   const [blocksKey, setBlocksKey] = useState(1)
   const interval = setInterval(
     () => setBlocksKey(blocksKey ? 0 : 1),
-    isMobile ? 5000 : 7000
+    isMobile ? 5000 : 9000
   )
 
   useEffect(() => () => clearInterval(interval))
