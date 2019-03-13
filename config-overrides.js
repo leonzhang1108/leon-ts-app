@@ -2,7 +2,7 @@
 const tsImportPluginFactory = require('ts-import-plugin')
 const { getLoader } = require("react-app-rewired")
 const rewireLess = require('react-app-rewire-less')
-module.exports = function override(config, env) {
+const override = (config, env) => {
   const tsLoader = getLoader(
     config.module.rules,
     rule =>
@@ -33,3 +33,5 @@ module.exports = function override(config, env) {
 
   return config
 }
+
+module.exports = override
