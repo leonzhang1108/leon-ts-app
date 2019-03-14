@@ -94,5 +94,14 @@ export default {
       default:
         return state
     }
+  },
+
+  downloadImg: (href, filename) => {
+    const a = document.createElement('a')
+    a.download = filename
+    a.href = href
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
   }
 }

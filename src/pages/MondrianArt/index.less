@@ -1,3 +1,20 @@
+.inner-btn {
+  position: absolute;
+  bottom: 1rem;
+  &.mobile {
+    font-size: 1.5rem;
+    height: 3rem;
+    width: 4rem;
+    opacity: .9;
+  }
+  &.pc {
+    width: 5rem;
+    height: 3rem;
+    font-size: 2rem;
+    right: 1rem;
+    opacity: .7;
+  }
+}
 .mondrian-wrapper {
   width: 100%;
   height: 100%;
@@ -6,6 +23,7 @@
   justify-content: center;
   box-sizing: border-box;
   animation: artFadeIn 0.5s;
+  position: relative;
   .mondrian-inner-wrapper {
     border: 10px solid #a97805;
     .mondrian-art {
@@ -26,5 +44,13 @@
         animation-fill-mode: forwards;
       }
     }
+  }
+  .download-btn {
+    left: 2rem;
+    .inner-btn;
+  }
+  .refresh-btn {
+    right: 2rem;
+    .inner-btn;
   }
 }
