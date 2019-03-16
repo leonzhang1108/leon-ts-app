@@ -25,6 +25,12 @@ interface IState {
 }
 
 const { Up, Down, Left, Right } = Direction
+const reverseDirection = {
+  [Up]: Down,
+  [Down]: Up,
+  [Left]: Right,
+  [Right]: Left
+}
 const backgroundColor = '#dcdcdc'
 const initSnake = () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const initSpeed = 200
@@ -63,16 +69,16 @@ class Snake extends React.Component<IProps, IState> {
   keydown = e => {
     switch (e.keyCode) {
       case keyCode.up:
-        this.goUp()
+        this.go(Up)
         break
       case keyCode.down:
-        this.goDown()
+        this.go(Down)
         break
       case keyCode.left:
-        this.goLeft()
+        this.go(Left)
         break
       case keyCode.right:
-        this.goRight()
+        this.go(Right)
         break
     }
   }
@@ -84,29 +90,15 @@ class Snake extends React.Component<IProps, IState> {
       zone: this.remote,
       color: '#777'
     })
-    joystick.on('dir:up', this.goUp)
-    joystick.on('dir:down', this.goDown)
-    joystick.on('dir:left', this.goLeft)
-    joystick.on('dir:right', this.goRight)
+    joystick.on('dir:up', () => this.go(Up))
+    joystick.on('dir:down', () => this.go(Down))
+    joystick.on('dir:left', () => this.go(Left))
+    joystick.on('dir:right', () => this.go(Right))
   }
 
-  goUp = () => {
-    if (this.direction !== Down) this.direction = Up
-    this.init()
-  }
-
-  goDown = () => {
-    if (this.direction !== Up) this.direction = Down
-    this.init()
-  }
-
-  goLeft = () => {
-    if (this.direction !== Right) this.direction = Left
-    this.init()
-  }
-
-  goRight = () => {
-    if (this.direction !== Left) this.direction = Right
+  go = direction => {
+    if (this.state.isGameOver) return
+    if (this.direction !== reverseDirection[direction]) this.direction = direction
     this.init()
   }
 
