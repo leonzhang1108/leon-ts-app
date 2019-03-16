@@ -43,7 +43,7 @@ class Snake extends React.Component<IProps, IState> {
   max = this.rowCount * this.colCount
   direction = Right
   snake = initSnake()
-  timeout
+  interval
   friut = getFruit(this.snake, this.max)
   speed = initSpeed
   count = 0
@@ -90,17 +90,30 @@ class Snake extends React.Component<IProps, IState> {
     joystick.on('dir:right', this.goRight)
   }
 
-  goUp = () => this.direction !== Down && (this.direction = Up)
+  goUp = () => {
+    if (this.direction !== Down) this.direction = Up
+    this.init()
+  }
 
-  goDown = () => this.direction !== Up && (this.direction = Down)
+  goDown = () => {
+    if (this.direction !== Up) this.direction = Down
+    this.init()
+  }
 
-  goLeft = () => this.direction !== Right && (this.direction = Left)
+  goLeft = () => {
+    if (this.direction !== Right) this.direction = Left
+    this.init()
+  }
 
-  goRight = () => this.direction !== Left && (this.direction = Right)
+  goRight = () => {
+    if (this.direction !== Left) this.direction = Right
+    this.init()
+  }
 
   init = () => {
-    this.drawSnake()
+    clearInterval(this.interval)
     this.doCycle()
+    this.interval = setInterval(this.doCycle, this.speed)
   }
 
   reset = () => {
@@ -116,10 +129,8 @@ class Snake extends React.Component<IProps, IState> {
   }
 
   doCycle = () => {
-    if (this.state.isGameOver) { return }
     this.resetSnake()
     this.drawSnake()
-    this.timeout = setTimeout(this.doCycle, this.speed)
   }
 
   clearReact = () => {
@@ -139,6 +150,8 @@ class Snake extends React.Component<IProps, IState> {
       if (this.count === 7) {
         this.speed *= .8
         this.count = 0
+        this.init()
+        return
       } else {
         this.count++
       }
@@ -148,14 +161,14 @@ class Snake extends React.Component<IProps, IState> {
 
     if (this.snake.includes(next)) {
       // game over
-      clearTimeout(this.timeout)
+      clearInterval(this.interval)
       this.setState({
         hint: 'Game Over',
         isGameOver: true
       })
     } else if (this.snake.length === this.max) {
       // you win
-      clearTimeout(this.timeout)
+      clearInterval(this.interval)
       this.setState({
         hint: 'You Win!!!',
         isGameOver: true
