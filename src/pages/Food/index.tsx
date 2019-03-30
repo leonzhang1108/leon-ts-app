@@ -98,21 +98,18 @@ class Food extends React.Component<{}, IFoodState> {
       <div className='food-wrapper' ref={el => this.wrapper = el}>
       {
         loaded ? (
-          <div className='input'>
-            <Search
-              placeholder='food you want'
-              enterButton='Add'
-              size='large'
-              onSearch={this.onSearch}
-            />
-          </div>
-        ) : ''
-      }
-      {
-        loaded ? <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: loaded ? 1 : 0 }}/> : ''
-      }
-      {
-        !loaded ? <div className='loader'/> : ''
+          <>
+            <div className='input'>
+              <Search
+                placeholder='food you want'
+                enterButton='Add'
+                size='large'
+                onSearch={this.onSearch}
+              />
+            </div>
+            <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: loaded ? 1 : 0 }}/>
+          </>
+        ) : <div className='loader'/>
       }
       </div>
     )
