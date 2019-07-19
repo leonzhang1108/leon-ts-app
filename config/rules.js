@@ -66,7 +66,13 @@ module.exports = [
             path: './' // 写到目录即可，文件名强制要求是postcss.config.js
           }
         }
-      }, 'less-loader'
+      }, 
+      {
+        loader: 'less-loader',
+        options: {
+          javascriptEnabled: true
+        }
+      }
     ]
   },
   {

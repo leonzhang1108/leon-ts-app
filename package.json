@@ -66,8 +66,11 @@
     "webpack-merge": "^4.2.1",
     "xml-loader": "^1.2.1"
   },
-  "name": "webpack_demo",
-  "version": "1.0.0",
+  "name": "leon-ts-app",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Leon Zhang",
   "main": "index.tsx",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "."
 }

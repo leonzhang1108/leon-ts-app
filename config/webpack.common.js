@@ -16,7 +16,7 @@ module.exports = {
     // 输出路径
     path: path.resolve(__dirname, "../dist"),
     // 资源请求路径
-    publicPath: ""
+    publicPath: "./"
   },
   module: {
     rules
