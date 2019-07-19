@@ -1,8 +1,8 @@
-import Api from '@utils/fetch.js'
 import { Input } from 'antd'
 import * as React from 'react'
 import './index.less'
 import Word from './Word'
+import FoodOptions from './food.json'
 const Search = Input.Search
 
 interface IFoodState {
@@ -27,9 +27,7 @@ class Food extends React.Component<{}, IFoodState> {
   }
 
   componentDidMount () {
-    Api.get('data/food.json').then(res => {
-      this.setState({ loaded: true }, () => this.initCanvas(res))
-    })
+    this.setState({ loaded: true }, () => this.initCanvas(FoodOptions))
   }
 
   initCanvas = res => {

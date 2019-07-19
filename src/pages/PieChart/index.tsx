@@ -1,6 +1,5 @@
 
 import Utils from '@utils'
-import Api from '@utils/fetch.js'
 import Echarts from '@cpt/echarts'
 import * as React from 'react'
 import './index.less'
@@ -24,12 +23,7 @@ class PieChart extends React.Component<IProps, IState> {
   }
 
   componentDidMount () {
-    Api.get('data/echarts.json').then(res => {
-      this.setState({ loaded: true })
-      this.myChart = Echarts.init(this.echarts)
-      this.myChart.setOption(res)
-      this.resize()
-    })
+    this.getOption()
   }
 
   componentWillReceiveProps () {
@@ -42,6 +36,14 @@ class PieChart extends React.Component<IProps, IState> {
 
   resize = () => {
     if (this.myChart) { setTimeout(this.myChart.resize, 0) }
+  }
+
+  async getOption() {
+    const res = await require('./echarts.json')
+    this.setState({ loaded: true })
+    this.myChart = Echarts.init(this.echarts)
+    this.myChart.setOption(res)
+    this.resize()
   }
 
   render () {
