@@ -20,7 +20,7 @@ module.exports = merge(common, {
     // 是否开启热替换功能
     // hot: true,
     // 是否自动打开页面,可以传入指定浏览器名字打开
-    open: false,
+    open: true,
     // 是否开启部分热替换功能
     hotOnly: true,
     /* proxy: {
@@ -40,7 +40,7 @@ module.exports = merge(common, {
   plugins: [
     // 热替换模块
     new webpack.HotModuleReplacementPlugin(),
-    // 性能可视化
-    new BundleAnalyzerPlugin(),
+    // // 性能可视化
+    // new BundleAnalyzerPlugin(),
   ]
 });
