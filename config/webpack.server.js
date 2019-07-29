@@ -1,9 +1,8 @@
-const path = require('path'),
-  webpack = require('webpack'),
-  merge = require('webpack-merge'),
-  common = require('./webpack.common.js'),
-  BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const common = require('./webpack.common.js')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(common, {
   mode: "development",
@@ -40,7 +39,7 @@ module.exports = merge(common, {
   plugins: [
     // 热替换模块
     new webpack.HotModuleReplacementPlugin(),
-    // // 性能可视化
-    // new BundleAnalyzerPlugin(),
+    // 性能可视化
+    new BundleAnalyzerPlugin(),
   ]
 });
