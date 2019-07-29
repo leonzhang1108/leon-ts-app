@@ -17,5 +17,12 @@ export {
 export {
   default as BarsOutline
 } from '@ant-design/icons/lib/outline/BarsOutline'
+export {
+  default as DownloadOutline
+} from '@ant-design/icons/lib/outline/DownloadOutline'
+export {
+  default as RedoOutline
+} from '@ant-design/icons/lib/outline/RedoOutline'
+
 
 // export what antd other components need
