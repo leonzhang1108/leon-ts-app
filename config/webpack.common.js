@@ -7,7 +7,6 @@ const isProd = process.env.NODE_ENV === 'PROD'
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 const configFile = path.resolve(__dirname, '../tsconfig.json')
 
-
 module.exports = {
   // 入口
   entry: './src/index.tsx',
@@ -32,13 +31,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: !isProd ? '[name].css' : 'style/[name].[contenthash].css',
-      chunkFilename: !isProd ? '[id].css' : 'style/[id].[contenthash].css',
+      filename: isProd ? 'style/[name].[contenthash].css' : '[name].css',
+      chunkFilename: isProd ? 'style/[id].[contenthash].css' : '[id].css',
     }),
     new HtmlWebpackPlugin({
-      // title
-      title: 'Plasma Spark Tower',
-      // 模板
       template: './public/index.html',
       filename: './index.html',
       favicon: './public/favicon.ico',
@@ -93,4 +89,4 @@ module.exports = {
       }
     }
   }
-};
+}

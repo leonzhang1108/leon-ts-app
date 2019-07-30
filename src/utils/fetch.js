@@ -1,8 +1,8 @@
 /*
  * @Author: Leon Zhang
  * @Date: 2018-01-02 16:43:15
- * @Last Modified by: Leon Zhang
- * @Last Modified time: 2018-06-20 14:40:45
+ * @Last Modified by: LeonZhang
+ * @Last Modified time: 2019-07-30 17:43:05
  */
 
 import Axios from 'axios'
@@ -46,27 +46,24 @@ axiosModel.interceptors.response.use(response => {
 
 ajaxMethod.forEach(method => {
   // 数组取值的两种方式
-  api[method] = (uri, data, config) => new Promise(resolve => {
-    let param = {}
-    if (method === 'get') {
-      param.params = data
-    } else {
-      param = data
-    }
-    axiosModel[method](uri, param, config)
-      .then(response => {
+  api[method] = (uri, data, config) =>
+    new Promise(resolve => {
+      let param = {}
+      if (method === 'get') {
+        param.params = data
+      } else {
+        param = data
+      }
+      axiosModel[method](uri, param, config).then(response => {
         /* 根据后台数据进行处理
-         *1 code===200   正常数据+错误数据     code!==200   网络异常等
-         *2 code===200   正常数据     code!==200   错误数据+网络异常等
+         * 1 code===200   正常数据+错误数据     code!==200   网络异常等
+         * 2 code===200   正常数据     code!==200   错误数据+网络异常等
          * 这里使用的是第一种方式
          * ......
          */
         resolve(response)
       })
-      .catch(err => {
-        // reject response
-      })
-  })
+    })
 })
 
 export default api

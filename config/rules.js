@@ -1,6 +1,5 @@
-const path = require('path'),
-  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-  tsImportPluginFactory = require('ts-import-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const tsImportPluginFactory = require('ts-import-plugin')
 
 module.exports = [
   {

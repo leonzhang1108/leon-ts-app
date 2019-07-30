@@ -26,38 +26,13 @@ const Calligraphy = () => (
       <img className='fulei-logo' src={fulei}/>
       <img className='bird' src={bird}/>
       <img className='bamboo' src={bamboo}/>
-      <div className='row'>
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-      </div>
-      <div className='row'>
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-      </div>
-      <div className='row'>
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-      </div>
-      <div className='row'>
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-        { renderSquare() }
-      </div>
+      {
+        Array(4).fill(0).map(_ => (
+          <div className='row'>
+            { Array(6).fill(0).map(renderSquare) }
+          </div>
+        ))
+      }
     </div>
   </div>
 )
