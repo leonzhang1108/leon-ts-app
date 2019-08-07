@@ -34,11 +34,17 @@ const toggleOpenKeys = (state, action) => {
   const index = state.openKeys.indexOf(key)
   let openKeys: string[] = []
 
-  if (index >= 0) {
-    state.openKeys.splice(index, 1)
-    openKeys = state.openKeys
-  } else {
-    openKeys = state.openKeys
+  // 允许打开多个submenu
+  // if (index >= 0) {
+  //   state.openKeys.splice(index, 1)
+  //   openKeys = state.openKeys
+  // } else {
+  //   openKeys = state.openKeys
+  //   openKeys.push(key)
+  // }
+
+  // 只允许打开单个submenu
+  if (index < 0) {
     openKeys.push(key)
   }
 

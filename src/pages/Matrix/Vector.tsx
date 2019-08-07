@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
   const colTransform = props.transformCol && props.transformCol.start <= colIndex && props.transformCol.end >= colIndex

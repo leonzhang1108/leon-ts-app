@@ -1,6 +1,6 @@
 import { Point } from '@interface'
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 import DragHOC from './DragHOC'
 import './index.less'
 

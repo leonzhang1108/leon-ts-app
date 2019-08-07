@@ -1,5 +1,5 @@
 
-import * as React from 'react'
+import React from 'react'
 import Vector from './Vector'
 
 const getStyle = props => ({

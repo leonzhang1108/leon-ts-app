@@ -1,6 +1,6 @@
 
 import { Slider } from 'antd'
-import * as React from 'react'
+import React from 'react'
 
 interface IProps {
   pause: boolean,

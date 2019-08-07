@@ -23,6 +23,12 @@ export {
 export {
   default as RedoOutline
 } from '@ant-design/icons/lib/outline/RedoOutline'
+export {
+  default as LeftOutline
+} from '@ant-design/icons/lib/outline/LeftOutline'
+export {
+  default as RightOutline
+} from '@ant-design/icons/lib/outline/RightOutline'
 
 
 // export what antd other components need

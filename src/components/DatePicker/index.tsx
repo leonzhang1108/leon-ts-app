@@ -1,6 +1,6 @@
 import Util from '@utils'
 import { Icon } from 'antd'
-import * as React from 'react'
+import React from 'react'
 import './index.less'
 
 interface IProps {

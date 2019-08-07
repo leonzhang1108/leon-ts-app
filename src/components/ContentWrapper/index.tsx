@@ -1,6 +1,6 @@
 import { common } from '@actions'
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 import { bindActionCreators } from 'redux'
 import './index.less'
 

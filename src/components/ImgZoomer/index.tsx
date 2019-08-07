@@ -1,5 +1,5 @@
 import SVGLabelEditor from '@cpt/SVGLabelEditor'
-import * as React from 'react'
+import React from 'react'
 import './index.less'
 
 interface IProps {

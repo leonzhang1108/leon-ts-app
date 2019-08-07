@@ -1,6 +1,6 @@
 
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 import 'tracking'
 import 'tracking/build/data/face-min.js'
 import './index.less'
@@ -36,16 +36,16 @@ class Camera extends React.Component<null, IState> {
     }
   }
 
-  userMedia = () => navigator.getUserMedia = navi.getUserMedia || navi.webkitGetUserMedia || navi.mozGetUserMedia || navi.msGetUserMedia || null
+  userMedia = () => navigator.mediaDevices || null
 
   startDrawing = () => {
     if (this.userMedia()) {
-      navigator.getUserMedia({
+      navigator.mediaDevices.getUserMedia({
         video: true,
         audio: false
-      }, stream => {
+      }).then(stream => {
         this.doDrawing.apply(this)
-      }, error => {
+      }).catch(error => {
         this.setState({ hasCamera: false })
         console.log(error)
       })

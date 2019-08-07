@@ -1,5 +1,5 @@
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 import './index.less'
 
 interface IProps {

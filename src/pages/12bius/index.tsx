@@ -1,5 +1,5 @@
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 interface IProps {
   background?: string
   width?: number
@@ -25,7 +25,7 @@ interface IFirework {
   sparks: ISpark[]
 }
 
-const radius = 4
+const radius = 5
 
 const times = (n: number, func: (v: number) => any) =>
   Array(n)
@@ -131,7 +131,7 @@ const Fireworks12bius = ({ background, width = 0, height = 0, maxFireworks = 0, 
 Fireworks12bius.defaultProps = {
   background: 'black',
   maxFireworks: 5,
-  maxSparks: 50
+  maxSparks: 77
 }
 
 export default Utils.connect({

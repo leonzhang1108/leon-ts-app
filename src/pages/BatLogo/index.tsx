@@ -1,8 +1,8 @@
 
 import { Slider } from 'antd'
 import * as d3 from 'd3'
-import * as flubber from 'flubber'
-import * as React from 'react'
+import flubber from 'flubber'
+import React from 'react'
 import './index.less'
 
 interface IState {

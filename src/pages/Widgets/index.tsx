@@ -2,7 +2,7 @@
 // import ImgZoomer from '@cpt/ImgZoomer'
 import src from '@img/justice_league.jpg'
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 import './index.less'
 import * as imgzoomer from 'imgzoomer'
 import { Button, Modal } from 'antd'

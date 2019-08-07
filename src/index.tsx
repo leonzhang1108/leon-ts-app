@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import initReactFastclick from 'react-fastclick'
 import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'

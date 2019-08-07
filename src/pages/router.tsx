@@ -1,6 +1,6 @@
 import menus from '@constant/menus'
 import Utils from '@utils'
-import * as React from 'react'
+import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 const NotFound = Utils.load('NotFound')
@@ -24,6 +24,7 @@ initRoute(menus)
 
 class Router extends React.Component<RouteComponentProps<any>> {
   shouldComponentUpdate (props) {
+    // pathname没改变 页面不重新渲染
     return props.location.pathname !== this.props.location.pathname
   }
   render () {

@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import Utils from '@utils'
 import './index.less'
 import common from '@constant/common'
 import { Button } from 'antd'
-import * as nipplejs from 'nipplejs'
+import nipplejs from 'nipplejs'
 const { keyCode } = common
 
 enum Direction {

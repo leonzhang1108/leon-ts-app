@@ -1,5 +1,5 @@
 import { Point } from '@interface'
-import * as React from 'react'
+import React from 'react'
 
 interface IProps {
   children: React.ReactElement<any>,

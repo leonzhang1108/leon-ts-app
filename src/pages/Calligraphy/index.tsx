@@ -2,7 +2,7 @@
 import bamboo from '@img/bamboo.png'
 import bird from '@img/bird.jpg'
 import fulei from '@img/fulei.png'
-import * as React from 'react'
+import React from 'react'
 import './index.less'
 
 const renderSquare = () => (

@@ -1,7 +1,7 @@
 import PageLoading from '@cpt/PageLoading'
 import menus from '@constant/menus'
 import { IConnectProps } from '@interface'
-import * as Loadable from 'react-loadable'
+import Loadable from 'react-loadable'
 import { connect } from 'react-redux'
 import request from './fetch'
 import Storage from './storage'

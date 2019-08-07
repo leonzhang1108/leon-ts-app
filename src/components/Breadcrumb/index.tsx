@@ -1,7 +1,7 @@
 import { common } from '@actions'
 import Utils from '@utils'
 import { Breadcrumb } from 'antd'
-import * as React from 'react'
+import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'

@@ -4,7 +4,7 @@ import MainContent from '@cpt/MainContent'
 import Menu from '@cpt/Menu'
 import Router from '@pages/router'
 import { Layout } from 'antd'
-import * as React from 'react'
+import React from 'react'
 import './App.less'
 
 const { Content, Footer } = Layout

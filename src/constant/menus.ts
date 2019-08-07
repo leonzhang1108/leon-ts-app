@@ -59,6 +59,10 @@ export default [{
     route: '12bius',
     icon: 'ts-app icon-12bius',
     title: 'Spring 12'
+  }, {
+    route: 'painting',
+    icon: 'ts-app icon-painting',
+    title: 'Painting'
   }]
 }, {
   icon: 'ts-app icon-game',

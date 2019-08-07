@@ -1,6 +1,6 @@
 import Utils from '@utils'
 import { Button } from 'antd'
-import * as React from 'react'
+import React from 'react'
 import Constant from './constant'
 import './index.less'
 import Tools from './tools'
