@@ -171,7 +171,7 @@ class Snake extends React.Component<IProps, IState> {
   }
 
   drawFriut = () => {
-    this.draw(this.friut, 'blue')
+    this.draw(this.friut, '#666')
   }
 
   getHead = v => {

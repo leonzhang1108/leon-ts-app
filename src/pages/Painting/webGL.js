@@ -1,10 +1,7 @@
 /* eslint-disable */
 'use strict'
 
-export default () => {
-  const canvas = document.getElementsByClassName('painting-canvas')[0]
-  canvas.width = canvas.clientWidth
-  canvas.height = canvas.clientHeight
+export default canvas => {
 
   const config = {
     SIM_RESOLUTION: 128,

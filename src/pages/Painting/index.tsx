@@ -10,14 +10,14 @@ interface IProps {
 }
 
 class Painting extends React.Component<IProps> {
-
+  canvas
   componentDidMount() {
-    initWebGL()
+    initWebGL(this.canvas)
   }
 
   render () {
     const { height, width } = this.props
-    return <canvas className="painting-canvas" height={height} width={width}/>
+    return <canvas ref={el => this.canvas = el} height={height} width={width}/>
   }
 }
 
