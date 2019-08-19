@@ -16,7 +16,8 @@ interface IProps {
 
 class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     this.initBreadcrumb()
   }
 

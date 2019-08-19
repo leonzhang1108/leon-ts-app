@@ -9,8 +9,9 @@ class Home extends React.Component<{}, IState> {
 
   wrapper
 
-  componentWillMount () {
-    this.setState({ top: 0 })
+  constructor (props) {
+    super(props)
+    this.state = { top: 0 }
   }
 
   componentDidMount () {

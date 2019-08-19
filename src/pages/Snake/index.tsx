@@ -58,7 +58,8 @@ class Snake extends React.Component<IProps, IState> {
     hint: ''
   }
 
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     document.addEventListener('keydown', this.keydown)
   }
 

@@ -42,7 +42,8 @@ class Tetris extends React.Component<IProps, IStates> {
 
   transform = Utils.transform
 
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     document.addEventListener('keyup', this.keyup)
     document.addEventListener('keydown', this.keydown)
     document.addEventListener('touchend', this.clearBtnInterval)
@@ -71,19 +72,25 @@ class Tetris extends React.Component<IProps, IStates> {
     if (this.interval) { clearInterval(this.interval) }
   }
 
-  resetGame = () => {
+  resetGame = (e?) => {
     this.clearInterval()
     const row = 20
     const column = 10
     const screen = this.calculateScreen({ row, column })
-    this.setState({
+    const state = {
       row, column, screen,
       playboard: screen,
       style: this.getSize(this.props),
       cBlock: blocks[Utils.random(0, blocks.length)],
       x: 0, y: 0, intervalTime: 800, score: 0, rotate: Utils.random(0, 4),
       pause: false, gameover: false, touchDown: false, pressed: false
-    }, () => this.doMovePlayboard(true))
+    }
+    if (e) {
+      this.setState(state, () => this.doMovePlayboard(true))
+    } else {
+      this.state = { ...state, couldMove: false, h: 0 }
+      setTimeout(() => this.doMovePlayboard(true), 0)
+    }
   }
 
   visibilitychange = () => {

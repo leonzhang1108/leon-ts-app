@@ -17,13 +17,15 @@ class FloatingTitle extends React.Component<IProps, IState> {
   wrapper
   interval
 
-  componentWillMount () {
-    this.setState({
+  constructor (props) {
+    super(props)
+    this.state = {
       width: 0,
       offset: 0,
       onOff: false,
-      offsetWidth: 0
-    })
+      offsetWidth: 0,
+      wrapperWidth: 0
+    }
   }
 
   componentDidMount () {

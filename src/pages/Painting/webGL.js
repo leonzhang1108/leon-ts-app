@@ -1,6 +1,6 @@
 /* eslint-disable */
 'use strict'
-
+let timeout = null
 export default canvas => {
 
   const config = {
@@ -948,11 +948,11 @@ export default canvas => {
   update()
 
   function update() {
-    // resizeCanvas()
+    resizeCanvas()
     input()
     if (!config.PAUSED) step(0.016)
     render(null)
-    requestAnimationFrame(update)
+    timeout = requestAnimationFrame(update)
   }
 
   function input() {
@@ -1378,5 +1378,9 @@ export default canvas => {
       x: width / texture.width,
       y: height / texture.height
     }
+  }
+
+  return () => {
+    cancelAnimationFrame(timeout)
   }
 }

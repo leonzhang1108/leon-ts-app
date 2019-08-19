@@ -11,8 +11,9 @@ interface IState {
 
 class BatLogo extends React.Component<null, IState> {
 
-  componentWillMount () {
-    this.setState({ point: 3.5 })
+  constructor (props) {
+    super(props)
+    this.state = { point: 3.5 }
   }
 
   componentDidMount () {

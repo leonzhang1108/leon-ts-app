@@ -30,23 +30,31 @@ interface IProp {
 
 class Page2048 extends React.Component<IProp, IState> {
 
-  componentWillMount () {
-    this.reset(storage.get('pieces'))
+  constructor (props) {
+    super(props)
+    this.reset(storage.get('pieces'), true)
     document.addEventListener('keydown', this.keydown)
   }
 
-  reset = pieces => {
+  reset = (pieces, isInited) => {
     if (!Utils.isArray(pieces)) {
       pieces = []
       this.addRandom(pieces, true)
       this.addRandom(pieces, true)
       storage.set('pieces', null)
     }
-    this.setState({
+
+    const state = {
       size: 4,
       pieces,
       cached: { x: 0, y: 0 }
-    })
+    }
+
+    if (isInited) {
+      this.state = { ...state }
+    } else {
+      this.setState(state)
+    }
   }
 
   componentDidMount () {

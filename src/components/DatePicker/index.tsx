@@ -29,10 +29,11 @@ interface IState {
 }
 
 class DatePicker extends React.Component<IProps, IState> {
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     const date = new Date()
     const { fromDate, toDate } = this.props
-    this.setState({
+    this.state = {
       year: fromDate ? fromDate.getFullYear() : date.getFullYear(),
       month: fromDate ? fromDate.getMonth() : date.getMonth(),
       weekList: ['日', '一', '二', '三', '四', '五', '六'],
@@ -40,7 +41,7 @@ class DatePicker extends React.Component<IProps, IState> {
       fromDate: fromDate ? this.initDate(fromDate) : undefined,
       toDate: toDate ? this.initDate(toDate) : undefined,
       step: fromDate && toDate ? 2 : 0
-    })
+    }
     document.addEventListener('click', this.hideCalender)
   }
 

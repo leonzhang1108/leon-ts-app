@@ -17,20 +17,26 @@ interface IState {
 }
 
 class Gobang extends React.Component<IProps, IState> {
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     this.reset()
   }
 
-  reset = () => {
+  reset = (e?) => {
     const size = !this.props.isMobile ? 15 : 3
     const renju = !this.props.isMobile ? 5 : 3
-    this.setState({
+    const state = {
       size, renju,
       showNumber: false,
       step: 0,
       positions: [],
       checkerboard: this.calculateCheckerboard(size)
-    })
+    }
+    if (e) {
+      this.setState(state)
+    } else {
+      this.state = { ...state }
+    }
   }
 
   // state

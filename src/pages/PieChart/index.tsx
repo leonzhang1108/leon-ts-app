@@ -18,8 +18,9 @@ class PieChart extends React.Component<IProps, IState> {
   echarts: HTMLDivElement | null
   myChart: any
 
-  componentWillMount () {
-    this.setState({ loaded: false })
+  constructor (props) {
+    super(props)
+    this.state = { loaded: false }
   }
 
   componentDidMount () {

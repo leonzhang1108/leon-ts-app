@@ -37,7 +37,7 @@ const basePolygon = {
 
 class SVGLabelEditor extends React.Component<IProps, IStates> {
 
-  static getDerivedStateFromProps (props, states) {
+  static componentWillUnmount (props, states) {
     const { left, top } = props
     const { oriLeft, oriTop } = states
     if (left !== null && top !== null && oriLeft === null && oriTop === null) {

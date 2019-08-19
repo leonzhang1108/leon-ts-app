@@ -11,7 +11,7 @@ import Visualizer from './visualizer'
 import VolumeBar from './volume-bar'
 
 interface IState {
-  visualizer: Visualizer,
+  visualizer?: Visualizer,
   width: number,
   height: number,
   src: any,
@@ -51,9 +51,11 @@ class MusicVisualizer extends React.Component<IProps, IState> {
 
   mounted: boolean
 
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     document.addEventListener('visibilitychange', this.visibilityChange)
-    this.setState({
+    this.mounted = true
+    this.state = {
       // src: 'https://golb-1256296192.cos.ap-shanghai.myqcloud.com/1.mp3',
       src: 'NoMusic',
       bars: 64,
@@ -73,8 +75,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
       showAdd: false,
       musicName: '',
       mute: false
-    })
-    this.mounted = true
+    }
   }
 
   componentDidMount () {
@@ -82,7 +83,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   }
 
   componentWillUnmount () {
-    this.state.visualizer.stop()
+    this.state.visualizer!.stop()
     document.removeEventListener('visibilitychange', this.visibilityChange)
     this.mounted = false
   }
@@ -90,10 +91,10 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   visibilityChange = () => {
     const { visualizer } = this.state
     if (document.visibilityState === 'hidden') {
-      visualizer.pause()
+      visualizer!.pause()
       this.setState({ pause: true })
     } else {
-      visualizer.resume()
+      visualizer!.resume()
       this.setState({ pause: false })
     }
   }
@@ -108,9 +109,9 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   play = (v?) => {
     const { src } = this.state
     if (v) {
-      this.state.visualizer.play(v)
+      this.state.visualizer!.play(v)
     } else if (Utils.isString(src)) {
-      this.state.visualizer.play({ src, cb: this.afterLoading, progressCb: this.progress })
+      this.state.visualizer!.play({ src, cb: this.afterLoading, progressCb: this.progress })
     }
   }
 
@@ -125,7 +126,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
 
   afterLoading = () => {
     this.setState({ loading: false, showAdd: true }, () => {
-      this.state.visualizer.setCurrent(0)
+      this.state.visualizer!.setCurrent(0)
     })
   }
 
@@ -152,16 +153,16 @@ class MusicVisualizer extends React.Component<IProps, IState> {
   }
 
   changeVolume = v => {
-    this.state.visualizer.updateVolume(v / 100)
+    this.state.visualizer!.updateVolume(v / 100)
   }
 
   togglePause = () => {
     const { visualizer, pause } = this.state
 
     if (pause) {
-      visualizer.resume()
+      visualizer!.resume()
     } else {
-      visualizer.pause()
+      visualizer!.pause()
     }
 
     this.setState({ pause: !pause })
@@ -192,8 +193,8 @@ class MusicVisualizer extends React.Component<IProps, IState> {
 
   durationChanged = duration => {
     this.setState({ slideDuration: null, durationOffset: duration, pause: false, currentTime: 0 }, () => {
-      this.state.visualizer.setCurrent(this.durationToSecond(duration))
-      this.state.visualizer.resume()
+      this.state.visualizer!.setCurrent(this.durationToSecond(duration))
+      this.state.visualizer!.resume()
     })
   }
 
@@ -201,7 +202,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
 
   fileChange = () => {
     if (!this.input.files[0]) { return }
-    this.state.visualizer.abort()
+    this.state.visualizer!.abort()
     this.setState({ showAdd: false, percent: 0 }, () => {
       const reader: any = new FileReader()
       const { name } = this.input.files[0]
@@ -271,7 +272,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
             />
           ) : ''
         }
-        <a href='javascript:;' className={`upload ${!showAdd ? 'disappear' : ''}`}>
+        <a className={`upload ${!showAdd ? 'disappear' : ''}`}>
           <div className={`anticon anticon-ts-app icon-add`}/>
           <input className='change'
             ref={ref => { this.input = ref }}

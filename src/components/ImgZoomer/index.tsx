@@ -29,15 +29,16 @@ class ImgZoomer extends React.Component<IProps, IStates> {
   canvas
   ctx
 
-  componentWillMount () {
-    this.setState({
+  constructor (props) {
+    super(props)
+    this.state = {
       times: 1,
       currentTimes: 1,
       top: null,
       left: null,
       lastX: 0,
       lastY: 0
-    })
+    }
   }
 
   componentDidMount () {

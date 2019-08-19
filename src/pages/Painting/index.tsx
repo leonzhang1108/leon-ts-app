@@ -11,8 +11,12 @@ interface IProps {
 
 class Painting extends React.Component<IProps> {
   canvas
+  cancel
   componentDidMount() {
-    initWebGL(this.canvas)
+    this.cancel = initWebGL(this.canvas)
+  }
+  componentWillUnmount() {
+    this.cancel && this.cancel()
   }
 
   render () {

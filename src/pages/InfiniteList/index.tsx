@@ -24,8 +24,8 @@ class InfiniteList extends React.Component<{}, IState> {
 
   randomBoolean = () => Math.random() - 0.5 > 0
 
-  componentWillMount () {
-    this.initState()
+  constructor (props) {
+    super(props)
     // init data
     const list: any[] = []
 
@@ -44,17 +44,9 @@ class InfiniteList extends React.Component<{}, IState> {
 
     const contentHeight = list.reduce((p, c) => p + c.height, 0)
 
-    this.setState({ list, contentHeight })
-  }
-
-  initState = () => {
-    this.setState({
-      // 总列表，及offsetTop
-      list: [],
+    this.state = {
       // 可视区域top
       top: 0,
-      // 数据总高度
-      contentHeight: 0,
       // 可见高度
       visibleHeight: 0,
       // 可见列表
@@ -62,8 +54,12 @@ class InfiniteList extends React.Component<{}, IState> {
       // 上下预加载个数
       offset: 10,
       // 间隔
-      interval: 2
-    })
+      interval: 2,
+      // 总列表，及offsetTop
+      list,
+      // 数据总高度
+      contentHeight
+    }
   }
 
   componentDidMount () {

@@ -16,10 +16,11 @@ class Food extends React.Component<{}, IFoodState> {
   words = {}
   interval
 
-  componentWillMount () {
-    this.setState({
+  constructor (props) {
+    super(props)
+    this.state = {
       loaded: false
-    })
+    }
   }
 
   onSearch = v => {

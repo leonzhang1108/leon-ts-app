@@ -47,7 +47,8 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
   getRoute = () => window.location.hash.split('/').filter(i => i && i !== '#').join('/')
 
-  componentWillMount () {
+  constructor (props) {
+    super(props)
     Utils.findBreadcrumb(this.getRoute(), ({ breadcrumb }) => {
       this.props.actions.toggleOpenKeys({
         breadcrumb,
