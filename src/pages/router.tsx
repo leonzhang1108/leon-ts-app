@@ -41,8 +41,7 @@ initRoute(menus)
 
 class Router extends React.Component<RouteComponentProps<any>> {
   shouldComponentUpdate (props) {
-    // pathname没改变 页面不重新渲染
-    return props.location.pathname !== this.props.location.pathname
+    return false
   }
   render () {
     return (

@@ -46,7 +46,8 @@ export default [{
   }, {
     route: 'food',
     icon: 'ts-app icon-food',
-    title: 'Food'
+    title: 'Food',
+    keepAlive: true
   }, {
     route: 'music-visualizer',
     icon: 'ts-app icon-music',
@@ -54,11 +55,13 @@ export default [{
   }, {
     route: 'sad-man',
     icon: 'ts-app icon-sad',
-    title: 'Sad Man'
+    title: 'Sad Man',
+    keepAlive: true
   }, {
     route: '12bius',
     icon: 'ts-app icon-12bius',
-    title: 'Spring 12'
+    title: 'Spring 12',
+    keepAlive: true
   }, {
     route: 'painting',
     icon: 'ts-app icon-painting',
