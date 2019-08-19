@@ -948,7 +948,7 @@ export default canvas => {
   update()
 
   function update() {
-    resizeCanvas()
+    // resizeCanvas()
     input()
     if (!config.PAUSED) step(0.016)
     render(null)

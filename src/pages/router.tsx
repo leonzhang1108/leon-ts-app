@@ -3,10 +3,27 @@ import Utils from '@utils'
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
 const NotFound = Utils.load('NotFound')
 
 const renderRouter = (menu, i) =>
-  <Route key={i} path={`/${menu.route}`} exact={true} component={Utils.load(Utils.toCamelCase(menu.route))} />
+  menu.keepAlive 
+    ? (
+      <CacheRoute
+        key={i}
+        path={`/${menu.route}`}
+        exact={true}
+        component={Utils.load(Utils.toCamelCase(menu.route))}
+      />
+    )
+    : (
+      <Route
+        key={i}
+        path={`/${menu.route}`}
+        exact={true}
+        component={Utils.load(Utils.toCamelCase(menu.route))}
+      />
+    )
 
 const redirectToHome = () => <Redirect to='/home'/>
 
@@ -29,7 +46,7 @@ class Router extends React.Component<RouteComponentProps<any>> {
   }
   render () {
     return (
-      <Switch>
+      <CacheSwitch>
         {/* index */}
         <Route path='/' exact={true} render={redirectToHome} />
 
@@ -38,7 +55,7 @@ class Router extends React.Component<RouteComponentProps<any>> {
 
         {/* 404 */}
         <Route component={NotFound} />
-      </Switch>
+      </CacheSwitch>
     )
   }
 }

@@ -5,8 +5,8 @@ import fulei from '@img/fulei.png'
 import React from 'react'
 import './index.less'
 
-const renderSquare = () => (
-  <table>
+const renderSquare = (_, i) => (
+  <table key={i}>
     <tbody>
       <tr>
         <td/><td/>
@@ -27,8 +27,8 @@ const Calligraphy = () => (
       <img className='bird' src={bird}/>
       <img className='bamboo' src={bamboo}/>
       {
-        Array(4).fill(0).map(_ => (
-          <div className='row'>
+        Array(4).fill(0).map((_, i) => (
+          <div className='row' key={i}>
             { Array(6).fill(0).map(renderSquare) }
           </div>
         ))

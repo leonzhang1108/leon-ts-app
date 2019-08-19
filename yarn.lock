@@ -8261,6 +8261,11 @@ react-redux@^7.1.0:
     prop-types "^15.7.2"
     react-is "^16.8.6"
 
+react-router-cache-route@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/react-router-cache-route/download/react-router-cache-route-1.5.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-router-cache-route%2Fdownload%2Freact-router-cache-route-1.5.0.tgz#a510937e06e323b955da3f4b1ae9ca571c2ed8ea"
+  integrity sha1-pRCTfgbjI7lV2j9LGunKVxwu2Oo=
+
 react-router-dom@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npm.taobao.org/react-router-dom/download/react-router-dom-5.0.1.tgz?cache=0&sync_timestamp=1559689532002&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-router-dom%2Fdownload%2Freact-router-dom-5.0.1.tgz#ee66f4a5d18b6089c361958e443489d6bab714be"

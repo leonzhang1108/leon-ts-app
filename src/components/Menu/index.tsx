@@ -117,9 +117,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       theme: ''
     }
 
-    if (!collapsed) {
-      menuProps.openKeys = openKeys
-    }
+    menuProps.openKeys = openKeys
 
     if (this.menuWrapper) {
       width = this.menuWrapper.clientWidth

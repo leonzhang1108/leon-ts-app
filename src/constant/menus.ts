@@ -62,7 +62,8 @@ export default [{
   }, {
     route: 'painting',
     icon: 'ts-app icon-painting',
-    title: 'Painting'
+    title: 'Painting',
+    keepAlive: true
   }]
 }, {
   icon: 'ts-app icon-game',
