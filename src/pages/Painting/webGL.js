@@ -1,7 +1,7 @@
 /* eslint-disable */
 'use strict'
-let timeout = null
 export default canvas => {
+  let timeout = null
 
   const config = {
     SIM_RESOLUTION: 128,

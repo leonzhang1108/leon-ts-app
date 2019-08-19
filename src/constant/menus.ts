@@ -55,11 +55,11 @@ export default [{
     route: 'sad-man',
     icon: 'ts-app icon-sad',
     title: 'Sad Man'
-  }, {
+  }/** , {
     route: '12bius',
     icon: 'ts-app icon-12bius',
     title: 'Spring 12'
-  }, {
+  }*/, {
     route: 'painting',
     icon: 'ts-app icon-painting',
     title: 'Painting'
