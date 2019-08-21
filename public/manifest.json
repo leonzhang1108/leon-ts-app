@@ -1,15 +1,43 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "leon-ts-app",
+  "short_name": "leonzh app",
+  "description": "好玩",
+  "lang": "cn",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icon/192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon/144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "icon/96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "icon/72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "icon/48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icon/36x36.png",
+      "type": "image/png",
+      "sizes": "36x36"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/react-app",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "portrait",
+  "theme_color": "#fff",
+  "background_color": "#fff"
 }

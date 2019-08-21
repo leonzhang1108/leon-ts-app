@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const rules = require('./rules')
 const isProd = process.env.NODE_ENV === 'PROD'
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
@@ -40,7 +41,17 @@ module.exports = {
       favicon: './public/favicon.ico',
       chunksSortMode: 'none',
       hash: true
-    })
+    }),
+    new CopyPlugin([
+      {
+        from: path.resolve(__dirname, '../public/icon'),
+        to: path.resolve(__dirname, '../dist/icon')
+      },
+      { 
+        from: path.resolve(__dirname, '../public/manifest.json'),
+        to: path.resolve(__dirname, '../dist/manifest.json')
+      },
+    ])
   ],
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
