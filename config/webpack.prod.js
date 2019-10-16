@@ -23,7 +23,7 @@ module.exports = merge(common, {
           },
           //  Compress PNG images
           pngquant: {
-            quality: '65-90',
+            quality: [.65, .9],
             speed: 4
           },
           // Compress GIF images
