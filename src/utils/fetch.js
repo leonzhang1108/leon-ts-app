@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /*
  * @Author: Leon Zhang
  * @Date: 2018-01-02 16:43:15
- * @Last Modified by: LeonZhang
- * @Last Modified time: 2019-07-30 17:43:05
+ * @Last Modified by: Leon Zhang
+ * @Last Modified time: 2019-10-21 22:11:25
  */
 
 import Axios from 'axios'

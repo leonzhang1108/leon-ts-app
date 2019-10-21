@@ -1,7 +1,5 @@
-import PageLoading from '@cpt/PageLoading'
 import menus from '@constant/menus'
 import { IConnectProps } from '@interface'
-import Loadable from 'react-loadable'
 import { connect } from 'react-redux'
 import request from './fetch'
 import Storage from './storage'
@@ -17,11 +15,6 @@ export default {
     mapStateToProps,
     mapDispatchToProps
   )(component),
-
-  load: c => Loadable({
-    loader: () => import(`../pages/${c}`),
-    loading: PageLoading
-  }),
 
   toCamelCase: str => {
     // toCamelCase

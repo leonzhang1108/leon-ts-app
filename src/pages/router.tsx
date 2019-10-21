@@ -1,16 +1,29 @@
 import menus from '@constant/menus'
 import Utils from '@utils'
 import React from 'react'
+import loadable from '@loadable/component'
 import { RouteComponentProps } from 'react-router'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
-const NotFound = Utils.load('NotFound')
+
+const load = c => loadable(
+  () => import(`../pages/${c}`),
+  {
+    fallback: (
+      <div className='loading-center'>
+        <div className='loader'/>
+      </div>
+    )
+  }
+)
+
+const NotFound = load('NotFound')
 
 const renderRouter = (menu, i) => (
   <Route
     key={i}
     path={`/${menu.route}`}
     exact={true}
-    component={Utils.load(Utils.toCamelCase(menu.route))}
+    component={load(Utils.toCamelCase(menu.route))}
   />
 )
 

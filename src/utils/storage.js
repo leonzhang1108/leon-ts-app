@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /*
  * @Author: Leon Zhang
  * @Date: 2018-07-25 15:23:09
- * @Last Modified by: LeonZhang
- * @Last Modified time: 2019-07-30 17:44:38
+ * @Last Modified by: Leon Zhang
+ * @Last Modified time: 2019-10-21 22:11:55
  */
 class Storage {
   storage = window.localStorage
