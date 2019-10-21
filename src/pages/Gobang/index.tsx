@@ -217,31 +217,29 @@ class Gobang extends React.Component<IProps, IState> {
         break
     }
     return (
-      <td className='item' key={itemIndex}
+      <div className='item' key={itemIndex}
         onClick={Utils.handle(this.itemClick, { rowIndex, itemIndex })}
         onMouseEnter={Utils.handle(this.mouseEnter, { rowIndex, itemIndex })}
         onMouseLeave={Utils.handle(this.mouseLeave, { rowIndex, itemIndex })}
       >
         <div className={className}>{showNumber && index >= 0 ? index + 1 : ''}</div>
-      </td>
+      </div>
     )
   }
 
   renderRow = (row, rowIndex) => (
-    <tr className='row' key={rowIndex}>
+    <div className='row' key={rowIndex}>
       { row.map((item, itemIndex) => this.renderItem(item, rowIndex, itemIndex)) }
-    </tr>
+    </div>
   )
 
   render () {
     const { checkerboard, showNumber, positions } = this.state
     return (
       <div className='gobang-wrapper'>
-        <table>
-          <tbody>
-            { checkerboard.map(this.renderRow) }
-          </tbody>
-        </table>
+        <div className='table-wrapper'>
+          { checkerboard.map(this.renderRow) }
+        </div>
         <div className='button-wrapper'>
           <Button type='primary' disabled={positions.length === 0} onClick={this.reset}>
             Reset
