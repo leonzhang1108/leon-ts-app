@@ -37,7 +37,7 @@ class FloatingTitle extends React.Component<IProps, IState> {
     this.clearInterval()
   }
 
-  componentWillReceiveProps () {
+  componentDidUpdate () {
     const { width } = this.state
     if (this.dom.offsetWidth !== width) {
       let offsetWidth = (this.wrapper.offsetWidth - this.dom.offsetWidth)

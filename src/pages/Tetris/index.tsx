@@ -60,8 +60,11 @@ class Tetris extends React.Component<IProps, IStates> {
     document.removeEventListener('visibilitychange', this.visibilitychange)
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({ style: this.getSize(nextProps) })
+  componentDidUpdate (nextProps) {
+    const { isMobile } = this.props
+    if (nextProps.isMobile !== isMobile) {
+      this.setState({ style: this.getSize(nextProps) })
+    }
   }
 
   clearBtnInterval = () => {
