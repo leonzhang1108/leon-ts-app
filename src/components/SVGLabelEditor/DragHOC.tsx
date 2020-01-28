@@ -2,19 +2,18 @@ import { Point } from '@interface'
 import React from 'react'
 
 interface IProps {
-  children: React.ReactElement<any>,
-  onMouseMove (v: Point): void
+  children: React.ReactElement<any>;
+  onMouseMove(v: Point): void;
 }
 
 interface IStates {
-  dragging: boolean,
-  x: number,
-  y: number
+  dragging: boolean;
+  x: number;
+  y: number;
 }
 
 class DragHOC extends React.Component<IProps, IStates> {
-
-  componentDidMount () {
+  componentDidMount() {
     this.setState({
       dragging: false,
       x: 0,
@@ -44,7 +43,9 @@ class DragHOC extends React.Component<IProps, IStates> {
     const {
       state: { dragging, x, y }
     } = this
-    if (!dragging) { return }
+    if (!dragging) {
+      return
+    }
     this.props.onMouseMove({
       x: pageX - x,
       y: pageY - y
@@ -55,7 +56,7 @@ class DragHOC extends React.Component<IProps, IStates> {
     })
   }
 
-  render () {
+  render() {
     const { onMouseDown, onMouseMove, onMouseUp } = this
 
     window.addEventListener('mouseup', onMouseUp)

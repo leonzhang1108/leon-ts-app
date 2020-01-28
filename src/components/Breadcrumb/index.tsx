@@ -8,35 +8,39 @@ import { bindActionCreators } from 'redux'
 import './index.less'
 
 interface IProps {
-  breadcrumb: any[],
+  breadcrumb: any[];
   actions: {
-    changeBreadcrumb (v): void
-  }
+    changeBreadcrumb(v): void;
+  };
 }
 
-class BreadcrumbComponent extends React.Component<IProps & RouteComponentProps<any>> {
-
-  constructor (props) {
+class BreadcrumbComponent extends React.Component<
+IProps & RouteComponentProps<any>
+> {
+  constructor(props) {
     super(props)
     this.initBreadcrumb()
   }
 
-  initBreadcrumb () {
-    const route = this.props.location.pathname.split('/').filter(i => i).join('/')
+  initBreadcrumb() {
+    const route = this.props.location.pathname
+      .split('/')
+      .filter(i => i)
+      .join('/')
 
     Utils.findBreadcrumb(route, this.props.actions.changeBreadcrumb)
-
   }
 
-  render () {
+  render() {
     return (
       <Breadcrumb style={{ margin: '10px 0' }}>
-        {
-          this.props.breadcrumb.length
-            ? this.props.breadcrumb.map((v, i) =>
-              <Breadcrumb.Item key={i}>{v.title}</Breadcrumb.Item>
-            ) : <Breadcrumb.Item>home</Breadcrumb.Item>
-        }
+        {this.props.breadcrumb.length ? (
+          this.props.breadcrumb.map((v, i) => (
+            <Breadcrumb.Item key={i}>{v.title}</Breadcrumb.Item>
+          ))
+        ) : (
+          <Breadcrumb.Item>home</Breadcrumb.Item>
+        )}
       </Breadcrumb>
     )
   }
@@ -48,8 +52,11 @@ export default Utils.connect({
     breadcrumb: state.common.breadcrumb
   }),
   mapDispatchToProps: dispatch => ({
-    actions: bindActionCreators({
-      changeBreadcrumb: common.changeBreadcrumb
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        changeBreadcrumb: common.changeBreadcrumb
+      },
+      dispatch
+    )
   })
 })

@@ -18,7 +18,7 @@ export default class Visualizer {
   axiosModel
   axiosCancellation
 
-  constructor ({ draw, size, volume, currentTime }) {
+  constructor({ draw, size, volume, currentTime }) {
     this.source = null
     this.count = 0
     this.draw = draw
@@ -45,20 +45,22 @@ export default class Visualizer {
       responseType: 'arraybuffer',
       onDownloadProgress: v => {
         const { loaded, total } = v
-        progressCb(loaded / total * 100)
+        progressCb((loaded / total) * 100)
       },
       cancelToken: new Axios.CancelToken(c => {
         this.axiosCancellation = c
       })
-    }).then(response => {
-      callback(response.data)
-    }).catch(thrown => {
-      if (Axios.isCancel(thrown)) {
-        console.log('Request canceled', thrown.message)
-      } else {
-        progressCb('error')
-      }
     })
+      .then(response => {
+        callback(response.data)
+      })
+      .catch(thrown => {
+        if (Axios.isCancel(thrown)) {
+          console.log('Request canceled', thrown.message)
+        } else {
+          progressCb('error')
+        }
+      })
   }
 
   abort = () => this.axiosCancellation && this.axiosCancellation('abort')
@@ -81,15 +83,23 @@ export default class Visualizer {
     if (src instanceof ArrayBuffer) {
       this.ac.decodeAudioData(src, decodeCallback)
     } else {
-      this.load(src, arrayBuffer => {
-        this.ac.decodeAudioData(arrayBuffer, decodeCallback)
-      }, progressCb)
+      this.load(
+        src,
+        arrayBuffer => {
+          this.ac.decodeAudioData(arrayBuffer, decodeCallback)
+        },
+        progressCb
+      )
     }
   }
 
   createBufferSource = ({ buffer, start = 0 }, cb?) => {
-    if (this.source) { this.source.stop() }
-    if (!this.buffer) { return }
+    if (this.source) {
+      this.source.stop()
+    }
+    if (!this.buffer) {
+      return
+    }
     const bufferSource = this.ac.createBufferSource()
     bufferSource.buffer = this.buffer = buffer
     bufferSource.loop = true
@@ -97,7 +107,9 @@ export default class Visualizer {
     bufferSource.start(0, start)
     this.source = bufferSource
     this.visualize()
-    if (cb) { cb() }
+    if (cb) {
+      cb()
+    }
   }
 
   updateVolume = vol => {
@@ -124,8 +136,12 @@ export default class Visualizer {
   }
 
   setInterval = (isFirst?) => {
-    if (this.interval) { clearInterval(this.interval) }
-    if (isFirst) { this.setCurrTime(isFirst) }
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+    if (isFirst) {
+      this.setCurrTime(isFirst)
+    }
     this.interval = setInterval(() => {
       this.setCurrTime()
     }, 1000)
@@ -133,13 +149,15 @@ export default class Visualizer {
 
   setCurrTime = (isFirst?) => {
     const total = this.buffer ? this.buffer.duration.toFixed(0) : 0
-    this.currentTime({ curr: isFirst ? 0 : ++this.curr , total })
+    this.currentTime({ curr: isFirst ? 0 : ++this.curr, total })
   }
 
   pause = () => {
     this.ac.suspend()
     window.cancelAnimationFrame(this.rafId)
-    if (this.interval) { clearInterval(this.interval) }
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   }
 
   resume = () => {

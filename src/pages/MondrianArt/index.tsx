@@ -38,7 +38,6 @@ const getBoundary = v => {
 }
 
 const MondrianArt = ({ isMobile, h, w }) => {
-
   const height = isMobile ? 430 : getBoundary(h)
   const width = isMobile ? 250 : getBoundary(w)
   const btn = isMobile ? 'mobile' : 'pc'
@@ -57,26 +56,22 @@ const MondrianArt = ({ isMobile, h, w }) => {
   }
 
   return (
-    <div className='mondrian-wrapper'>
-      <div className='mondrian-inner-wrapper' ref={art}>
-        <div
-          key={blocksKey}
-          className='mondrian-art'
-          style={{ height, width }}
-        >
-          { generateBlocks(isMobile) }
+    <div className="mondrian-wrapper">
+      <div className="mondrian-inner-wrapper" ref={art}>
+        <div key={blocksKey} className="mondrian-art" style={{ height, width }}>
+          {generateBlocks(isMobile)}
         </div>
       </div>
       <Button
         className={`download-btn ${btn}`}
-        icon='download'
-        type='primary'
+        icon="download"
+        type="primary"
         onClick={toPicture}
       />
       <Button
         className={`refresh-btn ${btn}`}
-        icon='redo'
-        type='primary'
+        icon="redo"
+        type="primary"
         onClick={refresh}
       />
     </div>

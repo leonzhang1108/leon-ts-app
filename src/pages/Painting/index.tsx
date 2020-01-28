@@ -1,12 +1,11 @@
-
 import Utils from '@utils'
 import React from 'react'
 import './index.less'
 import initWebGL from './webGL'
 
 interface IProps {
-  height: number,
-  width: number
+  height: number;
+  width: number;
 }
 
 class Painting extends React.Component<IProps> {
@@ -19,9 +18,11 @@ class Painting extends React.Component<IProps> {
     this.cancel && this.cancel()
   }
 
-  render () {
+  render() {
     const { height, width } = this.props
-    return <canvas ref={el => this.canvas = el} height={height} width={width}/>
+    return (
+      <canvas ref={el => (this.canvas = el)} height={height} width={width} />
+    )
   }
 }
 

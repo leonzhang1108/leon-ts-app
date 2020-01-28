@@ -1,77 +1,93 @@
 import React from 'react'
 
 const renderItem = (col, colIndex, rowIndex, props, rowTransform) => {
-  const colTransform = props.transformCol && props.transformCol.start <= colIndex && props.transformCol.end >= colIndex
+  const colTransform =
+    props.transformCol &&
+    props.transformCol.start <= colIndex &&
+    props.transformCol.end >= colIndex
 
   return (
-    <li className={`
+    <li
+      className={`
         col
         ${colTransform ? 'col-transform' : ''}
-        ${props.hilightList && props.hilightList[rowIndex][colIndex] === 1 ? 'hilight' : ''}
+        ${
+    props.hilightList && props.hilightList[rowIndex][colIndex] === 1
+      ? 'hilight'
+      : ''
+    }
       `}
       key={colIndex}
     >
-      {
-        props.editable
-          ? <input type='text' value={col}
-              data-row={rowIndex} data-col={colIndex}
-              data-ventor={props.ventor}
-              onChange={props.onInput}
-              onBlur={props.onBlur}
-            />
-          : <span style={{ transform: `rotate(${props.rotate ? '90deg' : '0'})` }} className={`${col !== '' ? 'show' : ''}`}>{col}</span>
-      }
-      {
-        props.hasShadow
-          ? <div className={`shadow ${rowTransform ? 'show' : ''}`}>×</div>
-          : ''
-      }
+      {props.editable ? (
+        <input
+          type="text"
+          value={col}
+          data-row={rowIndex}
+          data-col={colIndex}
+          data-ventor={props.ventor}
+          onChange={props.onInput}
+          onBlur={props.onBlur}
+        />
+      ) : (
+        <span
+          style={{ transform: `rotate(${props.rotate ? '90deg' : '0'})` }}
+          className={`${col !== '' ? 'show' : ''}`}
+        >
+          {col}
+        </span>
+      )}
+      {props.hasShadow ? (
+        <div className={`shadow ${rowTransform ? 'show' : ''}`}>×</div>
+      ) : (
+        ''
+      )}
     </li>
   )
 }
 
 const renderCol = (row, rowIndex, props) => {
-  const rowTransform = props.transformRow && props.transformRow.start <= rowIndex && props.transformRow.end >= rowIndex
+  const rowTransform =
+    props.transformRow &&
+    props.transformRow.start <= rowIndex &&
+    props.transformRow.end >= rowIndex
 
   return (
-    <ul className={`row ${rowTransform ? 'row-transform' : ''}`}
-      key={rowIndex}
-    >
-      { row.map((col, colIndex) => renderItem(col, colIndex, rowIndex, props, rowTransform)) }
+    <ul className={`row ${rowTransform ? 'row-transform' : ''}`} key={rowIndex}>
+      {row.map((col, colIndex) =>
+        renderItem(col, colIndex, rowIndex, props, rowTransform)
+      )}
     </ul>
   )
 }
 
 const renderRow = props => {
   if (!props.ventorList) {
-    return <td/>
+    return <td />
   }
 
   return (
     <td>
-      <div className='border-left'/>
-      {
-        props.ventorList.map((row, rowIndex) =>
-          renderCol(row, rowIndex, props)
-        )
-      }
-      <div className='border-right'/>
+      <div className="border-left" />
+      {props.ventorList.map((row, rowIndex) => renderCol(row, rowIndex, props))}
+      <div className="border-right" />
     </td>
   )
 }
 
 const Vector = props => (
-  <table className={`${props.ventorList ? 'show' : ''}`} style={{
-    transform: `
+  <table
+    className={`${props.ventorList ? 'show' : ''}`}
+    style={{
+      transform: `
       rotate(${props.rotate ? '-90deg' : '0'})
       translateX(${props.left || 0}px)
       translateY(${-props.top || 0}px)`,
-    ...props.style
-  }}>
+      ...props.style
+    }}
+  >
     <tbody>
-      <tr>
-        {renderRow(props)}
-      </tr>
+      <tr>{renderRow(props)}</tr>
     </tbody>
   </table>
 )

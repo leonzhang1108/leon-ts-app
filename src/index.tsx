@@ -13,10 +13,9 @@ ReactDOM.render(
   <ErrorBoundary>
     <Provider store={store}>
       <Router>
-        <App/>
+        <App />
       </Router>
     </Provider>
-  </ErrorBoundary>
-  ,
+  </ErrorBoundary>,
   document.getElementById('root') as HTMLElement
 )

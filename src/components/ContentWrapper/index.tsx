@@ -6,34 +6,33 @@ import './index.less'
 
 interface IProps {
   actions: {
-    onResize (v): void
-  }
+    onResize(v): void;
+  };
 }
 
 class ContentWrapper extends React.Component<IProps> {
-
   content: HTMLDivElement | null
 
-  onResize () {
+  onResize() {
     const root = document.getElementById('root')
     const width = root ? root.clientWidth : 0
     this.props.actions.onResize({
-      contentHeight: this.content && this.content.offsetHeight || 0,
-      contentWidth: this.content && this.content.offsetWidth || 0,
+      contentHeight: (this.content && this.content.offsetHeight) || 0,
+      contentWidth: (this.content && this.content.offsetWidth) || 0,
       width
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.onResize()
     window.onresize = Utils.debounce(this.onResize.bind(this), 300)
   }
 
-  render () {
+  render() {
     const { children } = this.props
     return (
-      <div className='content' ref={dom => this.content = dom}>
-        { children }
+      <div className="content" ref={dom => (this.content = dom)}>
+        {children}
       </div>
     )
   }
@@ -42,8 +41,11 @@ class ContentWrapper extends React.Component<IProps> {
 export default Utils.connect({
   component: ContentWrapper,
   mapDispatchToProps: dispatch => ({
-    actions: bindActionCreators({
-      onResize: common.onResize
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        onResize: common.onResize
+      },
+      dispatch
+    )
   })
 })

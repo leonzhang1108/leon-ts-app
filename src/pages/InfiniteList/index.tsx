@@ -1,30 +1,28 @@
-
 import React from 'react'
 import './index.less'
 
 interface IState {
-  list: any[],
+  list: any[];
   // 可视区域top
-  top: number,
+  top: number;
   // 数据总高度
-  contentHeight: number,
+  contentHeight: number;
   // 可见高度
-  visibleHeight: number,
+  visibleHeight: number;
   // 可见列表
-  visibleData: any[],
+  visibleData: any[];
   // 上下预加载个数
-  offset: number,
+  offset: number;
   // 间隔
-  interval: number
+  interval: number;
 }
 
 class InfiniteList extends React.Component<{}, IState> {
-
   wrapper
 
   randomBoolean = () => Math.random() - 0.5 > 0
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     // init data
     const list: any[] = []
@@ -62,7 +60,7 @@ class InfiniteList extends React.Component<{}, IState> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // init height & visible data
     const visibleHeight = this.wrapper.clientHeight
 
@@ -75,10 +73,14 @@ class InfiniteList extends React.Component<{}, IState> {
   calculateOffset = index => {
     const { list } = this.state
 
-    if (index === list.length) { return }
+    if (index === list.length) {
+      return
+    }
 
     // 取缓存
-    if (list[index].offsetTop) { return list[index].offsetTop }
+    if (list[index].offsetTop) {
+      return list[index].offsetTop
+    }
 
     let offsetTop = list[index].height
 
@@ -98,7 +100,7 @@ class InfiniteList extends React.Component<{}, IState> {
   doCalculate = startIndex => {
     const { list, offset } = this.state
 
-    const innerOffset = startIndex = startIndex - offset
+    const innerOffset = (startIndex = startIndex - offset)
 
     startIndex = startIndex > 0 ? startIndex : 0
 
@@ -115,7 +117,7 @@ class InfiniteList extends React.Component<{}, IState> {
     return { visibleData, top }
   }
 
-  findTopByIndex = index => index ? this.state.list[index - 1].offsetTop : 0
+  findTopByIndex = index => (index ? this.state.list[index - 1].offsetTop : 0)
 
   findStartIndex = top => {
     const { list } = this.state
@@ -123,9 +125,13 @@ class InfiniteList extends React.Component<{}, IState> {
     let index = 0
 
     while (index < list.length) {
-      if (!list[index].offsetTop) { this.calculateOffset(index) }
+      if (!list[index].offsetTop) {
+        this.calculateOffset(index)
+      }
 
-      if (top < list[index].offsetTop) { break }
+      if (top < list[index].offsetTop) {
+        break
+      }
 
       index++
     }
@@ -138,7 +144,9 @@ class InfiniteList extends React.Component<{}, IState> {
     const { list } = this.state
 
     // 取缓存
-    if (list[startIndex].endIndex) { return list[startIndex].endIndex }
+    if (list[startIndex].endIndex) {
+      return list[startIndex].endIndex
+    }
 
     visibleHeight = visibleHeight || this.wrapper.clientHeight
 
@@ -173,20 +181,43 @@ class InfiniteList extends React.Component<{}, IState> {
 
     const startIndex = this.findStartIndex(e.target.scrollTop)
 
-    if (startIndex % interval === 0) { this.setState(this.doCalculate(startIndex)) }
+    if (startIndex % interval === 0) {
+      this.setState(this.doCalculate(startIndex))
+    }
   }
 
-  render () {
+  render() {
     const { visibleData, contentHeight, top } = this.state
 
     return (
-      <div className='infinite-list-wrapper' onScroll={this.scrollHandler} ref={ref => { this.wrapper = ref }}>
-        <div className='infinite-list-ghost' style={{ height: contentHeight }} />
-        <div className='infinite-list' style={{ transform: `translate3d(0, ${top}px, 0)` }}>
-          { visibleData.map((item, i) => {
-            const style = { height: `${ item.height }px`, lineHeight: `${ item.height }px` }
-            return <div className='item' key={i} style={style}>{`item-${item.val}`}</div>
-          }) }
+      <div
+        className="infinite-list-wrapper"
+        onScroll={this.scrollHandler}
+        ref={ref => {
+          this.wrapper = ref
+        }}
+      >
+        <div
+          className="infinite-list-ghost"
+          style={{ height: contentHeight }}
+        />
+        <div
+          className="infinite-list"
+          style={{ transform: `translate3d(0, ${top}px, 0)` }}
+        >
+          {visibleData.map((item, i) => {
+            const style = {
+              height: `${item.height}px`,
+              lineHeight: `${item.height}px`
+            }
+            return (
+              <div
+                className="item"
+                key={i}
+                style={style}
+              >{`item-${item.val}`}</div>
+            )
+          })}
         </div>
       </div>
     )

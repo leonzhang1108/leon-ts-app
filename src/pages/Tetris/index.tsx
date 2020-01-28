@@ -9,40 +9,39 @@ const { block: blockMap, keyCode, scores } = Constant
 const blocks = Object.keys(blockMap)
 
 interface IStates {
-  row: number,
-  column: number,
-  screen: number[][],
-  playboard: number[][],
-  cBlock: string,
-  interval?: number,
-  y: number,
-  x: number,
-  h: number,
-  rotate: number,
-  intervalTime: number,
-  couldMove: boolean,
-  pause: boolean,
-  gameover: boolean,
-  touchDown: boolean,
-  score: number,
-  pressed: boolean,
-  style: any,
+  row: number;
+  column: number;
+  screen: number[][];
+  playboard: number[][];
+  cBlock: string;
+  interval?: number;
+  y: number;
+  x: number;
+  h: number;
+  rotate: number;
+  intervalTime: number;
+  couldMove: boolean;
+  pause: boolean;
+  gameover: boolean;
+  touchDown: boolean;
+  score: number;
+  pressed: boolean;
+  style: any;
 }
 
 interface IProps {
-  isMobile: boolean,
-  h: number
+  isMobile: boolean;
+  h: number;
 }
 
 class Tetris extends React.Component<IProps, IStates> {
-
   interval
 
   btnInterval
 
   transform = Utils.transform
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     document.addEventListener('keyup', this.keyup)
     document.addEventListener('keydown', this.keydown)
@@ -51,7 +50,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.resetGame()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.clearInterval()
     this.clearBtnInterval()
     document.removeEventListener('keyup', this.keyup)
@@ -60,7 +59,7 @@ class Tetris extends React.Component<IProps, IStates> {
     document.removeEventListener('visibilitychange', this.visibilitychange)
   }
 
-  componentDidUpdate (nextProps) {
+  componentDidUpdate(nextProps) {
     const { isMobile } = this.props
     if (nextProps.isMobile !== isMobile) {
       this.setState({ style: this.getSize(nextProps) })
@@ -68,11 +67,15 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   clearBtnInterval = () => {
-    if (this.btnInterval) { clearInterval(this.btnInterval) }
+    if (this.btnInterval) {
+      clearInterval(this.btnInterval)
+    }
   }
 
   clearInterval = () => {
-    if (this.interval) { clearInterval(this.interval) }
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   }
 
   resetGame = (e?) => {
@@ -81,12 +84,21 @@ class Tetris extends React.Component<IProps, IStates> {
     const column = 10
     const screen = this.calculateScreen({ row, column })
     const state = {
-      row, column, screen,
+      row,
+      column,
+      screen,
       playboard: screen,
       style: this.getSize(this.props),
       cBlock: blocks[Utils.random(0, blocks.length)],
-      x: 0, y: 0, intervalTime: 800, score: 0, rotate: Utils.random(0, 4),
-      pause: false, gameover: false, touchDown: false, pressed: false
+      x: 0,
+      y: 0,
+      intervalTime: 800,
+      score: 0,
+      rotate: Utils.random(0, 4),
+      pause: false,
+      gameover: false,
+      touchDown: false,
+      pressed: false
     }
     if (e) {
       this.setState(state, () => this.doMovePlayboard(true))
@@ -97,20 +109,31 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   visibilitychange = () => {
-    if ((!this.state.pause && document.visibilityState === 'hidden')
-        || (this.state.pause && document.visibilityState !== 'hidden')) {
+    if (
+      (!this.state.pause && document.visibilityState === 'hidden') ||
+      (this.state.pause && document.visibilityState !== 'hidden')
+    ) {
       this.togglePause()
     }
   }
 
   isGameOver = () => {
     const { x, y, cBlock, screen, rotate } = this.state
-    const { couldMove } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+    const { couldMove } = Tools.getCurrPosition({
+      x,
+      y: y + 1,
+      cBlock,
+      screen,
+      rotate,
+      moveTo: keyCode.down
+    })
     return !(couldMove || blockMap[cBlock][rotate].length < y - 1)
   }
 
   clearRow = playboard => {
-    const screen = Utils.clone(playboard).map(row => row.map(item => item ? 2 : 0))
+    const screen = Utils.clone(playboard).map(row =>
+      row.map(item => (item ? 2 : 0))
+    )
     const clearedList: number[] = []
     playboard.forEach((row, i) => {
       if (row.every(item => item)) {
@@ -139,18 +162,32 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   doMove = code => {
-    const { x: cx, y: my, screen, cBlock, row, rotate, pause, gameover } = this.state
-    if (pause || gameover) { return }
+    const {
+      x: cx,
+      y: my,
+      screen,
+      cBlock,
+      row,
+      rotate,
+      pause,
+      gameover
+    } = this.state
+    if (pause || gameover) {
+      return
+    }
     let playboard = [[]]
     let x = cx
     switch (code) {
       case keyCode.left:
         x = cx - 1
-        const {
-          playboard: lp,
-          x: lx,
-          couldMove: lc
-        } = Tools.getCurrPosition({ x, y: my ? my : 20, cBlock, screen, rotate, moveTo: keyCode.left })
+        const { playboard: lp, x: lx, couldMove: lc } = Tools.getCurrPosition({
+          x,
+          y: my ? my : 20,
+          cBlock,
+          screen,
+          rotate,
+          moveTo: keyCode.left
+        })
         if (lc) {
           x = lx
           playboard = lp
@@ -159,11 +196,14 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.right:
         x = cx + 1
-        const {
-          playboard: rp,
-          x: rx,
-          couldMove: rc
-        } = Tools.getCurrPosition({ x, y: my ? my : 20, cBlock, screen, rotate, moveTo: keyCode.right })
+        const { playboard: rp, x: rx, couldMove: rc } = Tools.getCurrPosition({
+          x,
+          y: my ? my : 20,
+          cBlock,
+          screen,
+          rotate,
+          moveTo: keyCode.right
+        })
         if (rc) {
           x = rx
           playboard = rp
@@ -171,11 +211,17 @@ class Tetris extends React.Component<IProps, IStates> {
         }
         return
       case keyCode.down:
-        if (my > row) { return }
-        const {
-          couldMove,
-          playboard: dp
-        } = Tools.getCurrPosition({ x, y: my + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+        if (my > row) {
+          return
+        }
+        const { couldMove, playboard: dp } = Tools.getCurrPosition({
+          x,
+          y: my + 1,
+          cBlock,
+          screen,
+          rotate,
+          moveTo: keyCode.down
+        })
         if (couldMove) {
           this.newInterval()
           this.setState({ playboard: dp, y: my + 1, pressed: true })
@@ -186,10 +232,14 @@ class Tetris extends React.Component<IProps, IStates> {
       case keyCode.up:
         let r = rotate
         r = r >= 3 ? 0 : r + 1
-        const {
-          playboard: up,
-          couldMove: uc
-        } = Tools.getCurrPosition({ x: cx, y: my ? my : 20, cBlock, screen, rotate: r, moveTo: keyCode.up })
+        const { playboard: up, couldMove: uc } = Tools.getCurrPosition({
+          x: cx,
+          y: my ? my : 20,
+          cBlock,
+          screen,
+          rotate: r,
+          moveTo: keyCode.up
+        })
         if (uc) {
           playboard = up
           this.setState({ playboard, rotate: r, pressed: true })
@@ -199,7 +249,6 @@ class Tetris extends React.Component<IProps, IStates> {
         this.goToBottom()
         break
       default:
-
     }
   }
 
@@ -213,7 +262,9 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   doMovePlayboard = (next?) => {
-    if (next) { this.movePlayboard(this.state) }
+    if (next) {
+      this.movePlayboard(this.state)
+    }
     this.doTimeout()
   }
 
@@ -225,7 +276,14 @@ class Tetris extends React.Component<IProps, IStates> {
 
   movePlayboard = ({ x, y }) => {
     const { screen, cBlock, rotate } = this.state
-    const { playboard, couldMove } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+    const { playboard, couldMove } = Tools.getCurrPosition({
+      x,
+      y: y + 1,
+      cBlock,
+      screen,
+      rotate,
+      moveTo: keyCode.down
+    })
     if (couldMove) {
       this.setState({ playboard, y: y + 1 })
     } else {
@@ -235,17 +293,29 @@ class Tetris extends React.Component<IProps, IStates> {
 
   goToBottom = () => {
     const { x, cBlock, rotate, screen, gameover, pause } = this.state
-    if (gameover || pause) { return }
+    if (gameover || pause) {
+      return
+    }
     let { y, playboard: p } = this.state
     let couldGoDown = true
     while (couldGoDown) {
-      const { couldMove, playboard } = Tools.getCurrPosition({ x, y: y + 1, cBlock, screen, rotate, moveTo: keyCode.down })
+      const { couldMove, playboard } = Tools.getCurrPosition({
+        x,
+        y: y + 1,
+        cBlock,
+        screen,
+        rotate,
+        moveTo: keyCode.down
+      })
       couldGoDown = couldMove
       if (couldMove) {
         y++
         p = playboard
       } else {
-        this.setState({ playboard: p, y, touchDown: true, pressed: true }, this.isRowNeedClear)
+        this.setState(
+          { playboard: p, y, touchDown: true, pressed: true },
+          this.isRowNeedClear
+        )
       }
     }
     setTimeout(() => this.setState({ touchDown: false }), 100)
@@ -257,11 +327,15 @@ class Tetris extends React.Component<IProps, IStates> {
     const { screen, clearedList } = this.clearRow(playboard)
     const { length } = clearedList
     if (length) {
-      const state = couldCalculate ? { screen, score: score + scores[length - 1] } : { screen, score }
-      clearedList.forEach(index => playboard[index] = new Array(10).fill(3))
+      const state = couldCalculate
+        ? { screen, score: score + scores[length - 1] }
+        : { screen, score }
+      clearedList.forEach(index => (playboard[index] = new Array(10).fill(3)))
       this.setState({ screen: playboard })
       this.vibrate(100)
-      setTimeout(() => { this.setState(state, () => this.newInterval(true)) }, 300)
+      setTimeout(() => {
+        this.setState(state, () => this.newInterval(true))
+      }, 300)
     } else {
       this.setState({ screen }, () => this.newInterval(true))
     }
@@ -269,10 +343,15 @@ class Tetris extends React.Component<IProps, IStates> {
 
   reset = () => {
     this.vibrate(100)
-    this.setState({
-      cBlock: blocks[Utils.random(0, blocks.length)],
-      y: 0, x: 0, rotate: Utils.random(0, 4)
-    }, () => this.isRowNeedClear(true))
+    this.setState(
+      {
+        cBlock: blocks[Utils.random(0, blocks.length)],
+        y: 0,
+        x: 0,
+        rotate: Utils.random(0, 4)
+      },
+      () => this.isRowNeedClear(true)
+    )
   }
 
   // state
@@ -281,31 +360,36 @@ class Tetris extends React.Component<IProps, IStates> {
     const result: number[][] = []
     for (let i = 0; i < r; i++) {
       const row: number[] = []
-      for (let j = 0; j < c; j++) { row.push(0) }
+      for (let j = 0; j < c; j++) {
+        row.push(0)
+      }
       result.push(row)
     }
     return result
   }
 
-  renderPlayboard = () => this.state.playboard ? this.state.playboard.map((r, i) => (
-    <div className='row' key={i}>
-      { r.map((c, j) => {
-        let cName = ''
-        switch (c) {
-          case 1:
-            cName = 'block'
-            break
-          case 2:
-            cName = 'full'
-            break
-          case 3:
-            cName = 'cleared'
-            break
-        }
-        return <div key={j} className={`item ${cName}`}/>
-      }) }
-    </div>
-  )) : null
+  renderPlayboard = () =>
+    this.state.playboard
+      ? this.state.playboard.map((r, i) => (
+        <div className="row" key={i}>
+          {r.map((c, j) => {
+            let cName = ''
+            switch (c) {
+              case 1:
+                cName = 'block'
+                break
+              case 2:
+                cName = 'full'
+                break
+              case 3:
+                cName = 'cleared'
+                break
+            }
+            return <div key={j} className={`item ${cName}`} />
+          })}
+        </div>
+      ))
+      : null
 
   togglePause = () => {
     const { pause } = this.state
@@ -328,52 +412,72 @@ class Tetris extends React.Component<IProps, IStates> {
   }
 
   getSize = props => {
-    if (!this.props.isMobile) { return {} }
+    if (!this.props.isMobile) {
+      return {}
+    }
     const { h } = props
     const scale = h / 960
     const filling = h - 480
     return {
-      paddingTop: (filling - 100) * .6,
-      [this.transform]: `scale(${scale + .3})`
+      paddingTop: (filling - 100) * 0.6,
+      [this.transform]: `scale(${scale + 0.3})`
     }
   }
 
-  vibrate = s => false && this.props.isMobile && navigator.vibrate ? navigator.vibrate(s) : null
+  vibrate = s =>
+    false && this.props.isMobile && navigator.vibrate
+      ? navigator.vibrate(s)
+      : null
 
-  getDirectionBtn = direction =>
-    <div onTouchStart={Utils.handle(direction === 'up' ? this.doMove : this.touchStart, keyCode[direction])} className={`anticon anticon-ts-app icon-${direction}-circle`}/>
+  getDirectionBtn = direction => (
+    <div
+      onTouchStart={Utils.handle(
+        direction === 'up' ? this.doMove : this.touchStart,
+        keyCode[direction]
+      )}
+      className={`anticon anticon-ts-app icon-${direction}-circle`}
+    />
+  )
 
-  render () {
+  render() {
     const { isMobile } = this.props
     const { pause, gameover, touchDown, score, style } = this.state
     const btnStyle = { [this.transform]: style[this.transform] }
     return (
       <div className={`tetris-wrapper ${isMobile ? 'mobile' : ''}`}>
-        <div className='tetris-screen-wrapper' style={style}>
-          <div className='score'>{score}</div>
+        <div className="tetris-screen-wrapper" style={style}>
+          <div className="score">{score}</div>
           <div className={`tetris-screen ${touchDown ? 'touch-buttom' : ''}`}>
-            { this.renderPlayboard() }
-            {
-              gameover ? (
-                <div className='game-over'>
-                  <Button type='primary' onClick={this.resetGame}>Reset</Button>
-                </div>
-              ) : null
-            }
+            {this.renderPlayboard()}
+            {gameover ? (
+              <div className="game-over">
+                <Button type="primary" onClick={this.resetGame}>
+                  Reset
+                </Button>
+              </div>
+            ) : null}
           </div>
         </div>
-        <div className='btn-wrapper'>
-          <div className='functional-btn' style={btnStyle}>
-            <div onTouchStart={this.togglePause} className={`anticon anticon-ts-app icon-${pause ? 'play' : 'pause'}`}/>
-            <div onTouchStart={this.goToBottom} className={`anticon anticon-ts-app icon-down`}/>
+        <div className="btn-wrapper">
+          <div className="functional-btn" style={btnStyle}>
+            <div
+              onTouchStart={this.togglePause}
+              className={`anticon anticon-ts-app icon-${
+                pause ? 'play' : 'pause'
+              }`}
+            />
+            <div
+              onTouchStart={this.goToBottom}
+              className={`anticon anticon-ts-app icon-down`}
+            />
           </div>
-          <div className='direction' style={btnStyle}>
-            { this.getDirectionBtn('up') }
-            <div className='middle'>
-              { this.getDirectionBtn('left') }
-              { this.getDirectionBtn('right') }
+          <div className="direction" style={btnStyle}>
+            {this.getDirectionBtn('up')}
+            <div className="middle">
+              {this.getDirectionBtn('left')}
+              {this.getDirectionBtn('right')}
             </div>
-            { this.getDirectionBtn('down') }
+            {this.getDirectionBtn('down')}
           </div>
         </div>
       </div>

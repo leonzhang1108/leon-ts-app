@@ -8,14 +8,14 @@ const {
 } = actionTypes
 
 interface IProp {
-  breadcrumb: any[],
-  openKeys: string[],
-  route: string,
-  collapsed: boolean,
-  contentHeight: number,
-  contentWidth: number,
-  width: number,
-  isMobile: boolean
+  breadcrumb: any[];
+  openKeys: string[];
+  route: string;
+  collapsed: boolean;
+  contentHeight: number;
+  contentWidth: number;
+  width: number;
+  isMobile: boolean;
 }
 
 const initState = {
@@ -32,7 +32,7 @@ const initState = {
 const toggleOpenKeys = (state, action) => {
   const { key } = action.payload
   const index = state.openKeys.indexOf(key)
-  let openKeys: string[] = []
+  const openKeys: string[] = []
 
   // 允许打开多个submenu
   // if (index >= 0) {
@@ -90,11 +90,12 @@ const common = (state: IProp = initState, action: any) => {
     [TOGGLE_COLLAPSE]: Object.assign({}, state, {
       collapsed: !state.collapsed
     }),
-    [TOGGLE_OPENKEYS]: () => Object.assign({}, state, {
-      openKeys: action.payload.isInit
-        ? initOpenKeys(state, action)
-        : toggleOpenKeys(state, action)
-    })
+    [TOGGLE_OPENKEYS]: () =>
+      Object.assign({}, state, {
+        openKeys: action.payload.isInit
+          ? initOpenKeys(state, action)
+          : toggleOpenKeys(state, action)
+      })
   }
 
   return Utils.getReducer(obj, type, state)

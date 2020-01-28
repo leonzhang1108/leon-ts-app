@@ -8,15 +8,15 @@ import * as imgzoomer from 'imgzoomer'
 import { Button, Modal } from 'antd'
 
 interface IProps {
-  height: number,
-  width: number
+  height: number;
+  width: number;
 }
 
 class Widgets extends React.Component<IProps> {
   svgLabelEditor
   imgZoomer
 
-  componentDidMount () {
+  componentDidMount() {
     const { height, width } = this.props
     const { Zoomer, SVGLabelEditor } = imgzoomer
     this.imgZoomer = new Zoomer('canvas', { width, height })
@@ -40,7 +40,7 @@ class Widgets extends React.Component<IProps> {
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.imgZoomer.removeEvents()
     this.svgLabelEditor.removeEvents()
   }
@@ -50,34 +50,38 @@ class Widgets extends React.Component<IProps> {
       title: 'Points',
       content: (
         <div>
-          {
-            this.svgLabelEditor.pointsList.map((item, i) => (
-              <div key={i}>
-                [{
-                  item.map(({ x, y }, index) => <div key={index}>({ x }, { y })</div>)
-                }]
-              </div>
-            ))
-          }
+          {this.svgLabelEditor.pointsList.map((item, i) => (
+            <div key={i}>
+              [
+              {item.map(({ x, y }, index) => (
+                <div key={index}>
+                  ({x}, {y})
+                </div>
+              ))}
+              ]
+            </div>
+          ))}
         </div>
       )
     })
   }
 
-  render () {
+  render() {
     // const fromDate = new Date('1991-11-8')
     // const toDate = new Date()
     return (
-      <div className='widget-wrapper'>
+      <div className="widget-wrapper">
         {/* <DatePicker fromDate={fromDate} toDate={toDate}/> */}
         {/* <ImgZoomer
           wrapperHeight={height}
           wrapperWidth={width}
           src={src}
         /> */}
-        <svg id='svg-wrapper'/>
-        <canvas id='canvas'/>
-        <Button className='btn' type='primary' onClick={this.getPoints}>get points</Button>
+        <svg id="svg-wrapper" />
+        <canvas id="canvas" />
+        <Button className="btn" type="primary" onClick={this.getPoints}>
+          get points
+        </Button>
       </div>
     )
   }

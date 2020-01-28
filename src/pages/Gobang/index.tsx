@@ -4,20 +4,20 @@ import React from 'react'
 import './index.less'
 
 interface IProps {
-  isMobile: boolean
+  isMobile: boolean;
 }
 
 interface IState {
-  size: number,
-  showNumber: boolean,
-  checkerboard: any[][],
-  step: number,
-  positions: any[]
-  renju: number
+  size: number;
+  showNumber: boolean;
+  checkerboard: any[][];
+  step: number;
+  positions: any[];
+  renju: number;
 }
 
 class Gobang extends React.Component<IProps, IState> {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.reset()
   }
@@ -26,7 +26,8 @@ class Gobang extends React.Component<IProps, IState> {
     const size = !this.props.isMobile ? 15 : 3
     const renju = !this.props.isMobile ? 5 : 3
     const state = {
-      size, renju,
+      size,
+      renju,
       showNumber: false,
       step: 0,
       positions: [],
@@ -63,18 +64,32 @@ class Gobang extends React.Component<IProps, IState> {
 
   itemClick = ({ rowIndex, itemIndex }) => {
     const { step } = this.state
-    this.setCheckerboard({ state: step % 2 === 1 ? 3 : 2, rowIndex, itemIndex }, true)
+    this.setCheckerboard(
+      { state: step % 2 === 1 ? 3 : 2, rowIndex, itemIndex },
+      true
+    )
   }
 
   setCheckerboard = ({ state, rowIndex, itemIndex }, isClick?) => {
     const { checkerboard, step, positions: p } = this.state
-    if (checkerboard[rowIndex][itemIndex].state !== 2 && checkerboard[rowIndex][itemIndex].state !== 3) {
+    if (
+      checkerboard[rowIndex][itemIndex].state !== 2 &&
+      checkerboard[rowIndex][itemIndex].state !== 3
+    ) {
       checkerboard[rowIndex][itemIndex] = { state, index: isClick ? step : -1 }
-      this.setState({
-        checkerboard,
-        step: isClick ? step + 1 : step,
-        positions: isClick ? p.concat({ row: rowIndex, column: itemIndex }) : p
-      }, () => isClick && !this.isWin({ rowIndex, itemIndex, state }) && this.isPeace())
+      this.setState(
+        {
+          checkerboard,
+          step: isClick ? step + 1 : step,
+          positions: isClick
+            ? p.concat({ row: rowIndex, column: itemIndex })
+            : p
+        },
+        () =>
+          isClick &&
+          !this.isWin({ rowIndex, itemIndex, state }) &&
+          this.isPeace()
+      )
     }
   }
 
@@ -89,9 +104,10 @@ class Gobang extends React.Component<IProps, IState> {
   }
 
   isWin = ({ rowIndex, itemIndex, state }) => {
-    const isWin = this.isColumnWin({ rowIndex, itemIndex, state })
-      || this.isRowWin({ rowIndex, itemIndex, state })
-      || this.isSkewWin({ rowIndex, itemIndex, state })
+    const isWin =
+      this.isColumnWin({ rowIndex, itemIndex, state }) ||
+      this.isRowWin({ rowIndex, itemIndex, state }) ||
+      this.isSkewWin({ rowIndex, itemIndex, state })
 
     if (isWin) {
       Modal.info({
@@ -106,9 +122,10 @@ class Gobang extends React.Component<IProps, IState> {
     const { size, checkerboard, renju } = this.state
     let result = 0
     for (let i = -(renju - 1); i <= renju - 1; i++) {
-      if (rowIndex + i >= 0
-        && rowIndex + i < size
-        && checkerboard[rowIndex + i][itemIndex].state === state
+      if (
+        rowIndex + i >= 0 &&
+        rowIndex + i < size &&
+        checkerboard[rowIndex + i][itemIndex].state === state
       ) {
         result++
       } else {
@@ -125,9 +142,10 @@ class Gobang extends React.Component<IProps, IState> {
     const { size, checkerboard, renju } = this.state
     let result = 0
     for (let i = -(renju - 1); i <= renju - 1; i++) {
-      if (itemIndex + i >= 0
-        && itemIndex + i < size
-        && checkerboard[rowIndex][itemIndex + i].state === state
+      if (
+        itemIndex + i >= 0 &&
+        itemIndex + i < size &&
+        checkerboard[rowIndex][itemIndex + i].state === state
       ) {
         result++
       } else {
@@ -141,18 +159,19 @@ class Gobang extends React.Component<IProps, IState> {
   }
 
   isSkewWin = ({ rowIndex, itemIndex, state }) =>
-    this.isDownLineWin({ rowIndex, itemIndex, state })
-      || this.isUpLineWin({ rowIndex, itemIndex, state })
+    this.isDownLineWin({ rowIndex, itemIndex, state }) ||
+    this.isUpLineWin({ rowIndex, itemIndex, state })
 
   isDownLineWin = ({ rowIndex, itemIndex, state }) => {
     const { size, checkerboard, renju } = this.state
     let result = 0
     for (let i = -(renju - 1); i <= renju - 1; i++) {
-      if (itemIndex + i >= 0
-        && itemIndex + i < size
-        && rowIndex + i >= 0
-        && rowIndex + i < size
-        && checkerboard[rowIndex + i][itemIndex + i].state === state
+      if (
+        itemIndex + i >= 0 &&
+        itemIndex + i < size &&
+        rowIndex + i >= 0 &&
+        rowIndex + i < size &&
+        checkerboard[rowIndex + i][itemIndex + i].state === state
       ) {
         result++
       } else {
@@ -169,11 +188,12 @@ class Gobang extends React.Component<IProps, IState> {
     const { size, checkerboard, renju } = this.state
     let result = 0
     for (let i = -(renju - 1); i <= renju - 1; i++) {
-      if (itemIndex + i >= 0
-        && itemIndex + i < size
-        && rowIndex - i >= 0
-        && rowIndex - i < size
-        && checkerboard[rowIndex - i][itemIndex + i].state === state
+      if (
+        itemIndex + i >= 0 &&
+        itemIndex + i < size &&
+        rowIndex - i >= 0 &&
+        rowIndex - i < size &&
+        checkerboard[rowIndex - i][itemIndex + i].state === state
       ) {
         result++
       } else {
@@ -217,37 +237,47 @@ class Gobang extends React.Component<IProps, IState> {
         break
     }
     return (
-      <div className='item' key={itemIndex}
+      <div
+        className="item"
+        key={itemIndex}
         onClick={Utils.handle(this.itemClick, { rowIndex, itemIndex })}
         onMouseEnter={Utils.handle(this.mouseEnter, { rowIndex, itemIndex })}
         onMouseLeave={Utils.handle(this.mouseLeave, { rowIndex, itemIndex })}
       >
-        <div className={className}>{showNumber && index >= 0 ? index + 1 : ''}</div>
+        <div className={className}>
+          {showNumber && index >= 0 ? index + 1 : ''}
+        </div>
       </div>
     )
   }
 
   renderRow = (row, rowIndex) => (
-    <div className='row' key={rowIndex}>
-      { row.map((item, itemIndex) => this.renderItem(item, rowIndex, itemIndex)) }
+    <div className="row" key={rowIndex}>
+      {row.map((item, itemIndex) => this.renderItem(item, rowIndex, itemIndex))}
     </div>
   )
 
-  render () {
+  render() {
     const { checkerboard, showNumber, positions } = this.state
     return (
-      <div className='gobang-wrapper'>
-        <div className='table-wrapper'>
-          { checkerboard.map(this.renderRow) }
-        </div>
-        <div className='button-wrapper'>
-          <Button type='primary' disabled={positions.length === 0} onClick={this.reset}>
+      <div className="gobang-wrapper">
+        <div className="table-wrapper">{checkerboard.map(this.renderRow)}</div>
+        <div className="button-wrapper">
+          <Button
+            type="primary"
+            disabled={positions.length === 0}
+            onClick={this.reset}
+          >
             Reset
           </Button>
-          <Button type='primary' onClick={this.toggleShowNumber}>
-            { showNumber ? 'Hide steps' : 'Show steps'}
+          <Button type="primary" onClick={this.toggleShowNumber}>
+            {showNumber ? 'Hide steps' : 'Show steps'}
           </Button>
-          <Button type='primary' disabled={positions.length === 0} onClick={this.retract}>
+          <Button
+            type="primary"
+            disabled={positions.length === 0}
+            onClick={this.retract}
+          >
             Retract
           </Button>
         </div>

@@ -6,11 +6,11 @@ import { bindActionCreators } from 'redux'
 import './index.less'
 
 interface IProps {
-  collapsed: boolean,
-  isMobile: boolean,
+  collapsed: boolean;
+  isMobile: boolean;
   actions: {
-    toggleCollapse (): void
-  }
+    toggleCollapse(): void;
+  };
 }
 
 class MainContent extends React.Component<IProps> {
@@ -18,17 +18,23 @@ class MainContent extends React.Component<IProps> {
     this.props.actions.toggleCollapse()
   }
 
-  render () {
+  render() {
     const { children, collapsed, isMobile } = this.props
     const className = isMobile && collapsed ? 'mask' : ''
     return (
-      <Layout style={{
-        marginLeft: isMobile ? 0 : !collapsed ? 200 : 80,
-        height: '100%',
-        transform: `translateX(${ isMobile ? collapsed ? 100 : 0 : 0 }px)`
-      }}>
-        { isMobile ? <div className={className} onClick={this.toggleCollapse}/> : '' }
-        { children }
+      <Layout
+        style={{
+          marginLeft: isMobile ? 0 : !collapsed ? 200 : 80,
+          height: '100%',
+          transform: `translateX(${isMobile ? (collapsed ? 100 : 0) : 0}px)`
+        }}
+      >
+        {isMobile ? (
+          <div className={className} onClick={this.toggleCollapse} />
+        ) : (
+          ''
+        )}
+        {children}
       </Layout>
     )
   }
@@ -41,8 +47,11 @@ export default Utils.connect({
     isMobile: state.common.isMobile
   }),
   mapDispatchToProps: dispatch => ({
-    actions: bindActionCreators({
-      toggleCollapse: common.toggleCollapse
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        toggleCollapse: common.toggleCollapse
+      },
+      dispatch
+    )
   })
 })

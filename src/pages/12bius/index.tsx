@@ -1,28 +1,28 @@
 import Utils from '@utils'
 import React from 'react'
 interface IProps {
-  background?: string
-  width?: number
-  height?: number
-  maxFireworks?: number
-  maxSparks?: number
+  background?: string;
+  width?: number;
+  height?: number;
+  maxFireworks?: number;
+  maxSparks?: number;
 }
 
 interface ISpark {
-  vx: number
-  vy: number
-  weight: number
-  red: number
-  green: number
-  blue: number
+  vx: number;
+  vy: number;
+  weight: number;
+  red: number;
+  green: number;
+  blue: number;
 }
 
 interface IFirework {
-  x: number
-  y: number
-  age: number
-  phase: 'fly' | 'explode'
-  sparks: ISpark[]
+  x: number;
+  y: number;
+  age: number;
+  phase: 'fly' | 'explode';
+  sparks: ISpark[];
 }
 
 const radius = 5
@@ -62,10 +62,11 @@ const generateFireworks = (
   height: number,
   maxFireworks: number,
   maxSparks: number
-) => times(maxFireworks, () => ({
-  ...initFirework(width, height),
-  sparks: generateSparks(maxSparks)
-}))
+) =>
+  times(maxFireworks, () => ({
+    ...initFirework(width, height),
+    sparks: generateSparks(maxSparks)
+  }))
 
 const toRGBA = (r = 0, g = 0, b = 0, a = 1) => `rgba(${[r, g, b, a].join(',')})`
 
@@ -76,10 +77,17 @@ const fill = (ctx: any, x: number, y: number, colors: number[]) => {
   ctx.fill()
 }
 
-const draw = (ctx: any, { phase, sparks, age, x, y }: IFirework, index: number) => {
+const draw = (
+  ctx: any,
+  { phase, sparks, age, x, y }: IFirework,
+  index: number
+) => {
   if (phase === 'fly') {
     times(15, (i: number) => {
-      fill(ctx, x + Math.random() * i - i / 2, y + i * radius, [index * 50, i * 17])
+      fill(ctx, x + Math.random() * i - i / 2, y + i * radius, [
+        index * 50,
+        i * 17
+      ])
     })
     return
   }
@@ -100,15 +108,25 @@ const draw = (ctx: any, { phase, sparks, age, x, y }: IFirework, index: number) 
 
 const update = (width: number, height: number, firework: IFirework) => {
   if (firework.phase === 'explode') {
-    const others = firework.age > 100 && Math.random() < 0.05 ? initFirework(width, height) : {}
+    const others =
+      firework.age > 100 && Math.random() < 0.05
+        ? initFirework(width, height)
+        : {}
     return { ...firework, age: firework.age + 1, ...others }
   } else {
-    const phase = Math.random() < 0.001 || firework.y < 200 ? 'explode' : firework.phase
+    const phase =
+      Math.random() < 0.001 || firework.y < 200 ? 'explode' : firework.phase
     return { ...firework, y: firework.y - 10, phase }
   }
 }
 
-const Fireworks12bius = ({ background, width = 0, height = 0, maxFireworks = 0, maxSparks = 0 }: IProps) => {
+const Fireworks12bius = ({
+  background,
+  width = 0,
+  height = 0,
+  maxFireworks = 0,
+  maxSparks = 0
+}: IProps) => {
   const canvas: any = React.useRef(null)
   const [fireworks, updator] = React.useState(
     generateFireworks(width, height, maxFireworks, maxSparks)
@@ -125,7 +143,9 @@ const Fireworks12bius = ({ background, width = 0, height = 0, maxFireworks = 0, 
     )
   })
 
-  return <canvas ref={canvas} width={width} height={height} style={{ background }} />
+  return (
+    <canvas ref={canvas} width={width} height={height} style={{ background }} />
+  )
 }
 
 Fireworks12bius.defaultProps = {

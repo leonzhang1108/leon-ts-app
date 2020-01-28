@@ -8,29 +8,28 @@ const storage = new Utils.Storage('2048')
 const { keyCode } = common
 
 interface IPiece {
-  x: number,
-  y: number,
-  v: number,
-  id: number,
-  merged?: boolean
+  x: number;
+  y: number;
+  v: number;
+  id: number;
+  merged?: boolean;
 }
 
 interface IState {
-  size: number,
-  pieces: IPiece[],
+  size: number;
+  pieces: IPiece[];
   cached: {
-    x: number,
-    y: number
-  }
+    x: number;
+    y: number;
+  };
 }
 
 interface IProp {
-  isMobile: boolean
+  isMobile: boolean;
 }
 
 class Page2048 extends React.Component<IProp, IState> {
-
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.reset(storage.get('pieces'), true)
     document.addEventListener('keydown', this.keydown)
@@ -57,13 +56,13 @@ class Page2048 extends React.Component<IProp, IState> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     document.addEventListener('touchstart', this.touchstart)
     document.addEventListener('touchmove', this.touchmove)
     document.addEventListener('touchend', this.touchend)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     document.removeEventListener('keydown', this.keydown)
     document.removeEventListener('touchstart', this.touchstart)
     document.removeEventListener('touchmove', this.touchmove)
@@ -85,11 +84,14 @@ class Page2048 extends React.Component<IProp, IState> {
 
   touchend = e => {
     const { x: sx, y: sy } = this.state.cached
-    const { pageX : ex, pageY: ey } = e.changedTouches[0]
+    const { pageX: ex, pageY: ey } = e.changedTouches[0]
     let code = 0
     if (Math.abs(sx - ex) > Math.abs(sy - ey) && Math.abs(sx - ex) > 20) {
       code = sx - ex > 0 ? keyCode.left : keyCode.right
-    } else if (Math.abs(sx - ex) < Math.abs(sy - ey) && Math.abs(sy - ey) > 20) {
+    } else if (
+      Math.abs(sx - ex) < Math.abs(sy - ey) &&
+      Math.abs(sy - ey) > 20
+    ) {
       code = sy - ey > 0 ? keyCode.up : keyCode.down
     } else {
       return
@@ -106,19 +108,27 @@ class Page2048 extends React.Component<IProp, IState> {
       switch (code) {
         case keyCode.up:
           const { p: up, changed: uc } = Tools.moveUp(pieces)
-          if (uc) { p = this.addRandom(up) }
+          if (uc) {
+            p = this.addRandom(up)
+          }
           break
         case keyCode.down:
           const { p: dp, changed: dc } = Tools.moveDown(pieces)
-          if (dc) { p = this.addRandom(dp) }
+          if (dc) {
+            p = this.addRandom(dp)
+          }
           break
         case keyCode.left:
           const { p: lp, changed: lc } = Tools.moveLeft(pieces)
-          if (lc) { p = this.addRandom(lp) }
+          if (lc) {
+            p = this.addRandom(lp)
+          }
           break
         case keyCode.right:
           const { p: rp, changed: rc } = Tools.moveRight(pieces)
-          if (rc) { p = this.addRandom(rp) }
+          if (rc) {
+            p = this.addRandom(rp)
+          }
           break
       }
       this.setState({ pieces: p })
@@ -126,21 +136,30 @@ class Page2048 extends React.Component<IProp, IState> {
   }
 
   addRandom = (p, isReset?) => {
-    if (!isReset) { setTimeout(() => this.setStorage(p), 0) }
+    if (!isReset) {
+      setTimeout(() => this.setStorage(p), 0)
+    }
     const i = this.doAddRandom(p)
-    if (i) { p.push(i) }
+    if (i) {
+      p.push(i)
+    }
     return p
   }
 
   setStorage = p => {
-    storage.set('pieces', Utils.clone(p).filter((item, i) => {
-      item.id = i
-      return !item.merged
-    }))
+    storage.set(
+      'pieces',
+      Utils.clone(p).filter((item, i) => {
+        item.id = i
+        return !item.merged
+      })
+    )
   }
 
   doAddRandom = p => {
-    if (p.length === 16) { return null }
+    if (p.length === 16) {
+      return null
+    }
     const x = Utils.random(0, 4)
     const y = Utils.random(0, 4)
     return p.some(i => i.x === x && i.y === y)
@@ -148,17 +167,16 @@ class Page2048 extends React.Component<IProp, IState> {
       : { x, y, v: this.get4or2(), id: Math.random() }
   }
 
-  get4or2 = () => Math.random() > .9 ? 4 : 2
+  get4or2 = () => (Math.random() > 0.9 ? 4 : 2)
 
-  renderGrid = () => new Array(this.state.size).fill(null).map((v1, x) => (
-    <div className='row' key={x}>
-      {
-        new Array(this.state.size).fill(null).map((v2, y) => (
-          <div className='item' key={y}/>
-        ))
-      }
-    </div>
-  ))
+  renderGrid = () =>
+    new Array(this.state.size).fill(null).map((v1, x) => (
+      <div className="row" key={x}>
+        {new Array(this.state.size).fill(null).map((v2, y) => (
+          <div className="item" key={y} />
+        ))}
+      </div>
+    ))
 
   isGameOver = pieces => {
     const { size } = this.state
@@ -173,7 +191,7 @@ class Page2048 extends React.Component<IProp, IState> {
       [0, 0, 0, 0]
     ]
 
-    pieces.forEach(({ x, y, v }) => list[x][y] = v)
+    pieces.forEach(({ x, y, v }) => (list[x][y] = v))
 
     return this.canMove(list)
   }
@@ -183,11 +201,9 @@ class Page2048 extends React.Component<IProp, IState> {
       for (let c = 0; c < data[r].length; c++) {
         if (data[r][c] === 0) {
           return false
-        } else if (c < data[r].length - 1
-          && data[r][c] === data[r][c + 1]) {
+        } else if (c < data[r].length - 1 && data[r][c] === data[r][c + 1]) {
           return false
-        } else if (r < data.length - 1
-          && data[r][c] === data[r + 1][c]) {
+        } else if (r < data.length - 1 && data[r][c] === data[r + 1][c]) {
           return false
         }
       }
@@ -195,36 +211,42 @@ class Page2048 extends React.Component<IProp, IState> {
     return true
   }
 
-  render () {
+  render() {
     const { pieces } = this.state
     return (
-      <div className='game2048-wrapper'>
-        <div className='game2048-container' >
-          <div className='grid'>
-            { this.renderGrid() }
-          </div>
-          <div className='piece-contanier'>
-            {
-              (pieces || []).map(item => (
-                <div className={`piece piece-${item.v} piece-position-${item.x}-${item.y} ${item.merged ? 'merged' : ''}`} key={item.id} >
-                  <div className='item'>
-                    {
-                      item.v === 2048
-                        ? <Icon type='ts-app icon-batman' />
-                        : item.v
-                    }
-                  </div>
+      <div className="game2048-wrapper">
+        <div className="game2048-container">
+          <div className="grid">{this.renderGrid()}</div>
+          <div className="piece-contanier">
+            {(pieces || []).map(item => (
+              <div
+                className={`piece piece-${item.v} piece-position-${item.x}-${
+                  item.y
+                } ${item.merged ? 'merged' : ''}`}
+                key={item.id}
+              >
+                <div className="item">
+                  {item.v === 2048 ? (
+                    <Icon type="ts-app icon-batman" />
+                  ) : (
+                    item.v
+                  )}
                 </div>
-              ))
-            }
+              </div>
+            ))}
           </div>
           <div className={this.isGameOver(pieces) ? 'mask' : 'mask hidden'}>
             Game Over
           </div>
         </div>
-        <div className='btn-container'>
-          <Popconfirm title='Sure about that?' onConfirm={Utils.handle(this.reset)} okText='Yes' cancelText='No'>
-            <Button type='primary' className='reset-btn'>
+        <div className="btn-container">
+          <Popconfirm
+            title="Sure about that?"
+            onConfirm={Utils.handle(this.reset)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" className="reset-btn">
               Reset
             </Button>
           </Popconfirm>

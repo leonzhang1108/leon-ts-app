@@ -1,11 +1,11 @@
 import React from 'react'
 
 interface IState {
-  hasError: boolean
+  hasError: boolean;
 }
 
 interface IProps {
-  children: Object
+  children: Record<string, any>;
 }
 
 class ErrorBoundary extends React.Component<IProps, IState> {

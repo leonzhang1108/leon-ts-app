@@ -2,18 +2,17 @@ import React from 'react'
 import './index.less'
 
 const Loading = ({ isLoading, error }) => {
-
-  let res = <span/>
+  let res = <span />
 
   if (error) {
     res = <span>Sorry, there was a problem loading the page.</span>
   }
 
   if (isLoading) {
-    res = <div className='loader'/>
+    res = <div className="loader" />
   }
 
-  return <div className='loading-center'>{res}</div>
+  return <div className="loading-center">{res}</div>
 }
 
 export default Loading

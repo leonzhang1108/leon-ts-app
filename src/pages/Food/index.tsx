@@ -6,17 +6,16 @@ import FoodOptions from './food.json'
 const Search = Input.Search
 
 interface IFoodState {
-  loaded: boolean
+  loaded: boolean;
 }
 
 class Food extends React.Component<{}, IFoodState> {
-
   canvas
   wrapper
   words = {}
   interval
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       loaded: false
@@ -27,7 +26,7 @@ class Food extends React.Component<{}, IFoodState> {
     console.log(v)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({ loaded: true }, () => this.initCanvas(FoodOptions))
   }
 
@@ -84,32 +83,35 @@ class Food extends React.Component<{}, IFoodState> {
     } else {
       this.interval = setInterval(init, 24)
     }
-
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearInterval(this.interval)
   }
 
-  render () {
+  render() {
     const { loaded } = this.state
     return (
-      <div className='food-wrapper' ref={el => this.wrapper = el}>
-      {
+      <div className="food-wrapper" ref={el => (this.wrapper = el)}>
         loaded ? (
-          <>
-            <div className='input'>
-              <Search
-                placeholder='food you want'
-                enterButton='Add'
-                size='large'
-                onSearch={this.onSearch}
-              />
-            </div>
-            <canvas id='c' className='canvas' ref={el => this.canvas = el} style={{ opacity: loaded ? 1 : 0 }}/>
-          </>
-        ) : <div className='loader'/>
-      }
+        <>
+          <div className="input">
+            <Search
+              placeholder="food you want"
+              enterButton="Add"
+              size="large"
+              onSearch={this.onSearch}
+            />
+          </div>
+          <canvas
+            id="c"
+            className="canvas"
+            ref={el => (this.canvas = el)}
+            style={{ opacity: loaded ? 1 : 0 }}
+          />
+        </>
+        ) : (
+        <div className="loader" />}
       </div>
     )
   }

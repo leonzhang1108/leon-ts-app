@@ -11,10 +11,7 @@ export default {
     component,
     mapStateToProps,
     mapDispatchToProps
-  }: IConnectProps) => connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(component),
+  }: IConnectProps) => connect(mapStateToProps, mapDispatchToProps)(component),
 
   toCamelCase: str => {
     // toCamelCase
@@ -49,27 +46,34 @@ export default {
 
   handle: (func, ...args) => v => func(...args, v),
 
-  changeTitle: breadcrumb => document.title = breadcrumb[breadcrumb.length - 1].title,
+  changeTitle: breadcrumb =>
+    (document.title = breadcrumb[breadcrumb.length - 1].title),
 
   clone: v => JSON.parse(JSON.stringify(v)),
 
   transform: (() => {
-    const trans = ['transform', 'webkitTransform', 'msTransform', 'mozTransform', 'oTransform']
+    const trans = [
+      'transform',
+      'webkitTransform',
+      'msTransform',
+      'mozTransform',
+      'oTransform'
+    ]
     const body = document.body
-    return trans.filter((e) => body.style[e] !== undefined)[0]
+    return trans.filter(e => body.style[e] !== undefined)[0]
   })(),
 
   secondFormatToTime: s => {
     let i = 0
     if (s > 60) {
       i = parseInt(s / 60 + '', 10)
-      s = parseInt(s % 60 + '', 10)
+      s = parseInt((s % 60) + '', 10)
       if (i > 60) {
-        i = parseInt(i % 60 + '', 10)
+        i = parseInt((i % 60) + '', 10)
       }
     }
 
-    const zero = v => v < 10 ? '0' + v : v
+    const zero = v => (v < 10 ? '0' + v : v)
     return zero(i) && zero(s) ? [zero(i), zero(s)].join(':') : '00:00'
   },
 

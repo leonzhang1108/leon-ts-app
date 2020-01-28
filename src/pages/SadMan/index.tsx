@@ -4,8 +4,8 @@ import './index.less'
 import SadMan from './sadman'
 
 interface IProps {
-  h: number,
-  w: number
+  h: number;
+  w: number;
 }
 
 class SadManPage extends React.Component<IProps> {
@@ -14,7 +14,7 @@ class SadManPage extends React.Component<IProps> {
   tick = 0
   sadman
 
-  componentDidMount () {
+  componentDidMount() {
     this.initCanvas()
     this.loop()
   }
@@ -30,17 +30,19 @@ class SadManPage extends React.Component<IProps> {
   }
 
   draw = () => {
-    if (!this.canvas) { return false }
+    if (!this.canvas) {
+      return false
+    }
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     this.tick += 0.05
     this.sadman.draw(this.tick)
     return true
   }
 
-  render () {
+  render() {
     return (
-      <div className='sad-man-wrapper' >
-        <canvas ref={el => this.canvas = el}/>
+      <div className="sad-man-wrapper">
+        <canvas ref={el => (this.canvas = el)} />
       </div>
     )
   }

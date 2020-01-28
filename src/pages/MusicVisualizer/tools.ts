@@ -18,12 +18,16 @@ export default {
       const barWidth = rectWidth * 0.5
       const capHeight = Math.min(barWidth, 10) * vol
       for (let i = 0; i < bars; i++) {
-        const rectHeight = arr[i] / 256 * height * vol
-        const capDistance = arr[i] > 0
-          ? Math.min(rectHeight + 40, height - capHeight)
-          : 0
+        const rectHeight = (arr[i] / 256) * height * vol
+        const capDistance =
+          arr[i] > 0 ? Math.min(rectHeight + 40, height - capHeight) : 0
         ctx.fillRect(rectWidth * i, height - rectHeight, barWidth, rectHeight)
-        ctx.fillRect(rectWidth * i, height - (capDistance + capHeight), barWidth, capHeight)
+        ctx.fillRect(
+          rectWidth * i,
+          height - (capDistance + capHeight),
+          barWidth,
+          capHeight
+        )
       }
     }
   }

@@ -32,7 +32,9 @@ const couldMoveFun = {
       row.every((_, dx) => {
         const nx = dx + rx
         const ny = y + dy - length
-        if (ny >= 0 && ny < 20 && playboard[ny][nx]) { couldMove = false }
+        if (ny >= 0 && ny < 20 && playboard[ny][nx]) {
+          couldMove = false
+        }
         return couldMove
       })
       return couldMove
@@ -40,7 +42,9 @@ const couldMoveFun = {
     return couldMove
   },
   [keyCode.down]: ({ width, block, rx, y, playboard, length }) => {
-    if (y === 21) { return false }
+    if (y === 21) {
+      return false
+    }
     let couldMove = true
     const bottomBlockList: any[] = []
     for (let i = 0; i < width; i++) {

@@ -9,17 +9,17 @@ import './App.less'
 
 const { Content, Footer } = Layout
 const App = () => (
-  <Layout className='app'>
-    <Menu/>
+  <Layout className="app">
+    <Menu />
     <MainContent>
-      <Content className='content-wrapper'>
-        <Breadcrumb/>
+      <Content className="content-wrapper">
+        <Breadcrumb />
         <ContentWrapper>
-          <Router/>
+          <Router />
         </ContentWrapper>
       </Content>
       <Footer style={{ textAlign: 'center', padding: '10px 50px' }}>
-        BLOG © 2018 - 2019 Created by Leon
+        BLOG © 2018 - 2020 Created by Leon
       </Footer>
     </MainContent>
   </Layout>

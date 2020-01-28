@@ -3,21 +3,25 @@ import React from 'react'
 import './index.less'
 
 interface IProps {
-  isMobile: boolean
+  isMobile: boolean;
 }
 
 class BatmanHistory extends React.Component<IProps> {
-  render () {
+  render() {
     const { isMobile } = this.props
     return (
       <div className={`history-wrapper ${isMobile ? 'mobile' : ''}`}>
-        <div className='history'>
-          <svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'>
+        <div className="history">
+          <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
             <title>Batman Logos Over Time</title>
             <desc>Morhphing between sixteen different Batman logos.</desc>
 
-            <path d='M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18 220,56 235,81 283,88 285,78.7 286,69.3 288,60 289,61.3 290,62.7 291,64 291,64 297,63 300,63 303,63 309,64 309,64 310,62.7 311,61.3 312,60 314,69.3 315,78.7 317,88 365,82 380,56 367,18 431,71 453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z'>
-              <animate dur='32s' repeatCount='indefinite' attributeName='d' values='
+            <path d="M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18 220,56 235,81 283,88 285,78.7 286,69.3 288,60 289,61.3 290,62.7 291,64 291,64 297,63 300,63 303,63 309,64 309,64 310,62.7 311,61.3 312,60 314,69.3 315,78.7 317,88 365,82 380,56 367,18 431,71 453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z">
+              <animate
+                dur="32s"
+                repeatCount="indefinite"
+                attributeName="d"
+                values="
                 M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18   220,56   235,81   283,88   285,78.7 286,69.3 288,60   289,61.3 290,62.7 291,64   291,64   297,63   300,63   303,63   309,64   309,64   310,62.7 311,61.3 312,60   314,69.3 315,78.7 317,88   365,82   380,56   367,18   431,71   453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z;
                 M 212,220 C 197,171 156,153 123,221 109,157 120,109  159,63.6 190,114  234,115  254,89.8 260,82.3 268,69.6 270,60.3 273,66.5 275,71.6 280,75.6 286,79.5 294,79.8 300,79.8 306,79.8 314,79.5 320,75.6 325,71.6 327,66.5 330,60.3 332,69.6 340,82.3 346,89.8 366,115  410,114  441,63.6 480,109  491,157 477,221 444,153 403,171 388,220 366,188 316,200 300,248 284,200 234,188 212,220 Z;
                 M 212,220 C 197,171 156,153 123,221 109,157 120,109  159,63.6 190,114  234,115  254,89.8 260,82.3 268,69.6 270,60.3 273,66.5 275,71.6 280,75.6 286,79.5 294,79.8 300,79.8 306,79.8 314,79.5 320,75.6 325,71.6 327,66.5 330,60.3 332,69.6 340,82.3 346,89.8 366,115  410,114  441,63.6 480,109  491,157 477,221 444,153 403,171 388,220 366,188 316,200 300,248 284,200 234,188 212,220 Z;
@@ -50,137 +54,450 @@ class BatmanHistory extends React.Component<IProps> {
                 M 166,154 C 179,119 154,95.4 114,79.3 155,79.1 197,78.9 239,78.7 242,103 250,109 283,109 289,109 290,93.9 291,83.7 292,88.3 292,92.9 293,97.5 295,97.5 298,97.5 300,97.5 302,97.5 305,97.5 307,97.5 308,92.9 308,88.3 309,83.7 310,93.9 311,109 317,109 350,109 358,103 361,78.7 403,78.9 445,79.1 486,79.3 446,95.4 421,119 434,154 377,151 320,151 300,207 280,151 223,151 166,154 Z;
                 M 166,154 C 179,119 154,95.4 114,79.3 155,79.1 197,78.9 239,78.7 242,103 250,109 283,109 289,109 290,93.9 291,83.7 292,88.3 292,92.9 293,97.5 295,97.5 298,97.5 300,97.5 302,97.5 305,97.5 307,97.5 308,92.9 308,88.3 309,83.7 310,93.9 311,109 317,109 350,109 358,103 361,78.7 403,78.9 445,79.1 486,79.3 446,95.4 421,119 434,154 377,151 320,151 300,207 280,151 223,151 166,154 Z;
                 M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18   220,56   235,81   283,88   285,78.7 286,69.3 288,60   289,61.3 290,62.7 291,64   291,64   297,63   300,63   303,63   309,64   309,64   310,62.7 311,61.3 312,60   314,69.3 315,78.7 317,88   365,82   380,56   367,18   431,71   453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z;
-                M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18   220,56   235,81   283,88   285,78.7 286,69.3 288,60   289,61.3 290,62.7 291,64   291,64   297,63   300,63   303,63   309,64   309,64   310,62.7 311,61.3 312,60   314,69.3 315,78.7 317,88   365,82   380,56   367,18   431,71   453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z;'
+                M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18   220,56   235,81   283,88   285,78.7 286,69.3 288,60   289,61.3 290,62.7 291,64   291,64   297,63   300,63   303,63   309,64   309,64   310,62.7 311,61.3 312,60   314,69.3 315,78.7 317,88   365,82   380,56   367,18   431,71   453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z;"
               />
             </path>
 
             <g style={{ fontSize: '32px', textAnchor: 'middle' }}>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1' />1965</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1966</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1977</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1983</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1986</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1992</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1993</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1995</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1995</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />1998</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0' />1999</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0' />2001</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0' />2003</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0' />2003</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0' />2005</text>
-              <text x='300' y='320'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0' />2008</text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1"
+                />
+                1965
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1966
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1977
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1983
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1986
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1992
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1993
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1995
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1995
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1998
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                1999
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0"
+                />
+                2001
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0"
+                />
+                2003
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0"
+                />
+                2003
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0"
+                />
+                2005
+              </text>
+              <text x="300" y="320">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0"
+                />
+                2008
+              </text>
             </g>
 
             <g style={{ fontSize: '24px', textAnchor: 'middle' }}>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1' />Batman</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman
-                and the Outsiders</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman:
-                Legends of the Dark Knight</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman
-                Returns</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman
-                Knighfall</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman
-                Forever</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Batman
-                Chronicles</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />The
-                Batman Chronicles</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0' />Batman
-                Beyond</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0' />Batman
-                Vengence</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0' />Batman
-                Gothom Heights</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0' />Batman
-                Dead End</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0' />Batman
-                Begins</text>
-              <text x='300' y='350'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0' />The
-                Dark Knight</text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1"
+                />
+                Batman
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman and the Outsiders
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman: Legends of the Dark Knight
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman Returns
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman Knighfall
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman Forever
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman Chronicles
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                The Batman Chronicles
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman Beyond
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0"
+                />
+                Batman Vengence
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0"
+                />
+                Batman Gothom Heights
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0"
+                />
+                Batman Dead End
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0"
+                />
+                Batman Begins
+              </text>
+              <text x="300" y="350">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0"
+                />
+                The Dark Knight
+              </text>
             </g>
 
             <g style={{ fontSize: '20px', textAnchor: 'middle' }}>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Television</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Movie</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />Movie</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0' />Animation</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0' />Video
-                Game</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0' />DC
-                Comics</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0' />Movie</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0' />Movie</text>
-              <text x='300' y='378'>
-                <animate dur='32s' attributeName='opacity' repeatCount='indefinite' values='0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0' />Movie</text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Television
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Movie
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Movie
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0"
+                />
+                Animation
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0"
+                />
+                Video Game
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0"
+                />
+                DC Comics
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0"
+                />
+                Movie
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0"
+                />
+                Movie
+              </text>
+              <text x="300" y="378">
+                <animate
+                  dur="32s"
+                  attributeName="opacity"
+                  repeatCount="indefinite"
+                  values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0"
+                />
+                Movie
+              </text>
             </g>
-
           </svg>
         </div>
       </div>

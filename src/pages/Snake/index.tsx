@@ -14,14 +14,14 @@ enum Direction {
 }
 
 interface IProps {
-  w: number
-  h: number,
-  isMobile: boolean
+  w: number;
+  h: number;
+  isMobile: boolean;
 }
 
 interface IState {
-  isGameOver: boolean,
-  hint: string
+  isGameOver: boolean;
+  hint: string;
 }
 
 const { Up, Down, Left, Right } = Direction
@@ -58,12 +58,12 @@ class Snake extends React.Component<IProps, IState> {
     hint: ''
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     document.addEventListener('keydown', this.keydown)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     document.removeEventListener('keydown', this.keydown)
   }
 
@@ -84,7 +84,7 @@ class Snake extends React.Component<IProps, IState> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.ctx = this.canvas.getContext('2d')
     this.init()
     const joystick = nipplejs.create({
@@ -99,7 +99,8 @@ class Snake extends React.Component<IProps, IState> {
 
   go = direction => {
     if (this.state.isGameOver) return
-    if (this.direction !== reverseDirection[direction]) this.direction = direction
+    if (this.direction !== reverseDirection[direction])
+      this.direction = direction
     this.init()
   }
 
@@ -110,15 +111,18 @@ class Snake extends React.Component<IProps, IState> {
   }
 
   reset = () => {
-    this.setState({
-      isGameOver: false
-    }, () => {
-      this.clearReact()
-      this.snake = initSnake()
-      this.direction = Right
-      this.speed = initSpeed
-      this.init()
-    })
+    this.setState(
+      {
+        isGameOver: false
+      },
+      () => {
+        this.clearReact()
+        this.snake = initSnake()
+        this.direction = Right
+        this.speed = initSpeed
+        this.init()
+      }
+    )
   }
 
   doCycle = () => {
@@ -141,7 +145,7 @@ class Snake extends React.Component<IProps, IState> {
       this.friut = getFruit(this.snake, this.max)
       // 每吃7个果实 加速
       if (this.count === 7) {
-        this.speed *= .8
+        this.speed *= 0.8
         this.count = 0
         this.init()
         return
@@ -191,7 +195,7 @@ class Snake extends React.Component<IProps, IState> {
       case Up:
         next = v - rowCount
         isTouchBorder = next < 0
-        return isTouchBorder ? max + v % rowCount : next
+        return isTouchBorder ? max + (v % rowCount) : next
       case Down:
         next = v + rowCount
         isTouchBorder = ~~(next / rowCount) > colCount
@@ -202,27 +206,43 @@ class Snake extends React.Component<IProps, IState> {
   drawSnake = () => {
     this.drawFriut()
     const { length } = this.snake
-    this.snake.forEach((v, i) => this.draw(v, i !== length - 1 ? '#666' : '#333'))
+    this.snake.forEach((v, i) =>
+      this.draw(v, i !== length - 1 ? '#666' : '#333')
+    )
   }
 
   draw = (i, c) => {
     this.ctx.fillStyle = c
-    this.ctx.fillRect(i % this.rowCount * this.size + 1, ~~(i / this.rowCount) * this.size + 1, this.size - 1, this.size - 1)
+    this.ctx.fillRect(
+      (i % this.rowCount) * this.size + 1,
+      ~~(i / this.rowCount) * this.size + 1,
+      this.size - 1,
+      this.size - 1
+    )
   }
 
-  render () {
+  render() {
     const { w, h } = this.props
     const { isGameOver, hint } = this.state
     return (
-      <div className='snake-wrapper'>
-        <canvas ref={el => this.canvas = el} width={w} height={h} style={{ backgroundColor }} />
-        <div className='remote-area' ref={el => this.remote = el}/>
-        { isGameOver ? (
-          <div className='over'>
-            <div className='hint'>{ hint }</div>
-            <Button type='primary' onClick={this.reset}>Reset</Button>
+      <div className="snake-wrapper">
+        <canvas
+          ref={el => (this.canvas = el)}
+          width={w}
+          height={h}
+          style={{ backgroundColor }}
+        />
+        <div className="remote-area" ref={el => (this.remote = el)} />
+        {isGameOver ? (
+          <div className="over">
+            <div className="hint">{hint}</div>
+            <Button type="primary" onClick={this.reset}>
+              Reset
+            </Button>
           </div>
-        ) : ''}
+        ) : (
+          ''
+        )}
       </div>
     )
   }

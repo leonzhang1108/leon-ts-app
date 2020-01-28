@@ -3,21 +3,20 @@ import React from 'react'
 import './index.less'
 
 interface IProps {
-  wrapperHeight: number,
-  wrapperWidth: number,
-  src: string
+  wrapperHeight: number;
+  wrapperWidth: number;
+  src: string;
 }
 interface IStates {
-  times: number,
-  currentTimes: number,
-  top: number | null,
-  left: number | null,
-  lastX: number,
-  lastY: number
+  times: number;
+  currentTimes: number;
+  top: number | null;
+  left: number | null;
+  lastX: number;
+  lastY: number;
 }
 
 class ImgZoomer extends React.Component<IProps, IStates> {
-
   img
   clicked = false
   isSVGDragging = false
@@ -29,7 +28,7 @@ class ImgZoomer extends React.Component<IProps, IStates> {
   canvas
   ctx
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       times: 1,
@@ -41,15 +40,15 @@ class ImgZoomer extends React.Component<IProps, IStates> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.initCanvas()
   }
 
-  componentWillReceiveProps () {
+  componentWillReceiveProps() {
     this.initCanvas()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.removeEvents()
   }
 
@@ -58,7 +57,9 @@ class ImgZoomer extends React.Component<IProps, IStates> {
     const { src } = this.props
     this.img.src = src
     this.img.onload = () => {
-      this.canvas = document.querySelector('.picture-scrutinizer') as HTMLCanvasElement
+      this.canvas = document.querySelector(
+        '.picture-scrutinizer'
+      ) as HTMLCanvasElement
       this.ctx = this.canvas.getContext('2d')
       const { wrapperWidth, wrapperHeight } = this.props
       this.canvas.width = wrapperWidth
@@ -71,14 +72,19 @@ class ImgZoomer extends React.Component<IProps, IStates> {
   zoom = scale => {
     const factor = Math.pow(1.1, scale)
     const { times, currentTimes } = this.state
-    this.setState({
-      times: times * factor,
-      currentTimes: currentTimes * factor
-    }, this.draw)
+    this.setState(
+      {
+        times: times * factor,
+        currentTimes: currentTimes * factor
+      },
+      this.draw
+    )
   }
 
   setEvents = () => {
-    this.wrapper.addEventListener('wheel', this.onMouseWheel, { passive: false })
+    this.wrapper.addEventListener('wheel', this.onMouseWheel, {
+      passive: false
+    })
     this.wrapper.addEventListener('mousedown', this.onMouseDown)
     this.wrapper.addEventListener('mousemove', this.onMouseMove)
     document.addEventListener('mouseup', this.onMouseUp)
@@ -136,7 +142,10 @@ class ImgZoomer extends React.Component<IProps, IStates> {
   }
 
   drag = e => {
-    if (['circle', 'line', 'polygon'].indexOf(e.target.tagName) >= 0 || this.isSVGDragging) {
+    if (
+      ['circle', 'line', 'polygon'].indexOf(e.target.tagName) >= 0 ||
+      this.isSVGDragging
+    ) {
       this.isSVGDragging = true
       return
     }
@@ -173,7 +182,10 @@ class ImgZoomer extends React.Component<IProps, IStates> {
     this.ctx.drawImage(this.img, left, top, width * times, height * times)
   }
 
-  calculate = ({ height: imgHeight, width: imgWidth }, { wrapperHeight: height, wrapperWidth: width }) => {
+  calculate = (
+    { height: imgHeight, width: imgWidth },
+    { wrapperHeight: height, wrapperWidth: width }
+  ) => {
     const ratio = imgHeight / imgWidth - height / width
     const imgRatio = imgHeight / imgWidth
     const zoomImg = {
@@ -190,10 +202,10 @@ class ImgZoomer extends React.Component<IProps, IStates> {
     return zoomImg
   }
 
-  render () {
+  render() {
     const { times, top, left, lastX, lastY } = this.state
     return (
-      <div ref={el => this.wrapper = el} >
+      <div ref={el => (this.wrapper = el)}>
         <SVGLabelEditor
           times={times}
           top={top}
@@ -201,7 +213,7 @@ class ImgZoomer extends React.Component<IProps, IStates> {
           lastX={lastX}
           lastY={lastY}
         />
-        <canvas className='picture-scrutinizer' />
+        <canvas className="picture-scrutinizer" />
       </div>
     )
   }

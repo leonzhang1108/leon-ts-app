@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Vector from './Vector'
 
@@ -8,8 +7,8 @@ const getStyle = props => ({
 })
 
 const Vector2Display = props => (
-  <div className='display' style={getStyle(props)}>
-    <Vector ventorList={props.ventorList}/>
+  <div className="display" style={getStyle(props)}>
+    <Vector ventorList={props.ventorList} />
   </div>
 )
 

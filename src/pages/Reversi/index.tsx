@@ -5,14 +5,14 @@ import './index.less'
 import Tools from './tools'
 
 interface IProps {
-  isMobile: boolean
+  isMobile: boolean;
 }
 
 interface IState {
-  checkerboard: any[][],
-  step: number,
-  history: any[],
-  size: number
+  checkerboard: any[][];
+  step: number;
+  history: any[];
+  size: number;
 }
 
 const statusMap = {
@@ -24,7 +24,7 @@ const statusMap = {
 }
 
 class Reversi extends React.Component<IProps, IState> {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.reset()
   }
@@ -61,7 +61,8 @@ class Reversi extends React.Component<IProps, IState> {
     }
   }
 
-  flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? this.flatten(b) : b), [])
+  flatten = arr =>
+    arr.reduce((a, b) => a.concat(Array.isArray(b) ? this.flatten(b) : b), [])
 
   couldClick = ({ x, y }) => {
     const { checkerboard, step } = this.state
@@ -79,8 +80,10 @@ class Reversi extends React.Component<IProps, IState> {
 
   itemMouseLeave = ({ rowIndex: x, itemIndex: y }) => {
     const { checkerboard } = this.state
-    if (checkerboard[x][y] === statusMap.blackHover
-      || checkerboard[x][y] === statusMap.whiteHover) {
+    if (
+      checkerboard[x][y] === statusMap.blackHover ||
+      checkerboard[x][y] === statusMap.whiteHover
+    ) {
       checkerboard[x][y] = statusMap.empty
       this.setState({ checkerboard })
     }
@@ -89,9 +92,18 @@ class Reversi extends React.Component<IProps, IState> {
   itemClick = ({ rowIndex: x, itemIndex: y }) => {
     const { checkerboard, step, history } = this.state
     const { black, white } = statusMap
-    if (checkerboard[x][y] !== black && checkerboard[x][y] !== white && this.couldClick({ x, y })) {
+    if (
+      checkerboard[x][y] !== black &&
+      checkerboard[x][y] !== white &&
+      this.couldClick({ x, y })
+    ) {
       checkerboard[x][y] = step % 2 === 0 ? black : white
-      const { c, r } = Tools.clickToCover({ x, y, checkerboard, player: step % 2 })
+      const { c, r } = Tools.clickToCover({
+        x,
+        y,
+        checkerboard,
+        player: step % 2
+      })
       history.push({ curr: { x, y }, reverse: r })
       this.setState({
         checkerboard: c,
@@ -118,7 +130,8 @@ class Reversi extends React.Component<IProps, IState> {
       const { empty, black, white } = statusMap
       checkerboard[x][y] = empty
       reverse.forEach(r => {
-        checkerboard[r.x][r.y] = checkerboard[r.x][r.y] === white ? black : white
+        checkerboard[r.x][r.y] =
+          checkerboard[r.x][r.y] === white ? black : white
       })
     }
 
@@ -146,21 +159,26 @@ class Reversi extends React.Component<IProps, IState> {
       }
     }
     return (
-      <td className='item' key={itemIndex}
+      <td
+        className="item"
+        key={itemIndex}
         onClick={Utils.handle(this.itemClick, { rowIndex, itemIndex })}
         onMouseOver={Utils.handle(this.itemMouseEnter, { rowIndex, itemIndex })}
-        onMouseLeave={Utils.handle(this.itemMouseLeave, { rowIndex, itemIndex })}
+        onMouseLeave={Utils.handle(this.itemMouseLeave, {
+          rowIndex,
+          itemIndex
+        })}
       >
-        <div className={className.join(' ')} >
-          <div className='chess front'/>
-          <div className='chess back'/>
+        <div className={className.join(' ')}>
+          <div className="chess front" />
+          <div className="chess back" />
         </div>
       </td>
     )
   }
 
   renderRow = (row, rowIndex) => (
-    <tr className='row' key={rowIndex}>
+    <tr className="row" key={rowIndex}>
       {row.map((item, itemIndex) => this.renderItem(item, rowIndex, itemIndex))}
     </tr>
   )
@@ -169,10 +187,16 @@ class Reversi extends React.Component<IProps, IState> {
     const { checkerboard } = this.state
     let black = 0
     let white = 0
-    checkerboard.forEach(row => row.forEach(item => {
-      if (item === statusMap.black) { black++ }
-      if (item === statusMap.white) { white++ }
-    }))
+    checkerboard.forEach(row =>
+      row.forEach(item => {
+        if (item === statusMap.black) {
+          black++
+        }
+        if (item === statusMap.white) {
+          white++
+        }
+      })
+    )
     return { black, white }
   }
 
@@ -200,36 +224,62 @@ class Reversi extends React.Component<IProps, IState> {
       }
     }
 
-    if (title && content) { Modal.info({ title, content }) }
+    if (title && content) {
+      Modal.info({ title, content })
+    }
   }
 
-  render () {
+  render() {
     const { checkerboard, history, step, size } = this.state
     const { isMobile } = this.props
     const { black, white } = this.getScore()
-    const disablePass = black + white === size || (history.length && Object.keys(history[history.length - 1]).length === 0)
+    const disablePass =
+      black + white === size ||
+      (history.length && Object.keys(history[history.length - 1]).length === 0)
     this.isWin({ black, white, size })
     return (
-      <div className='reversi-wrapper'>
-        <div className='reversi-top'>
-          <div className={`top black ${isMobile ? '' : 'bigger'} ${step % 2 === 1 ? '' : 'current'}`}>{black}</div>
-          <div className={`top white ${isMobile ? '' : 'bigger'} ${step % 2 === 1 ? 'current' : ''}`}>{white}</div>
+      <div className="reversi-wrapper">
+        <div className="reversi-top">
+          <div
+            className={`top black ${isMobile ? '' : 'bigger'} ${
+              step % 2 === 1 ? '' : 'current'
+            }`}
+          >
+            {black}
+          </div>
+          <div
+            className={`top white ${isMobile ? '' : 'bigger'} ${
+              step % 2 === 1 ? 'current' : ''
+            }`}
+          >
+            {white}
+          </div>
         </div>
-        <div className={ isMobile ? 'checkerboard' : 'checkerboard bigger' }>
+        <div className={isMobile ? 'checkerboard' : 'checkerboard bigger'}>
           <table>
-            <tbody>
-              {checkerboard.map(this.renderRow)}
-            </tbody>
+            <tbody>{checkerboard.map(this.renderRow)}</tbody>
           </table>
         </div>
-        <div className='reversi-bottom'>
-          <Button type='primary' disabled={history.length === 0} onClick={this.reset}>
+        <div className="reversi-bottom">
+          <Button
+            type="primary"
+            disabled={history.length === 0}
+            onClick={this.reset}
+          >
             Reset
           </Button>
-          <Button type='primary' disabled={disablePass ? true : false} onClick={this.pass}>
+          <Button
+            type="primary"
+            disabled={disablePass ? true : false}
+            onClick={this.pass}
+          >
             Pass
           </Button>
-          <Button type='primary' disabled={history.length === 0} onClick={this.retract}>
+          <Button
+            type="primary"
+            disabled={history.length === 0}
+            onClick={this.retract}
+          >
             Retract
           </Button>
         </div>

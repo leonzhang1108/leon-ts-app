@@ -1,42 +1,42 @@
-
 import Utils from '@utils'
 import Echarts from '@cpt/echarts'
 import React from 'react'
 import './index.less'
 
 interface IProps {
-  contentHeight: number,
-  contentWidth: number
+  contentHeight: number;
+  contentWidth: number;
 }
 
 interface IState {
-  loaded: boolean
+  loaded: boolean;
 }
 
 class PieChart extends React.Component<IProps, IState> {
-
   echarts: HTMLDivElement | null
   myChart: any
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { loaded: false }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getOption()
   }
 
-  componentWillReceiveProps () {
+  componentWillReceiveProps() {
     this.resize()
   }
 
-  componentWillUpdate () {
+  componentWillUpdate() {
     this.resize()
   }
 
   resize = () => {
-    if (this.myChart) { setTimeout(this.myChart.resize, 0) }
+    if (this.myChart) {
+      setTimeout(this.myChart.resize, 0)
+    }
   }
 
   async getOption() {
@@ -47,16 +47,14 @@ class PieChart extends React.Component<IProps, IState> {
     this.resize()
   }
 
-  render () {
+  render() {
     return (
-      <div className='pie-chart-wrapper'>
-      {
-        this.state.loaded ? (
-          <div ref={dom => this.echarts = dom} className='echarts' />
+      <div className="pie-chart-wrapper">
+        {this.state.loaded ? (
+          <div ref={dom => (this.echarts = dom)} className="echarts" />
         ) : (
-          <div className='loader'/>
-        )
-      }
+          <div className="loader" />
+        )}
       </div>
     )
   }

@@ -1,4 +1,3 @@
-
 import Utils from '@utils'
 import React from 'react'
 import 'tracking'
@@ -10,12 +9,12 @@ const navi = navigator as any
 const tracking = w.tracking
 
 interface IState {
-  hasCamera: boolean,
-  x: number,
-  y: number,
-  height: number,
-  width: number,
-  index: number
+  hasCamera: boolean;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  index: number;
 }
 
 class Camera extends React.Component<null, IState> {
@@ -24,7 +23,7 @@ class Camera extends React.Component<null, IState> {
 
   frame = ['threat', 'big threat', 'machine', 'analog', 'gov', 'president']
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       hasCamera: true,
@@ -40,15 +39,18 @@ class Camera extends React.Component<null, IState> {
 
   startDrawing = () => {
     if (this.userMedia()) {
-      navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false
-      }).then(stream => {
-        this.doDrawing.apply(this)
-      }).catch(error => {
-        this.setState({ hasCamera: false })
-        console.log(error)
-      })
+      navigator.mediaDevices
+        .getUserMedia({
+          video: true,
+          audio: false
+        })
+        .then(stream => {
+          this.doDrawing.apply(this)
+        })
+        .catch(error => {
+          this.setState({ hasCamera: false })
+          console.log(error)
+        })
     } else {
       this.setState({ hasCamera: false })
     }
@@ -70,39 +72,53 @@ class Camera extends React.Component<null, IState> {
     this.task.run()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.task && this.task.stop) {
       this.task.stop()
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.startDrawing()
   }
 
-  render () {
+  render() {
     const { hasCamera, x, y, height, width, index } = this.state
 
-    return hasCamera
-      ? (
-        <div className='home'>
-          <div className='frame-wrapper' style={{ transform: `translate3d( ${x}px, ${y}px, 0)` }}>
-            <div className={`frame ${this.frame[index]}`} style={{ height: `${height}px`, width: `${width}px` }}>
-              <div className='top-left corner'/>
-              <div className='top-right corner'/>
-              <div className='bottom-right corner'/>
-              <div className='bottom-left corner'/>
-              <div className='top line'/>
-              <div className='left line'/>
-              <div className='right line'/>
-              <div className='bottom line'/>
-            </div>
+    return hasCamera ? (
+      <div className="home">
+        <div
+          className="frame-wrapper"
+          style={{ transform: `translate3d( ${x}px, ${y}px, 0)` }}
+        >
+          <div
+            className={`frame ${this.frame[index]}`}
+            style={{ height: `${height}px`, width: `${width}px` }}
+          >
+            <div className="top-left corner" />
+            <div className="top-right corner" />
+            <div className="bottom-right corner" />
+            <div className="bottom-left corner" />
+            <div className="top line" />
+            <div className="left line" />
+            <div className="right line" />
+            <div className="bottom line" />
           </div>
-          <video id='video' className='video' width='100%' height='100%' ref={el => this.v = el} autoPlay={true}/>
         </div>
-      ) : (
-        <div className='empty'><span>no camera</span></div>
-      )
+        <video
+          id="video"
+          className="video"
+          width="100%"
+          height="100%"
+          ref={el => (this.v = el)}
+          autoPlay={true}
+        />
+      </div>
+    ) : (
+      <div className="empty">
+        <span>no camera</span>
+      </div>
+    )
   }
 }
 

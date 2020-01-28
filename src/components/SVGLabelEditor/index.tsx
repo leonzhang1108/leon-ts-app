@@ -5,20 +5,20 @@ import DragHOC from './DragHOC'
 import './index.less'
 
 interface IProps {
-  times: number,
-  top: number | null,
-  left: number | null,
-  lastX: number,
-  lastY: number
+  times: number;
+  top: number | null;
+  left: number | null;
+  lastX: number;
+  lastY: number;
 }
 
 interface IStates {
-  pointsList: Point[][],
-  tempList: Point[]
-  r: number,
-  strokeWidth: number,
-  oriTop: number | null,
-  oriLeft: number | null
+  pointsList: Point[][];
+  tempList: Point[];
+  r: number;
+  strokeWidth: number;
+  oriTop: number | null;
+  oriLeft: number | null;
 }
 
 const baseCirlce = {
@@ -36,8 +36,7 @@ const basePolygon = {
 }
 
 class SVGLabelEditor extends React.Component<IProps, IStates> {
-
-  static componentWillUnmount (props, states) {
+  static componentWillUnmount(props, states) {
     const { left, top } = props
     const { oriLeft, oriTop } = states
     if (left !== null && top !== null && oriLeft === null && oriTop === null) {
@@ -72,7 +71,9 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
   calclateTimes = v => v * this.props.times
 
   onMouseUp = i => {
-    if (!this.clicked || i) { return }
+    if (!this.clicked || i) {
+      return
+    }
     const { tempList, pointsList } = this.state
     pointsList.push(tempList)
     this.setState({
@@ -114,7 +115,9 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
 
   wrapperMouseUp = e => {
     const { target } = e
-    if (target.tagName !== 'svg' || !this.clicked) { return }
+    if (target.tagName !== 'svg' || !this.clicked) {
+      return
+    }
     const { tempList } = this.state
     tempList.push(this.addPoint(e))
     this.setState({ tempList })
@@ -130,7 +133,10 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
 
   addPoint = e => {
     const { clientX, clientY } = e
-    const { left: offsetLeft, top: offsetTop } = this.wrapper.getBoundingClientRect()
+    const {
+      left: offsetLeft,
+      top: offsetTop
+    } = this.wrapper.getBoundingClientRect()
     const { times, left, top } = this.props
     const x = (clientX - (left || 0) - offsetLeft) / times
     const y = (clientY - (top || 0) - offsetTop) / times
@@ -138,50 +144,73 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
   }
 
   convertPoints2String = points =>
-    points.map(({ x, y }) => this.calculatePoint(x, y))
-      .map(({ x, y }) => `${x},${y}`).join(' ')
+    points
+      .map(({ x, y }) => this.calculatePoint(x, y))
+      .map(({ x, y }) => `${x},${y}`)
+      .join(' ')
 
-  renderTemp = ({ tempList, width, radius }) => tempList.map(({ x, y }: Point, i) => {
-    const isLast = i === tempList.length - 1
-    const { x: xn, y: yn } = isLast ? tempList[0] : tempList[i + 1]
-    const { x: x1, y: y1 } = this.calculatePoint(x, y)
-    const { x: x2, y: y2 } = this.calculatePoint(xn, yn)
-    return (
+  renderTemp = ({ tempList, width, radius }) =>
+    tempList.map(({ x, y }: Point, i) => {
+      const isLast = i === tempList.length - 1
+      const { x: xn, y: yn } = isLast ? tempList[0] : tempList[i + 1]
+      const { x: x1, y: y1 } = this.calculatePoint(x, y)
+      const { x: x2, y: y2 } = this.calculatePoint(xn, yn)
+      return (
+        <React.Fragment key={i}>
+          {!isLast ? (
+            <line
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              strokeWidth={width}
+              {...baseLine}
+            />
+          ) : (
+            ''
+          )}
+          <DragHOC onMouseMove={Utils.handle(this.onMouseMove, i)}>
+            <circle
+              cx={x1}
+              cy={y1}
+              r={radius}
+              {...baseCirlce}
+              onMouseUp={Utils.handle(this.onMouseUp, i)}
+            />
+          </DragHOC>
+        </React.Fragment>
+      )
+    })
+
+  renderPolygon = ({ pointsList, width, radius }) =>
+    pointsList.map((points, i) => (
       <React.Fragment key={i}>
-        {!isLast ? <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={width} {...baseLine}/> : ''}
-        <DragHOC
-          onMouseMove={Utils.handle(this.onMouseMove, i)}
-        >
-          <circle cx={x1} cy={y1} r={radius} {...baseCirlce}
-            onMouseUp={Utils.handle(this.onMouseUp, i)}
+        <DragHOC onMouseMove={Utils.handle(this.onPolygonMouseMove, i)}>
+          <polygon
+            points={this.convertPoints2String(points)}
+            {...basePolygon}
           />
         </DragHOC>
+        {this.renderPolygonWrapper({ points, i, width, radius })}
       </React.Fragment>
-    )
-  })
-
-  renderPolygon = ({ pointsList, width, radius }) => pointsList.map((points, i) => (
-    <React.Fragment key={i}>
-      <DragHOC
-        onMouseMove={Utils.handle(this.onPolygonMouseMove, i)}
-      >
-        <polygon points={this.convertPoints2String(points)} {...basePolygon}/>
-      </DragHOC>
-      {
-        this.renderPolygonWrapper({ points, i, width, radius })
-      }
-    </React.Fragment>
-  ))
+    ))
 
   renderPolygonWrapper = ({ points, width, radius, i }) =>
-    points.map(({ x, y }) => this.calculatePoint(x, y))
+    points
+      .map(({ x, y }) => this.calculatePoint(x, y))
       .map(({ x, y }, index) => {
         const isLast = index === points.length - 1
         const { x: xn, y: yn } = isLast ? points[0] : points[index + 1]
         const { x: x2, y: y2 } = this.calculatePoint(xn, yn)
         return (
           <React.Fragment key={index}>
-            <line x1={x} y1={y} x2={x2} y2={y2} strokeWidth={width} {...baseLine}
+            <line
+              x1={x}
+              y1={y}
+              x2={x2}
+              y2={y2}
+              strokeWidth={width}
+              {...baseLine}
               onClick={Utils.handle(this.onPoligonLineClick, i, index)}
             />
             <DragHOC
@@ -193,19 +222,20 @@ class SVGLabelEditor extends React.Component<IProps, IStates> {
         )
       })
 
-  render () {
+  render() {
     const { pointsList, tempList, r, strokeWidth } = this.state
     const radius = this.calclateTimes(r)
     const width = this.calclateTimes(strokeWidth)
     return (
-      <svg className='svg-wrapper'
-        ref={el => this.wrapper = el}
+      <svg
+        className="svg-wrapper"
+        ref={el => (this.wrapper = el)}
         onMouseDown={this.wrapperMouseDown}
         onMouseMove={this.wrapperMouseMove}
         onMouseUp={this.wrapperMouseUp}
       >
-      { this.renderTemp({ tempList, width, radius }) }
-      { this.renderPolygon({ pointsList, width, radius }) }
+        {this.renderTemp({ tempList, width, radius })}
+        {this.renderPolygon({ pointsList, width, radius })}
       </svg>
     )
   }
