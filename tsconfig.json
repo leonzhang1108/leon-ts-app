@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
     "moduleResolution": "node", // 决定如何处理模块。或者是"Node"对于Node.js/io.js，或者是"Classic"（默认）
     "outDir": "./dist/",
-    "sourceMap": true,
+    "sourceMap": false,
     "noImplicitAny": false,
     "module": "ESNext", // 指定生成哪个模块系统代码： "None"， "CommonJS"， "AMD"， "System"， "UMD"， "ES6"或 "ES2015"。
     "target": "es5",
