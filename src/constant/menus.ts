@@ -1,7 +1,7 @@
 export default [
   {
     route: 'home',
-    icon: 'home',
+    icon: 'ts-app icon-home',
     title: 'Home'
   },
   {
@@ -20,13 +20,13 @@ export default [
     title: 'Mondrian Art'
   },
   {
-    icon: 'profile',
+    icon: 'ts-app icon-profile',
     title: 'Common',
     key: 'common',
     childs: [
       {
         route: 'camera',
-        icon: 'camera',
+        icon: 'ts-app icon-camera',
         title: 'Camera'
       },
       {
@@ -36,7 +36,7 @@ export default [
       },
       {
         route: 'widgets',
-        icon: 'tool',
+        icon: 'ts-app icon-tool',
         title: 'Widgets'
       },
       {
@@ -51,11 +51,11 @@ export default [
     title: 'Canvas',
     key: 'canvas',
     childs: [
-      {
-        route: 'pie-chart',
-        icon: 'pie-chart',
-        title: 'Pie Chart'
-      },
+      // {
+      //   route: 'pie-chart',
+      //   icon: 'pie-chart',
+      //   title: 'Pie Chart'
+      // },
       {
         route: 'food',
         icon: 'ts-app icon-food',

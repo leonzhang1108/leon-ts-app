@@ -27,9 +27,7 @@
       "@reducers": ["src/reducers/index"],
       "@actions": ["src/actions/index"],
       "@img/*": ["src/img/*"],
-      "@interface": ["src/interface"],
-      // 重定向所有antd的icon位置
-      "@ant-design/icons/lib/dist": ["src/constant/icons"]
+      "@interface": ["src/interface"]
     }
   },
   "include": [

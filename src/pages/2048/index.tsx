@@ -1,5 +1,5 @@
 import Utils from '@utils'
-import { Button, Icon, Popconfirm } from 'antd'
+import { Button, Popconfirm } from 'antd'
 import React from 'react'
 import './index.less'
 import Tools from './tools'
@@ -227,7 +227,7 @@ class Page2048 extends React.Component<IProp, IState> {
               >
                 <div className="item">
                   {item.v === 2048 ? (
-                    <Icon type="ts-app icon-batman" />
+                    <i className="anticon icon-batman-logo" />
                   ) : (
                     item.v
                   )}

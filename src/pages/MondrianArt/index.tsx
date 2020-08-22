@@ -2,6 +2,7 @@ import React from 'react'
 import Utils from '@utils'
 import domtoimage from 'dom-to-image'
 import { Button } from 'antd'
+import { DownloadOutline, RedoOutline } from '@constant/icons'
 import './index.less'
 
 const { useState, useRef } = React
@@ -64,13 +65,13 @@ const MondrianArt = ({ isMobile, h, w }) => {
       </div>
       <Button
         className={`download-btn ${btn}`}
-        icon="download"
+        icon={<DownloadOutline />}
         type="primary"
         onClick={toPicture}
       />
       <Button
         className={`refresh-btn ${btn}`}
-        icon="redo"
+        icon={<RedoOutline />}
         type="primary"
         onClick={refresh}
       />

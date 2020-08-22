@@ -1,5 +1,4 @@
 import Util from '@utils'
-import { Icon } from 'antd'
 import React from 'react'
 import './index.less'
 
@@ -286,14 +285,14 @@ class DatePicker extends React.Component<IProps, IState> {
         <div className="calender-input" onClick={this.inputClick}>
           <div className="input">
             <span className="icon">
-              <Icon type="calendar" />
+              <i className="anticon icon-calendar" />
             </span>
             <span className="date-content">{fDate}</span>
             <span className="week">{fWeek >= 0 ? weekList[fWeek] : ''}</span>
           </div>
           <div className="input">
             <span className="icon">
-              <Icon type="calendar" />
+              <i className="anticon icon-calendar" />
             </span>
             <span className="date-content">{step === 2 ? tDate : ''}</span>
             <span className="week">
@@ -304,18 +303,10 @@ class DatePicker extends React.Component<IProps, IState> {
         {visible ? (
           <div className="floating">
             <div className="calender-wrapper" onClick={this.stopBubbling}>
-              <Icon type="left" className="left" onClick={this.pre} />
-              <Icon type="right" className="right" onClick={this.next} />
-              <Icon
-                type="double-left"
-                className="double-left"
-                onClick={this.preYear}
-              />
-              <Icon
-                type="double-right"
-                className="double-right"
-                onClick={this.nextYear}
-              />
+              <i className="anticon icon-left"  onClick={this.pre} />
+              <i className="anticon icon-right"  onClick={this.next} />
+              <i className="anticon icon-double-left double-left" onClick={this.preYear} />
+              <i className="anticon icon-double-right double-right" onClick={this.nextYear} />
               {this.renderCalender(left)}
               {this.renderCalender(right)}
             </div>

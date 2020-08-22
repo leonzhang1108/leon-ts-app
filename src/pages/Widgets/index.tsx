@@ -67,7 +67,7 @@ class Widgets extends React.Component<IProps> {
   }
 
   render() {
-    // const fromDate = new Date('1991-11-8')
+    // const fromDate = new Date('2012-12-12')
     // const toDate = new Date()
     return (
       <div className="widget-wrapper">

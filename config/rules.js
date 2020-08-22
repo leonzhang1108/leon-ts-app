@@ -1,8 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const tsImportPluginFactory = require('ts-import-plugin')
 
-module.exports = [
-  {
+module.exports = [{
     test: /\.js$/,
     loader: "babel-loader",
     exclude: /node_modules/
@@ -28,13 +27,13 @@ module.exports = [
   {
     test: /\.s(a|c)ss$/, // 匹配文件
     use: [process.env.NODE_ENV === 'PROD' ? {
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        // you can specify a publicPath here
-        // by default it use publicPath in webpackOptions.output
-        publicPath: '../'
-      }
-    } : 'style-loader', // 使用<style>将css-loader内部样式注入到我们的HTML页面,
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          // you can specify a publicPath here
+          // by default it use publicPath in webpackOptions.output
+          publicPath: '../'
+        }
+      } : 'style-loader', // 使用<style>将css-loader内部样式注入到我们的HTML页面,
       'css-loader', // 加载.css文件将其转换为JS模块
       {
         loader: 'postcss-loader',
@@ -49,14 +48,14 @@ module.exports = [
   {
     test: /\.(le|c)ss$/, // 匹配文件
     use: [process.env.NODE_ENV === 'PROD' ? {
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        // you can specify a publicPath here
-        // by default it use publicPath in webpackOptions.output
-        publicPath: '../'
-      }
-    } : 'style-loader', // 使用<style>将css-loader内部样式注入到我们的HTML页面,
-     'css-loader', // 加载.css文件将其转换为JS模块
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          // you can specify a publicPath here
+          // by default it use publicPath in webpackOptions.output
+          publicPath: '../'
+        }
+      } : 'style-loader', // 使用<style>将css-loader内部样式注入到我们的HTML页面,
+      'css-loader', // 加载.css文件将其转换为JS模块
       {
         loader: 'postcss-loader',
         options: {
@@ -64,12 +63,14 @@ module.exports = [
             path: './' // 写到目录即可，文件名强制要求是postcss.config.js
           }
         }
-      }, 
+      },
       {
         loader: 'less-loader',
         options: {
-          javascriptEnabled: true
-        }
+          lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+            javascriptEnabled: true,
+          },
+        },
       }
     ]
   },
@@ -78,7 +79,25 @@ module.exports = [
     use: {
       loader: "html-loader",
       options: {
-        attrs: ["img:src", "img:data-src", "audio:src"],
+        attributes: {
+          list: [
+            {
+              tag: 'img',
+              attribute: 'src',
+              type: 'src',
+            },
+            {
+              tag: 'img',
+              attribute: 'data-src',
+              type: 'src',
+            },
+            {
+              tag: 'audio',
+              attribute: 'src',
+              type: 'src',
+            }
+          ]
+        },
         minimize: true
       }
     }

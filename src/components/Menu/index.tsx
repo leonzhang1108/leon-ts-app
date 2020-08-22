@@ -1,7 +1,7 @@
 import { common } from '@actions'
 import menus from '@constant/menus'
 import Utils from '@utils'
-import { Icon, Layout, Menu } from 'antd'
+import { Layout, Menu } from 'antd'
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -85,7 +85,8 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
           key={menu.key}
           title={
             <span>
-              <Icon type={menu.icon} />
+              {/* <Icon type={`${menu.icon}`} /> */}
+              <i className={`anticon anticon-ts-app ${menu.icon}`} />
               <span>{menu.title}</span>
             </span>
           }
@@ -94,7 +95,8 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         </SubMenu>
       ) : (
         <Menu.Item key={`/${menu.route}`}>
-          <Icon type={menu.icon} />
+          {/* <Icon type={`${menu.icon}`} /> */}
+          <i className={`anticon anticon-ts-app ${menu.icon}`} />
           <Link
             className="menu-item-link"
             to={`/${menu.route}`}
@@ -164,7 +166,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
           style={{ right: `-40px` }}
           onClick={this.doCollapse}
         >
-          <Icon type="bars" />
+          <i className="anticon anticon-ts-app icon-bars" />
         </div>
       </div>
     ) : (
@@ -176,8 +178,8 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       >
         <div className="logo" />
         <Menu
-          mode="inline"
           {...menuProps}
+          mode="inline"
           style={{
             height: `${document.body.clientHeight - 98}px`,
             overflowX: 'hidden',

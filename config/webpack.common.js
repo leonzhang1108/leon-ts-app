@@ -42,16 +42,18 @@ module.exports = {
       chunksSortMode: 'none',
       hash: true
     }),
-    new CopyPlugin([
-      {
-        from: path.resolve(__dirname, '../public/icon'),
-        to: path.resolve(__dirname, '../dist/icon')
-      },
-      { 
-        from: path.resolve(__dirname, '../public/manifest.json'),
-        to: path.resolve(__dirname, '../dist/manifest.json')
-      },
-    ])
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public/icon'),
+          to: path.resolve(__dirname, '../dist/icon')
+        },
+        { 
+          from: path.resolve(__dirname, '../public/manifest.json'),
+          to: path.resolve(__dirname, '../dist/manifest.json')
+        },
+      ]
+    })
   ],
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
