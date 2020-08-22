@@ -46,8 +46,8 @@ export default [
       },
       {
         route: 'gana',
-        icon: 'ts-app icon-hira',
-        title: '假名'
+        icon: 'ts-app icon-gana',
+        title: '仮名'
       }
     ]
   },
