@@ -43,6 +43,11 @@ export default [
         route: 'infinite-list',
         icon: 'ts-app icon-list',
         title: 'Infinite List'
+      },
+      {
+        route: 'gana',
+        icon: 'ts-app icon-hira',
+        title: '假名'
       }
     ]
   },
