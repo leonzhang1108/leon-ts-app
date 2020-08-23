@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { hita, kata, rome } from './constant'
-import { Button, message, Radio } from 'antd'
+import { Button, Modal, Radio } from 'antd'
 import { RedoOutline } from '@constant/icons'
 import './index.less'
 
@@ -32,12 +32,7 @@ const typeList = [
 const Gana = () => {
   const [count, setCount] = useState(initRandomCount())
   const [type, setType] = useState('all')
-  
-  const itemClick = i => {
-    message.info({
-      content: `${hita[i]} - ${kata[i]} - ${rome[i]}`
-    })
-  }
+  const [currIndex, setCurrIndex] = useState(-1)
 
   const refresh = () => {
     setCount(initRandomCount())
@@ -54,27 +49,53 @@ const Gana = () => {
     }
   }
 
+  const blocks = useMemo(() => count.map(i => {
+    return (
+      <div
+        key={i}
+        className="item"
+        onClick={()=> {
+          setCurrIndex(i)
+          setTimeout(() => {
+            setCurrIndex(-1)
+          }, 1000)
+        }}
+      >
+        {renderItem(i)}
+      </div>
+    )
+  }), [count])
+
   return (
     <div className="gana-wrapper">
       <div className="item-wrapper">
-        {
-          count.map(i => <div key={i} className="item" onClick={()=> itemClick(i)}>{renderItem(i)}</div>)
-        }
+        {blocks}
       </div>
-      <Radio.Group
-        className="type-radio"
-        value={type}
-        onChange={e => setType(e.target.value)}
-        options={typeList}
-        optionType="button"
-        buttonStyle="solid"
-      />
-      <Button
-        className="refresh-btn"
-        icon={<RedoOutline />}
-        type="primary"
-        onClick={refresh}
-      />
+      <div className="btn-wrapper">
+        <Radio.Group
+          className="type-radio"
+          value={type}
+          onChange={e => setType(e.target.value)}
+          options={typeList}
+          optionType="button"
+          buttonStyle="solid"
+        />
+        <Button
+          className="refresh-btn"
+          icon={<RedoOutline />}
+          type="primary"
+          onClick={refresh}
+        />
+      </div>
+      <Modal
+        visible={currIndex >= 0}
+        centered
+        onCancel={() => setCurrIndex(-1)}
+        footer={null}
+        closable={false}
+      >
+        <div style={{ fontSize: 40, textAlign: 'center' }}>{hita[currIndex]} - {kata[currIndex]} - {rome[currIndex]}</div>
+      </Modal>
     </div>
   )
 }
