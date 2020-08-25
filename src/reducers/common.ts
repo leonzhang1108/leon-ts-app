@@ -29,28 +29,6 @@ const initState = {
   isMobile: document.body.clientWidth < 900
 }
 
-const toggleOpenKeys = (state, action) => {
-  const { key } = action.payload
-  const index = state.openKeys.indexOf(key)
-  const openKeys: string[] = []
-
-  // 允许打开多个submenu
-  // if (index >= 0) {
-  //   state.openKeys.splice(index, 1)
-  //   openKeys = state.openKeys
-  // } else {
-  //   openKeys = state.openKeys
-  //   openKeys.push(key)
-  // }
-
-  // 只允许打开单个submenu
-  // if (index < 0) {
-  //   openKeys.push(key)
-  // }
-
-  return openKeys
-}
-
 const initOpenKeys = (_, action) => {
   const { breadcrumb } = action.payload
   const openKeys: string[] = []
@@ -92,9 +70,7 @@ const common = (state: IProp = initState, action: any) => {
     }),
     [TOGGLE_OPENKEYS]: () =>
       Object.assign({}, state, {
-        openKeys: action.payload.isInit
-          ? initOpenKeys(state, action)
-          : toggleOpenKeys(state, action)
+        openKeys: action.payload.isInit && initOpenKeys(state, action)
       })
   }
 

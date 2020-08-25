@@ -56,21 +56,15 @@ const Gana = () => {
         className="item"
         onClick={()=> {
           setCurrIndex(i)
-          setTimeout(() => {
-            setCurrIndex(-1)
-          }, 1000)
         }}
       >
         {renderItem(i)}
       </div>
     )
-  }), [count])
+  }), [count, type])
 
   return (
     <div className="gana-wrapper">
-      <div className="item-wrapper">
-        {blocks}
-      </div>
       <div className="btn-wrapper">
         <Radio.Group
           className="type-radio"
@@ -87,12 +81,14 @@ const Gana = () => {
           onClick={refresh}
         />
       </div>
+      <div className="item-wrapper">
+        {blocks}
+      </div>
       <Modal
         visible={currIndex >= 0}
         centered
         onCancel={() => setCurrIndex(-1)}
         footer={null}
-        closable={false}
       >
         <div style={{ fontSize: 40, textAlign: 'center' }}>{hita[currIndex]} - {kata[currIndex]} - {rome[currIndex]}</div>
       </Modal>

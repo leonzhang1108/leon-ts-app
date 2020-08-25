@@ -129,7 +129,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     let width = 0
 
-    const defaultOpenKeys = openKeys
+    const defaultOpenKeys = openKeys || []
 
     const menuProps: IMenuProps = {
       className: 'left-menu',
