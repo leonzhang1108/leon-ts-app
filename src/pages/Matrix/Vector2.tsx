@@ -13,13 +13,14 @@ interface IProps {
   btnEdit(e): void;
   onBlur(e): void;
   onInput(e): void;
+  innerRef: any;
 }
 
 class Vector2 extends React.Component<IProps> {
   render() {
-    const { opacity, btnEdit, v2Opacity } = this.props
+    const { opacity, btnEdit, v2Opacity, innerRef } = this.props
     return (
-      <div className="v-wrapper">
+      <div className="v-wrapper" ref={innerRef}>
         <div className="v-inner">
           <div className="display" style={{ opacity: v2Opacity }}>
             <Vector {...this.props} ventor="v2" />

@@ -47,6 +47,9 @@ class Tetris extends React.Component<IProps, IStates> {
     document.addEventListener('keydown', this.keydown)
     document.addEventListener('touchend', this.clearBtnInterval)
     document.addEventListener('visibilitychange', this.visibilitychange)
+  }
+
+  componentWillMount() {
     this.resetGame()
   }
 
@@ -103,7 +106,7 @@ class Tetris extends React.Component<IProps, IStates> {
     if (e) {
       this.setState(state, () => this.doMovePlayboard(true))
     } else {
-      this.state = { ...state, couldMove: false, h: 0 }
+      this.setState({ ...state, couldMove: false, h: 0 })
       setTimeout(() => this.doMovePlayboard(true), 0)
     }
   }

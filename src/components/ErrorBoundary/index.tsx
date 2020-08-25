@@ -1,7 +1,9 @@
 import React from 'react'
+import Utils from '@utils'
 
 interface IState {
   hasError: boolean;
+  route: string;
 }
 
 interface IProps {
@@ -11,7 +13,20 @@ interface IProps {
 class ErrorBoundary extends React.Component<IProps, IState> {
   constructor(props) {
     super(props)
-    this.state = { hasError: false }
+    this.state = {
+      hasError: false,
+      route: ''
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.route !== prevState.route) {
+      return {
+        route: nextProps.route,
+        hasError: false
+      }
+    }
+    return prevState
   }
 
   componentDidCatch(error, info) {
@@ -30,4 +45,11 @@ class ErrorBoundary extends React.Component<IProps, IState> {
   }
 }
 
-export default ErrorBoundary
+export default Utils.connect({
+  component: ErrorBoundary,
+  mapStateToProps: state => {
+    return {
+      route: state.common.route
+    }
+  }
+})

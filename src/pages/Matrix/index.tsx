@@ -10,6 +10,7 @@ import Vector3 from './Vector3'
 
 interface IProps {
   isMobile: boolean;
+  dom: any
 }
 
 interface IMatrixState {
@@ -47,8 +48,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
   dom2
   span
 
-  constructor(props) {
-    super(props)
+  componentWillMount() {
     this.reset(true)
   }
 
@@ -74,7 +74,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
       v2Opacity: 1
     }
     if (isInit) {
-      this.state = initObj
+      this.setState(initObj)
     } else {
       const { v1, v2 } = this.state
       this.setState({
@@ -199,14 +199,11 @@ class Matrix extends React.Component<IProps, IMatrixState> {
   }
 
   doMultiply = () => {
-    const dom = ReactDOM.findDOMNode(this.dom) as HTMLElement
-    const dom2 = ReactDOM.findDOMNode(this.dom2) as HTMLElement
-    const span = ReactDOM.findDOMNode(this.span) as HTMLElement
-    const height1 = dom.offsetHeight
-    const width1 = dom.offsetWidth
-    const height2 = dom2.offsetHeight
-    const width2 = dom2.offsetWidth
-    const spanWidth = span.offsetWidth
+    const height1 = this.dom.offsetHeight
+    const width1 = this.dom.offsetWidth
+    const height2 = this.dom2.offsetHeight
+    const width2 = this.dom2.offsetWidth
+    const spanWidth = this.span.offsetWidth
 
     this.setState({
       top: height1 / 2 + width1 / 2 + this.state.offset,
@@ -363,7 +360,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
       <div className="matrix-wrapper">
         <div className="matrix-content">
           <Vector1
-            ref={el => (this.dom = el)}
+            innerRef={el => (this.dom = el)}
             ventorList={this.state.v1}
             editable={this.state.editable}
             onInput={this.onInput}
@@ -379,7 +376,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
             width={this.state.width2}
           />
           <Vector2
-            ref={el => (this.dom2 = el)}
+            innerRef={el => (this.dom2 = el)}
             ventorList={this.state.v2}
             editable={this.state.editable}
             onInput={this.onInput}

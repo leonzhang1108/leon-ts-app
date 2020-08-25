@@ -31,11 +31,14 @@ interface IProp {
 class Page2048 extends React.Component<IProp, IState> {
   constructor(props) {
     super(props)
-    this.reset(storage.get('pieces'), true)
     document.addEventListener('keydown', this.keydown)
   }
 
-  reset = (pieces, isInited) => {
+  componentWillMount() {
+    this.reset(storage.get('pieces'))
+  }
+
+  reset = (pieces) => {
     if (!Utils.isArray(pieces)) {
       pieces = []
       this.addRandom(pieces, true)
@@ -49,11 +52,7 @@ class Page2048 extends React.Component<IProp, IState> {
       cached: { x: 0, y: 0 }
     }
 
-    if (isInited) {
-      this.state = { ...state }
-    } else {
-      this.setState(state)
-    }
+    this.setState(state)
   }
 
   componentDidMount() {

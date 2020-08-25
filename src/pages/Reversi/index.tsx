@@ -26,10 +26,13 @@ const statusMap = {
 class Reversi extends React.Component<IProps, IState> {
   constructor(props) {
     super(props)
+  }
+
+  componentWillMount() {
     this.reset()
   }
 
-  reset = (e?) => {
+  reset = () => {
     const { checkerboard, size } = this.initCheckerboard()
     const state = {
       checkerboard,
@@ -37,11 +40,7 @@ class Reversi extends React.Component<IProps, IState> {
       step: 0,
       size
     }
-    if (e) {
-      this.setState(state)
-    } else {
-      this.state = { ...state }
-    }
+    this.setState(state)
   }
 
   initCheckerboard = () => {

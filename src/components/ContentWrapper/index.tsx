@@ -2,6 +2,7 @@ import { common } from '@actions'
 import Utils from '@utils'
 import React from 'react'
 import { bindActionCreators } from 'redux'
+import ErrorBoundary from '@cpt/ErrorBoundary'
 import './index.less'
 
 interface IProps {
@@ -30,10 +31,13 @@ class ContentWrapper extends React.Component<IProps> {
 
   render() {
     const { children } = this.props
+
     return (
-      <div className="content" ref={dom => (this.content = dom)}>
-        {children}
-      </div>
+      <ErrorBoundary>
+        <div className="content" ref={dom => (this.content = dom)}>
+          {children}
+        </div>
+      </ErrorBoundary>
     )
   }
 }

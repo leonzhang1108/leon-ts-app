@@ -9,7 +9,7 @@ const {
 
 interface IProp {
   breadcrumb: any[];
-  openKeys: string[];
+  openKeys: string[] | null;
   route: string;
   collapsed: boolean;
   contentHeight: number;
@@ -20,7 +20,7 @@ interface IProp {
 
 const initState = {
   breadcrumb: [],
-  openKeys: [],
+  openKeys: null,
   route: '',
   collapsed: false,
   contentHeight: 0,
@@ -44,9 +44,9 @@ const toggleOpenKeys = (state, action) => {
   // }
 
   // 只允许打开单个submenu
-  if (index < 0) {
-    openKeys.push(key)
-  }
+  // if (index < 0) {
+  //   openKeys.push(key)
+  // }
 
   return openKeys
 }

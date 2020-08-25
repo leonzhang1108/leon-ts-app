@@ -15,7 +15,7 @@ interface IProps {
   route: string;
   isMobile: boolean;
   breadcrumb: any[];
-  openKeys: any[];
+  openKeys: string[];
   h: number;
   actions: {
     changeBreadcrumb(v: any): void;
@@ -29,7 +29,7 @@ interface IMenuProps {
   selectedKeys: string[];
   mode: any;
   theme: any;
-  openKeys?: string[];
+  defaultOpenKeys?: any;
 }
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
@@ -129,38 +129,44 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     let width = 0
 
+    const defaultOpenKeys = openKeys
+
     const menuProps: IMenuProps = {
       className: 'left-menu',
       selectedKeys: [route ? `/${route}` : '/home'],
       mode: 'inline',
-      theme: ''
+      theme: '',
+      defaultOpenKeys
     }
-
-    menuProps.openKeys = openKeys
 
     if (this.menuWrapper) {
       width = this.menuWrapper.clientWidth
     }
-
+    console.log(collapsed ? 0 : -width)
     return isMobile ? (
       <div
         className="navbar"
         ref={dom => (this.menuWrapper = dom)}
         onClick={this.doCollapse}
         style={{
-          transform: `translateX(${collapsed ? 0 : -width}px)`
+          transform: `translateX(${collapsed ? 0 : -width}px)`,
+          width: '200px'
         }}
       >
-        <Menu
-          {...menuProps}
-          style={{
-            height: `${this.props.h + 82}px`,
-            overflowX: 'hidden',
-            overflowY: 'auto'
-          }}
-        >
-          {this.renderMenus()}
-        </Menu>
+        {
+          defaultOpenKeys !== null ? (
+            <Menu
+              {...menuProps}
+              style={{
+                height: `${this.props.h + 82}px`,
+                overflowX: 'hidden',
+                overflowY: 'auto'
+              }}
+            >
+              {this.renderMenus()}
+            </Menu>
+          ) : null
+        }
         <div
           className="icon"
           style={{ right: `-40px` }}
@@ -177,17 +183,21 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         onCollapse={toggleCollapse}
       >
         <div className="logo" />
-        <Menu
-          {...menuProps}
-          mode="inline"
-          style={{
-            height: `${document.body.clientHeight - 98}px`,
-            overflowX: 'hidden',
-            overflowY: 'auto'
-          }}
-        >
-          {this.renderMenus()}
-        </Menu>
+        {
+          defaultOpenKeys !== null ? (
+            <Menu
+              {...menuProps}
+              mode="inline"
+              style={{
+                height: `${document.body.clientHeight - 98}px`,
+                overflowX: 'hidden',
+                overflowY: 'auto'
+              }}
+            >
+              {this.renderMenus()}
+            </Menu>
+          ) : null
+        }
       </Sider>
     )
   }
