@@ -142,7 +142,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     if (this.menuWrapper) {
       width = this.menuWrapper.clientWidth
     }
-    console.log(collapsed ? 0 : -width)
+
     return isMobile ? (
       <div
         className="navbar"
