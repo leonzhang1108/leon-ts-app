@@ -72,11 +72,16 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     e.stopPropagation()
   }
 
+  onTitleClick = e => {
+    e.domEvent.stopPropagation()
+  }
+
   renderMenus = (currMenus: any = menus, parents: any[] = []) =>
     currMenus.map(menu =>
       menu.childs ? (
         <SubMenu
           key={menu.key}
+          onTitleClick={this.onTitleClick}
           title={
             <span>
               {/* <Icon type={`${menu.icon}`} /> */}

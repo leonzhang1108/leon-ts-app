@@ -1,5 +1,6 @@
 import React from 'react'
 import Utils from '@utils'
+import './index.less'
 
 interface IState {
   hasError: boolean;
@@ -39,7 +40,11 @@ class ErrorBoundary extends React.Component<IProps, IState> {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>
+      return (
+        <div className="error-boundary">
+          <h1>Something went wrong.</h1>
+        </div>
+      )
     }
     return this.props.children
   }
