@@ -4,6 +4,8 @@ import React from 'react'
 import loadable from '@loadable/component'
 import { RouteComponentProps } from 'react-router'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { common } from '@actions'
+import { bindActionCreators } from 'redux'
 
 const load = c =>
   loadable(() => import(`../pages/${c}`), {
@@ -25,7 +27,6 @@ const renderRouter = (menu, i) => (
   />
 )
 
-const redirectToHome = () => <Redirect to="/home" />
 
 const allMenus: any[] = []
 
@@ -37,15 +38,32 @@ const initRoute = (currMenus: any[]) => {
 
 initRoute(menus)
 
-class Router extends React.Component<RouteComponentProps<any>> {
+
+interface IProps extends RouteComponentProps<any> {
+  actions: {
+    toggleOpenKeys(v: any): void;
+  };
+}
+
+class Router extends React.Component<IProps> {
   shouldComponentUpdate(props) {
     return false
   }
+
+  redirectToHome = () => {
+    this.props.actions.toggleOpenKeys({
+      breadcrumb: [{route: "home", icon: "ts-app icon-home", title: "Home"}],
+      isInit: true
+    })
+
+    return <Redirect to="/home" />
+  }
+
   render() {
     return (
       <Switch>
         {/* index */}
-        <Route path="/" exact={true} render={redirectToHome} />
+        <Route path="/" exact={true} render={this.redirectToHome.bind(this)} />
 
         {/* menus */}
         {allMenus.map(renderRouter)}
@@ -57,4 +75,15 @@ class Router extends React.Component<RouteComponentProps<any>> {
   }
 }
 
-export default withRouter(Router)
+export default Utils.connect({
+  component: withRouter(Router),
+  mapDispatchToProps: dispatch => ({
+    actions: bindActionCreators(
+      {
+        toggleOpenKeys: common.toggleOpenKeys
+      },
+      dispatch
+    )
+  })
+})
+

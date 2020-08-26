@@ -18,9 +18,9 @@ export default {
       type: actionTypes.TOGGLE_COLLAPSE
     }
   },
-  toggleOpenKeys: (keys: any[]) => {
+  toggleOpenKeys: (v: any) => {
     return {
-      payload: keys,
+      payload: v,
       type: actionTypes.TOGGLE_OPENKEYS
     }
   }

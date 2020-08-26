@@ -72,16 +72,10 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     e.stopPropagation()
   }
 
-  onTitleClick = (key, e) => {
-    this.props.actions.toggleOpenKeys({ key })
-    e.domEvent.stopPropagation()
-  }
-
   renderMenus = (currMenus: any = menus, parents: any[] = []) =>
     currMenus.map(menu =>
       menu.childs ? (
         <SubMenu
-          onTitleClick={this.onTitleClick.bind(this, menu.key)}
           key={menu.key}
           title={
             <span>
@@ -129,7 +123,9 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     let width = 0
 
-    const defaultOpenKeys = openKeys || []
+    const defaultOpenKeys = openKeys
+
+    const showMenu = defaultOpenKeys !== null
 
     const menuProps: IMenuProps = {
       className: 'left-menu',
@@ -154,7 +150,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         }}
       >
         {
-          defaultOpenKeys !== null ? (
+          showMenu ? (
             <Menu
               {...menuProps}
               style={{
@@ -184,7 +180,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       >
         <div className="logo" />
         {
-          defaultOpenKeys !== null ? (
+          showMenu ? (
             <Menu
               {...menuProps}
               mode="inline"
