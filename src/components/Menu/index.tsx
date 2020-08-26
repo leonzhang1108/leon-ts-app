@@ -159,7 +159,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
             <Menu
               {...menuProps}
               style={{
-                height: `${this.props.h + 82}px`,
+                height: `100%`,
                 overflowX: 'hidden',
                 overflowY: 'auto'
               }}
