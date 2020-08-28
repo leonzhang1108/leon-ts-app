@@ -1,6 +1,6 @@
 /* eslint-disable */
 'use strict'
-export default canvas => {
+export default (canvas, isMobile) => {
   let timeout = null
 
   const config = {
@@ -31,9 +31,9 @@ export default canvas => {
     this.y = 0
     this.dx = 0
     this.dy = 0
-    this.down = false
+    this.down = isMobile
     this.moved = false
-    this.color = [30, 0, 300]
+    this.color = isMobile ? [30, 0, 300] : generateColor()
   }
 
   let pointers = []
@@ -1282,10 +1282,10 @@ export default canvas => {
     false
   )
 
-  canvas.addEventListener('mousedown', () => {
-    pointers[0].down = true
-    pointers[0].color = generateColor()
-  })
+  // canvas.addEventListener('mousedown', () => {
+  //   pointers[0].down = true
+  //   pointers[0].color = generateColor()
+  // })
 
   canvas.addEventListener('touchstart', e => {
     e.preventDefault()
@@ -1301,9 +1301,9 @@ export default canvas => {
     }
   })
 
-  canvas.addEventListener('mouseup', () => {
-    pointers[0].down = false
-  })
+  // canvas.addEventListener('mouseup', () => {
+  //   pointers[0].down = false
+  // })
 
   canvas.addEventListener('touchend', e => {
     const touches = e.changedTouches

@@ -6,13 +6,14 @@ import initWebGL from './webGL'
 interface IProps {
   height: number;
   width: number;
+  isMobile: boolean;
 }
 
 class Painting extends React.Component<IProps> {
   canvas
   cancel
   componentDidMount() {
-    this.cancel = initWebGL(this.canvas)
+    this.cancel = initWebGL(this.canvas, this.props.isMobile)
   }
   componentWillUnmount() {
     this.cancel && this.cancel()
@@ -29,6 +30,7 @@ class Painting extends React.Component<IProps> {
 export default Utils.connect({
   component: Painting,
   mapStateToProps: state => ({
+    isMobile: state.common.isMobile,
     height: state.common.contentHeight,
     width: state.common.contentWidth
   })
