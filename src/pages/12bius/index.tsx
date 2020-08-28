@@ -1,5 +1,5 @@
 import Utils from '@utils'
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 interface IProps {
   background?: string;
   width?: number;
@@ -127,21 +127,24 @@ const Fireworks12bius = ({
   maxFireworks = 0,
   maxSparks = 0
 }: IProps) => {
-  const canvas: any = React.useRef(null)
-  const [fireworks, updator] = React.useState(
+  const canvas: any = useRef(null)
+  const [fireworks, updator] = useState(
     generateFireworks(width, height, maxFireworks, maxSparks)
   )
 
-  React.useEffect(() => {
-    const context = canvas.current.getContext('2d')
-    context.clearRect(0, 0, width, height)
-    updator(
-      fireworks.map((firework: IFirework, index: number) => {
-        draw(context, firework, index)
-        return update(width, height, firework)
-      })
-    )
-  })
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      if (!canvas.current) return
+      const context = canvas.current.getContext('2d')
+      context.clearRect(0, 0, width, height)
+      updator(
+        fireworks.map((firework: IFirework, index: number) => {
+          draw(context, firework, index)
+          return update(width, height, firework)
+        })
+      )
+    })
+  }, [fireworks])
 
   return (
     <canvas ref={canvas} width={width} height={height} style={{ background }} />
@@ -151,7 +154,7 @@ const Fireworks12bius = ({
 Fireworks12bius.defaultProps = {
   background: 'black',
   maxFireworks: 5,
-  maxSparks: 77
+  maxSparks: 66
 }
 
 export default Utils.connect({
