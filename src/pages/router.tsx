@@ -8,7 +8,7 @@ import { common } from '@actions'
 import { bindActionCreators } from 'redux'
 
 const load = c =>
-  loadable(() => import(`../pages/${c}`), {
+  loadable(() => import(/* webpackChunkName: `[request]` */`../pages/${c}`), {
     fallback: (
       <div className="loading-center">
         <div className="loader" />
