@@ -48,6 +48,11 @@ export default [
         route: 'gana',
         icon: 'ts-app icon-gana',
         title: '仮名'
+      },
+      {
+        route: 'diff-table',
+        icon: 'ts-app icon-diff',
+        title: 'Diff Table'
       }
     ]
   },

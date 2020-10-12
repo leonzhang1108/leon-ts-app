@@ -1,0 +1,41 @@
+.diff-table-wrapper {
+  .diff-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+    margin: 10px;
+    th, td {
+      border-left: 1px solid #cbcbcb;
+      border-bottom: 1px solid #cbcbcb;
+      border-width: 0 0 1px 1px;
+      font-size: inherit;
+      margin: 0;
+      overflow: visible;
+      padding: .5em 1em;
+    }
+    thead {
+      background-color: #e0e0e0;
+      color: #000;
+      text-align: left;
+      vertical-align: bottom;
+    }
+    th {
+      &.green {
+        background-color: #acf2bd;
+      }
+      &.red {
+        background-color: #fdb8c0;
+      }
+    }
+    td {
+      &.green {
+        background-color: #cdffd8;
+      }
+      &.red {
+        background-color: #ffeef0;
+      }
+    }
+
+  }
+}
