@@ -1,0 +1,109 @@
+.loading-center {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  width: 125px;
+  margin: 5em auto;
+}
+
+.cat {
+  margin: auto;
+}
+
+.head {
+  width: 50px;
+  height: 50px;
+  transform: translateY(-40px);
+  background: linear-gradient(to top, #AAA 20px, #444 20px);
+  border-radius: 50%;
+  position: relative;
+  animation: movehead 6s infinite;
+  margin: 0 auto;
+}
+
+.ears {
+  display: flex;
+  justify-content: space-around;
+}
+
+.ears::before,
+.ears::after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: relative;
+    margin: 2px 4px;
+    margin-bottom: 0;
+    top: -6px;
+    border-left: 7px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 14px solid #444;
+}
+
+.eyes {
+  position: relative;
+  top: -3px;
+  display: flex;
+  justify-content: center;
+}
+.eyes::before,
+.eyes::after {
+  content:"";
+  background: #FFF;
+  width: 8px;
+  height: 8px;
+  margin: 3px;
+  margin-top: 0;
+  border-radius: 50%;
+  animation: blink 5s linear infinite;
+}
+
+.squares {
+  position: relative;
+  height: 30px;
+  top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  margin: 3px;
+  width: 15px;
+  height: 15px;
+  background: #AAA;
+/*   will-change:height; */
+}
+
+.box:nth-child(1) { animation:load 3s linear infinite 0s; }
+.box:nth-child(2) { animation:load 3s linear infinite 1s; }
+.box:nth-child(3) { animation:load 3s linear infinite 2s; }
+
+@keyframes load {
+  0%, 33.3% {
+    background-color:#AAA;
+/*     height:20px; */
+  }
+  16.6% {
+    background-color:#555;
+/*     height:40px; */
+  }
+}
+
+@keyframes blink {
+  0%, 74%, 76% { opacity:1 }
+  75% { opacity:0 }
+}
+
+@keyframes movehead {
+  0% { top:-1px }
+  25% { top:12px }
+  50% { top:0px }
+  75% { top:10px }
+  100% { top:-2px }
+}

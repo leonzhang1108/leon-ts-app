@@ -6,12 +6,13 @@ import { RouteComponentProps } from 'react-router'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { common } from '@actions'
 import { bindActionCreators } from 'redux'
+import Loader from '@cpt/Loader'
 
 const load = c =>
   loadable(() => import(/* webpackChunkName: `[request]` */`../pages/${c}`), {
     fallback: (
       <div className="loading-center">
-        <div className="loader" />
+        <Loader />
       </div>
     )
   })
