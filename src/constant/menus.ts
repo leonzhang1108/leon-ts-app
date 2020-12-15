@@ -88,6 +88,10 @@ export default [
         route: 'painting',
         icon: 'ts-app icon-painting',
         title: 'Painting'
+      }, {
+        route: 'snow',
+        icon: 'ts-app icon-snow',
+        title: 'Snow'
       }
     ]
   },

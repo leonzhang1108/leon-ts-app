@@ -171,7 +171,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
         this.doCalculate(total - currentLevel)
         setTimeout(() => {
           this.setState({ bottomDisable: false })
-          resolve()
+          resolve(null)
         }, 300)
       } else {
         this.setState({
@@ -192,7 +192,7 @@ class Matrix extends React.Component<IProps, IMatrixState> {
             left: 0,
             bottomDisable: false
           })
-          resolve()
+          resolve(null)
         }, 600)
       }
     })

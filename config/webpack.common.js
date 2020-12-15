@@ -99,6 +99,12 @@ module.exports = {
           name: 'flubberVendor',
           chunks: 'async'
         },
+        particle: {
+          test: /react-particles-js/,
+          priority: 100,
+          name: 'particleJsVendor',
+          chunks: 'async'
+        },
       }
     }
   },
