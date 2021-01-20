@@ -1,0 +1,125 @@
+@theme-color: #1890ff;
+@input-border: 1px solid #dcdfe6;
+
+.formula-input-wrapper {
+  position: relative;
+
+  > .formula-input {
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    white-space: nowrap;
+    padding: 4px 11px;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.3s;
+    overflow: scroll;
+    -ms-overflow-style: none;
+
+    &.large {
+      padding: 6.5px 11px;
+      font-size: 16px;
+    }
+
+    &.small {
+      padding: 0 7px;
+      font-size: 14px;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &[contenteditable=false] {
+      background-color: #f5f7fa;
+      border-color: #e4e7ed;
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
+
+    &.error {
+      border: 1px solid @theme-color;
+    }
+
+    &:empty::before {
+      content: attr(placeholder);
+      color: #c0c4cc;
+    }
+
+    br {
+      display: none;
+    }
+
+    & * {
+      display: inline;
+      white-space: nowrap;
+    }
+
+    &:focus {
+      border: 1px solid @theme-color;
+    }
+
+    div {
+      color: @theme-color;
+      padding: 0 3px;
+
+      span {
+        display: none;
+      }
+    }
+  }
+
+  > .hint {
+    color: @theme-color;
+    font-size: 12px;
+  }
+}
+
+.formula-input-selection {
+  position: absolute;
+  font-size: 12px;
+  width: 100%;
+  z-index: 10000;
+  background: #fff;
+  border: @input-border;
+  margin-top: -1px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition: top 300ms, left 300ms;
+  display: none;
+
+  &.visible {
+    display: inherit;
+  }
+
+  .el-input {
+    &__inner {
+      border-radius: 0;
+      border: none;
+      border-bottom: @input-border;
+
+      &:focus {
+        border-bottom: @input-border;
+      }
+    }
+  }
+
+  .options {
+    max-height: 200px;
+    overflow-y: scroll;
+
+    .option {
+      background-color: #f5f7fa;
+      padding: 5px 15px;
+      border-radius: 100px;
+      margin: 5px;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-block;
+    }
+  }
+
+  .empty {
+    text-align: center;
+    padding: 20px 0;
+  }
+}

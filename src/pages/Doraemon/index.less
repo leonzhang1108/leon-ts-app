@@ -1,0 +1,709 @@
+
+
+// 変数
+@color_white: #fff;
+@color_blue: #017ac1;
+@color_darkblue: #0367a3;
+@color_red: #ee3032;
+@color_black: #28201e;
+@color_brown: #554746;
+@color_gray: #ccd5da;
+@color_darkgray: #8b8b8d;
+@color_yellow: #e8c43a;
+@color_orange: #d78b29;
+
+// ドラえもん
+
+.d-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .d {
+    transform: scale(0.5);
+    margin-top: 170px;
+  }
+  
+  // 頭
+  .d-head {
+    position: relative;
+    width: 394px;
+    height: 350px;
+    border-radius: 50%;
+    background-color: @color_blue;
+  }
+
+  // 顔
+  .d-head__face {
+    position: absolute;
+    bottom: 0;
+    right: -1px;
+    width: 330px;
+    height: 270px;
+    border-radius: 120px 85px 190px 160px;
+    background-color: @color_white;
+  }
+
+  // 目
+  .d-head__eyes {
+    position: absolute;
+    top: -47px;
+    left: 120px;
+    display: flex;
+    transform: rotate(8deg);
+
+    & > *:nth-child(2) {
+      margin-left: -5px;
+    }
+  }
+
+  .d-head__eye {
+    position: relative;
+    width: 80px;
+    height: 97px;
+    background-color: @color_white;
+    border-radius: 50%;
+
+    &:nth-child(2) {
+      width: 70px;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 17px;
+      left: 12px;
+      width: 20px;
+      height: 36px;
+      transform: rotate(-13deg);
+      background-color: @color_black;
+      border-radius: 50%;
+    }
+  }
+
+  // 鼻
+  .d-head__nose {
+    position: absolute;
+    top: 40px;
+    left: 187px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: @color_red;
+  }
+
+  // 鼻下
+  .d-head__under-nose {
+    position: absolute;
+    top: 75px;
+    left: 202px;
+    width: 4px;
+    height: 70px;
+    background-color: @color_gray;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 2px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: @color_gray;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 2px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: @color_white;
+    }
+  }
+
+  // 口
+  .d-head__mouth {
+    position: absolute;
+    top: 125px;
+    left: 189px;
+    color: #ccd5da;
+    font-size: 90px;
+    line-height: 1;
+    transform: rotate(26deg);
+    font-family: "Open Sans Condensed", sans-serif;
+  }
+
+  // ひげ
+  .d-head_beards {
+    & > *:nth-child(1) {
+      top: 50px;
+      left: 10px;
+      width: 120px;
+      transform: rotate(25deg);
+      transform-origin: right;
+    }
+    & > *:nth-child(2) {
+      top: 90px;
+      left: -2px;
+      width: 120px;
+      transform: rotate(8deg);
+      transform-origin: right;
+    }
+    & > *:nth-child(3) {
+      top: 138px;
+      left: -6px;
+      width: 120px;
+      transform: rotate(-9deg);
+      transform-origin: right;
+    }
+    & > *:nth-child(4) {
+      top: 58px;
+      left: 260px;
+      width: 80px;
+      transform: rotate(-31deg);
+      transform-origin: left;
+    }
+    & > *:nth-child(5) {
+      top: 93px;
+      left: 267px;
+      width: 80px;
+      transform: rotate(-3deg);
+      transform-origin: left;
+    }
+    & > *:nth-child(6) {
+      top: 133px;
+      left: 263px;
+      width: 80px;
+      transform: rotate(20deg);
+      transform-origin: left;
+    }
+  }
+
+  .d-head_beard {
+    position: absolute;
+    height: 22px;
+    border-top: 3px solid @color_darkgray;
+    border-radius: 50%;
+  }
+
+  // 体
+  .d-body {
+    position: relative;
+    margin: -25px 0 0 53px;
+    width: 240px;
+    height: 240px;
+    background-color: @color_blue;
+    transform: rotate(15deg);
+    border-radius: 0 0 180px 60px;
+    transform-origin: top center;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 8px;
+      left: -25px;
+      width: 140px;
+      height: 190px;
+      background-color: @color_blue;
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 84px;
+      left: -3px;
+      width: 80px;
+      height: 117px;
+      background-color: @color_blue;
+      border-radius: 50%;
+      transform: rotate(5deg);
+    }
+  }
+
+  // 首輪
+  .d-body__collar {
+    position: relative;
+    width: 100%;
+    height: 21px;
+    background-color: @color_red;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: @color_red;
+      border-radius: 100%;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: @color_blue;
+      border-radius: 100%;
+    }
+  }
+
+  .d-body__collar-edge {
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -1px;
+      left: -10px;
+      width: 21px;
+      height: 21px;
+      background-color: @color_red;
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -2px;
+      right: -7px;
+      width: 21px;
+      height: 20px;
+      background-color: @color_red;
+      border-radius: 50%;
+      z-index: 2;
+    }
+  }
+
+  // 腹
+  .d-body__belly {
+    position: absolute;
+    top: 5px;
+    right: -52px;
+    width: 110px;
+    height: 140px;
+    background-color: @color_white;
+    border-radius: 50%;
+    transform: rotate(1deg);
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -7px;
+      left: 18px;
+      width: 31px;
+      height: 17px;
+      background-color: @color_red;
+      transform: rotate(7deg);
+      z-index: 2;
+    }
+  }
+
+  // 鈴
+  .d-body__bell {
+    position: absolute;
+    top: 6px;
+    right: -44px;
+    width: 60px;
+    height: 60px;
+    background-color: @color_yellow;
+    border-radius: 50%;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 4px;
+      right: 4px;
+      width: 15px;
+      height: 11px;
+      background-color: @color_yellow;
+      border-radius: 50%;
+      transform: rotate(-48deg);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 11px;
+      left: -12px;
+      width: 30px;
+      height: 47px;
+      background-color: @color_white;
+      transform: rotate(-1deg);
+    }
+  }
+
+  .d-body__bell-inner {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 6px;
+      right: 4px;
+      width: 59px;
+      height: 2px;
+      background-color: @color_orange;
+      border-radius: 50%;
+      transform: rotate(-48deg);
+      transform-origin: center right;
+    }
+  }
+
+  .d-body__bell-hole {
+    position: absolute;
+    bottom: 23px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    background-color: @color_brown;
+    border-radius: 50%;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -9px;
+      left: 8px;
+      width: 5px;
+      height: 11px;
+      background-color: @color_brown;
+    }
+  }
+
+  // 四次元ポケット
+  .d-body__pocket {
+    position: absolute;
+    top: 68px;
+    left: 7px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 27px;
+      height: 70px;
+      border-left: 5px solid @color_gray;
+      border-radius: 50%;
+      transform: rotate(-25deg);
+      transform-origin: top left;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 8px;
+      width: 24px;
+      height: 50px;
+      border-right: 3px solid @color_gray;
+      border-radius: 50%;
+      transform: rotate(271deg);
+      transform-origin: top left;
+    }
+  }
+
+  // 腕
+  .d-body__arm {
+    position: absolute;
+    top: 100px;
+    left: 40px;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -70px;
+      left: 4px;
+      width: 37px;
+      height: 100px;
+      border-left: 9px solid @color_darkblue;
+      border-radius: 50%;
+      transform: rotate(22deg);
+      transform-origin: bottom center;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: 54px;
+      height: 80px;
+      border-right: 9px solid @color_darkblue;
+      border-radius: 50%;
+      transform: rotate(42deg);
+      transform-origin: bottom center;
+      z-index: -1;
+    }
+  }
+
+  // 手
+  .d-body__hand {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-color: @color_white;
+    border-radius: 50%;
+  }
+
+  // 尻尾
+  .d-body__tail {
+    position: absolute;
+    bottom: 50px;
+    left: -50px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: @color_red;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      margin: auto;
+      width: 20px;
+      height: 5px;
+      background-color: @color_brown;
+    }
+  }
+
+  // 足
+  .d-body__legs {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -27px;
+      left: 101px;
+      height: 38px;
+      border-right: 10px solid @color_darkblue;
+      border-radius: 50% 50% 0 0;
+      transform: rotate(-39deg);
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -44px;
+      left: 64px;
+      width: 18px;
+      height: 45px;
+      border-right: 5px solid @color_darkblue;
+      border-radius: 50%;
+      transform: rotate(83deg);
+      z-index: 1;
+    }
+  }
+
+  .d-body__leg {
+    position: absolute;
+    background-color: @color_blue;
+
+    &:nth-child(1) {
+      bottom: -8px;
+      left: 104px;
+      width: 120px;
+      height: 80px;
+      transform: rotate(-15deg);
+      border-radius: 0 60px 40px 42px;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -30px;
+        left: -4px;
+        width: 20px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: @color_gray;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -75px;
+        left: 2px;
+        width: 140px;
+        height: 110px;
+        border-radius: 50%;
+        background-color: @color_white;
+      }
+    }
+
+    &:nth-child(2) {
+      bottom: -18px;
+      left: 17px;
+      width: 120px;
+      height: 80px;
+      transform: rotate(-15deg);
+      border-radius: 0 60px 40px 42px;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -4px;
+        left: 5px;
+        width: 115px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: @color_blue;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -10px;
+        right: -85px;
+        width: 115px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: @color_blue;
+      }
+    }
+  }
+
+  .cake-wrapper {
+    position: absolute;
+    top: -50px;
+    background: linear-gradient(to bottom, #ee9ca7, #fff);
+    width: 100%;
+    transform: scale(2.7);
+  }
+  .cake {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* ============================================== Candle
+  */
+
+  .velas {
+    background: #ffffff;
+    border-radius: 10px;
+    position: absolute;
+    top: 135px;
+    left: 50%;
+    margin-left: -2.4px;
+    margin-top: -8.33333333px;
+    width: 5px;
+    height: 35px;
+    transform: translateY(-300px);
+    backface-visibility: hidden;
+    animation: in 500ms 6s ease-out forwards;
+  }
+  .velas:after,
+  .velas:before {
+    background: rgba(255, 0, 0, 0.4);
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2.22222222px;
+  }
+  .velas:after {
+    top: 25%;
+    left: 0;
+  }
+  .velas:before {
+    top: 45%;
+    left: 0;
+  }
+
+  /* ============================================== Fire
+  */
+
+  .fuego {
+    border-radius: 100%;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    margin-left: -2.6px;
+    width: 6.66666667px;
+    height: 18px;
+  }
+  .fuego:nth-child(1) {
+    animation: fuego 2s 6.5s infinite;
+  }
+  .fuego:nth-child(2) {
+    animation: fuego 1.5s 6.5s infinite;
+  }
+  .fuego:nth-child(3) {
+    animation: fuego 1s 6.5s infinite;
+  }
+  .fuego:nth-child(4) {
+    animation: fuego 0.5s 6.5s infinite;
+  }
+  .fuego:nth-child(5) {
+    animation: fuego 0.2s 6.5s infinite;
+  }
+
+  /* ============================================== Animation Fire
+  */
+
+  @keyframes fuego {
+    0%, 100% {
+      background: rgba(254, 248, 97, 0.5);
+      box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      background: rgba(255, 50, 0, 0.1);
+      box-shadow: 0 0 40px 20px rgba(248, 233, 209, 0.2);
+      transform: translateY(-20px) scale(0);
+    }
+  }
+
+  @keyframes in {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .text {
+    color: #8b6a60;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-style:italic;
+    text-align: center;
+    h1 {
+      font-size: 1.4em;
+    }
+  }
+}
+

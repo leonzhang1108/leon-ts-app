@@ -5,6 +5,11 @@ export default [
     title: 'Home'
   },
   {
+    route: 'doraemon',
+    icon: 'ts-app icon-doraemon',
+    title: '刘发财生日快乐！'
+  },
+  {
     route: 'batman-history',
     icon: 'ts-app icon-batman-logo',
     title: 'Bat History'
@@ -53,6 +58,11 @@ export default [
         route: 'diff-table',
         icon: 'ts-app icon-diff',
         title: 'Diff Table'
+      },
+      {
+        route: 'formula-input',
+        icon: 'ts-app icon-formula',
+        title: 'Formula Input'
       }
     ]
   },
