@@ -1,0 +1,58 @@
+.to-tree-item-cpt {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+
+  &.hidden {
+    display: none;
+  }
+
+  .to-tree-item-wrapper {
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .to-tree-item {
+      display: flex;
+      position: relative;
+
+      &.top {
+        align-items: flex-start;
+      }
+
+      &.middle {
+        align-items: center;
+      }
+
+      &.bottom {
+        align-items: flex-end;
+      }
+
+      .from-tree-cpt-animation {
+        transition: all 300ms;
+        overflow: hidden;
+      }
+
+      .to-tree-item-detail {
+        flex-shrink: 0;
+        margin-bottom: 10px;
+        user-select: none;
+        cursor: pointer;
+        background-color: #ececec;
+      }
+    }
+
+    .load-btn-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  .canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

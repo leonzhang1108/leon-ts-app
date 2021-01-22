@@ -1,0 +1,30 @@
+.dic-fromto-container {
+  display: flex;
+  overflow: scroll;
+  align-items: flex-start;
+  justify-content: stretch;
+  position: relative;
+
+  &.top {
+    align-items: flex-start;
+  }
+
+  &.middle {
+    align-items: center;
+  }
+
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  .root-item {
+    flex-shrink: 0;
+    vertical-align: top;
+    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid #aaa;
+    background-color: #ececec;
+    color: rgba(0, 0, 0, 0.85);
+  }
+}

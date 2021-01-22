@@ -63,6 +63,11 @@ export default [
         route: 'formula-input',
         icon: 'ts-app icon-formula',
         title: 'Formula Input'
+      },
+      {
+        route: 'fromto-container-page',
+        icon: 'ts-app icon-formula',
+        title: '流向图'
       }
     ]
   },

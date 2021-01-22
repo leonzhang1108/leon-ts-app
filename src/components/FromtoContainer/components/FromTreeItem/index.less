@@ -1,0 +1,59 @@
+.from-tree-item-cpt {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+
+  &.hidden {
+    display: none;
+  }
+
+  .from-tree-item-wrapper {
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .from-tree-item {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+
+      &.top {
+        align-items: flex-start;
+      }
+
+      &.middle {
+        align-items: center;
+      }
+
+      &.bottom {
+        align-items: flex-end;
+      }
+
+      .from-tree-cpt-animation {
+        transition: all 300ms;
+        overflow: hidden;
+      }
+
+      .from-tree-item-detail {
+        flex-shrink: 0;
+        margin-bottom: 10px;
+        user-select: none;
+        cursor: pointer;
+        background-color: #ececec;
+      }
+    }
+
+    .load-btn-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  .canvas-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
