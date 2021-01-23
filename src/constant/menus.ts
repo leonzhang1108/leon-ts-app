@@ -66,7 +66,7 @@ export default [
       },
       {
         route: 'fromto-container-page',
-        icon: 'ts-app icon-formula',
+        icon: 'ts-app icon-tree',
         title: '流向图'
       }
     ]
