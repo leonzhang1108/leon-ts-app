@@ -32,8 +32,10 @@ const SingleItem = (props: any) => {
   const { childItem, ...rest } = item
   const [visible, setVisible] = useState(!!(childItem && childItem.length))
   const parantRef: any = useRef()
-  const [childrenWidth, setChildrenWidth] = useState<any>(undefined)
-  const [childrenHeight, setChildrenHeight] = useState<any>(undefined)
+  const [{ childrenWidth, childrenHeight }, setChildrenSize] = useState<any>({
+    childrenWidth: undefined,
+    childrenHeight: undefined,
+  })
   const visibleWidth = useRef(0)
   const visibleHeight = useRef(0)
   const [isRoot, setIsRoot] = useState(!(childItem && childItem.length))
@@ -54,13 +56,17 @@ const SingleItem = (props: any) => {
         // 收起
         const width = parantRef.current.clientWidth - itemWidth
         const height = parantRef.current.clientHeight
-        setChildrenWidth(width)
-        setChildrenHeight(height)
+        setChildrenSize({
+          childrenHeight: height,
+          childrenWidth: width,
+        })
         visibleWidth.current = width
         visibleHeight.current = height
         setTimeout(() => {
-          setChildrenWidth(0)
-          setChildrenHeight(0)
+          setChildrenSize({
+            childrenHeight: 0,
+            childrenWidth: 0,
+          })
         }, 10)
         setTimeout(() => {
           setVisible(!visible)
@@ -70,15 +76,21 @@ const SingleItem = (props: any) => {
       } else {
         // 展开
         setVisible(!visible)
-        setChildrenWidth(0)
-        setChildrenHeight(0)
+        setChildrenSize({
+          childrenHeight: 0,
+          childrenWidth: 0,
+        })
         setTimeout(() => {
-          setChildrenWidth(visibleWidth.current)
-          setChildrenHeight(visibleHeight.current)
+          setChildrenSize({
+            childrenHeight: visibleHeight.current,
+            childrenWidth: visibleWidth.current,
+          })
         }, 10)
         setTimeout(() => {
-          setChildrenWidth(undefined)
-          setChildrenHeight(undefined)
+          setChildrenSize({
+            childrenHeight: undefined,
+            childrenWidth: undefined,
+          })
           setIsTransforming(false)
           setVisibleChangeCount(new Date().getTime())
         }, 310)
@@ -106,15 +118,21 @@ const SingleItem = (props: any) => {
       setIsRoot(false)
       // 展开
       setVisible(true)
-      setChildrenWidth(0)
-      setChildrenHeight(0)
+      setChildrenSize({
+        childrenHeight: undefined,
+        childrenWidth: 0,
+      })
       setTimeout(() => {
-        setChildrenWidth(itemWidth + 100)
-        setChildrenHeight(undefined)
+        setChildrenSize({
+          childrenHeight: undefined,
+          childrenWidth: itemWidth + 100,
+        })
       }, 10)
       setTimeout(() => {
-        setChildrenWidth(undefined)
-        setChildrenHeight(undefined)
+        setChildrenSize({
+          childrenHeight: undefined,
+          childrenWidth: undefined,
+        })
         setIsTransforming(false)
         setVisibleChangeCount(new Date().getTime())
       }, 310)

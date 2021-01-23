@@ -19,61 +19,21 @@ const demoData = {
   from: [
     {
       name: '爸爸',
-      value: '3333',
-      childItem: [
-        {
-          name: '爸爸的爸爸',
-          value: '2222',
-        },
-        {
-          name: '爸爸的妈妈',
-          value: '1111'
-        }
-      ]
+      value: '3333'
     },
     {
       name: '妈妈',
-      value: '3333',
-      childItem: [
-        {
-          name: '妈妈的爸爸',
-          value: '2222',
-        },
-        {
-          name: '妈妈的妈妈',
-          value: '1111',
-        }
-      ]
+      value: '3333'
     },
   ],
   to: [
     {
       name: '儿子',
-      value: '3333',
-      childItem: [
-        {
-          name: '儿子的儿子',
-          value: '2222',
-        },
-        {
-          name: '儿子的女儿',
-          value: '1111'
-        }
-      ]
+      value: '3333'
     },
     {
       name: '女儿',
-      value: '3333',
-      childItem: [
-        {
-          name: '女儿的儿子',
-          value: '2222',
-        },
-        {
-          name: '女儿的女儿',
-          value: '1111',
-        }
-      ]
+      value: '3333'
     },
   ],
 }
