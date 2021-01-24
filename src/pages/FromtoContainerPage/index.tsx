@@ -15,25 +15,41 @@ const sonNames = ['儿子', '女儿', '侄子', '侄女']
 
 const demoData = {
   name: '我',
-  value: '6666',
+  value: '8888',
   from: [
     {
       name: '爸爸',
-      value: '3333'
+      value: '2222'
     },
     {
       name: '妈妈',
-      value: '3333'
+      value: '2222'
+    },
+    {
+      name: '叔叔',
+      value: '2222'
+    },
+    {
+      name: '阿姨',
+      value: '2222'
     },
   ],
   to: [
     {
       name: '儿子',
-      value: '3333'
+      value: '2222'
     },
     {
       name: '女儿',
-      value: '3333'
+      value: '2222'
+    },
+    {
+      name: '侄子',
+      value: '2222'
+    },
+    {
+      name: '侄女',
+      value: '2222'
     },
   ],
 }
@@ -101,7 +117,7 @@ const FromtoContainerCpt = () => {
           itemWidth={200}
           onItemClick={onItemClick}
           onItemRightClick={onItemRightClick}
-          pageSize={2}
+          pageSize={3}
           renderItem={item => (
             <div style={{ margin: 10 }}>
               <div style={{ fontWeight: 'bold', fontSize: 14 }}>{item.name}</div>
