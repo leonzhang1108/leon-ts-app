@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import FromTreeItem from './components/FromTreeItem'
 import ToTreeItem from './components/ToTreeItem'
 import Context from './context'
@@ -47,6 +47,7 @@ const DICFromtoContainer = (props: DICFromtoContainerProps) => {
   const [visibleChangeCount, setVisibleChangeCount] = useState(0)
   const [treeVisible, setTreeVisible] = useState(true)
   const [isTransforming, setIsTransforming] = useState(false)
+  const [isAbsolute, setIsAbsolute] = useState(false)
   const [{ leftWidth, leftHeight }, setLeftSize] = useState<any>({
     leftWidth: undefined,
     leftHeight: undefined,
@@ -57,78 +58,103 @@ const DICFromtoContainer = (props: DICFromtoContainerProps) => {
   })
   const leftRef: any = useRef()
   const rightRef: any = useRef()
-  const leftWidthRef = useRef(0)
-  const leftHeightRef = useRef(0)
-  const rightWidthRef = useRef(0)
-  const rightHeightRef = useRef(0)
+  const leftHeightRef: any = useRef(0)
+  const rightHeightRef: any = useRef(0)
+
+  const openChildren = useCallback(() => {
+    // 展开
+    setTreeVisible(true)
+    setLeftSize({
+      leftWidth: 0,
+      leftHeight: 0,
+    })
+    setRightSize({
+      rightWidth: 0,
+      rightHeight: 0,
+    })
+    setTimeout(() => {
+      setLeftSize({
+        leftHeight: leftHeightRef.current,
+        leftWidth: itemWidth + 100,
+      })
+      setRightSize({
+        rightHeight: rightHeightRef.current,
+        rightWidth: itemWidth + 100,
+      })
+    }, 10)
+    setTimeout(() => {
+      setLeftSize({
+        leftWidth: undefined,
+        leftHeight: undefined,
+      })
+      setRightSize({
+        rightWidth: undefined,
+        rightHeight: undefined,
+      })
+      setIsTransforming(false)
+    }, 310)
+  }, [])
+
+  const closeChildren = useCallback(() => {
+    // 收起
+    const leftWidthTemp = leftRef.current.clientWidth
+    const leftHeightTemp = leftRef.current.clientHeight
+    const rightWidthTemp = rightRef.current.clientWidth
+    const rightHeightTemp = rightRef.current.clientHeight
+    setLeftSize({
+      leftWidth: leftWidthTemp,
+      leftHeight: leftHeightTemp,
+    })
+    setRightSize({
+      rightWidth: rightWidthTemp,
+      rightHeight: rightHeightTemp,
+    })
+    leftHeightRef.current = leftHeightTemp
+    rightHeightRef.current = rightHeightTemp
+    setTimeout(() => {
+      setLeftSize({
+        leftWidth: 0,
+        leftHeight: 0,
+      })
+      setRightSize({
+        rightWidth: 0,
+        rightHeight: 0,
+      })
+    }, 10)
+    setTimeout(() => {
+      setTreeVisible(false)
+      setIsTransforming(false)
+    }, 310)
+  }, [])
+
+  const getChildrenHeight = useCallback(() => {
+    return new Promise((success) => {
+      setTreeVisible(true)
+      setIsAbsolute(true)
+      setLeftSize({
+        leftHeight: undefined,
+        leftWidth: 0,
+      })
+      setRightSize({
+        rightHeight: undefined,
+        rightWidth: 0,
+      })
+      setTimeout(() => {
+        leftHeightRef.current = leftRef.current.clientHeight
+        rightHeightRef.current = rightRef.current.clientHeight
+        setIsAbsolute(false)
+        success('success')
+      }, 0)
+    })
+  }, [])
 
   const onRootClick = () => {
     if (!isTransforming) {
       setIsTransforming(true)
       if (treeVisible) {
-        // 收起
-        const leftWidthTemp = leftRef.current.clientWidth
-        const leftHeightTemp = leftRef.current.clientHeight
-        const rightWidthTemp = rightRef.current.clientWidth
-        const rightHeightTemp = rightRef.current.clientHeight
-        setLeftSize({
-          leftWidth: leftWidthTemp,
-          leftHeight: leftHeightTemp,
-        })
-        setRightSize({
-          rightWidth: rightWidthTemp,
-          rightHeight: rightHeightTemp,
-        })
-        leftWidthRef.current = leftWidthTemp
-        leftHeightRef.current = leftHeightTemp
-        rightWidthRef.current = rightWidthTemp
-        rightHeightRef.current = rightHeightTemp
-        setTimeout(() => {
-          setLeftSize({
-            leftWidth: 0,
-            leftHeight: 0,
-          })
-          setRightSize({
-            rightWidth: 0,
-            rightHeight: 0,
-          })
-        }, 10)
-        setTimeout(() => {
-          setTreeVisible(!treeVisible)
-          setIsTransforming(false)
-        }, 310)
+        closeChildren()
       } else {
-        // 展开
-        setTreeVisible(!treeVisible)
-        setLeftSize({
-          leftWidth: 0,
-          leftHeight: 0,
-        })
-        setRightSize({
-          rightWidth: 0,
-          rightHeight: 0,
-        })
-        setTimeout(() => {
-          setLeftSize({
-            leftHeight: leftHeightRef.current,
-            leftWidth: leftWidthRef.current,
-          })
-          setRightSize({
-            rightHeight: rightHeightRef.current,
-            rightWidth: rightWidthRef.current,
-          })
-        }, 10)
-        setTimeout(() => {
-          setLeftSize({
-            leftWidth: undefined,
-            leftHeight: undefined,
-          })
-          setRightSize({
-            rightWidth: undefined,
-            rightHeight: undefined,
-          })
-          setIsTransforming(false)
-        }, 310)
+        getChildrenHeight().then(openChildren)
       }
     }
     onItemClick &&
@@ -170,9 +196,13 @@ const DICFromtoContainer = (props: DICFromtoContainerProps) => {
           <div
             className="tree-wrapper left"
             ref={leftRef}
-            style={{ width: leftWidth, height: leftHeight }}
+            style={{
+              width: leftWidth,
+              height: leftHeight,
+              position: isAbsolute ? 'absolute' : 'relative',
+            }}
           >
-            {(from || []).length ? (
+            {(from || []).length && treeVisible ? (
               <FromTreeItem
                 indexList={[]}
                 data={from}
@@ -191,9 +221,13 @@ const DICFromtoContainer = (props: DICFromtoContainerProps) => {
           <div
             className="tree-wrapper right"
             ref={rightRef}
-            style={{ width: rightWidth, height: rightHeight }}
+            style={{
+              width: rightWidth,
+              height: rightHeight,
+              position: isAbsolute ? 'absolute' : 'relative',
+            }}
           >
-            {(to || []).length ? (
+            {(to || []).length && treeVisible ? (
               <ToTreeItem indexList={[]} data={to} itemVisible={treeVisible} />
             ) : null}
           </div>

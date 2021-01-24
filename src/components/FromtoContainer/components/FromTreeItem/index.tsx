@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, useMemo, useContext } from 'react'
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useContext,
+  useCallback,
+} from 'react'
 import { Button } from 'antd'
 import Context from '../../context'
 import './index.less'
@@ -30,8 +37,9 @@ const SingleItem = (props: any) => {
     setVisibleChangeCount,
   } = useContext(Context)
   const { childItem, ...rest } = item
-  const [visible, setVisible] = useState(!!(childItem && childItem.length))
+  const [visible, setVisible] = useState(false)
   const parantRef: any = useRef()
+  const childrenRef: any = useRef()
   const [{ childrenWidth, childrenHeight }, setChildrenSize] = useState<any>({
     childrenWidth: undefined,
     childrenHeight: undefined,
@@ -40,6 +48,7 @@ const SingleItem = (props: any) => {
   const visibleHeight = useRef(0)
   const [isRoot, setIsRoot] = useState(!(childItem && childItem.length))
   const [isTransforming, setIsTransforming] = useState(false)
+  const [isAbsolute, setIsAbsolute] = useState(false)
 
   const opacity = useMemo(() => {
     if (childrenWidth === undefined) {
@@ -49,51 +58,59 @@ const SingleItem = (props: any) => {
     }
   }, [childrenWidth])
 
+  const openChildren = useCallback(() => {
+    // 展开
+    setVisible(true)
+    setChildrenSize({
+      childrenHeight: 0,
+      childrenWidth: 0,
+    })
+    setTimeout(() => {
+      setChildrenSize({
+        childrenHeight: visibleHeight.current || undefined,
+        childrenWidth: visibleWidth.current || itemWidth + 100,
+      })
+    }, 10)
+    setTimeout(() => {
+      setChildrenSize({
+        childrenHeight: undefined,
+        childrenWidth: undefined,
+      })
+      setIsTransforming(false)
+      setVisibleChangeCount(new Date().getTime())
+    }, 310)
+  }, [])
+
+  const closeChildren = useCallback(() => {
+    // 收起
+    const width = parantRef.current.clientWidth - itemWidth
+    const height = parantRef.current.clientHeight
+    setChildrenSize({
+      childrenHeight: height,
+      childrenWidth: width,
+    })
+    visibleWidth.current = width
+    visibleHeight.current = height
+    setTimeout(() => {
+      setChildrenSize({
+        childrenHeight: 0,
+        childrenWidth: 0,
+      })
+    }, 10)
+    setTimeout(() => {
+      setVisible(false)
+      setIsTransforming(false)
+      setVisibleChangeCount(new Date().getTime())
+    }, 310)
+  }, [])
+
   const onDetailClick = () => {
     if (!isTransforming && childItem && childItem.length) {
       setIsTransforming(true)
       if (visible) {
-        // 收起
-        const width = parantRef.current.clientWidth - itemWidth
-        const height = parantRef.current.clientHeight
-        setChildrenSize({
-          childrenHeight: height,
-          childrenWidth: width,
-        })
-        visibleWidth.current = width
-        visibleHeight.current = height
-        setTimeout(() => {
-          setChildrenSize({
-            childrenHeight: 0,
-            childrenWidth: 0,
-          })
-        }, 10)
-        setTimeout(() => {
-          setVisible(!visible)
-          setIsTransforming(false)
-          setVisibleChangeCount(new Date().getTime())
-        }, 310)
+        closeChildren()
       } else {
-        // 展开
-        setVisible(!visible)
-        setChildrenSize({
-          childrenHeight: 0,
-          childrenWidth: 0,
-        })
-        setTimeout(() => {
-          setChildrenSize({
-            childrenHeight: visibleHeight.current,
-            childrenWidth: visibleWidth.current,
-          })
-        }, 10)
-        setTimeout(() => {
-          setChildrenSize({
-            childrenHeight: undefined,
-            childrenWidth: undefined,
-          })
-          setIsTransforming(false)
-          setVisibleChangeCount(new Date().getTime())
-        }, 310)
+        getChildrenHeight().then(openChildren)
       }
     }
     onItemClick &&
@@ -112,30 +129,34 @@ const SingleItem = (props: any) => {
     return false
   }
 
+  const getChildrenHeight = useCallback(() => {
+    return new Promise((success) => {
+      if (!visibleHeight.current) {
+        setVisible(true)
+        setIsAbsolute(true)
+        setChildrenSize({
+          childrenHeight: undefined,
+          childrenWidth: 0,
+        })
+        setTimeout(() => {
+          visibleHeight.current = childrenRef.current.clientHeight
+          setIsAbsolute(false)
+          setChildrenSize({
+            childrenHeight: undefined,
+            childrenWidth: undefined,
+          })
+          success('success')
+        }, 0)
+      } else {
+        success('success')
+      }
+    })
+  }, [])
+
   useEffect(() => {
     if (isRoot && childItem && childItem.length) {
-      setIsTransforming(true)
       setIsRoot(false)
-      // 展开
-      setVisible(true)
-      setChildrenSize({
-        childrenHeight: undefined,
-        childrenWidth: 0,
-      })
-      setTimeout(() => {
-        setChildrenSize({
-          childrenHeight: undefined,
-          childrenWidth: itemWidth + 100,
-        })
-      }, 10)
-      setTimeout(() => {
-        setChildrenSize({
-          childrenHeight: undefined,
-          childrenWidth: undefined,
-        })
-        setIsTransforming(false)
-        setVisibleChangeCount(new Date().getTime())
-      }, 310)
+      getChildrenHeight().then(openChildren)
     }
   }, [childItem])
 
@@ -143,7 +164,13 @@ const SingleItem = (props: any) => {
     <div className={`from-tree-item ${align}`} ref={parantRef}>
       <div
         className="from-tree-cpt-animation"
-        style={{ width: childrenWidth, opacity, height: childrenHeight }}
+        ref={childrenRef}
+        style={{
+          width: childrenWidth,
+          opacity,
+          height: childrenHeight,
+          position: isAbsolute ? 'absolute' : 'relative',
+        }}
       >
         {childItem && childItem.length ? (
           <FromTreeItem
