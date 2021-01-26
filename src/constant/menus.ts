@@ -143,7 +143,7 @@ export default [
       {
         route: 'water-melon',
         icon: 'ts-app icon-watermelon',
-        title: '合并大西瓜'
+        title: '无脑合并大圈圈'
       }
     ]
   },
