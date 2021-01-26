@@ -28,7 +28,7 @@ const circleOptions = (radius?) => {
       restitution: 0.8,
       friction: 0,
       render: {
-        fillStyle: '#dcdcdc'
+        fillStyle: '#ffffff'
       }
     }
   }
@@ -37,7 +37,7 @@ const circleOptions = (radius?) => {
     restitution: 0.8,
     friction: 0,
     render: {
-      fillStyle: colors[index] || '#dcdcdc'
+      fillStyle: colors[index] || '#ffffff'
     }
   }
 }
@@ -150,7 +150,7 @@ const Game = function({ element, height, width }) {
     if (!radius) {
       radius = radiusList[randomNum(0, 2)]
     }
-    circle = Bodies.circle(radius + 25, radius + 25, radius, { ...circleOptions(radius), isStatic: true })
+    circle = Bodies.circle(0, 0, radius, { ...circleOptions(radius), isStatic: true })
     Composite.add(world, circle)
   }
 
