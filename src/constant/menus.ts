@@ -139,6 +139,11 @@ export default [
         route: 'snake',
         icon: 'ts-app icon-snake',
         title: 'Snake'
+      },
+      {
+        route: 'water-melon',
+        icon: 'ts-app icon-watermelon',
+        title: '合并大西瓜'
       }
     ]
   },

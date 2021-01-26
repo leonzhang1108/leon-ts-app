@@ -5583,6 +5583,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+matter-js@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.npm.taobao.org/matter-js/download/matter-js-0.16.0.tgz#f153630303ff026e8789a16c50ad9f29a6c5015b"
+  integrity sha1-8VNjAwP/Am6HiaFsUK2fKabFAVs=
+
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.npm.taobao.org/md5.js/download/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -6591,6 +6596,11 @@ pkg-dir@^4.1.0:
   integrity sha1-8JkTPfft5CLoHR2ESCcO6z5CYfM=
   dependencies:
     find-up "^4.0.0"
+
+poly-decomp@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npm.taobao.org/poly-decomp/download/poly-decomp-0.3.0.tgz#aa499289bbc1a4ca2213e966587fa5bffc1ca5f5"
+  integrity sha1-qkmSibvBpMoiE+lmWH+lv/wcpfU=
 
 portfinder@^1.0.26:
   version "1.0.28"

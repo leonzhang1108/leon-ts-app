@@ -1,7 +1,6 @@
 import Utils from '@utils'
 import { Button } from 'antd'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.less'
 import Vector1 from './Vector1'
 import Vector2 from './Vector2'
