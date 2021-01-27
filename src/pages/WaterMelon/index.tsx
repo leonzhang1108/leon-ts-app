@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Utils from '@utils'
 import Matter from 'matter-js'
+import batman from '@img/batman.png'
 
 const colors = [
   '#4E79A5',
@@ -12,38 +13,62 @@ const colors = [
   '#AF7AA0',
   '#FE9EA8',
   '#9C7561',
-  '#BAB0AC'
+  '#BAB0AC',
+  '#0376c2',
+  '#be3223',
+  '#f45f7c'
 ]
 
 const defaultRadius = 20
 const time = 1.2
+const defaultCount = 4
 
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
 }
 
-const circleOptions = (radius?) => {
-  if (!radius) {
+const rectangleOptions = () => ({
+  restitution: 0.5,
+  friction: 0,
+  isStatic: true,
+  render: {
+    fillStyle: '#dcdcdc'
+  }
+})
+
+const circleOptions = (radius) => {
+  const index = Math.floor(getBaseLog(time, radius / 10)) % 13
+  if (index === 12) {
+    return {
+      restitution: 0.8,
+      friction: 0.4,
+      render: {
+        sprite: {
+          texture: batman,
+          xScale: radius / 250,
+          yScale: radius / 250,
+        }
+      }
+    }
+  } else {
     return {
       restitution: 0.8,
       friction: 0,
       render: {
-        fillStyle: '#ffffff'
+        fillStyle: colors[index] || '#dcdcdc'
       }
-    }
-  }
-  const index = Math.floor(getBaseLog(time, radius / 10)) % 10
-  return {
-    restitution: 0.8,
-    friction: 0,
-    render: {
-      fillStyle: colors[index] || '#ffffff'
     }
   }
 }
 
 
-const radiusList = [defaultRadius, defaultRadius * time, defaultRadius * time * time]
+const radiusList = (function() {
+  const list: any[] = []
+  for (let i = 0; i < defaultCount; i++) {
+    list.push(defaultRadius * Math.pow(time, i))
+  }
+  return list
+})()
 const randomNum = (min, max) => parseInt(Math.random()*(max - min + 1) + min, 10)
 
 const Game = function({ element, height, width }) {
@@ -61,6 +86,7 @@ const Game = function({ element, height, width }) {
   // create engine
   const engine = Engine.create()
   const world = engine.world
+  world.gravity.y = 1
 
   // create renderer
   const render = Render.create({
@@ -69,7 +95,8 @@ const Game = function({ element, height, width }) {
     options: {
       width,
       height,
-      wireframes: false
+      wireframes: false,
+      background: null
     }
   })
 
@@ -84,19 +111,25 @@ const Game = function({ element, height, width }) {
     const circleName = 'Circle Body'
     for (let i = 0; i < pairs.length; i++) {
       const { bodyA, bodyB } = pairs[i]
-      const { label: labelA, circleRadius: ca } = bodyA
-      const { label: labelB, circleRadius: cb } = bodyB
-      if (labelA === circleName && labelB === circleName && ca === cb) {
-        const { velocity: velocityA } = bodyA
-        const { position, velocity: velocityB } = bodyB
-        const { x, y } = position
-        const velocity = velocityA || velocityB
-        const { x: vx, y: vy } = velocity || {}
+      const { label: labelA, circleRadius: ra } = bodyA
+      const { label: labelB, circleRadius: rb } = bodyB
+      if (labelA === circleName && labelB === circleName && ra === rb) {
+        const { position: positionB, velocity: velocityA, mass } = bodyA
+        const { position: positionA, velocity: velocityB } = bodyB
+        const { x: ax, y: ay } = positionA
+        const { x: bx, y: by } = positionB
+        const x = (ax + bx) / 2
+        const y = (ay + by) / 2
+        const { x: vxa, y: vya } = velocityA
+        const { x: vxb, y: vyb } = velocityB
+        const vx = Math.max(vxa, vxb)
+        const vy = Math.max(vya, vyb)
         Composite.remove(world, bodyA)
         Composite.remove(world, bodyB)
-        const radius = time * ca
+        const radius = time * ra
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
-        Body.setVelocity(circle, { x: vx, y: vy })
+        const ratio = mass / circle.mass
+        Body.setVelocity(circle, { x: vx * ratio, y: vy * ratio })
         Composite.add(world, circle)
         break
       }
@@ -106,11 +139,10 @@ const Game = function({ element, height, width }) {
   Events.on(engine, 'collisionStart', collapse)
   World.add(world, [
     // walls
-    Bodies.rectangle(width / 2, 0, width, 50, { isStatic: true, ...circleOptions() }),
-    Bodies.rectangle(width / 2, height, width, 50, { isStatic: true, ...circleOptions() }),
-    Bodies.rectangle(0, height / 2, 50, height, { isStatic: true, ...circleOptions() }),
-    Bodies.rectangle(width, height / 2, 50, height, { isStatic: true, ...circleOptions() }),
-    // Bodies.rectangle(0, 300, 50, 600, { isStatic: true }),
+    Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
+    Bodies.rectangle(width / 2, height, width, 50, rectangleOptions()),
+    Bodies.rectangle(0, height / 2, 50, height, rectangleOptions()),
+    Bodies.rectangle(width, height / 2, 50, height, rectangleOptions()),
   ])
 
   // add mouse control
@@ -118,7 +150,7 @@ const Game = function({ element, height, width }) {
   const mouseConstraint = MouseConstraint.create(engine, {
     mouse,
     constraint: {
-      stiffness: 0.2,
+      stiffness: 1,
       render: {
         visible: false
       }
@@ -127,12 +159,17 @@ const Game = function({ element, height, width }) {
 
   let circle
   let radius
+  let couldAdd = true
 
   function doMouseDownNMove(event) {
-    const { mouse: { absolute: { x }}} = event
+    if (!couldAdd) return
+    const { mouse: { absolute: { x }}, source } = event
     if (!radius) {
-      radius = radiusList[randomNum(0, 2)]
+      radius = radiusList[randomNum(0, defaultCount - 1)]
     }
+    // 禁止拖拽球
+    source.constraint.bodyB = null
+  
     circle && Composite.remove(world, circle)
     const left = 25 + radius
     const right = width - 25 - radius
@@ -148,13 +185,14 @@ const Game = function({ element, height, width }) {
 
   function addNextBall() {
     if (!radius) {
-      radius = radiusList[randomNum(0, 2)]
+      radius = radiusList[randomNum(0, defaultCount - 1)]
     }
     circle = Bodies.circle(0, 0, radius, { ...circleOptions(radius), isStatic: true })
     Composite.add(world, circle)
   }
 
   function doMouseUp(event) {
+    if (!couldAdd) return
     const { mouse: { absolute: { x }}} = event
     circle && Composite.remove(world, circle)
     const left = 25 + radius
@@ -166,9 +204,14 @@ const Game = function({ element, height, width }) {
       currX = right
     }
     const c = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius) })
+    Events.on(c, 'mousemove', null)
     Composite.add(world, c)
     radius = null
     addNextBall()
+    couldAdd = false
+    setTimeout(() => {
+      couldAdd = true
+    }, 300)
   }
 
   Events.on(mouseConstraint, 'mousedown', doMouseDownNMove)
@@ -213,6 +256,7 @@ const WaterMelon = (props: any) => {
       width: w,
     })
   }, [w, h])
+
   return <div ref={wrapper} />
 }
 
