@@ -52,7 +52,7 @@ const circleOptions = (radius) => {
     }
   } else {
     return {
-      restitution: 0.3,
+      restitution: 0.5,
       friction: 0,
       render: {
         fillStyle: colors[index] || '#dcdcdc'
@@ -107,7 +107,10 @@ const Game = function({ element, height, width }) {
   const runner = Runner.create()
   Runner.run(runner, engine)
 
+  let couldCollapse = true
+
   function collapse(event) {
+    if (!couldCollapse) return
     const pairs = event.pairs
     const circleName = 'Circle Body'
     for (let i = 0; i < pairs.length; i++) {
@@ -115,6 +118,7 @@ const Game = function({ element, height, width }) {
       const { label: labelA, circleRadius: ra } = bodyA
       const { label: labelB, circleRadius: rb } = bodyB
       if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb)) {
+        couldCollapse = false
         const { position: positionB, velocity: velocityA, mass } = bodyA
         const { position: positionA, velocity: velocityB } = bodyB
         const { x: ax, y: ay } = positionA
@@ -142,6 +146,7 @@ const Game = function({ element, height, width }) {
           Composite.remove(world, bodyB)
           World.remove(world, constraint)
           Composite.add(world, circle)
+          couldCollapse = true
         }, 100)
         break
       }
@@ -275,7 +280,6 @@ const WaterMelon = (props: any) => {
   const toggleGravity = useCallback(() => {
     if (!clickable) return
     setClickable(false)
-    console.log(game.current)
     game.current.engine.world.gravity.y = -1
     setTimeout(() => {
       game.current.engine.world.gravity.y = 1
