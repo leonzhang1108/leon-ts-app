@@ -114,7 +114,7 @@ const Game = function({ element, height, width }) {
       const { bodyA, bodyB } = pairs[i]
       const { label: labelA, circleRadius: ra } = bodyA
       const { label: labelB, circleRadius: rb } = bodyB
-      if (labelA === circleName && labelB === circleName && ra === rb) {
+      if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb)) {
         const { position: positionB, velocity: velocityA, mass } = bodyA
         const { position: positionA, velocity: velocityB } = bodyB
         const { x: ax, y: ay } = positionA
