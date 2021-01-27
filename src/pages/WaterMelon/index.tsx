@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Utils from '@utils'
 import Matter from 'matter-js'
+import { Button } from 'antd'
 import batman from '@img/batman.png'
+import './index.less'
 
 const colors = [
   '#4E79A5',
@@ -40,8 +42,6 @@ const circleOptions = (radius) => {
   const index = Math.floor(getBaseLog(time, radius / 10)) % 13
   if (index === 12) {
     return {
-      restitution: 0.8,
-      friction: 0.4,
       render: {
         sprite: {
           texture: batman,
@@ -52,7 +52,7 @@ const circleOptions = (radius) => {
     }
   } else {
     return {
-      restitution: 0.8,
+      restitution: 0.3,
       friction: 0,
       render: {
         fillStyle: colors[index] || '#dcdcdc'
@@ -82,6 +82,7 @@ const Game = function({ element, height, width }) {
   const Bodies = Matter.Bodies
   const Events = Matter.Events
   const Body = Matter.Body
+  const Constraint = Matter.Constraint
 
   // create engine
   const engine = Engine.create()
@@ -124,13 +125,24 @@ const Game = function({ element, height, width }) {
         const { x: vxb, y: vyb } = velocityB
         const vx = Math.max(vxa, vxb)
         const vy = Math.max(vya, vyb)
-        Composite.remove(world, bodyA)
-        Composite.remove(world, bodyB)
         const radius = time * ra
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
         const ratio = mass / circle.mass
+        Body.setVelocity(bodyA, { x: 0, y: 0 })
+        Body.setVelocity(bodyB, { x: 0, y: 0 })
         Body.setVelocity(circle, { x: vx * ratio, y: vy * ratio })
-        Composite.add(world, circle)
+        const constraint = Constraint.create({
+          bodyA,
+          bodyB,
+          stiffness: 1
+        })
+        World.add(world, [constraint])
+        setTimeout(() => {
+          Composite.remove(world, bodyA)
+          Composite.remove(world, bodyB)
+          World.remove(world, constraint)
+          Composite.add(world, circle)
+        }, 100)
         break
       }
     }
@@ -249,15 +261,34 @@ const Game = function({ element, height, width }) {
 const WaterMelon = (props: any) => {
   const { w, h } = props
   const wrapper: any = useRef()
+  const game: any = useRef()
+  const [clickable, setClickable] = useState(true)
+
   useEffect(() => {
-    Game({
+    game.current = Game({
       element: wrapper.current,
       height: h,
       width: w,
     })
   }, [w, h])
 
-  return <div ref={wrapper} />
+  const toggleGravity = useCallback(() => {
+    if (!clickable) return
+    setClickable(false)
+    console.log(game.current)
+    game.current.engine.world.gravity.y = -1
+    setTimeout(() => {
+      game.current.engine.world.gravity.y = 1
+      setClickable(true)
+    }, 1000)
+  }, [])
+
+  return (
+    <div className="watermelon-wrapper">
+      <div ref={wrapper} />
+      <Button size="small" disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
+    </div>
+  )
 }
 
 export default Utils.connect({
