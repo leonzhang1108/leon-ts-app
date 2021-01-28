@@ -30,7 +30,7 @@ function getBaseLog(x, y) {
 }
 
 const rectangleOptions = () => ({
-  restitution: 0.5,
+  restitution: 0.3,
   friction: 0,
   isStatic: true,
   render: {
@@ -47,15 +47,20 @@ const circleOptions = (radius) => {
           texture: batman,
           xScale: radius / 250,
           yScale: radius / 250,
-        }
+        },
       }
     }
   } else {
     return {
-      restitution: 0.5,
+      restitution: 0.3,
       friction: 0,
       render: {
-        fillStyle: colors[index] || '#dcdcdc'
+        fillStyle: colors[index] || '#dcdcdc',
+      },
+      collisionFilter: {
+        group: Math.floor(radius),
+        category: 1,
+        mask: 1
       }
     }
   }
@@ -69,6 +74,7 @@ const radiusList = (function() {
   }
   return list
 })()
+
 const randomNum = (min, max) => parseInt(Math.random()*(max - min + 1) + min, 10)
 
 const Game = function({ element, height, width }) {
@@ -96,8 +102,11 @@ const Game = function({ element, height, width }) {
     options: {
       width,
       height,
+      background: null,
       wireframes: false,
-      background: null
+      // showAngleIndicator: true,
+      // showCollisions: true,
+      // showVelocity: true
     }
   })
 
@@ -138,15 +147,23 @@ const Game = function({ element, height, width }) {
         const constraint = Constraint.create({
           bodyA,
           bodyB,
-          stiffness: 1
+          stiffness: 0.05,
+          length: 0,
+          render: {
+            strokeStyle: 'transparent'
+          }
         })
         World.add(world, [constraint])
+        Body.set(bodyA, 'collisionFilter', { ...bodyA.collisionFilter, group: -Math.floor(radius) })
+        Body.set(bodyB, 'collisionFilter', { ...bodyB.collisionFilter, group: -Math.floor(radius) })
+        // engine.timing.timeScale = slowmode
         setTimeout(() => {
-          Composite.remove(world, bodyA)
-          Composite.remove(world, bodyB)
+          // engine.timing.timeScale = 1
+          World.remove(world, bodyA)
+          World.remove(world, bodyB)
           World.remove(world, constraint)
-          Composite.add(world, circle)
           couldCollapse = true
+          World.add(world, circle)
         }, 100)
         break
       }
@@ -177,6 +194,10 @@ const Game = function({ element, height, width }) {
   let circle
   let radius
   let couldAdd = true
+  let startTime
+  let endTime
+  let startX
+  let endX
 
   function doMouseDownNMove(event) {
     if (!couldAdd) return
@@ -186,8 +207,14 @@ const Game = function({ element, height, width }) {
     }
     // 禁止拖拽球
     source.constraint.bodyB = null
+
+    // 设置时间位置
+    startTime = endTime
+    startX = endX
+    endTime = new Date().getTime()
+    endX = x
   
-    circle && Composite.remove(world, circle)
+    // circle && Composite.remove(world, circle)
     const left = 25 + radius
     const right = width - 25 - radius
     let currX = x
@@ -196,8 +223,12 @@ const Game = function({ element, height, width }) {
     } else if (x > right) {
       currX = right
     }
-    circle = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius), isStatic: true })
-    Composite.add(world, circle)
+    if (circle) {
+      Body.setPosition(circle, { x: currX, y: radius + 25 })
+    } else {
+      circle = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius), isStatic: true })
+      Composite.add(world, circle)
+    }
   }
 
   function addNextBall() {
@@ -212,6 +243,7 @@ const Game = function({ element, height, width }) {
     if (!couldAdd) return
     const { mouse: { absolute: { x }}} = event
     circle && Composite.remove(world, circle)
+    circle = null
     const left = 25 + radius
     const right = width - 25 - radius
     let currX = x
@@ -221,11 +253,33 @@ const Game = function({ element, height, width }) {
       currX = right
     }
     const c = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius) })
+
+    // 计算 x 方向速度
+    const deltaTime = endTime - startTime
+    const deltaX = endX - startX
+    if (deltaX && deltaTime) {
+      let vx = deltaX / deltaTime * 15
+      if (Math.abs(vx) < 3) {
+        vx = 0
+      }
+      if (vx > 50) {
+        vx = 50
+      }
+      if (vx < -50) {
+        vx = -50
+      }
+      Body.setVelocity(c, {x: vx, y: 0})
+    }
+
     Events.on(c, 'mousemove', null)
     Composite.add(world, c)
-    radius = null
+    radius = undefined
     addNextBall()
     couldAdd = false
+    startTime = undefined
+    endTime = undefined
+    startX = undefined
+    endX = undefined
     setTimeout(() => {
       couldAdd = true
     }, 300)
