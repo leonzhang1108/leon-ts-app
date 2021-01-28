@@ -347,7 +347,6 @@ const WaterMelon = (props: any) => {
     <div className="watermelon-wrapper">
       <div ref={wrapper} />
       <div className="btn-wrapper">
-        <Button size="small" type="primary" onClick={toggleGravity} className="restart-btn">重新开始</Button>
         <Button size="small" disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
       </div>
     </div>
