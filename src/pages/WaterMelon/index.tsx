@@ -101,8 +101,8 @@ const Game = function({ element, height, width }) {
     engine,
     options: {
       width,
-      height,
-      background: null,
+      height: height - 10,
+      background: '#fff',
       wireframes: false,
       // showAngleIndicator: true,
       // showCollisions: true,
@@ -170,7 +170,7 @@ const Game = function({ element, height, width }) {
     }
   }
 
-  Events.on(engine, 'collisionStart', collapse)
+  Events.on(engine, 'collisionActive', collapse)
   World.add(world, [
     // walls
     Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
@@ -255,21 +255,21 @@ const Game = function({ element, height, width }) {
     const c = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius) })
 
     // 计算 x 方向速度
-    const deltaTime = endTime - startTime
-    const deltaX = endX - startX
-    if (deltaX && deltaTime) {
-      let vx = deltaX / deltaTime * 15
-      if (Math.abs(vx) < 3) {
-        vx = 0
-      }
-      if (vx > 50) {
-        vx = 50
-      }
-      if (vx < -50) {
-        vx = -50
-      }
-      Body.setVelocity(c, {x: vx, y: 0})
-    }
+    // const deltaTime = endTime - startTime
+    // const deltaX = endX - startX
+    // if (deltaX && deltaTime) {
+    //   let vx = deltaX / deltaTime * 15
+    //   if (Math.abs(vx) < 3) {
+    //     vx = 0
+    //   }
+    //   if (vx > 50) {
+    //     vx = 50
+    //   }
+    //   if (vx < -50) {
+    //     vx = -50
+    //   }
+    //   Body.setVelocity(c, {x: vx, y: 0})
+    // }
 
     Events.on(c, 'mousemove', null)
     Composite.add(world, c)
@@ -344,7 +344,10 @@ const WaterMelon = (props: any) => {
   return (
     <div className="watermelon-wrapper">
       <div ref={wrapper} />
-      <Button size="small" disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
+      <div className="btn-wrapper">
+        <Button size="small" type="primary" onClick={toggleGravity} className="restart-btn">重新开始</Button>
+        <Button size="small" disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
+      </div>
     </div>
   )
 }
