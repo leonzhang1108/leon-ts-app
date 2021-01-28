@@ -170,7 +170,9 @@ const Game = function({ element, height, width }) {
     }
   }
 
+  Events.on(engine, 'collisionStart', collapse)
   Events.on(engine, 'collisionActive', collapse)
+  Events.on(engine, 'collisionEnd', collapse)
   World.add(world, [
     // walls
     Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
