@@ -1,8 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Utils from '@utils'
 import Matter from 'matter-js'
-import { Button } from 'antd'
+import { Button, Popconfirm } from 'antd'
 import batman from '@img/batman.png'
+import pikachu from '@img/pikachu.png'
+import { makeSound, preloadSound } from './utils'
+import duang from '@sound/duang.mp3'
+import pika from '@sound/pika.mp3'
+import arrow from '@sound/arrow.mp3'
 import './index.less'
 
 const colors = [
@@ -40,11 +45,21 @@ const rectangleOptions = () => ({
 
 const circleOptions = (radius) => {
   const index = Math.floor(getBaseLog(time, radius / 10)) % 13
-  if (index === 12) {
+  if (index === 13) {
     return {
       render: {
         sprite: {
           texture: batman,
+          xScale: radius / 250,
+          yScale: radius / 250,
+        },
+      }
+    }
+  } else if (index === 12) {
+    return {
+      render: {
+        sprite: {
+          texture: pikachu,
           xScale: radius / 250,
           yScale: radius / 250,
         },
@@ -89,6 +104,7 @@ const Game = function({ element, height, width }) {
   const Events = Matter.Events
   const Body = Matter.Body
   const Constraint = Matter.Constraint
+  const explodeList = []
 
   // create engine
   const engine = Engine.create()
@@ -101,7 +117,7 @@ const Game = function({ element, height, width }) {
     engine,
     options: {
       width,
-      height: height - 10,
+      height: height - 30,
       background: '#fff',
       wireframes: false,
       // showAngleIndicator: true,
@@ -139,6 +155,7 @@ const Game = function({ element, height, width }) {
         const vx = Math.max(vxa, vxb)
         const vy = Math.max(vya, vyb)
         const radius = time * ra
+        const index = Math.floor(getBaseLog(time, ra / 10))
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
         const ratio = mass / circle.mass
         Body.setVelocity(bodyA, { x: 0, y: 0 })
@@ -164,6 +181,22 @@ const Game = function({ element, height, width }) {
           World.remove(world, constraint)
           couldCollapse = true
           World.add(world, circle)
+          let sound
+          switch (index) {
+            case 10:
+              preloadSound(pika)
+              break
+            case 11:
+              sound = pika
+              preloadSound(arrow)
+              break
+            case 12:
+              sound = arrow
+              break
+            default:
+              sound = duang
+          }
+          makeSound(sound)
         }, 100)
         break
       }
@@ -173,6 +206,7 @@ const Game = function({ element, height, width }) {
   Events.on(engine, 'collisionStart', collapse)
   Events.on(engine, 'collisionActive', collapse)
   Events.on(engine, 'collisionEnd', collapse)
+
   World.add(world, [
     // walls
     Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
@@ -208,7 +242,7 @@ const Game = function({ element, height, width }) {
       radius = radiusList[randomNum(0, defaultCount - 1)]
     }
     // 禁止拖拽球
-    source.constraint.bodyB = null
+    // source.constraint.bodyB = null
 
     // 设置时间位置
     startTime = endTime
@@ -315,6 +349,14 @@ const Game = function({ element, height, width }) {
     stop: function() {
       Matter.Render.stop(render)
       Matter.Runner.stop(runner)
+    },
+    restart: function() {
+      const allBodies = Composite.allBodies(engine.world)
+      allBodies.forEach(body => {
+        if (body.label === 'Circle Body' && body.position.x !== 0 && body.position.y !== 0) {
+          World.remove(world, body)
+        }
+      })
     }
   }
 }
@@ -343,11 +385,26 @@ const WaterMelon = (props: any) => {
     }, 1000)
   }, [])
 
+  const restart = useCallback(() => {
+    game.current.restart()
+  }, [])
+
+  useEffect(() => {
+    preloadSound(duang)
+  }, [])
   return (
     <div className="watermelon-wrapper">
       <div ref={wrapper} />
       <div className="btn-wrapper">
-        <Button size="small" disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
+        <Popconfirm
+          title="Sure about that?"
+          onConfirm={restart}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button type="primary" className="restart-btn">重新开始</Button>
+        </Popconfirm>
+        <Button disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
       </div>
     </div>
   )

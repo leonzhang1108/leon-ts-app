@@ -118,6 +118,10 @@ module.exports = [{
     use: ["file-loader"]
   },
   {
+    test: /\.(mp3|ogg|wav|wma|ape|aac)$/i, // 音频处理
+    use: ["file-loader"]
+  },
+  {
     test: /\.(csv|tsv)$/, // 文件处理
     use: ["csv-loader"]
   },

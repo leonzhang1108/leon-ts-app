@@ -27,7 +27,8 @@
       "@reducers": ["src/reducers/index"],
       "@actions": ["src/actions/index"],
       "@img/*": ["src/img/*"],
-      "@interface": ["src/interface"]
+      "@interface": ["src/interface"],
+      "@sound/*": ["src/sound/*"],
     }
   },
   "include": [
@@ -35,6 +36,8 @@
     "src/**/*.tsx",
     "src/**/*.jpg",
     "src/**/*.png",
+    "src/**/*.mp3",
+    "src/**/*.ogg",
   ],
   "exclude": [
     "node_modules",

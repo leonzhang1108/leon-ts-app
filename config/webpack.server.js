@@ -15,6 +15,7 @@ module.exports = merge(common, {
     contentBase: path.join(__dirname, '../dist'),
     // 是否开启gzip压缩
     compress: false,
+    host: '0.0.0.0',
     port: 8080,
     // 是否开启热替换功能
     // hot: true,

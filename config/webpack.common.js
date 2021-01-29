@@ -57,7 +57,7 @@ module.exports = {
   ],
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json', '.png', '.jpg'],
+    extensions: ['.ts', '.tsx', '.js', '.json', '.png', '.jpg', '.mp3', '.ogg'],
     plugins: [ new TsConfigPathsPlugin({ configFile }) ]
   },
   optimization: {

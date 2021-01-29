@@ -14,6 +14,7 @@
     "dom-to-image": "^2.6.0",
     "echarts": "^4.8.0",
     "flubber": "^0.4.2",
+    "howler": "^2.2.1",
     "imgzoomer": "^1.0.2",
     "matter-js": "^0.16.0",
     "nipplejs": "^0.8.5",
