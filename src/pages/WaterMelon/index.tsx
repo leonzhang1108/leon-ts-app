@@ -242,7 +242,7 @@ const Game = function({ element, height, width }) {
       radius = radiusList[randomNum(0, defaultCount - 1)]
     }
     // 禁止拖拽球
-    // source.constraint.bodyB = null
+    source.constraint.bodyB = null
 
     // 设置时间位置
     startTime = endTime
