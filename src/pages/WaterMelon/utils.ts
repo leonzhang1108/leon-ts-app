@@ -35,3 +35,9 @@ export const preloadImage = (url) => {
   const img = new Image()
   img.src = url
 }
+
+export const vibrate = () => {
+  const n: any = window.navigator
+  navigator.vibrate = n.vibrate || n.webkitVibrate || n.mozVibrate || n.msVibrate
+  navigator.vibrate && navigator.vibrate(200)
+}

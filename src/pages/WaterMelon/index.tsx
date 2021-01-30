@@ -5,7 +5,7 @@ import { Button, Popconfirm } from 'antd'
 import batman from '@img/batman.png'
 import pikachu from '@img/pikachu.png'
 import ultraman from '@img/ultraman.png'
-import { makeSound, preloadSound, preloadImage } from './utils'
+import { makeSound, preloadSound, preloadImage, vibrate } from './utils'
 import duang from '@sound/duang.mp3'
 import pika from '@sound/pika.mp3'
 import bat from '@sound/batman.mp3'
@@ -192,6 +192,7 @@ const Game = function({ element, height, width }) {
         // engine.timing.timeScale = slowmode
         setTimeout(() => {
           // engine.timing.timeScale = 1
+          vibrate()
           World.remove(world, bodyA)
           World.remove(world, bodyB)
           World.remove(world, constraint)
