@@ -38,7 +38,7 @@ function getBaseLog(x, y) {
 
 const rectangleOptions = () => ({
   restitution: 0.3,
-  friction: 0.2,
+  friction: 0,
   frictionStatic: 0.3,
   frictionAir: 0.01,
   isStatic: true,
@@ -82,7 +82,7 @@ const circleOptions = (radius) => {
   } else {
     return {
       restitution: 0.3,
-      friction: 0.2,
+      friction: 0,
       frictionStatic: 0.3,
       frictionAir: 0.01,
       render: {
