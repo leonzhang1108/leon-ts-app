@@ -30,7 +30,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 1
+const defaultCount = 4
 
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
@@ -101,7 +101,7 @@ const circleOptions = (radius) => {
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i + 5))
+    list.push(defaultRadius * Math.pow(time, i))
   }
   return list
 })()
