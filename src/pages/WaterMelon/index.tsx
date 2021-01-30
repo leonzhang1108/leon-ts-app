@@ -4,10 +4,11 @@ import Matter from 'matter-js'
 import { Button, Popconfirm } from 'antd'
 import batman from '@img/batman.png'
 import pikachu from '@img/pikachu.png'
+import ultraman from '@img/ultraman.png'
 import { makeSound, preloadSound } from './utils'
 import duang from '@sound/duang.mp3'
 import pika from '@sound/pika.mp3'
-import arrow from '@sound/arrow.mp3'
+import bat from '@sound/batman.mp3'
 import './index.less'
 
 const colors = [
@@ -28,7 +29,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 4
+const defaultCount = 1
 
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
@@ -44,8 +45,18 @@ const rectangleOptions = () => ({
 })
 
 const circleOptions = (radius) => {
-  const index = Math.floor(getBaseLog(time, radius / 10)) % 13
-  if (index === 13) {
+  const index = Math.floor(getBaseLog(time, radius / 10)) % 14
+  if (index === 12) {
+    return {
+      render: {
+        sprite: {
+          texture: ultraman,
+          xScale: radius / 150,
+          yScale: radius / 150,
+        },
+      }
+    }
+  } else if (index === 11) {
     return {
       render: {
         sprite: {
@@ -55,13 +66,13 @@ const circleOptions = (radius) => {
         },
       }
     }
-  } else if (index === 12) {
+  } else if (index === 10) {
     return {
       render: {
         sprite: {
           texture: pikachu,
-          xScale: radius / 250,
-          yScale: radius / 250,
+          xScale: radius / 242,
+          yScale: radius / 242,
         },
       }
     }
@@ -85,7 +96,7 @@ const circleOptions = (radius) => {
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i))
+    list.push(defaultRadius * Math.pow(time, i + 6))
   }
   return list
 })()
@@ -182,16 +193,21 @@ const Game = function({ element, height, width }) {
           couldCollapse = true
           World.add(world, circle)
           let sound
+          console.log(index)
           switch (index) {
-            case 10:
+            case 8:
               preloadSound(pika)
               break
-            case 11:
+            case 9:
               sound = pika
-              preloadSound(arrow)
+              preloadSound(bat)
               break
-            case 12:
-              sound = arrow
+            case 10:
+              sound = bat
+              preloadSound(ultraman)
+              break
+            case 11:
+              sound = ultraman
               break
             default:
               sound = duang
