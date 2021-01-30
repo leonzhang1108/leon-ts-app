@@ -38,7 +38,7 @@ function getBaseLog(x, y) {
 
 const rectangleOptions = () => ({
   restitution: 0.3,
-  friction: 0,
+  friction: 0.1,
   frictionStatic: 0.3,
   frictionAir: 0.01,
   isStatic: true,
@@ -82,7 +82,7 @@ const circleOptions = (radius) => {
   } else {
     return {
       restitution: 0.3,
-      friction: 0,
+      friction: 0.1,
       frictionStatic: 0.3,
       frictionAir: 0.01,
       render: {
@@ -164,6 +164,11 @@ const Game = function({ element, height, width, onGameover }) {
       const { label: labelB, circleRadius: rb } = bodyB
       const index = Math.floor(getBaseLog(time, ra / 10))
       if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb) && index < 13) {
+        // 激活所有球
+        const allBodies = Composite.allBodies(engine.world)
+        allBodies.filter(body => body.label === 'Circle Body').forEach(body => {
+          Matter.Sleeping.set(body, false)
+        })
         couldCollapse = false
         const { position: positionB, velocity: velocityA, mass } = bodyA
         const { position: positionA, velocity: velocityB } = bodyB
@@ -427,7 +432,7 @@ const WaterMelon = (props: any) => {
     game.current.engine.world.gravity.y = -1
     setTimeout(() => {
       game.current.engine.world.gravity.y = 1
-      setClickable(true)
+      setTimeout(() => setClickable(true), 1000)
     }, 1000)
   }, [])
 
