@@ -30,7 +30,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 4
+const defaultCount = 1
 
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
@@ -38,7 +38,7 @@ function getBaseLog(x, y) {
 
 const rectangleOptions = () => ({
   restitution: 0.3,
-  friction: 0,
+  friction: 0.2,
   frictionStatic: 0.3,
   frictionAir: 0.01,
   isStatic: true,
@@ -82,7 +82,7 @@ const circleOptions = (radius) => {
   } else {
     return {
       restitution: 0.3,
-      friction: 0,
+      friction: 0.2,
       frictionStatic: 0.3,
       frictionAir: 0.01,
       render: {
@@ -101,7 +101,7 @@ const circleOptions = (radius) => {
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i))
+    list.push(defaultRadius * Math.pow(time, i + 5))
   }
   return list
 })()
