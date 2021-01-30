@@ -9,6 +9,7 @@ import { makeSound, preloadSound } from './utils'
 import duang from '@sound/duang.mp3'
 import pika from '@sound/pika.mp3'
 import bat from '@sound/batman.mp3'
+import ultra from '@sound/ultra.mp3'
 import './index.less'
 
 const colors = [
@@ -29,7 +30,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 1
+const defaultCount = 4
 
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
@@ -60,9 +61,9 @@ const circleOptions = (radius) => {
     return {
       render: {
         sprite: {
-          texture: batman,
-          xScale: radius / 250,
-          yScale: radius / 250,
+          texture: pikachu,
+          xScale: radius / 242,
+          yScale: radius / 242,
         },
       }
     }
@@ -70,9 +71,9 @@ const circleOptions = (radius) => {
     return {
       render: {
         sprite: {
-          texture: pikachu,
-          xScale: radius / 242,
-          yScale: radius / 242,
+          texture: batman,
+          xScale: radius / 250,
+          yScale: radius / 250,
         },
       }
     }
@@ -96,7 +97,7 @@ const circleOptions = (radius) => {
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i + 6))
+    list.push(defaultRadius * Math.pow(time, i))
   }
   return list
 })()
@@ -193,21 +194,20 @@ const Game = function({ element, height, width }) {
           couldCollapse = true
           World.add(world, circle)
           let sound
-          console.log(index)
           switch (index) {
             case 8:
-              preloadSound(pika)
-              break
-            case 9:
-              sound = pika
               preloadSound(bat)
               break
-            case 10:
+            case 9:
               sound = bat
-              preloadSound(ultraman)
+              preloadSound(pika)
+              break
+            case 10:
+              sound = pika
+              preloadSound(ultra)
               break
             case 11:
-              sound = ultraman
+              sound = ultra
               break
             default:
               sound = duang
