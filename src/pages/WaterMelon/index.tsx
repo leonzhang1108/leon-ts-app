@@ -39,6 +39,8 @@ function getBaseLog(x, y) {
 const rectangleOptions = () => ({
   restitution: 0.3,
   friction: 0,
+  frictionStatic: 0.3,
+  frictionAir: 0.01,
   isStatic: true,
   render: {
     fillStyle: '#dcdcdc'
@@ -81,6 +83,8 @@ const circleOptions = (radius) => {
     return {
       restitution: 0.3,
       friction: 0,
+      frictionStatic: 0.3,
+      frictionAir: 0.01,
       render: {
         fillStyle: colors[index] || '#dcdcdc',
       },
@@ -196,6 +200,7 @@ const Game = function({ element, height, width }) {
           let sound
           switch (index) {
             case 8:
+              sound = duang
               preloadSound(bat)
               preloadImage(batman)
               break
