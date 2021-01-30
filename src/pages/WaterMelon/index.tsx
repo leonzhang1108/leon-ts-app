@@ -5,7 +5,7 @@ import { Button, Popconfirm } from 'antd'
 import batman from '@img/batman.png'
 import pikachu from '@img/pikachu.png'
 import ultraman from '@img/ultraman.png'
-import { makeSound, preloadSound } from './utils'
+import { makeSound, preloadSound, preloadImage } from './utils'
 import duang from '@sound/duang.mp3'
 import pika from '@sound/pika.mp3'
 import bat from '@sound/batman.mp3'
@@ -197,14 +197,17 @@ const Game = function({ element, height, width }) {
           switch (index) {
             case 8:
               preloadSound(bat)
+              preloadImage(batman)
               break
             case 9:
               sound = bat
               preloadSound(pika)
+              preloadImage(pikachu)
               break
             case 10:
               sound = pika
               preloadSound(ultra)
+              preloadImage(ultraman)
               break
             case 11:
               sound = ultra
