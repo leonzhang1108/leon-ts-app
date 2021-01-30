@@ -14,11 +14,11 @@ export default [
     icon: 'ts-app icon-batman-logo',
     title: 'Bat History'
   },
-  {
-    route: 'calligraphy',
-    icon: 'ts-app icon-brush',
-    title: 'Calligraphy'
-  },
+  // {
+  //   route: 'calligraphy',
+  //   icon: 'ts-app icon-brush',
+  //   title: 'Calligraphy'
+  // },
   {
     route: 'mondrian-art',
     icon: 'ts-app icon-mondrian',

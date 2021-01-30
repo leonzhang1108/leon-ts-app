@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Utils from '@utils'
 import Matter from 'matter-js'
-import { Button, Popconfirm } from 'antd'
+import { Button, Popconfirm, Modal } from 'antd'
 import batman from '@img/batman.png'
 import pikachu from '@img/pikachu.png'
 import ultraman from '@img/ultraman.png'
@@ -49,7 +49,7 @@ const rectangleOptions = () => ({
 
 const circleOptions = (radius) => {
   const index = Math.floor(getBaseLog(time, radius / 10)) % 14
-  if (index === 12) {
+  if (index === 13) {
     return {
       render: {
         sprite: {
@@ -59,7 +59,7 @@ const circleOptions = (radius) => {
         },
       }
     }
-  } else if (index === 11) {
+  } else if (index === 12) {
     return {
       render: {
         sprite: {
@@ -69,7 +69,7 @@ const circleOptions = (radius) => {
         },
       }
     }
-  } else if (index === 10) {
+  } else if (index === 11) {
     return {
       render: {
         sprite: {
@@ -108,22 +108,25 @@ const radiusList = (function() {
 
 const randomNum = (min, max) => parseInt(Math.random()*(max - min + 1) + min, 10)
 
-const Game = function({ element, height, width }) {
-  const Engine = Matter.Engine
-  const Render = Matter.Render
-  const Runner = Matter.Runner
-  const Composite = Matter.Composite
-  const MouseConstraint = Matter.MouseConstraint
-  const Mouse = Matter.Mouse
-  const World = Matter.World
-  const Bodies = Matter.Bodies
-  const Events = Matter.Events
-  const Body = Matter.Body
-  const Constraint = Matter.Constraint
+const Engine = Matter.Engine
+const Render = Matter.Render
+const Runner = Matter.Runner
+const Composite = Matter.Composite
+const MouseConstraint = Matter.MouseConstraint
+const Mouse = Matter.Mouse
+const World = Matter.World
+const Bodies = Matter.Bodies
+const Events = Matter.Events
+const Body = Matter.Body
+const Constraint = Matter.Constraint
+
+const Game = function({ element, height, width, onGameover }) {
   const explodeList = []
 
   // create engine
-  const engine = Engine.create()
+  const engine = Engine.create({
+    enableSleeping: true
+  })
   const world = engine.world
   world.gravity.y = 1
 
@@ -136,6 +139,7 @@ const Game = function({ element, height, width }) {
       height: height - 30,
       background: '#fff',
       wireframes: false,
+      showSleeping: false,
       // showAngleIndicator: true,
       // showCollisions: true,
       // showVelocity: true
@@ -158,7 +162,8 @@ const Game = function({ element, height, width }) {
       const { bodyA, bodyB } = pairs[i]
       const { label: labelA, circleRadius: ra } = bodyA
       const { label: labelB, circleRadius: rb } = bodyB
-      if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb)) {
+      const index = Math.floor(getBaseLog(time, ra / 10))
+      if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb) && index < 13) {
         couldCollapse = false
         const { position: positionB, velocity: velocityA, mass } = bodyA
         const { position: positionA, velocity: velocityB } = bodyB
@@ -171,7 +176,6 @@ const Game = function({ element, height, width }) {
         const vx = Math.max(vxa, vxb)
         const vy = Math.max(vya, vyb)
         const radius = time * ra
-        const index = Math.floor(getBaseLog(time, ra / 10))
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
         const ratio = mass / circle.mass
         Body.setVelocity(bodyA, { x: 0, y: 0 })
@@ -200,22 +204,22 @@ const Game = function({ element, height, width }) {
           World.add(world, circle)
           let sound
           switch (index) {
-            case 8:
+            case 9:
               sound = duang
               preloadSound(bat)
               preloadImage(batman)
               break
-            case 9:
+            case 10:
               sound = bat
               preloadSound(pika)
               preloadImage(pikachu)
               break
-            case 10:
+            case 11:
               sound = pika
               preloadSound(ultra)
               preloadImage(ultraman)
               break
-            case 11:
+            case 12:
               sound = ultra
               break
             default:
@@ -333,6 +337,11 @@ const Game = function({ element, height, width }) {
     // }
 
     Events.on(c, 'mousemove', null)
+    Events.on(c, 'sleepStart', function(event) {
+      if (event.source.position.y <= 100) {
+        onGameover()
+      }
+    })
     Composite.add(world, c)
     radius = undefined
     addNextBall()
@@ -397,11 +406,23 @@ const WaterMelon = (props: any) => {
       element: wrapper.current,
       height: h,
       width: w,
+      onGameover: () => {
+        Modal.success({
+          title: 'Gameover',
+          content: 'click ok to restart',
+          onOk: game.current.restart,
+          centered: true
+        })
+      }
     })
   }, [w, h])
 
   const toggleGravity = useCallback(() => {
     if (!clickable) return
+    const allBodies = Composite.allBodies(game.current.engine.world)
+    allBodies.filter(body => body.label === 'Circle Body').forEach(body => {
+      Matter.Sleeping.set(body, false)
+    })
     setClickable(false)
     game.current.engine.world.gravity.y = -1
     setTimeout(() => {
