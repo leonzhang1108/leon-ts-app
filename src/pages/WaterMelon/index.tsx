@@ -33,12 +33,12 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 1
+const defaultCount = 4
 
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i + 7))
+    list.push(defaultRadius * Math.pow(time, i))
   }
   return list
 })()
@@ -463,7 +463,7 @@ const WaterMelon = (props: any) => {
         Modal.success({
           title: 'Gameover',
           content: 'click ok to restart',
-          onOk: game.current.restart,
+          onOk: game.restart,
           centered: true
         })
       },

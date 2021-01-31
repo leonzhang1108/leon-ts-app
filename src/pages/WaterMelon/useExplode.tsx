@@ -22,7 +22,7 @@ interface IFirework {
   color: string
 }
 
-const radius = 4
+const radius = 3
 
 function hexToRgbA(hex, fade){
   let c
@@ -45,7 +45,8 @@ const times = (n: number, func: (v: number) => any) =>
 const fill = (ctx: any, x: number, y: number, color: string) => {
   ctx.beginPath()
   ctx.fillStyle = color
-  ctx.rect(x, y, radius, radius)
+  // ctx.rect(x, y, radius, radius)
+  ctx.arc(x, y, radius, 0, 360)
   ctx.fill()
 }
 
