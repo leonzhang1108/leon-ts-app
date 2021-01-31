@@ -33,12 +33,12 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 4
+const defaultCount = 1
 
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i))
+    list.push(defaultRadius * Math.pow(time, i + 7))
   }
   return list
 })()
@@ -211,6 +211,11 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
         const vy = Math.max(vya, vyb)
         const radius = time * ra
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
+        Events.on(circle, 'sleepStart', function(event) {
+          if (event.source.position.y <= 100) {
+            onGameover()
+          }
+        })
         const ratio = mass / circle.mass
         Body.setVelocity(bodyA, { x: 0, y: 0 })
         Body.setVelocity(bodyB, { x: 0, y: 0 })
