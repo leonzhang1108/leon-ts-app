@@ -31,12 +31,12 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 1
+const defaultCount = 4
 
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i + 5))
+    list.push(defaultRadius * Math.pow(time, i))
   }
   return list
 })()
@@ -153,6 +153,33 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
 
   let couldCollapse = true
 
+  function doMakeSound(index) {
+    let sound
+    switch (index) {
+      case 9:
+        sound = duang
+        preloadSound(bat)
+        preloadImage(batman)
+        break
+      case 10:
+        sound = bat
+        preloadSound(pika)
+        preloadImage(pikachu)
+        break
+      case 11:
+        sound = pika
+        preloadSound(ultra)
+        preloadImage(ultraman)
+        break
+      case 12:
+        sound = ultra
+        break
+      default:
+        sound = duang
+    }
+    makeSound(sound)
+  }
+
   function collapse(event) {
     if (!couldCollapse) return
     const pairs = event.pairs
@@ -210,30 +237,7 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
           World.remove(world, constraint)
           couldCollapse = true
           World.add(world, circle)
-          let sound
-          switch (index) {
-            case 9:
-              sound = duang
-              preloadSound(bat)
-              preloadImage(batman)
-              break
-            case 10:
-              sound = bat
-              preloadSound(pika)
-              preloadImage(pikachu)
-              break
-            case 11:
-              sound = pika
-              preloadSound(ultra)
-              preloadImage(ultraman)
-              break
-            case 12:
-              sound = ultra
-              break
-            default:
-              sound = duang
-          }
-          makeSound(sound)
+          doMakeSound(index)
         }, 100)
         break
       }
