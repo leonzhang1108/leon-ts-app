@@ -122,7 +122,7 @@ const Events = Matter.Events
 const Body = Matter.Body
 const Constraint = Matter.Constraint
 
-const Game = function({ element, height, width, onCollapse }) {
+const Game = function({ element, height, width, onCollapse, onGameover }) {
 
   // create engine
   const engine = Engine.create({
@@ -189,6 +189,7 @@ const Game = function({ element, height, width, onCollapse }) {
         World.remove(world, body)
       }
     })
+    onGameover()
   }
 
   function collapse(event) {
@@ -482,6 +483,9 @@ const WaterMelon = (props: any) => {
         }
         setFireworks([...fireworks, p])
         setScore(score => score + point)
+      },
+      onGameover: () => {
+        setScore(0)
       }
     }))
     preloadSound(duang)
