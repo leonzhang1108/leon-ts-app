@@ -455,6 +455,7 @@ const WaterMelon = (props: any) => {
   }, [score])
 
   useEffect(() => {
+    if (!game) return
     setGame(Game({
       element: wrapper.current,
       height: h,
@@ -481,7 +482,7 @@ const WaterMelon = (props: any) => {
       }
     }))
     preloadSound(duang)
-  }, [])
+  }, [game])
 
   const toggleGravity = useCallback(() => {
     const allBodies = Composite.allBodies(game.engine.world)
