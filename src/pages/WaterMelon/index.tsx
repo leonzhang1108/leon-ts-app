@@ -10,6 +10,7 @@ import duang from '@sound/duang.mp3'
 import pika from '@sound/pika.mp3'
 import bat from '@sound/batman.mp3'
 import ultra from '@sound/ultra.mp3'
+import useExplode from './useExplode'
 import './index.less'
 
 const colors = [
@@ -30,7 +31,15 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 4
+const defaultCount = 1
+
+const radiusList = (function() {
+  const list: any[] = []
+  for (let i = 0; i < defaultCount; i++) {
+    list.push(defaultRadius * Math.pow(time, i))
+  }
+  return list
+})()
 
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
@@ -97,15 +106,6 @@ const circleOptions = (radius) => {
   }
 }
 
-
-const radiusList = (function() {
-  const list: any[] = []
-  for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i))
-  }
-  return list
-})()
-
 const randomNum = (min, max) => parseInt(Math.random()*(max - min + 1) + min, 10)
 
 const Engine = Matter.Engine
@@ -120,8 +120,7 @@ const Events = Matter.Events
 const Body = Matter.Body
 const Constraint = Matter.Constraint
 
-const Game = function({ element, height, width, onGameover }) {
-  const explodeList = []
+const Game = function({ element, height, width, onGameover, onCollapse }) {
 
   // create engine
   const engine = Engine.create({
@@ -199,8 +198,14 @@ const Game = function({ element, height, width, onGameover }) {
         Body.set(bodyA, 'collisionFilter', { ...bodyA.collisionFilter, group: -Math.floor(radius) })
         Body.set(bodyB, 'collisionFilter', { ...bodyB.collisionFilter, group: -Math.floor(radius) })
         // engine.timing.timeScale = slowmode
+
         setTimeout(() => {
           // engine.timing.timeScale = 1
+          onCollapse({
+            x,
+            y,
+            color: bodyA.render.fillStyle
+          })
           vibrate()
           World.remove(world, bodyA)
           World.remove(world, bodyB)
@@ -400,14 +405,38 @@ const Game = function({ element, height, width, onGameover }) {
   }
 }
 
+
+const times = (n: number, func: (v: number) => any) =>
+  Array(n)
+    .fill(null)
+    .map((_, i) => func(i))
+
+const generateSparks = (maxSparks: number) => {
+  return times(maxSparks, (i: number) => {
+    const vx = Math.random() * 5 + 0.5
+    const vy = Math.random() * 5 + 0.5
+
+    return {
+      blue: Math.floor(Math.random() * 2),
+      green: Math.floor(Math.random() * 2),
+      red: Math.floor(Math.random() * 2),
+      vx: Math.random() > 0.5 ? -vx : vx,
+      vy: Math.random() > 0.5 ? -vy : vy,
+      weight: Math.random() * 0.3 + 0.03
+    }
+  })
+}
+
 const WaterMelon = (props: any) => {
   const { w, h } = props
   const wrapper: any = useRef()
-  const game: any = useRef()
+  const [game, setGame] = useState<any>()
   const [clickable, setClickable] = useState(true)
 
+  const { setFireworks, fireworks } = useExplode({ game })
+
   useEffect(() => {
-    game.current = Game({
+    setGame(Game({
       element: wrapper.current,
       height: h,
       width: w,
@@ -418,31 +447,43 @@ const WaterMelon = (props: any) => {
           onOk: game.current.restart,
           centered: true
         })
+      },
+      onCollapse: ({ x, y, color}) => {
+        const p = {
+          age: 0,
+          phase: 'explode',
+          sparks: generateSparks(10),
+          x,
+          y,
+          color
+        }
+        setFireworks([...fireworks, p])
       }
-    })
+    }))
   }, [w, h])
 
   const toggleGravity = useCallback(() => {
     if (!clickable) return
-    const allBodies = Composite.allBodies(game.current.engine.world)
+    const allBodies = Composite.allBodies(game.engine.world)
     allBodies.filter(body => body.label === 'Circle Body').forEach(body => {
       Matter.Sleeping.set(body, false)
     })
     setClickable(false)
-    game.current.engine.world.gravity.y = -1
+    game.engine.world.gravity.y = -1
     setTimeout(() => {
-      game.current.engine.world.gravity.y = 1
+      game.engine.world.gravity.y = 1
       setTimeout(() => setClickable(true), 1000)
     }, 1000)
   }, [])
 
   const restart = useCallback(() => {
-    game.current.restart()
+    game.restart()
   }, [])
 
   useEffect(() => {
     preloadSound(duang)
   }, [])
+
   return (
     <div className="watermelon-wrapper">
       <div ref={wrapper} />
