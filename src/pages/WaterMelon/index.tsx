@@ -122,7 +122,7 @@ const Events = Matter.Events
 const Body = Matter.Body
 const Constraint = Matter.Constraint
 
-const Game = function({ element, height, width, onGameover, onCollapse }) {
+const Game = function({ element, height, width, onCollapse }) {
 
   // create engine
   const engine = Engine.create({
@@ -182,6 +182,15 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
     makeSound(sound)
   }
 
+  function restart() {
+    const allBodies = Composite.allBodies(world)
+    allBodies.forEach(body => {
+      if (body.label === 'Circle Body' && body.position.x !== 0 && body.position.y !== 0) {
+        World.remove(world, body)
+      }
+    })
+  }
+
   function collapse(event) {
     if (!couldCollapse) return
     const pairs = event.pairs
@@ -213,7 +222,12 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
         Events.on(circle, 'sleepStart', function(event) {
           if (event.source.position.y <= 100) {
-            onGameover()
+            Modal.success({
+              title: 'Gameover',
+              content: 'click ok to restart',
+              onOk: restart,
+              centered: true
+            })
           }
         })
         const ratio = mass / circle.mass
@@ -359,7 +373,12 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
     Events.on(c, 'mousemove', null)
     Events.on(c, 'sleepStart', function(event) {
       if (event.source.position.y <= 100) {
-        onGameover()
+        Modal.success({
+          title: 'Gameover',
+          content: 'click ok to restart',
+          onOk: restart,
+          centered: true
+        })
       }
     })
     Composite.add(world, c)
@@ -402,14 +421,7 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
       Matter.Render.stop(render)
       Matter.Runner.stop(runner)
     },
-    restart: function() {
-      const allBodies = Composite.allBodies(world)
-      allBodies.forEach(body => {
-        if (body.label === 'Circle Body' && body.position.x !== 0 && body.position.y !== 0) {
-          World.remove(world, body)
-        }
-      })
-    }
+    restart
   }
 }
 
@@ -455,19 +467,10 @@ const WaterMelon = (props: any) => {
   }, [score])
 
   useEffect(() => {
-    if (!game) return
     setGame(Game({
       element: wrapper.current,
       height: h,
       width: w,
-      onGameover: () => {
-        Modal.success({
-          title: 'Gameover',
-          content: 'click ok to restart',
-          onOk: game.restart,
-          centered: true
-        })
-      },
       onCollapse: ({ x, y, color, point }) => {
         const p = {
           age: 0,
@@ -482,7 +485,7 @@ const WaterMelon = (props: any) => {
       }
     }))
     preloadSound(duang)
-  }, [game])
+  }, [])
 
   const toggleGravity = useCallback(() => {
     const allBodies = Composite.allBodies(game.engine.world)
