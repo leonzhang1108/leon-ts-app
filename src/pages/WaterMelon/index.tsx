@@ -23,20 +23,20 @@ const colors = [
   '#AF7AA0',
   '#FE9EA8',
   '#9C7561',
-  '#BAB0AC',
+  '#f45f7c',
   '#0376c2',
   '#be3223',
-  '#f45f7c'
+  '#BAB0AC'
 ]
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 4
+const defaultCount = 1
 
 const radiusList = (function() {
   const list: any[] = []
   for (let i = 0; i < defaultCount; i++) {
-    list.push(defaultRadius * Math.pow(time, i))
+    list.push(defaultRadius * Math.pow(time, i + 5))
   }
   return list
 })()
@@ -175,6 +175,7 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
         const { x: bx, y: by } = positionB
         const x = (ax + bx) / 2
         const y = (ay + by) / 2
+        const position = { x, y }
         const { x: vxa, y: vya } = velocityA
         const { x: vxb, y: vyb } = velocityB
         const vx = Math.max(vxa, vxb)
@@ -197,13 +198,10 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
         World.add(world, [constraint])
         Body.set(bodyA, 'collisionFilter', { ...bodyA.collisionFilter, group: -Math.floor(radius) })
         Body.set(bodyB, 'collisionFilter', { ...bodyB.collisionFilter, group: -Math.floor(radius) })
-        // engine.timing.timeScale = slowmode
 
         setTimeout(() => {
-          // engine.timing.timeScale = 1
           onCollapse({
-            x,
-            y,
+            ...position,
             color: bodyA.render.fillStyle
           })
           vibrate()
@@ -366,9 +364,7 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
   }
 
   Events.on(mouseConstraint, 'mousedown', doMouseDownNMove)
-
   Events.on(mouseConstraint, 'mousemove', doMouseDownNMove)
-
   Events.on(mouseConstraint, 'mouseup', doMouseUp)
 
   addNextBall()

@@ -79,6 +79,7 @@ const useExplode = ({
   const [fireworks, setFireworks] = useState<any>([])
   useEffect(() => {
     if (!fireworks.length) return
+    // console.log(fireworks)
     requestAnimationFrame(() => {
       const { render } = game || {}
       const { context } = render || {}
