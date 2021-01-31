@@ -33,7 +33,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 1
+const defaultCount = 4
 
 const radiusList = (function() {
   const list: any[] = []
