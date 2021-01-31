@@ -11,6 +11,8 @@ import pika from '@sound/pika.mp3'
 import bat from '@sound/batman.mp3'
 import ultra from '@sound/ultra.mp3'
 import useExplode from './useExplode'
+import { useCountUp } from 'react-countup'
+import { thousands } from 'noshjs'
 import './index.less'
 
 const colors = [
@@ -31,7 +33,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 4
+const defaultCount = 1
 
 const radiusList = (function() {
   const list: any[] = []
@@ -229,7 +231,8 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
         setTimeout(() => {
           onCollapse({
             ...position,
-            color: bodyA.render.fillStyle
+            color: bodyA.render.fillStyle,
+            point: index - 2
           })
           vibrate()
           World.remove(world, bodyA)
@@ -432,8 +435,19 @@ const WaterMelon = (props: any) => {
   const wrapper: any = useRef()
   const [game, setGame] = useState<any>()
   const [clickable, setClickable] = useState(true)
+  const [score, setScore] = useState(0)
 
   const { setFireworks, fireworks } = useExplode({ game })
+
+  const { countUp, update } = useCountUp({
+    start: 0,
+    end: 0,
+    duration: 0.5
+  })
+
+  useEffect(() => {
+    update(score)
+  }, [score])
 
   useEffect(() => {
     setGame(Game({
@@ -448,19 +462,21 @@ const WaterMelon = (props: any) => {
           centered: true
         })
       },
-      onCollapse: ({ x, y, color}) => {
+      onCollapse: ({ x, y, color, point }) => {
         const p = {
           age: 0,
           phase: 'explode',
-          sparks: generateSparks(10),
+          sparks: generateSparks(15),
           x,
-          y,
+          y: y - 20,
           color
         }
         setFireworks([...fireworks, p])
+        setScore(score => score + point)
       }
     }))
-  }, [w, h])
+    preloadSound(duang)
+  }, [])
 
   const toggleGravity = useCallback(() => {
     const allBodies = Composite.allBodies(game.engine.world)
@@ -479,12 +495,9 @@ const WaterMelon = (props: any) => {
     game.restart()
   }, [game])
 
-  useEffect(() => {
-    preloadSound(duang)
-  }, [])
-
   return (
     <div className="watermelon-wrapper">
+      <div className="score">{thousands(countUp)}</div>
       <div ref={wrapper} />
       <div className="btn-wrapper">
         <Popconfirm

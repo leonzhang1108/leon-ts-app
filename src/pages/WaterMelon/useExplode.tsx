@@ -60,7 +60,7 @@ const draw = (
       fill(
         ctx,
         x + spark.vx * trailAge,
-        y + spark.vy * trailAge + (spark.weight * trailAge) ** 1,
+        y + spark.vy * trailAge + (spark.weight * trailAge) ** 2,
         hexToRgbA(color, fade / 100)
       )
     })
