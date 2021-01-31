@@ -31,7 +31,7 @@ const colors = [
 
 const defaultRadius = 20
 const time = 1.2
-const defaultCount = 1
+const defaultCount = 4
 
 const radiusList = (function() {
   const list: any[] = []
@@ -47,8 +47,8 @@ function getBaseLog(x, y) {
 
 const rectangleOptions = () => ({
   restitution: 0.3,
-  friction: 0.1,
-  frictionStatic: 0.3,
+  friction: 0.03,
+  frictionStatic: 0.03,
   frictionAir: 0.01,
   isStatic: true,
   render: {
@@ -91,8 +91,8 @@ const circleOptions = (radius) => {
   } else {
     return {
       restitution: 0.3,
-      friction: 0.1,
-      frictionStatic: 0.3,
+      friction: 0.03,
+      frictionStatic: 0.03,
       frictionAir: 0.01,
       render: {
         fillStyle: colors[index] || '#dcdcdc',
@@ -395,7 +395,7 @@ const Game = function({ element, height, width, onGameover, onCollapse }) {
       Matter.Runner.stop(runner)
     },
     restart: function() {
-      const allBodies = Composite.allBodies(engine.world)
+      const allBodies = Composite.allBodies(world)
       allBodies.forEach(body => {
         if (body.label === 'Circle Body' && body.position.x !== 0 && body.position.y !== 0) {
           World.remove(world, body)
@@ -463,7 +463,6 @@ const WaterMelon = (props: any) => {
   }, [w, h])
 
   const toggleGravity = useCallback(() => {
-    if (!clickable) return
     const allBodies = Composite.allBodies(game.engine.world)
     allBodies.filter(body => body.label === 'Circle Body').forEach(body => {
       Matter.Sleeping.set(body, false)
@@ -474,11 +473,11 @@ const WaterMelon = (props: any) => {
       game.engine.world.gravity.y = 1
       setTimeout(() => setClickable(true), 1000)
     }, 1000)
-  }, [])
+  }, [game])
 
   const restart = useCallback(() => {
     game.restart()
-  }, [])
+  }, [game])
 
   useEffect(() => {
     preloadSound(duang)
