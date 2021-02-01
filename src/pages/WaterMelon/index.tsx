@@ -184,11 +184,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
 
   function restart() {
     const allBodies = Composite.allBodies(world)
-    allBodies.forEach(body => {
-      if (body.label === 'Circle Body' && body.position.x !== 0 && body.position.y !== 0) {
-        World.remove(world, body)
-      }
-    })
+    allBodies.filter(body => body.label === 'Circle Body' && !body.isStatic).forEach(body => World.remove(world, body))
     onGameover()
   }
 
@@ -273,10 +269,10 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
 
   World.add(world, [
     // walls
-    Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
+    // Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
     Bodies.rectangle(width / 2, height, width, 50, rectangleOptions()),
-    Bodies.rectangle(0, height / 2, 50, height, rectangleOptions()),
-    Bodies.rectangle(width, height / 2, 50, height, rectangleOptions()),
+    Bodies.rectangle(0, -height, 50, height * 4, rectangleOptions()),
+    Bodies.rectangle(width, -height, 50, height * 4, rectangleOptions()),
   ])
 
   // add mouse control
@@ -284,7 +280,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   const mouseConstraint = MouseConstraint.create(engine, {
     mouse,
     constraint: {
-      stiffness: 1,
+      stiffness: 0,
       render: {
         visible: false
       }
@@ -301,12 +297,10 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
 
   function doMouseDownNMove(event) {
     if (!couldAdd) return
-    const { mouse: { absolute: { x }}, source } = event
+    const { mouse: { absolute: { x }} } = event
     if (!radius) {
       radius = radiusList[randomNum(0, defaultCount - 1)]
     }
-    // 禁止拖拽球
-    source.constraint.bodyB = null
 
     // 设置时间位置
     startTime = endTime
@@ -324,9 +318,9 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
       currX = right
     }
     if (circle) {
-      Body.setPosition(circle, { x: currX, y: radius + 25 })
+      Body.setPosition(circle, { x: currX, y: radius })
     } else {
-      circle = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius), isStatic: true })
+      circle = Bodies.circle(currX,  radius, radius, { ...circleOptions(radius), isStatic: true })
       Composite.add(world, circle)
     }
   }
@@ -335,7 +329,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     if (!radius) {
       radius = radiusList[randomNum(0, defaultCount - 1)]
     }
-    circle = Bodies.circle(0, 0, radius, { ...circleOptions(radius), isStatic: true })
+    circle = Bodies.circle(25 - radius, radius, radius, { ...circleOptions(radius), isStatic: true })
     Composite.add(world, circle)
   }
 
@@ -352,7 +346,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     } else if (x > right) {
       currX = right
     }
-    const c = Bodies.circle(currX, radius + 25, radius, { ...circleOptions(radius) })
+    const c = Bodies.circle(currX, radius, radius, { ...circleOptions(radius) })
 
     // 计算 x 方向速度
     // const deltaTime = endTime - startTime
@@ -392,7 +386,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     endX = undefined
     setTimeout(() => {
       couldAdd = true
-    }, 300)
+    }, 500)
   }
 
   Events.on(mouseConstraint, 'mousedown', doMouseDownNMove)
@@ -478,7 +472,7 @@ const WaterMelon = (props: any) => {
           phase: 'explode',
           sparks: generateSparks(15),
           x,
-          y: y - 20,
+          y,
           color
         }
         setFireworks([...fireworks, p])
