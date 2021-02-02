@@ -17,7 +17,6 @@ interface IFirework {
   x: number
   y: number
   age: number
-  phase: 'explode'
   sparks: ISpark[],
   color: string
 }
@@ -80,7 +79,6 @@ const useExplode = ({
   const [fireworks, setFireworks] = useState<any>([])
   useEffect(() => {
     if (!fireworks.length) return
-    // console.log(fireworks)
     requestAnimationFrame(() => {
       const { render } = game || {}
       const { context } = render || {}

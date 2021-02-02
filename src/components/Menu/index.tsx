@@ -84,7 +84,6 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
           onTitleClick={this.onTitleClick}
           title={
             <span>
-              {/* <Icon type={`${menu.icon}`} /> */}
               <i className={`anticon anticon-ts-app ${menu.icon}`} />
               <span>{menu.title}</span>
             </span>
@@ -94,7 +93,6 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         </SubMenu>
       ) : (
         <Menu.Item key={`/${menu.route}`}>
-          {/* <Icon type={`${menu.icon}`} /> */}
           <i className={`anticon anticon-ts-app ${menu.icon}`} />
           <Link
             className="menu-item-link"

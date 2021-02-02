@@ -58,7 +58,10 @@ module.exports = {
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json', '.png', '.jpg', '.mp3', '.ogg'],
-    plugins: [ new TsConfigPathsPlugin({ configFile }) ]
+    plugins: [ new TsConfigPathsPlugin({ configFile }) ],
+    alias: {
+      '@ant-design/icons/lib$': path.resolve(__dirname, '../src/constant/icons.ts')
+    }
   },
   optimization: {
     splitChunks: {
@@ -103,6 +106,12 @@ module.exports = {
           test: /react-particles-js/,
           priority: 100,
           name: 'particleJsVendor',
+          chunks: 'async'
+        },
+        matterjs: {
+          test: /matter-js/,
+          priority: 100,
+          name: 'matterjsVendor',
           chunks: 'async'
         },
       }

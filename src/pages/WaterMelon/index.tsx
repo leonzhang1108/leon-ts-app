@@ -186,6 +186,13 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     const allBodies = Composite.allBodies(world)
     allBodies.filter(body => body.label === 'Circle Body' && !body.isStatic).forEach(body => World.remove(world, body))
     onGameover()
+    Matter.Render.run(render)
+    Matter.Runner.run(runner, engine)
+  }
+
+  function stop() {
+    Matter.Render.stop(render)
+    Matter.Runner.stop(runner)
   }
 
   function collapse(event) {
@@ -193,19 +200,20 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     const pairs = event.pairs
     const circleName = 'Circle Body'
     for (let i = 0; i < pairs.length; i++) {
-      const { bodyA, bodyB } = pairs[i]
-      const { label: labelA, circleRadius: ra } = bodyA
-      const { label: labelB, circleRadius: rb } = bodyB
+      const { bodyA: circleA, bodyB: circleB } = pairs[i]
+      const { label: labelA, circleRadius: ra } = circleA
+      const { label: labelB, circleRadius: rb } = circleB
       const index = Math.floor(getBaseLog(time, ra / 10))
       if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb) && index < 13) {
+        // 锁住不让其他圈圈合成
+        couldCollapse = false
         // 激活所有球
         const allBodies = Composite.allBodies(engine.world)
         allBodies.filter(body => body.label === 'Circle Body').forEach(body => {
           Matter.Sleeping.set(body, false)
         })
-        couldCollapse = false
-        const { position: positionB, velocity: velocityA, mass } = bodyA
-        const { position: positionA, velocity: velocityB } = bodyB
+        const { position: positionA, velocity: velocityA, mass } = circleA
+        const { position: positionB, velocity: velocityB } = circleB
         const { x: ax, y: ay } = positionA
         const { x: bx, y: by } = positionB
         const x = (ax + bx) / 2
@@ -213,14 +221,15 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
         const position = { x, y }
         const { x: vxa, y: vya } = velocityA
         const { x: vxb, y: vyb } = velocityB
-        const vx = Math.max(vxa, vxb)
-        const vy = Math.max(vya, vyb)
+        const vx = vxb - vxa
+        const vy = vyb - vya
         const radius = time * ra
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
         Events.on(circle, 'sleepStart', function(event) {
           if (event.source.position.y <= 100) {
+            stop()
             Modal.success({
-              title: 'Gameover',
+              title: 'Game Over',
               content: 'click ok to restart',
               onOk: restart,
               centered: true
@@ -228,12 +237,12 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           }
         })
         const ratio = mass / circle.mass
-        Body.setVelocity(bodyA, { x: 0, y: 0 })
-        Body.setVelocity(bodyB, { x: 0, y: 0 })
+        Body.setVelocity(circleA, { x: 0, y: 0 })
+        Body.setVelocity(circleB, { x: 0, y: 0 })
         Body.setVelocity(circle, { x: vx * ratio, y: vy * ratio })
         const constraint = Constraint.create({
-          bodyA,
-          bodyB,
+          bodyA: circleA,
+          bodyB: circleB,
           stiffness: 0.05,
           length: 0,
           render: {
@@ -241,23 +250,24 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           }
         })
         World.add(world, [constraint])
-        Body.set(bodyA, 'collisionFilter', { ...bodyA.collisionFilter, group: -Math.floor(radius) })
-        Body.set(bodyB, 'collisionFilter', { ...bodyB.collisionFilter, group: -Math.floor(radius) })
+        Body.set(circleA, 'collisionFilter', { ...circleA.collisionFilter, group: -Math.floor(radius) })
+        Body.set(circleB, 'collisionFilter', { ...circleB.collisionFilter, group: -Math.floor(radius) })
 
         setTimeout(() => {
           onCollapse({
             ...position,
-            color: bodyA.render.fillStyle,
+            color: circleA.render.fillStyle,
             point: index - 2
           })
           vibrate()
-          World.remove(world, bodyA)
-          World.remove(world, bodyB)
+          World.remove(world, circleA)
+          World.remove(world, circleB)
           World.remove(world, constraint)
-          couldCollapse = true
           World.add(world, circle)
           doMakeSound(index)
-        }, 100)
+          // 放开合成判断
+          couldCollapse = true
+        }, 80)
         break
       }
     }
@@ -368,8 +378,9 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     Events.on(c, 'mousemove', null)
     Events.on(c, 'sleepStart', function(event) {
       if (event.source.position.y <= 100) {
+        stop()
         Modal.success({
-          title: 'Gameover',
+          title: 'Game Over',
           content: 'click ok to restart',
           onOk: restart,
           centered: true
@@ -386,7 +397,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     endX = undefined
     setTimeout(() => {
       couldAdd = true
-    }, 500)
+    }, 300)
   }
 
   Events.on(mouseConstraint, 'mousedown', doMouseDownNMove)
@@ -412,10 +423,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     runner,
     render,
     canvas: render.canvas,
-    stop: function() {
-      Matter.Render.stop(render)
-      Matter.Runner.stop(runner)
-    },
+    stop,
     restart
   }
 }
@@ -469,7 +477,6 @@ const WaterMelon = (props: any) => {
       onCollapse: ({ x, y, color, point }) => {
         const p = {
           age: 0,
-          phase: 'explode',
           sparks: generateSparks(15),
           x,
           y,
@@ -499,6 +506,7 @@ const WaterMelon = (props: any) => {
   }, [game])
 
   const restart = useCallback(() => {
+    game.stop()
     game.restart()
   }, [game])
 
