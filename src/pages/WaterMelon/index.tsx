@@ -128,6 +128,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   const engine = Engine.create({
     enableSleeping: true
   })
+  engine.timing.timeScale = 1
   const world = engine.world
   world.gravity.y = 1
 
@@ -152,8 +153,6 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   // create runner
   const runner = Runner.create()
   Runner.run(runner, engine)
-
-  let couldCollapse = true
 
   function doMakeSound(index) {
     let sound
@@ -182,12 +181,16 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     makeSound(sound)
   }
 
+  function run() {
+    Matter.Render.run(render)
+    Matter.Runner.run(runner, engine)
+  }
+
   function restart() {
     const allBodies = Composite.allBodies(world)
     allBodies.filter(body => body.label === 'Circle Body' && !body.isStatic).forEach(body => World.remove(world, body))
     onGameover()
-    Matter.Render.run(render)
-    Matter.Runner.run(runner, engine)
+    run()
   }
 
   function stop() {
@@ -195,18 +198,31 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     Matter.Runner.stop(runner)
   }
 
+  const collapseSet = new Set()
+
   function collapse(event) {
-    if (!couldCollapse) return
     const pairs = event.pairs
     const circleName = 'Circle Body'
     for (let i = 0; i < pairs.length; i++) {
       const { bodyA: circleA, bodyB: circleB } = pairs[i]
-      const { label: labelA, circleRadius: ra } = circleA
-      const { label: labelB, circleRadius: rb } = circleB
+      const { label: labelA, circleRadius: ra, id: idA } = circleA
+      const { label: labelB, circleRadius: rb, id: idB } = circleB
       const index = Math.floor(getBaseLog(time, ra / 10))
-      if (labelA === circleName && labelB === circleName && Math.floor(ra) === Math.floor(rb) && index < 13) {
+      // 是否 id 重复
+      const isIdDuplicated = !collapseSet.has(idA) && !collapseSet.has(idB)
+      // 是否为圆
+      const isCircle = labelA === circleName && labelB === circleName
+      // 是否半径相同
+      const isRadiusSame = Math.floor(ra) === Math.floor(rb)
+      // index是否比大西瓜小
+      const isIndexInRange = index < 13
+      // 是否可合并
+      const isCollabsable = isIdDuplicated && isCircle && isRadiusSame && isIndexInRange
+
+      if (isCollabsable) {
         // 锁住不让其他圈圈合成
-        couldCollapse = false
+        collapseSet.add(idA)
+        collapseSet.add(idB)
         // 激活所有球
         const allBodies = Composite.allBodies(engine.world)
         allBodies.filter(body => body.label === 'Circle Body').forEach(body => {
@@ -237,6 +253,8 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           }
         })
         const ratio = mass / circle.mass
+        Body.set(circleA, 'collisionFilter', { ...circleA.collisionFilter, group: -Math.floor(radius) })
+        Body.set(circleB, 'collisionFilter', { ...circleB.collisionFilter, group: -Math.floor(radius) })
         Body.setVelocity(circleA, { x: 0, y: 0 })
         Body.setVelocity(circleB, { x: 0, y: 0 })
         Body.setVelocity(circle, { x: vx * ratio, y: vy * ratio })
@@ -250,8 +268,6 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           }
         })
         World.add(world, [constraint])
-        Body.set(circleA, 'collisionFilter', { ...circleA.collisionFilter, group: -Math.floor(radius) })
-        Body.set(circleB, 'collisionFilter', { ...circleB.collisionFilter, group: -Math.floor(radius) })
 
         setTimeout(() => {
           onCollapse({
@@ -266,8 +282,9 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           World.add(world, circle)
           doMakeSound(index)
           // 放开合成判断
-          couldCollapse = true
-        }, 80)
+          collapseSet.delete(circleA.id)
+          collapseSet.delete(circleB.id)
+        }, 100)
         break
       }
     }
@@ -275,7 +292,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
 
   Events.on(engine, 'collisionStart', collapse)
   Events.on(engine, 'collisionActive', collapse)
-  Events.on(engine, 'collisionEnd', collapse)
+  // Events.on(engine, 'collisionEnd', collapse)
 
   World.add(world, [
     // walls
@@ -300,10 +317,6 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   let circle
   let radius
   let couldAdd = true
-  let startTime
-  let endTime
-  let startX
-  let endX
 
   function doMouseDownNMove(event) {
     if (!couldAdd) return
@@ -311,12 +324,6 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     if (!radius) {
       radius = radiusList[randomNum(0, defaultCount - 1)]
     }
-
-    // 设置时间位置
-    startTime = endTime
-    startX = endX
-    endTime = new Date().getTime()
-    endX = x
   
     // circle && Composite.remove(world, circle)
     const left = 25 + radius
@@ -358,24 +365,6 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     }
     const c = Bodies.circle(currX, radius, radius, { ...circleOptions(radius) })
 
-    // 计算 x 方向速度
-    // const deltaTime = endTime - startTime
-    // const deltaX = endX - startX
-    // if (deltaX && deltaTime) {
-    //   let vx = deltaX / deltaTime * 15
-    //   if (Math.abs(vx) < 3) {
-    //     vx = 0
-    //   }
-    //   if (vx > 50) {
-    //     vx = 50
-    //   }
-    //   if (vx < -50) {
-    //     vx = -50
-    //   }
-    //   Body.setVelocity(c, {x: vx, y: 0})
-    // }
-
-    Events.on(c, 'mousemove', null)
     Events.on(c, 'sleepStart', function(event) {
       if (event.source.position.y <= 100) {
         stop()
@@ -391,13 +380,9 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     radius = undefined
     addNextBall()
     couldAdd = false
-    startTime = undefined
-    endTime = undefined
-    startX = undefined
-    endX = undefined
     setTimeout(() => {
       couldAdd = true
-    }, 300)
+    }, 400)
   }
 
   Events.on(mouseConstraint, 'mousedown', doMouseDownNMove)
@@ -424,7 +409,8 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     render,
     canvas: render.canvas,
     stop,
-    restart
+    restart,
+    run
   }
 }
 
@@ -518,10 +504,11 @@ const WaterMelon = (props: any) => {
         <Popconfirm
           title="Sure about that?"
           onConfirm={restart}
+          onCancel={game?.run}
           okText="Yes"
           cancelText="No"
         >
-          <Button type="primary" className="restart-btn">重新开始</Button>
+          <Button type="primary" onClick={game?.stop} className="restart-btn">重新开始</Button>
         </Popconfirm>
         <Button disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
       </div>

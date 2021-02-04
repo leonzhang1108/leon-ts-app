@@ -24,5 +24,5 @@ export const preloadImage = (url) => {
 export const vibrate = () => {
   const n: any = window.navigator
   navigator.vibrate = n.vibrate || n.webkitVibrate || n.mozVibrate || n.msVibrate
-  navigator.vibrate && navigator.vibrate(200)
+  navigator.vibrate && navigator.vibrate([80])
 }

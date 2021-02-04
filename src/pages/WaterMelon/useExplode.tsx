@@ -19,6 +19,7 @@ interface IFirework {
   age: number
   sparks: ISpark[],
   color: string
+  done?: boolean
 }
 
 const radius = 3
@@ -67,8 +68,8 @@ const draw = (
   })
 }
 
-const update = (firework: IFirework) => {
-  if (firework.age > 80) return null
+const update = (firework: IFirework): IFirework => {
+  if (firework.age > 80) return { ...firework, age: firework.age + 1, done: true }
   return { ...firework, age: firework.age + 1 }
 }
 
@@ -76,7 +77,7 @@ const useExplode = ({
   game,
 }: IProps) => {
 
-  const [fireworks, setFireworks] = useState<any>([])
+  const [fireworks, setFireworks] = useState<IFirework[]>([])
   useEffect(() => {
     if (!fireworks.length) return
     requestAnimationFrame(() => {
@@ -87,7 +88,7 @@ const useExplode = ({
         fireworks.map((firework: IFirework) => {
           draw(context, firework)
           return update(firework)
-        }).filter(item => !!item)
+        }).filter(item => !item.done)
       )
     })
   }, [fireworks, game])
