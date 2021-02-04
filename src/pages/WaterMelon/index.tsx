@@ -238,7 +238,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
         const { x: vxa, y: vya } = velocityA
         const { x: vxb, y: vyb } = velocityB
         const vx = vxb - vxa
-        const vy = vyb - vya
+        const vy = Math.abs(vyb - vya)
         const radius = time * ra
         const circle = Bodies.circle(x, y, radius, circleOptions(radius))
         Events.on(circle, 'sleepStart', function(event) {
@@ -299,7 +299,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     // Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
     Bodies.rectangle(width / 2, height, width, 50, rectangleOptions()),
     Bodies.rectangle(0, -height, 50, height * 4, rectangleOptions()),
-    Bodies.rectangle(width, -height, 50, height * 4, rectangleOptions()),
+    Bodies.rectangle(width, -height, 50, height * 4, rectangleOptions())
   ])
 
   // add mouse control
