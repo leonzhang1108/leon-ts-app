@@ -8,17 +8,14 @@ interface ISpark {
   vx: number
   vy: number
   weight: number
-  red: number
-  green: number
-  blue: number
+  color: string
 }
 
 interface IFirework {
   x: number
   y: number
   age: number
-  sparks: ISpark[],
-  color: string
+  sparks: ISpark[]
   done?: boolean
 }
 
@@ -52,17 +49,17 @@ const fill = (ctx: any, x: number, y: number, color: string) => {
 
 const draw = (
   ctx: any,
-  { sparks, age, x, y, color }: IFirework,
+  { sparks, age, x, y }: IFirework,
 ) => {
   sparks.forEach(spark => {
     times(10, (i: number) => {
       const trailAge = age + i
-      const fade = i * 20 - age * 2
+      const fade = i * 10 - age * 2
       fill(
         ctx,
         x + spark.vx * trailAge,
         y + spark.vy * trailAge + (spark.weight * trailAge) ** 2,
-        hexToRgbA(color, fade / 100)
+        hexToRgbA(spark.color, fade / 100)
       )
     })
   })

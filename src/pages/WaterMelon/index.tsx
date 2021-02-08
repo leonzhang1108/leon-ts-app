@@ -54,7 +54,7 @@ const rectangleOptions = () => ({
   frictionAir: 0.01,
   isStatic: true,
   render: {
-    fillStyle: '#dcdcdc'
+    fillStyle: '#000'
   }
 })
 
@@ -138,8 +138,8 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
     engine,
     options: {
       width,
-      height: height - 30,
-      background: '#fff',
+      height: height,
+      background: '#333',
       wireframes: false,
       showSleeping: false,
       // showAngleIndicator: true,
@@ -297,7 +297,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   World.add(world, [
     // walls
     // Bodies.rectangle(width / 2, 0, width, 50, rectangleOptions()),
-    Bodies.rectangle(width / 2, height, width, 50, rectangleOptions()),
+    Bodies.rectangle(width / 2, height - 25, width, 50, rectangleOptions()),
     Bodies.rectangle(0, -height, 50, height * 4, rectangleOptions()),
     Bodies.rectangle(width, -height, 50, height * 4, rectangleOptions())
   ])
@@ -424,11 +424,9 @@ const generateSparks = (maxSparks: number) => {
   return times(maxSparks, (i: number) => {
     const vx = Math.random() * 5 + 0.5
     const vy = Math.random() * 5 + 0.5
-
+    const color = colors[i % 12]
     return {
-      blue: Math.floor(Math.random() * 2),
-      green: Math.floor(Math.random() * 2),
-      red: Math.floor(Math.random() * 2),
+      color,
       vx: Math.random() > 0.5 ? -vx : vx,
       vy: Math.random() > 0.5 ? -vy : vy,
       weight: Math.random() * 0.3 + 0.03
@@ -460,13 +458,12 @@ const WaterMelon = (props: any) => {
       element: wrapper.current,
       height: h,
       width: w,
-      onCollapse: ({ x, y, color, point }) => {
+      onCollapse: ({ x, y, point }) => {
         const p = {
           age: 0,
-          sparks: generateSparks(15),
+          sparks: generateSparks(30),
           x,
-          y,
-          color
+          y
         }
         setFireworks([...fireworks, p])
         setScore(score => score + point)
