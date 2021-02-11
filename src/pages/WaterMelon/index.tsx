@@ -261,7 +261,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
         const constraint = Constraint.create({
           bodyA: circleA,
           bodyB: circleB,
-          stiffness: 0.05,
+          stiffness: 0.04,
           length: 0,
           render: {
             strokeStyle: 'transparent'
@@ -461,11 +461,11 @@ const WaterMelon = (props: any) => {
       onCollapse: ({ x, y, point }) => {
         const p = {
           age: 0,
-          sparks: generateSparks(30),
+          sparks: generateSparks(20),
           x,
           y
         }
-        setFireworks([...fireworks, p])
+        setFireworks(fireworks => [...fireworks, p])
         setScore(score => score + point)
       },
       onGameover: () => {
@@ -501,11 +501,10 @@ const WaterMelon = (props: any) => {
         <Popconfirm
           title="Sure about that?"
           onConfirm={restart}
-          onCancel={game?.run}
           okText="Yes"
           cancelText="No"
         >
-          <Button type="primary" onClick={game?.stop} className="restart-btn">重新开始</Button>
+          <Button type="primary" className="restart-btn">重新开始</Button>
         </Popconfirm>
         <Button disabled={!clickable} type="primary" onClick={toggleGravity} className="gravity-btn">逆转重力</Button>
       </div>
