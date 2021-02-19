@@ -15,6 +15,20 @@ import { useCountUp } from 'react-countup'
 import { thousands } from 'noshjs'
 import './index.less'
 
+const {
+  Engine,
+  Render,
+  Runner,
+  Composite,
+  MouseConstraint,
+  Mouse,
+  World,
+  Bodies,
+  Events,
+  Body,
+  Constraint,
+} = Matter
+
 const colors = [
   '#4E79A5',
   '#F18F3B',
@@ -109,18 +123,6 @@ const circleOptions = (radius) => {
 }
 
 const randomNum = (min, max) => parseInt(Math.random()*(max - min + 1) + min, 10)
-
-const Engine = Matter.Engine
-const Render = Matter.Render
-const Runner = Matter.Runner
-const Composite = Matter.Composite
-const MouseConstraint = Matter.MouseConstraint
-const Mouse = Matter.Mouse
-const World = Matter.World
-const Bodies = Matter.Bodies
-const Events = Matter.Events
-const Body = Matter.Body
-const Constraint = Matter.Constraint
 
 const Game = function({ element, height, width, onCollapse, onGameover }) {
 
@@ -268,6 +270,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           }
         })
         World.add(world, [constraint])
+        doMakeSound(index)
 
         setTimeout(() => {
           onCollapse({
@@ -280,7 +283,6 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
           World.remove(world, circleB)
           World.remove(world, constraint)
           World.add(world, circle)
-          doMakeSound(index)
           // 放开合成判断
           collapseSet.delete(circleA.id)
           collapseSet.delete(circleB.id)
