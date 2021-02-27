@@ -63,9 +63,9 @@ function getBaseLog(x, y) {
 
 const rectangleOptions = () => ({
   restitution: 0.3,
-  friction: 0.03,
-  frictionStatic: 0.03,
-  frictionAir: 0.01,
+  friction: 0,
+  frictionStatic: 0,
+  frictionAir: 0,
   isStatic: true,
   render: {
     fillStyle: '#000'
@@ -132,7 +132,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   })
   engine.timing.timeScale = 1
   const world = engine.world
-  world.gravity.y = 1
+  world.gravity.y = 1.5
 
   // create renderer
   const render = Render.create({

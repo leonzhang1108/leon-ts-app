@@ -1,0 +1,309 @@
+@theme-color: #ffa500;
+
+@keyframes step1-to-top {
+  0% { margin-top: 0; opacity: 1; }
+  50% { margin-top: 0; opacity: 1; }
+  100% { margin-top: 100px; opacity: 0 }
+}
+
+@keyframes step2-to-top {
+  0% { margin-top: 50px; opacity: 0; }
+  60% { margin-top: 0; opacity: 1; }
+  90% { margin-top: 0; opacity: 1; }
+  100% { margin-top: 50px; opacity: 0; }
+}
+
+@keyframes step3-to-top {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes step4-to-top {
+  0% { width: 0; }
+  30% { width: 276px; }
+  100% { width: 276px; }
+}
+
+@keyframes twincle {
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  51% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes playbtn {
+  0% { border: 50px solid @theme-color; transform: rotate(-90deg); }
+  90% { opacity: 10px solid @theme-color; transform: rotate(0); }
+  100% { opacity: 10px solid @theme-color; transform: rotate(0); }
+}
+
+@keyframes cursor {
+  0% {
+    top: 120px;
+    left: 120px;
+  }
+  50% { 
+    top: 80px;
+    left: 100px;
+  }
+  100% { 
+    top: 60px;
+    left: 60px;
+  }
+}
+
+@keyframes itemyellow {
+  0% {
+    transform: rotate3d(0, 0, 1, -90deg);
+    opacity: 0;
+  }
+  100% { 
+    transform: rotate3d(0, 0, 1, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes screen-up {
+  0% { transform: rotate3d(1, 0, 0, -90deg); }
+  100% { transform: rotate3d(1, 0, 0, 0); }
+}
+
+@keyframes screen-inner-up {
+  0% { margin-top: 50px; opacity: 0; }
+  100% { margin-top: 0; opacity: 1; }
+}
+
+.panghabo-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .panghabo-wrapper {
+    font-family: 'Raleway Bold', Helvetica, Arial;
+    background-color: #000;
+    color: @theme-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  
+    .step-1 {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      font-size: 50px;
+      font-weight: bold;
+      animation: .5s step1-to-top linear forwards .5s;
+      opacity: 0;
+      .round {
+        animation: .3s twincle linear infinite alternate .5s;
+        background-color: @theme-color;
+        height: 50px;
+        width: 50px;
+        border-radius: 100px;
+        margin-right: 10px;
+      }
+    }
+  
+    .step-2 {
+      position: absolute;
+      .wrapper {
+        position: relative;
+        margin-bottom: 50px;
+        animation: .5s step2-to-top linear forwards 1s;
+        opacity: 0;
+        transform-style: preserve-3d;
+        .bottom {
+          height: 180px;
+          width: 300px;
+          background-color: @theme-color;
+          border-radius: 15px;
+          .cover {
+            position: absolute;
+            height: 165px;
+            width: 300px;
+            background-color: #000;
+          }
+        }
+        .screen {
+          height: 155px;
+          width: 240px;
+          background-color: @theme-color;
+          border-radius: 10px;
+          position: absolute;
+          top: 0;
+          left: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+          transform: rotate3d(1, 0, 0, -90deg);
+          transform-origin: bottom;
+          transform-style: preserve-3d;
+          animation: .1s screen-up linear forwards 1.1s;
+          .screen-inner {
+            width: 220px;
+            height: 135px;
+            background-color: #000;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            .round {
+              height: 90px;
+              width: 90px;
+              border-radius: 90px;
+              background-color: @theme-color;
+              position: absolute;
+              opacity: 0;
+              animation: .1s screen-inner-up linear forwards 1.2s;
+            }
+            .triangle-wrapper {
+              z-index: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              position: absolute;
+              top: 60px;
+              opacity: 0;
+              animation: .1s screen-inner-up linear forwards 1.3s;
+              .triangle {
+                width: 0;
+                height: 0;
+                border-bottom: 30px solid #000;
+                border-left: 30px solid transparent;
+                border-right: 30px solid transparent;
+              }
+              .rectangle {
+                margin-top: -1px;
+                height: 50px;
+                width: 30px;
+                background-color: #000;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .step-3 {
+      position: absolute;
+      .wrapper {
+        position: relative;
+        opacity: 0;
+        animation: .5s step3-to-top linear forwards 1.5s;
+        .play-btn {
+          animation: .2s playbtn linear forwards 1.5s;
+          transform: rotate(-90deg);
+          height: 140px;
+          width: 140px;
+          background-color: #000;
+          border: 5px solid @theme-color;
+          border-radius: 140px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .triangle {
+            width: 0;
+            height: 0;
+            border-left: 60px solid @theme-color;
+            border-bottom: 35px solid transparent;
+            border-top: 35px solid transparent;
+            margin-left: 20px;
+          }
+        }
+        .arrow-wrapper {
+          position: absolute;
+          transform: rotate(-40deg);
+          top: 120px;
+          left: 120px;
+          z-index: 1;
+          animation: .2s cursor linear forwards 1.7s;
+          .arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .triangle {
+              width: 0;
+              height: 0;
+              border-bottom: 30px solid @theme-color;
+              border-left: 25px solid transparent;
+              border-right: 25px solid transparent;
+              position: relative;
+              display: flex;
+              justify-content: center;
+              &:before {
+                content: '';
+                position: absolute;
+                top: 1px;
+                width: 0;
+                height: 0;
+                border-bottom: 28px solid #000;
+                border-left: 23px solid transparent;
+                border-right: 23px solid transparent;
+              }
+            }
+            .rectangle {
+              height: 30px;
+              width: 22px;
+              background-color: @theme-color;
+              position: relative;
+              &:before {
+                content: '';
+                position: absolute;
+                margin-top: -2px;
+                left: 1px;
+                height: 31px;
+                width: 20px;
+                background-color: #000;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .step-4 {
+      position: absolute;
+      animation: 1s step4-to-top ease forwards 2s;
+      width: 0;
+      overflow: hidden;
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 276px;
+        .title {
+          font-size: 77px;
+          font-weight: bold;
+          line-height: 100px;
+          .white {
+            color: #fff;
+            display: inline-block;
+          }
+          .yellow {
+            color: #000;
+            background-color: @theme-color;
+            border-radius: 15px;
+            padding: 0 10px;
+            margin-left: 10px;
+            display: inline-block;
+            animation: .3s itemyellow ease forwards 2.2s;
+            transform: rotate3d(0, 0, 1, -40deg);
+            transform-origin: 20% 50%;
+            opacity: 0;
+          }
+        }
+        .community {
+          color: #fff;
+          font-size: 30px;
+          width: 100%;
+          letter-spacing: 15px;
+        }
+      }
+    }
+  }
+}
