@@ -15,11 +15,6 @@ export default [
     title: 'Bat History'
   },
   {
-    route: 'panghabo',
-    icon: 'ts-app icon-panghabo',
-    title: '胖哈勃'
-  },
-  {
     route: 'mondrian-art',
     icon: 'ts-app icon-mondrian',
     title: 'Mondrian Art'
@@ -68,6 +63,11 @@ export default [
         route: 'fromto-container-page',
         icon: 'ts-app icon-tree',
         title: '流向图'
+      },
+      {
+        route: 'panghabo',
+        icon: 'ts-app icon-panghabo',
+        title: '胖哈勃'
       }
     ]
   },
