@@ -21,9 +21,9 @@
 }
 
 @keyframes step4-to-top {
-  0% { width: 0; }
-  30% { width: 276px; }
-  100% { width: 276px; }
+  0% { width: 0; overflow: initial; }
+  30% { width: 276px; overflow: initial; }
+  100% { width: 276px; overflow: initial; }
 }
 
 @keyframes twincle {
@@ -34,16 +34,8 @@
 }
 
 @keyframes playbtn {
-  0% {
-    opacity: 0;
-    border: 50px solid @theme-color;
-    transform: rotate(-90deg);
-  }
-  100% {
-    opacity: 1;
-    transform: rotate(0); 
-    border: 10px solid @theme-color;
-  }
+  0% { border: 50px solid @theme-color; transform: rotate(-90deg); }
+  100% { opacity: 20px solid @theme-color; transform: rotate(0); }
 }
 
 @keyframes cursor {
@@ -209,6 +201,7 @@
           height: 140px;
           width: 140px;
           background-color: #000;
+          border: 10px solid @theme-color;
           border-radius: 140px;
           display: flex;
           justify-content: center;
@@ -275,9 +268,9 @@
   
     .step-4 {
       position: absolute;
-      animation: 1s step4-to-top ease forwards 2s;
       width: 0;
       overflow: hidden;
+      animation: 1s step4-to-top ease forwards 2s;
       .wrapper {
         display: flex;
         flex-direction: column;
@@ -298,7 +291,7 @@
             margin-left: 10px;
             display: inline-block;
             animation: .3s itemyellow ease forwards 2.2s;
-            transform: rotate3d(0, 0, 1, -40deg);
+            transform: rotate3d(0, 0, 1, -90deg);
             transform-origin: 20% 50%;
             opacity: 0;
           }
