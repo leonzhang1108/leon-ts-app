@@ -76,7 +76,7 @@ const Panghabo = () => {
       </div>
       <div className="btn-wrapper">
         <Switch disabled={isPlaying} checked={hasMusic} onChange={setHasMusic} checkedChildren="开启音乐" unCheckedChildren="关闭音乐" />
-        <Button disabled={isPlaying} type="primary" onClick={restart}>restart</Button>
+        <Button disabled={isPlaying} shape="round" type="primary" onClick={restart}>restart</Button>
       </div>
     </div>
   )
