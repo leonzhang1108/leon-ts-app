@@ -23,7 +23,7 @@ const Panghabo = () => {
       }, 0)
       setTimeout(() => {
         setIsPlaying(false)
-      }, 2000)
+      }, 2700)
     },
     [hasMusic]
   )
