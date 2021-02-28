@@ -93,10 +93,10 @@
       position: absolute;
       font-size: 50px;
       font-weight: bold;
-      animation: .5s step1-to-top linear forwards .5s;
+      animation: .5s step1-to-top linear forwards .2s;
       opacity: 0;
       .round {
-        animation: .3s twincle linear infinite alternate .5s;
+        animation: .35s twincle linear infinite alternate .2s;
         background-color: @theme-color;
         height: 50px;
         width: 50px;
@@ -110,7 +110,7 @@
       .wrapper {
         position: relative;
         margin-bottom: 50px;
-        animation: .5s step2-to-top linear forwards 1s;
+        animation: .5s step2-to-top linear forwards .8s;
         opacity: 0;
         transform-style: preserve-3d;
         .bottom {
@@ -140,7 +140,7 @@
           transform: rotate3d(1, 0, 0, -90deg);
           transform-origin: bottom;
           transform-style: preserve-3d;
-          animation: .1s screen-up linear forwards 1.1s;
+          animation: .1s screen-up linear forwards .9s;
           .screen-inner {
             width: 220px;
             height: 135px;
@@ -158,7 +158,7 @@
               background-color: @theme-color;
               position: absolute;
               opacity: 0;
-              animation: .1s screen-inner-up linear forwards 1.2s;
+              animation: .1s screen-inner-up linear forwards 1.0s;
             }
             .triangle-wrapper {
               z-index: 1;
@@ -168,7 +168,7 @@
               position: absolute;
               top: 60px;
               opacity: 0;
-              animation: .1s screen-inner-up linear forwards 1.3s;
+              animation: .1s screen-inner-up linear forwards 1.1s;
               .triangle {
                 width: 0;
                 height: 0;
@@ -193,9 +193,9 @@
       .wrapper {
         position: relative;
         opacity: 0;
-        animation: .5s step3-to-top linear forwards 1.5s;
+        animation: .6s step3-to-top linear forwards 1.4s;
         .play-btn {
-          animation: .2s playbtn linear forwards 1.5s;
+          animation: .2s playbtn linear forwards 1.4s;
           transform: rotate(-90deg);
           height: 140px;
           width: 140px;
@@ -220,7 +220,7 @@
           top: 120px;
           left: 120px;
           z-index: 1;
-          animation: .2s cursor linear forwards 1.7s;
+          animation: .15s cursor linear forwards 1.6s;
           .arrow {
             display: flex;
             flex-direction: column;
@@ -303,5 +303,16 @@
         }
       }
     }
+  }
+
+  .btn-wrapper {
+    background: linear-gradient(to bottom, #000, #666);
+    position: absolute;
+    padding: 40px;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

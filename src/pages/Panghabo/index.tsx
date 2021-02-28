@@ -1,18 +1,31 @@
-import React, { useState, useCallback } from 'react'
-import { Button } from 'antd'
+import React, { useState, useCallback, useEffect } from 'react'
+import { Button, Switch } from 'antd'
+import { makeSound, preloadSound } from './utils'
+import intro from '@sound/panghabo-intro.mp3'
 import './index.less'
 
 const Panghabo = () => {
   const [visible, setVisible] = useState(true)
+  const [hasMusic, setHasMusic] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  
+  useEffect(() => {
+    hasMusic && preloadSound(intro)
+  }, [hasMusic])
 
   const restart = useCallback(
     () => {
+      setIsPlaying(true)
       setVisible(visible => !visible)
       setTimeout(() => {
         setVisible(visible => !visible)
+        hasMusic && makeSound(intro)
       }, 0)
+      setTimeout(() => {
+        setIsPlaying(false)
+      }, 2000)
     },
-    []
+    [hasMusic]
   )
 
   return (
@@ -61,7 +74,10 @@ const Panghabo = () => {
           </div>
         </div>
       </div>
-      <Button type="primary" style={{ position: 'absolute', bottom: 20 }} onClick={restart}>restart</Button>
+      <div className="btn-wrapper">
+        <Switch disabled={isPlaying} checked={hasMusic} onChange={setHasMusic} checkedChildren="开启音乐" unCheckedChildren="关闭音乐" />
+        <Button disabled={isPlaying} type="primary" onClick={restart}>restart</Button>
+      </div>
     </div>
   )
 }
