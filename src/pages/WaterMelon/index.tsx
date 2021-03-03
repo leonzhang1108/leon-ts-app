@@ -132,7 +132,7 @@ const Game = function({ element, height, width, onCollapse, onGameover }) {
   })
   engine.timing.timeScale = 1
   const world = engine.world
-  world.gravity.y = 1.5
+  world.gravity.y = 1.2
 
   // create renderer
   const render = Render.create({
