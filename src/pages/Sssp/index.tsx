@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState, useRef } from 'react'
 import Utils from '@utils'
 import './index.less'
 
@@ -53,6 +53,8 @@ const getTailList = (x: number, y: number, size: number, isMobile: boolean) => {
 
 const SSSP = (props: any) => {
   const { w, h, isMobile } = props
+  const [rotating, setRotating] = useState(false)
+  const svgRef = useRef<any>()
 
   const center = useMemo(() => {
     return {
@@ -85,24 +87,36 @@ const SSSP = (props: any) => {
     return getTailList(x, y, isMobile ? 0.5 : 1, isMobile)
   }, [center, isMobile])
 
+  const animationTransformDiv = useMemo(() => {
+    return <animateTransform attributeName="transform" begin="0s" dur="10s" type="rotate" from={`0 ${center?.x} ${center?.y}`} to={`360 ${center?.x} ${center?.y}`} repeatCount="indefinite"/>
+  }, [center])
+
+  useEffect(() => {
+    if (rotating) {
+      svgRef.current.unpauseAnimations()
+    } else {
+      svgRef.current.pauseAnimations()
+    }
+  }, [rotating])
+
   return (
-    <div className="sssp-wrapper">   
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width={w} height={h}>
+    <div className="sssp-wrapper" onClick={() => setRotating(rotate => !rotate)}>   
+      <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" version="1.1" width={w} height={h}>
         {/* pentacle wrapper */}
         <polygon points={pentacleBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round">
-          <animateTransform attributeName="transform" begin="0s" dur="20s" type="rotate" from={`0 ${center?.x} ${center?.y}`} to={`360 ${center?.x} ${center?.y}`} repeatCount="indefinite"/>
+          {animationTransformDiv}
         </polygon>
         {/* tail wrapper */}
         <polygon points={tailBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round" />
         {/* pentacle border */}
         <polygon points={pentacleBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round">
-          <animateTransform attributeName="transform" begin="0s" dur="20s" type="rotate" from={`0 ${center?.x} ${center?.y}`} to={`360 ${center?.x} ${center?.y}`} repeatCount="indefinite"/>
+          {animationTransformDiv}
         </polygon>
         {/* tail border */}
         <polygon points={tailBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round" />
         {/* pentacle */}
         <polygon points={pentacleList.join(' ')} fill="white" stroke="#262F63" strokeWidth={isMobile ? 5 : 10} strokeLinejoin="round" >
-          <animateTransform attributeName="transform" begin="0s" dur="20s" type="rotate" from={`0 ${center?.x} ${center?.y}`} to={`360 ${center?.x} ${center?.y}`} repeatCount="indefinite"/>
+          {animationTransformDiv}
         </polygon>
         {/* tail */}
         <polygon points={tailList.join(' ')} fill="white" stroke="#AC3632" strokeWidth={isMobile ? 5 : 10} strokeLinejoin="round" />
