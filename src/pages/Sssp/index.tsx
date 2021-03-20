@@ -58,8 +58,8 @@ const SSSP = (props: any) => {
 
   const center = useMemo(() => {
     return {
-      x: w / 2 - (isMobile ? 0 : 100),
-      y: h / 2 - (isMobile ? 80 : 0)
+      x: w / 2 - (isMobile ? 0 : w * 0.15),
+      y: h / 2 - (isMobile ? h * 0.15 : h * 0.05)
     }
   }, [w, h, isMobile])
 
@@ -121,6 +121,25 @@ const SSSP = (props: any) => {
         {/* tail */}
         <polygon points={tailList.join(' ')} fill="white" stroke="#AC3632" strokeWidth={isMobile ? 5 : 10} strokeLinejoin="round" />
       </svg>
+      <div className="logo-wrapper">
+        <div className="logo-item">
+          <div className="s">
+            <div className="line" />
+          </div>
+          <div className="s">
+            <div className="line" />
+          </div>
+          <div className="s">
+            <div className="line" />
+          </div>
+          <div className="p">
+            <div className="square" />
+          </div>
+        </div>
+        <div className="explanation">
+          Science Special Search Party
+        </div>
+      </div>
     </div>
   )
 }
