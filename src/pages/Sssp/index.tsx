@@ -57,7 +57,7 @@ const SSSP = (props: any) => {
   const center = useMemo(() => {
     return {
       x: w / 2 - (isMobile ? 0 : 100),
-      y: h / 2 - (isMobile ? 50 : 0)
+      y: h / 2 - (isMobile ? 80 : 0)
     }
   }, [w, h, isMobile])
 
@@ -88,6 +88,12 @@ const SSSP = (props: any) => {
   return (
     <div className="sssp-wrapper">   
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width={w} height={h}>
+        {/* pentacle wrapper */}
+        <polygon points={pentacleBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round">
+          <animateTransform attributeName="transform" begin="0s" dur="20s" type="rotate" from={`0 ${center?.x} ${center?.y}`} to={`360 ${center?.x} ${center?.y}`} repeatCount="indefinite"/>
+        </polygon>
+        {/* tail wrapper */}
+        <polygon points={tailBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round" />
         {/* pentacle border */}
         <polygon points={pentacleBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round">
           <animateTransform attributeName="transform" begin="0s" dur="20s" type="rotate" from={`0 ${center?.x} ${center?.y}`} to={`360 ${center?.x} ${center?.y}`} repeatCount="indefinite"/>
