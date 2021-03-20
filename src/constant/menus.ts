@@ -20,6 +20,11 @@ export default [
     title: 'Mondrian Art'
   },
   {
+    route: 'sssp',
+    icon: 'ts-app icon-alien',
+    title: 'SSSP'
+  },
+  {
     icon: 'ts-app icon-profile',
     title: 'Common',
     key: 'common',
@@ -103,10 +108,6 @@ export default [
         route: 'painting',
         icon: 'ts-app icon-painting',
         title: 'Painting'
-      }, {
-        route: 'snow',
-        icon: 'ts-app icon-snow',
-        title: 'Snow'
       }
     ]
   },
