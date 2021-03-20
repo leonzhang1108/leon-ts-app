@@ -137,7 +137,8 @@ const SSSP = (props: any) => {
           </div>
         </div>
         <div className="explanation">
-          Science Special Search Party
+          <span>Science Special Search Party</span>
+          <span className="span_hid"></span>
         </div>
       </div>
     </div>
