@@ -1,12 +1,72 @@
-import React from 'react'
+import React, { useCallback, useRef, useEffect } from 'react'
 import Utils from '@utils'
+import Word from './Word'
 import './index.less'
 
 
 const Giorno = (props: any) => {
-  const { isMobile } = props
+  const { h, w } = props
+  const canvas = useRef<any>()
+  const interval = useRef<any>()
+
+  const initCanvas = useCallback(() => {
+    const c = canvas.current.getContext('2d')
+    const wordsAttr: any[] = []
+
+    c.fillStyle = '#000'
+    c.globalAlpha = 0.2
+
+    for (let i = 0; i < 20; i++) {
+      wordsAttr.push(new Word({ key: '無駄', w, h }))
+    }
+
+    const move = () => {
+      wordsAttr.forEach((_, i) => {
+        if (wordsAttr[i].x > w) {
+          wordsAttr[i].x = -wordsAttr[i].width
+          wordsAttr[i].y = Math.random() * h
+        } else {
+          wordsAttr[i].x += wordsAttr[i].speed
+        }
+      })
+    }
+
+    const animation = () => {
+      wordsAttr.forEach((_, i) => {
+        c.font = wordsAttr[i].font
+        c.fillText(wordsAttr[i].text, wordsAttr[i].x, wordsAttr[i].y)
+        wordsAttr[i].width = c.measureText(wordsAttr[i].text).width
+        c.stroke()
+      })
+      move()
+    }
+
+    const init = () => {
+      c.clearRect(0, 0, w, h)
+      animation()
+    }
+
+    if (requestAnimationFrame) {
+      const loop = () => {
+        init()
+        requestAnimationFrame(loop)
+      }
+      loop()
+    } else {
+      interval.current = setInterval(init, 24)
+    }
+  }, [canvas])
+
+  useEffect(() => {
+    initCanvas()
+    return () => {
+      clearInterval(interval.current)
+    }
+  }, [])
+
   return (
-    <div className={`giorno-wrapper ${isMobile ? 'mobile' : ''}`} >   
+    <div className="giorno-wrapper" >   
+      <canvas className="muda" ref={canvas} height={h} width={w}/>
       <div className="icon-body">
         <div className="top">
           <div className="nose" />
@@ -34,6 +94,7 @@ const Giorno = (props: any) => {
 export default Utils.connect({
   component: Giorno,
   mapStateToProps: state => ({
-    isMobile: state.common.isMobile
+    h: state.common.contentHeight,
+    w: state.common.contentWidth
   })
 })

@@ -10,24 +10,31 @@ export default [
     title: '刘发财生日快乐！'
   },
   {
-    route: 'batman-history',
-    icon: 'ts-app icon-batman-logo',
-    title: 'Bat History'
-  },
-  {
-    route: 'mondrian-art',
-    icon: 'ts-app icon-mondrian',
-    title: 'Mondrian Art'
-  },
-  {
-    route: 'sssp',
-    icon: 'ts-app icon-alien',
-    title: 'SSSP'
-  },
-  {
-    route: 'giorno',
-    icon: 'ts-app icon-insect',
-    title: 'Giorno'
+    icon: 'ts-app icon-brand',
+    title: 'Logos',
+    key: 'logo',
+    childs: [
+      {
+        route: 'batman-history',
+        icon: 'ts-app icon-batman-logo',
+        title: 'Bat History'
+      },
+      {
+        route: 'panghabo',
+        icon: 'ts-app icon-panghabo',
+        title: '胖哈勃'
+      },
+      {
+        route: 'sssp',
+        icon: 'ts-app icon-alien',
+        title: 'SSSP'
+      },
+      {
+        route: 'giorno',
+        icon: 'ts-app icon-insect',
+        title: 'Giorno'
+      },
+    ]
   },
   {
     icon: 'ts-app icon-profile',
@@ -73,11 +80,6 @@ export default [
         route: 'fromto-container-page',
         icon: 'ts-app icon-tree',
         title: '流向图'
-      },
-      {
-        route: 'panghabo',
-        icon: 'ts-app icon-panghabo',
-        title: '胖哈勃'
       }
     ]
   },
@@ -86,11 +88,6 @@ export default [
     title: 'Canvas',
     key: 'canvas',
     childs: [
-      // {
-      //   route: 'pie-chart',
-      //   icon: 'pie-chart',
-      //   title: 'Pie Chart'
-      // },
       {
         route: 'food',
         icon: 'ts-app icon-food',
@@ -105,15 +102,22 @@ export default [
         route: 'sad-man',
         icon: 'ts-app icon-sad',
         title: 'Sad Man'
-      }, {
+      },
+      {
+        route: 'mondrian-art',
+        icon: 'ts-app icon-mondrian',
+        title: 'Mondrian Art'
+      },
+      {
         route: '12bius',
         icon: 'ts-app icon-12bius',
         title: 'Spring 12'
-      }, {
+      },
+      {
         route: 'painting',
         icon: 'ts-app icon-painting',
         title: 'Painting'
-      }
+      },
     ]
   },
   {
