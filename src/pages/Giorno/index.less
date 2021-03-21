@@ -1,8 +1,10 @@
 @giorno-theme: #E37DFC;
+@eye-color: #F9F5D6;
+@bg: #000;
 
 @keyframes pulse {
   0% { transform: scale(0.8); }
-  50% { transform: scale(0.9); }
+  50% { transform: scale(0.85); }
   100% { transform: scale(0.8); }
 }
 
@@ -10,12 +12,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: pulse 1s ease infinite;
+  background-color: @eye-color;
   .icon-body {
+    animation: pulse 1s ease infinite;
     width: 320px;
     height: 380px;
     border-radius: 320px ~"/" 380px;
-    border: 30px solid #000;
+    border: 30px solid @bg;
     background-color: @giorno-theme;
     display: flex;
     align-items: center;
@@ -25,7 +28,7 @@
       width: 350px;
       height: 380px;
       border-radius: 350px ~"/" 380px;
-      background-color: #000;
+      background-color: @bg;
       margin-top: -280px;
       position: relative;
       display: flex;
@@ -35,7 +38,7 @@
         width: 60px;
         border-radius: 50%;
         position: absolute;
-        background-color: @giorno-theme;
+        background-color: @eye-color;
         bottom: 55px;
         &.left {
           left: 80px;
@@ -46,12 +49,12 @@
       }
       
       .nose {
-        height: 25px;
-        width: 25px;
+        height: 30px;
+        width: 30px;
         position: absolute;
         bottom: 20px;
         border-radius: 50%;
-        background-color: @giorno-theme;
+        background-color: #3ec5ff;
       }
     }
     .heart-wrapper {
@@ -62,7 +65,7 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         right: 100px;
       }
@@ -70,7 +73,7 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         left: 100px;
       }
@@ -78,7 +81,7 @@
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         top: 95px;
         right: 100px;
@@ -87,7 +90,7 @@
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         top: 95px;
         left: 100px;
@@ -96,7 +99,7 @@
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         top: 170px;
         right: 50px;
@@ -105,7 +108,7 @@
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         top: 170px;
         left: 50px;
@@ -113,7 +116,7 @@
       .line {
         width: 10px;
         height: 300px;
-        background-color: #000;
+        background-color: @bg;
         position: absolute;
         top: 0;
       }
@@ -124,7 +127,7 @@
         transform: scale(6);
         left: -63px;
         .heart-left {
-          background: #000;
+          background: @bg;
           width: 14px;
           height: 24px;
           transform: rotate(135deg);
@@ -134,7 +137,7 @@
           border-top-left-radius: 30px;
         }
         .heart-right {
-          background: #000;
+          background: @bg;
           width: 14px;
           height: 24px;
           transform: rotate(-135deg);
