@@ -108,18 +108,20 @@ const SSSP = (props: any) => {
         </polygon>
         {/* tail wrapper */}
         <polygon points={tailBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round" />
+
         {/* pentacle border */}
         <polygon points={pentacleBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round">
           {animationTransformDiv}
         </polygon>
         {/* tail border */}
         <polygon points={tailBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round" />
+
         {/* pentacle */}
-        <polygon points={pentacleList.join(' ')} fill="white" stroke="#262F63" strokeWidth={isMobile ? 7 : 10} strokeLinejoin="round" >
+        <polygon points={pentacleList.join(' ')} fillOpacity="0" stroke="#262F63" strokeWidth={isMobile ? 7 : 10} strokeLinejoin="round" >
           {animationTransformDiv}
         </polygon>
         {/* tail */}
-        <polygon points={tailList.join(' ')} fill="white" stroke="#AC3632" strokeWidth={isMobile ? 7 : 10} strokeLinejoin="round" />
+        <polygon points={tailList.join(' ')} fillOpacity="0" stroke="#AC3632" strokeWidth={isMobile ? 7 : 10} strokeLinejoin="round" />
       </svg>
       <div className="logo-wrapper">
         <div className="logo-item">
