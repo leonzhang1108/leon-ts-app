@@ -22,23 +22,23 @@ const getTailList = (x: number, y: number, size: number, isMobile: boolean) => {
 
   const getList1 = v => [
     v,
-    v + 160 * size,
+    v + 180 * size,
     v + 220 * size,
     v + 400 * size,
     v + 350 * size,
     v + 400 * size,
     v + 220 * size,
-    v + 160 * size
+    v + 180 * size
   ]
 
   const getList2 = v => [
     v,
     v + 20 * size,
+    v + 60 * size,
     v + 80 * size,
-    v + 100 * size,
     v,
-    v - 100 * size,
     v - 80 * size,
+    v - 60 * size,
     v - 20 * size
   ]
 
