@@ -25,6 +25,11 @@ export default [
     title: 'SSSP'
   },
   {
+    route: 'giorno',
+    icon: 'ts-app icon-insect',
+    title: 'Giorno'
+  },
+  {
     icon: 'ts-app icon-profile',
     title: 'Common',
     key: 'common',

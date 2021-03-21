@@ -1,0 +1,149 @@
+@giorno-theme: #C31A80;
+
+@keyframes pulse {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(0.8); }
+}
+
+.giorno-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 1s ease infinite;
+  .icon-body {
+    width: 320px;
+    height: 380px;
+    border-radius: 320px ~"/" 380px;
+    border: 30px solid #000;
+    background-color: @giorno-theme;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    .top {
+      width: 350px;
+      height: 380px;
+      border-radius: 350px ~"/" 380px;
+      background-color: #000;
+      margin-top: -280px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      .eye {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        position: absolute;
+        background-color: @giorno-theme;
+        bottom: 55px;
+        &.left {
+          left: 80px;
+        }
+        &.right {
+          right: 80px;
+        }
+      }
+      
+      .nose {
+        height: 25px;
+        width: 25px;
+        position: absolute;
+        bottom: 20px;
+        border-radius: 50%;
+        background-color: @giorno-theme;
+      }
+    }
+    .heart-wrapper {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      .left-spot-1 {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        right: 100px;
+      }
+      .right-spot-1 {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        left: 100px;
+      }
+      .left-spot-2 {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        top: 95px;
+        right: 100px;
+      }
+      .right-spot-2 {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        top: 95px;
+        left: 100px;
+      }
+      .left-spot-3 {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        top: 170px;
+        right: 50px;
+      }
+      .right-spot-3 {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        top: 170px;
+        left: 50px;
+      }
+      .line {
+        width: 10px;
+        height: 300px;
+        background-color: #000;
+        position: absolute;
+        top: 0;
+      }
+      .heart{
+        position: absolute;
+        top: 6px;
+        margin-right: 10px;
+        transform: scale(6);
+        left: -63px;
+        .heart-left {
+          background: #000;
+          width: 14px;
+          height: 24px;
+          transform: rotate(135deg);
+          position: absolute;
+          left: 7px;
+          border-top-right-radius: 30px;
+          border-top-left-radius: 30px;
+        }
+        .heart-right {
+          background: #000;
+          width: 14px;
+          height: 24px;
+          transform: rotate(-135deg);
+          position: absolute;
+          left: 0px;
+          border-top-right-radius: 30px;
+          border-top-left-radius: 30px;
+        }
+      }
+    }
+  }
+}
