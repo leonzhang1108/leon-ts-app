@@ -282,7 +282,7 @@ class MusicVisualizer extends React.Component<IProps, IState> {
       : 0
 
     return (
-      <div className={`music-visualizer ${loading ? 'loading' : 'loaded'}`}>
+      <div className={`music-visualizer ${loading ? 'mv-loading' : 'mv-loaded'}`}>
         <canvas
           ref={ref => {
             this.canvas = ref
