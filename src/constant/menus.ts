@@ -118,6 +118,11 @@ export default [
         icon: 'ts-app icon-painting',
         title: 'Painting'
       },
+      {
+        route: 'neon',
+        icon: 'ts-app icon-neon',
+        title: 'Neon'
+      },
     ]
   },
   {

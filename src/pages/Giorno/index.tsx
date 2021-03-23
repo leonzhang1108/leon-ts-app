@@ -46,10 +46,10 @@ const Giorno = (props: any) => {
       animation()
     }
 
-    if (requestAnimationFrame) {
+    if (!!requestAnimationFrame) {
       const loop = () => {
         init()
-        requestAnimationFrame(loop)
+        interval.current = requestAnimationFrame(loop)
       }
       loop()
     } else {
@@ -60,7 +60,11 @@ const Giorno = (props: any) => {
   useEffect(() => {
     initCanvas()
     return () => {
-      clearInterval(interval.current)
+      if (!!requestAnimationFrame) {
+        cancelAnimationFrame(interval.current)
+      } else {
+        clearInterval(interval.current)
+      }
     }
   }, [])
 
