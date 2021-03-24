@@ -8,6 +8,8 @@ const Giorno = (props: any) => {
   const { h, w } = props
   const canvas = useRef<any>()
   const interval = useRef<any>()
+  const height = useRef(h)
+  const width = useRef(w)
 
   const initCanvas = useCallback(() => {
     const c = canvas.current.getContext('2d')
@@ -69,7 +71,7 @@ const Giorno = (props: any) => {
 
   return (
     <div className="giorno-wrapper" >   
-      <canvas className="muda" ref={canvas} height={h} width={w}/>
+      <canvas className="muda" ref={canvas} height={height.current} width={width.current}/>
       <div className="icon-body">
         <div className="top">
           <div className="nose" />
