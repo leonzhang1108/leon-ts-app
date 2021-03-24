@@ -9,5 +9,5 @@ export { default as DownloadOutline } from '@ant-design/icons/DownloadOutlined'
 export { default as RedoOutline } from '@ant-design/icons/RedoOutlined'
 export { default as LeftOutline } from '@ant-design/icons/LeftOutlined'
 export { default as RightOutline } from '@ant-design/icons/RightOutlined'
-
+export { default as RedoOutlined } from '@ant-design/icons/RedoOutlined'
 // export what antd other components need
