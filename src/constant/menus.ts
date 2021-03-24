@@ -34,6 +34,11 @@ export default [
         icon: 'ts-app icon-insect',
         title: 'Giorno'
       },
+      {
+        route: 'netflix',
+        icon: 'ts-app icon-netflix',
+        title: 'Netflix'
+      },
     ]
   },
   {

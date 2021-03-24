@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import store from '../../store'
 
-export const init = (wrapperRef, inputRef, w, h) => {
+export const init = (wrapperRef, inputRef) => {
   const STEP_LENGTH = 1;
   const CELL_SIZE = 10;
   const BORDER_WIDTH = 2;
@@ -56,7 +56,7 @@ export const init = (wrapperRef, inputRef, w, h) => {
       this.disableScale = disableScale;
 
       this.resizeHandlers = [];
-      this.handleResize = _.debounce(this.handleResize.bind(this), 100);
+      this.handleResize = _.throttle(this.handleResize.bind(this), 100);
 
       this.adjust();
 
@@ -166,7 +166,8 @@ export const init = (wrapperRef, inputRef, w, h) => {
         window.removeEventListener('resize', this.handleResize);
         this.container.removeChild(this.canvas);
       } catch (e) {}
-    }}
+    }
+  }
 
 
   class Electron {
@@ -281,7 +282,8 @@ export const init = (wrapperRef, inputRef, w, h) => {
 
         ctx.fill();
       });
-    }}
+    }
+  }
 
 
   class Cell {
@@ -372,7 +374,8 @@ export const init = (wrapperRef, inputRef, w, h) => {
           electronOptions));
 
       }
-    }}
+    }
+  }
 
 
   const bgLayer = new FullscreenCanvas();
@@ -505,37 +508,8 @@ export const init = (wrapperRef, inputRef, w, h) => {
         } else {
           touchRecords = {};
         }
-      } };
-
-
-    function filterTouches(touchList) {
-      return Array.from(touchList).filter(({ identifier, clientX, clientY }) => {
-        const rec = touchRecords[identifier];
-        touchRecords[identifier] = { clientX, clientY };
-
-        return !rec || clientX !== rec.clientX || clientY !== rec.clientY;
-      });
-    }
-
-    // [
-    //   'mousedown',
-    //   'touchstart',
-    //   'mousemove',
-    //   'touchmove'].
-    //   forEach(name => {
-    //     const isMove = /move/.test(name);
-    //     const isTouch = /touch/.test(name);
-
-    //     const fn = print.bind(null, isMove);
-
-    //     handlers[name] = function handler(evt) {
-    //       if (isTouch) {
-    //         filterTouches(evt.touches).forEach(fn);
-    //       } else {
-    //         fn(evt);
-    //       }
-    //     };
-    //   });
+      }
+    };
 
     const events = Object.keys(handlers);
 
@@ -915,4 +889,11 @@ export const init = (wrapperRef, inputRef, w, h) => {
 
   // prevent zoom
   // document.addEventListener('touchmove', e => e.preventDefault());
+
+  return {
+    clear: () => {
+      shape.clear();
+      shape.destroy();
+    }
+  }
 }

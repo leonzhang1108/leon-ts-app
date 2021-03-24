@@ -7,14 +7,21 @@ import './index.less'
 const Neon = (props: any) =>  {
   const wrapperRef = useRef<any>()
   const inputRef = useRef<any>()
+  const neonFunctionRef = useRef<any>()
   const { isMobile } = props
 
   useEffect(() => {
-    !isMobile && init(wrapperRef, inputRef)
+    if (!isMobile) {
+      neonFunctionRef.current = init(wrapperRef, inputRef)
+    }
+
+    return () => {
+      neonFunctionRef.current && neonFunctionRef.current.clear()
+    }
   }, [isMobile])
   return !isMobile ? (
     <div className="neon-wrapper" ref={wrapperRef}>
-      <input ref={inputRef} className="input" placeholder="type here" defaultValue="Leon"/>
+      <input ref={inputRef} className="input" placeholder="type here" defaultValue="LEON"/>
     </div>
   ) : <NotAvailableOnMobile />
 }
