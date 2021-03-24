@@ -3,55 +3,67 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  .loader {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: 3em;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    background-color: white;
-    animation: loader-anime 0.4s infinite linear;
-    &:before {
-      content: '';
-      width: 80%;
-      height: 80%;
-      background-color: white;
-      top: 10%;
-      left: 10%;
-      box-shadow:
-        5px -3px 0 rgba(255,100,100,0.7),
-        5px 5px 0 rgba(100,255,100,0.7),
-        -3px 5px 0 rgba(100,100,255,0.7),
-        -5px -5px 0 rgba(240,240,120,0.7);
-    }
-    &:after {
-      content: '';
-      border: 3px solid white;
-      z-index: 2;
-      top: -3px;
-      left: -3px;
-    }
-  }
-  .loader,
-  .loader:before,
-  .loader:after {
-      animation: 1s infinite ease-in-out;
-  }
-  .loader:before,
-  .loader:after {
-      width: 100%; 
-      height: 100%;
-      border-radius: 50%;
-      position: absolute;
-      top: 0;
-      left: 0;
-  }
+
 }
 
+.loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 3em;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
 
-@keyframes loader-anime {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.loader,
+.loader:before,
+.loader:after {
+  animation: 1s infinite ease-in-out;
+}
+
+.loader:before,
+.loader:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.loader-9 {
+  background-color: white;
+  animation: loader9 0.4s infinite linear;
+}
+
+.loader-9:before {
+  content: '';
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  top: 10%;
+  left: 10%;
+  box-shadow: 5px -3px 0 rgba(255, 100, 100, 0.7),
+    5px 5px 0 rgba(100, 255, 100, 0.7),
+    -3px 5px 0 rgba(100, 100, 255, 0.7),
+    -5px -5px 0 rgba(240, 240, 120, 0.7);
+}
+
+.loader-9:after {
+  content: '';
+  border: 3px solid white;
+  z-index: 2;
+  top: -3px;
+  left: -3px;
+}
+
+@keyframes loader9 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

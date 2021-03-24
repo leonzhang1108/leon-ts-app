@@ -10,6 +10,11 @@ export default [
     title: '刘发财生日快乐！'
   },
   {
+    route: 'loading-test',
+    icon: 'ts-app icon-doraemon',
+    title: 'Loader'
+  },
+  {
     icon: 'ts-app icon-brand',
     title: 'Logos',
     key: 'logo',
