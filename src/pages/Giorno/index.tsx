@@ -13,8 +13,7 @@ const Giorno = (props: any) => {
     const c = canvas.current.getContext('2d')
     const wordsAttr: any[] = []
 
-    c.fillStyle = '#000'
-    c.globalAlpha = 0.2
+    c.fillStyle = '#dcdcdc'
 
     for (let i = 0; i < 20; i++) {
       wordsAttr.push(new Word({ key: '無駄', w, h }))
