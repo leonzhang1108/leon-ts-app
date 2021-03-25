@@ -126,9 +126,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     let width = 0
 
-    const defaultOpenKeys = openKeys
-
-    const showMenu = defaultOpenKeys !== null
+    const defaultOpenKeys = openKeys || []
 
     const menuProps: IMenuProps = {
       className: 'left-menu',
@@ -152,20 +150,16 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
           width: '200px'
         }}
       >
-        {
-          showMenu ? (
-            <Menu
-              {...menuProps}
-              style={{
-                height: `100%`,
-                overflowX: 'hidden',
-                overflowY: 'auto'
-              }}
-            >
-              {this.renderMenus()}
-            </Menu>
-          ) : null
-        }
+        <Menu
+          {...menuProps}
+          style={{
+            height: `100%`,
+            overflowX: 'hidden',
+            overflowY: 'auto'
+          }}
+        >
+          {this.renderMenus()}
+        </Menu>
         <div
           className="icon"
           style={{ right: `-40px` }}
@@ -182,21 +176,17 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         onCollapse={toggleCollapse}
       >
         <div className="logo" />
-        {
-          showMenu ? (
-            <Menu
-              {...menuProps}
-              mode="inline"
-              style={{
-                height: `${document.body.clientHeight - 98}px`,
-                overflowX: 'hidden',
-                overflowY: 'auto'
-              }}
-            >
-              {this.renderMenus()}
-            </Menu>
-          ) : null
-        }
+        <Menu
+          {...menuProps}
+          mode="inline"
+          style={{
+            height: `${document.body.clientHeight - 98}px`,
+            overflowX: 'hidden',
+            overflowY: 'auto'
+          }}
+        >
+          {this.renderMenus()}
+        </Menu>
       </Sider>
     )
   }
