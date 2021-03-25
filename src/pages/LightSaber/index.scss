@@ -1462,7 +1462,7 @@
     border-top-right-radius: 150px 20px;
     border-bottom-right-radius: 150px 20px;
     transform: translateZ(-1em);
-    -webkit-animation: flickerLong 0.1s infinite;
+    animation: flickerLong 0.1s infinite;
   }
 
   .saberUpper {
@@ -1477,7 +1477,7 @@
     border-top-left-radius: 20px 150px;
     border-top-right-radius: 20px 150px;
     transform: translateZ(-1em);
-    -webkit-animation: flickerShort 0.1s infinite;
+    animation: flickerShort 0.1s infinite;
   }
 
   .saberLower {
@@ -1492,7 +1492,7 @@
     border-bottom-left-radius: 20px 150px;
     border-bottom-right-radius: 20px 150px;
     transform: translateZ(-1em);
-    -webkit-animation: flickerShort 0.1s infinite;
+    animation: flickerShort 0.1s infinite;
   }
 
   .line1 {
@@ -1571,11 +1571,11 @@
   }
 
   .sparkAnimationUp {
-    -webkit-animation: sparksUp 0.15s infinite;
+    animation: sparksUp 0.15s infinite;
   }
 
   .sparkAnimationDown {
-    -webkit-animation: sparksDown 0.15s infinite;
+    animation: sparksDown 0.15s infinite;
   }
 
   @-webkit-keyframes sparksUp {
