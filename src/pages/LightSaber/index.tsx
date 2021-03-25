@@ -13,16 +13,14 @@ const LightSaber = (props: any) => {
     if (!loading) {
       setLoading(true)
       if (isOn) {
+        setSideBeam(false)
         setTimeout(() => {
           setMainBeam(false)
-        }, 200)
-        setTimeout(() => {
-          setSideBeam(false)
-        }, 970)
+        }, 500)
         setTimeout(() => {
           setIsOn(false)
           setLoading(false)
-        }, 1200)
+        }, 900)
       } else {
         setIsOn(true)
         setTimeout(() => {
@@ -31,7 +29,7 @@ const LightSaber = (props: any) => {
         setTimeout(() => {
           setSideBeam(true)
           setLoading(false)
-        }, 1270)
+        }, 1200)
       }
     }
   }
