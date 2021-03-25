@@ -16,7 +16,7 @@ export default [
   // },
   {
     icon: 'ts-app icon-brand',
-    title: 'Logos',
+    title: 'Symbol',
     key: 'logo',
     childs: [
       {
@@ -43,6 +43,11 @@ export default [
         route: 'netflix',
         icon: 'ts-app icon-netflix',
         title: 'Netflix'
+      },
+      {
+        route: 'light-saber',
+        icon: 'ts-app icon-sword',
+        title: 'Light Saber'
       },
     ]
   },
