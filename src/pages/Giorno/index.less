@@ -22,11 +22,22 @@
     height: 380px;
     border-radius: 320px ~"/" 380px;
     border: 30px solid @bg;
-    background-color: @giorno-theme;
     display: flex;
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 20px #333333;
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 400%;
+      background: repeat-x 100% 0~"/"50% 100% radial-gradient(circle at 50% 0, transparent 25%, @giorno-theme 65%);
+    }
     .top {
       width: 350px;
       height: 380px;
