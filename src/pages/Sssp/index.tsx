@@ -102,19 +102,26 @@ const SSSP = (props: any) => {
   return (
     <div className="sssp-wrapper" onClick={() => setRotating(rotate => !rotate)}>   
       <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" version="1.1" width={w} height={h}>
+        <defs>
+          <filter id="f1" >
+            {/* <feOffset result="offOut" in="SourceGraphic" dx="0" dy="0" /> */}
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3" />
+            {/* <feBlend in="SourceGraphic" in2="blurOut" mode="normal" /> */}
+          </filter>
+        </defs>
         {/* pentacle wrapper */}
-        <polygon points={pentacleBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round">
+        <polygon  points={pentacleBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round">
           {animationTransformDiv}
         </polygon>
         {/* tail wrapper */}
         <polygon points={tailBorderList.join(' ')} fill="black" stroke="black" strokeWidth={isMobile ? 25 : 35} strokeLinejoin="round" />
 
         {/* pentacle border */}
-        <polygon points={pentacleBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round">
+        <polygon filter="url(#f1)" points={pentacleBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round">
           {animationTransformDiv}
         </polygon>
         {/* tail border */}
-        <polygon points={tailBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round" />
+        <polygon filter="url(#f1)" points={tailBorderList.join(' ')} fill="white" stroke="white" strokeWidth={isMobile ? 20 : 30} strokeLinejoin="round" />
 
         {/* pentacle */}
         <polygon points={pentacleList.join(' ')} fillOpacity="0" stroke="#262F63" strokeWidth={isMobile ? 7 : 10} strokeLinejoin="round" >
