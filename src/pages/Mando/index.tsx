@@ -6,7 +6,7 @@ const Mando = (props: any) => {
   const { isMobile } = props
   return (
     <div className="mando-wrapper">
-      <div className={`icon-wrapper ${isMobile ? '' : 'pc'}`}>
+      <div className={`icon-wrapper ${isMobile ? 'mobile' : 'pc'}`}>
         <div className="casco-top">
           <div className="rayas-casco" />
         </div>
