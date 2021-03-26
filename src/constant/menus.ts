@@ -49,6 +49,11 @@ export default [
         icon: 'ts-app icon-sword',
         title: 'Light Saber'
       },
+      {
+        route: 'mando',
+        icon: 'ts-app icon-helmet',
+        title: 'Mando'
+      },
     ]
   },
   {

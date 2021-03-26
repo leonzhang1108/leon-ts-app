@@ -1,0 +1,325 @@
+:root {
+  --gray: #403a3a;
+  --black: #121011;
+}
+.mando-wrapper {
+  background: var(--black);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+.casco-top {
+  font-family: Mandalore, sans-serif;
+  background: var(--gray);
+  width: 150px;
+  height: 75px;
+  border-radius: 100px 100px 0 0;
+  box-shadow: inset 0px 3px 3px grey, inset 21px 0 0px rgb(18 16 17 / 87%);
+  position: relative;
+}
+.casco-top:before {
+  content: "";
+  top: 20px;
+  right: 10px;
+  width: 38px;
+  height: 30px;
+  background: rgb(128 128 128 / 29%);
+  border-radius: 50%;
+  position: absolute;
+  transform: rotate(48deg);
+}
+.rayas-casco {
+  background: var(--gray);
+  height: 120%;
+  width: 30px;
+  border-radius: 4px 4px 13px 13px;
+  position: absolute;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%);
+  border-left: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+  border-right: 4px solid var(--black);
+  box-shadow: inset -2px 0 0 gray;
+}
+.rayas-casco:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+  width: 8px;
+  height: 90%;
+  background: var(--gray);
+  border-left: 4px solid var(--black);
+  border-bottom: 4px solid var(--black);
+  border-right: 4px solid var(--black);
+  box-shadow: inset -4px 0 0 gray;
+}
+.linea {
+  width: 153px;
+  height: 4px;
+  background: var(--gray);
+  margin-top: 3px;
+  border-radius: 30px;
+  box-shadow: inset 2px 0px 1px gray, inset 22px 0 0 rgb(18 16 17 / 87%);
+}
+.cara {
+  width: 150px;
+  height: 120px;
+  background: var(--gray);
+  margin-top: 3px;
+  position: relative;
+}
+.visor {
+  width: 90%;
+  height: 13px;
+  background: var(--black);
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  transform: translate(-50%);
+}
+.visor:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 51%;
+  top: 6px;
+  transform: rotate(-12deg);
+  height: 12px;
+  background: var(--black);
+  box-shadow: 0 2.3px 0 gray;
+  border-top-right-radius: 10px;
+}
+.visor:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  transform: rotate(12deg);
+  width: 51%;
+  height: 12px;
+  background: var(--black);
+  box-shadow: 0 2.3px 0 gray;
+  border-top-left-radius: 10px;
+}
+.visor-abajo {
+  width: 23px;
+  height: 75%;
+  background: var(--black);
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%);
+  box-shadow: 2.3px 0 0 gray, -2.3px 0 0 gray;
+}
+.visor-abajo:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: -15px;
+  background: var(--black);
+}
+.visor-abajo:after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: var(--black);
+  bottom: -13px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+}
+.circulo-1 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #121011;
+  width: 38%;
+  height: 78%;
+  border-radius: 0 100px 0 0;
+}
+.circulo-1:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  width: 70%;
+  height: 45%;
+  background: var(--gray);
+  border-radius: 0 100px 0 0;
+  transform: skew(350deg, 25deg) rotate(2deg) translatey(-10px);
+}
+.circulo-1:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  border-rigth: 50px solid transparent;
+  border-top: 20px solid transparent;
+  border-left: 15px solid var(--gray);
+  border-bottom: 70px solid transparent;
+}
+.circulo-2 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: #121011;
+  width: 38%;
+  height: 78%;
+  border-radius: 100px 0 0 0;
+}
+.circulo-2:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  width: 70%;
+  height: 45%;
+  background: var(--gray);
+  border-radius: 100px 0 0 0;
+  transform: skew(-350deg, -25deg) rotate(-2deg) translatey(-10px);
+}
+.circulo-2:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 0;
+  border-left: 50px solid transparent;
+  border-top: 20px solid transparent;
+  border-right: 15px solid var(--gray);
+  border-bottom: 70px solid transparent;
+}
+.costado-1 {
+  width: 4px;
+  height: 25px;
+  background: var(--gray);
+  position: absolute;
+  top: 0;
+  left: -7px;
+  border-top-left-radius: 6px;
+  box-shadow: inset 1px 1px 0 grey;
+}
+.costado-1::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  background: var(--gray);
+  top: 28px;
+  left: 0;
+  border-radius: 2px 0 0 2px;
+  box-shadow: inset 1px 0 0 grey;
+}
+.costado-1::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 50px;
+  background: var(--gray);
+  top: 39px;
+  right: 0;
+  border-radius: 2px 0 0 2px;
+  box-shadow: inset 1px 0 0 grey;
+}
+.costado-2 {
+  width: 4px;
+  height: 25px;
+  background: var(--gray);
+  position: absolute;
+  top: 0;
+  right: -7px;
+  border-top-right-radius: 6px;
+  box-shadow: inset -1px 1px 0 grey;
+}
+.costado-2::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  background: var(--gray);
+  top: 28px;
+  right: 0;
+  border-radius: 0 2px 2px 0;
+  box-shadow: inset -1px 0 0 grey;
+}
+.costado-2::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 50px;
+  background: var(--gray);
+  top: 39px;
+  right: 0;
+  border-radius: 0 2px 2px 0;
+  box-shadow: inset -1px 0 0 grey;
+}
+.corte-casco-1 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: var(--black);
+  left: -45px;
+  transform: translateY(30px) rotate(28deg);
+}
+.corte-casco-2 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: var(--black);
+  right: -45px;
+  transform: translateY(30px) rotate(-28deg);
+}
+.text {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translatex(-50%);
+  width: 700px;
+}
+.text h2 {
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  margin-top: 0;
+  white-space: nowrap;
+}
+.text span {
+  position: relative;
+  display: block;
+  font-size: 0.7rem;
+  background: var(--black);
+  margin-bottom: 0.3rem;
+  z-index: 100;
+  font-weight: 400;
+}
+.text span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  left: 0;
+  bottom: 3px;
+  z-index: -2;
+}
+.text span::before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 16px;
+  background: var(--black);
+  z-index: -1;
+  left: 247px;
+}
