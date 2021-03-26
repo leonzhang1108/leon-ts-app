@@ -4,14 +4,24 @@
 }
 .mando-wrapper {
   background: var(--black);
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
-  flex-direction: column;
 }
+
+.icon-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  &.pc {
+    transform: scale(1.5);
+  }
+}
+
 .casco-top {
   font-family: Mandalore, sans-serif;
   background: var(--gray);
