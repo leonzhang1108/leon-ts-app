@@ -47,7 +47,42 @@ const Lantern = () => {
         <div className="bottom-trangle-inner" />
       </div>
       <div className="purple-lantern">
-
+        <div className="inner-square-1" />
+        <div className="inner-square-2" />
+        <div className="inner-square-1 rotate" />
+        <div className="inner-square-2 rotate" />
+        <div className="inner-circle" />
+      </div>
+      <div className="blue-lantern">
+        <div className="inner-circle-1" />
+        <div className="inner-circle-2" />
+        <div className="inner-circle-3">
+          <div className="inner-circle-3-item" />
+        </div>
+        <div className="top-left-black" />
+        <div className="top-right-black" />
+        <div className="top-center-black" />
+        <div className="top-left-blue" />
+        <div className="top-right-blue" />
+        <div className="bottom-left-black" />
+        <div className="bottom-right-black" />
+        <div className="bottom-center-black" />
+        <div className="bottom-left-blue" />
+        <div className="bottom-right-blue" />
+      </div>
+      <div className="yellow-lantern">
+        <div className="inner-circle-1" />
+        <div className="inner-circle-2" />
+        <div className="inner-circle-3" />
+        <div className="top-left-black" />
+        <div className="top-right-black" />
+        <div className="top-left-yellow" />
+        <div className="top-right-yellow" />
+        <div className="top-left-black-outer" />
+        <div className="top-right-black-outer" />
+        <div className="bottom-left-black" />
+        <div className="bottom-right-black" />
+        <div className="bottom-center" />
       </div>
     </div>
   )
