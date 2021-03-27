@@ -84,6 +84,23 @@ const Lantern = () => {
         <div className="bottom-right-black" />
         <div className="bottom-center" />
       </div>
+      <div className="white-lantern">
+        <div className="trangle" />
+        <div className="trangle-inner" />
+        <div className="inner-circle" />
+        <div className="bar-wrapper">
+          <div className="bar item-0" />
+          <div className="bar item-1" />
+          <div className="bar item-2" />
+          <div className="bar item-3" />
+          <div className="bar item-4" />
+          <div className="bar item-5" />
+          <div className="bar item-6" />
+          <div className="bar item-7" />
+          <div className="bar item-8" />
+          <div className="bar item-9" />
+        </div>
+      </div>
     </div>
   )
 }

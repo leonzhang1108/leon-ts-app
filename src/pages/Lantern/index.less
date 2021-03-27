@@ -559,4 +559,82 @@
       width: 67px;
     }
   }
+  .white-lantern {
+    .ring-base();
+    background: #000;
+    .trangle {
+      position: absolute;
+      border-top: 94px solid #000;
+      border-left: 65px solid transparent;
+      border-right: 65px solid transparent;
+      height: 0;
+      top: 100px;
+      z-index: 1;
+    }
+    .trangle-inner {
+      position: absolute;
+      border-top: 58px solid #fff;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      height: 0;
+      top: 112px;
+      z-index: 1;
+    }
+    .inner-circle {
+      position: absolute;
+      height: 200px;
+      width: 200px;
+      border: 10px solid #000;
+      border-radius: 50%;
+      z-index: 2;
+      top: 36px;
+    }
+    .bar-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 150px;
+      .bar {
+        position: absolute;
+        height: 200px;
+        width: 21px;
+        background: #fff;
+        bottom: 0;
+        transform-origin: bottom;
+      }
+      .item-0 {
+        transform: rotate(-65deg);
+        width: 40px;
+      }
+      .item-1 {
+        transform: rotate(-50deg);
+      }
+      .item-2 {
+        transform: rotate(-36deg);
+      }
+      .item-3 {
+        transform: rotate(-22deg);
+      }
+      .item-4 {
+        transform: rotate(-7deg);
+      }
+      .item-5 {
+        transform: rotate(7deg);
+      }
+      .item-6 {
+        transform: rotate(22deg);
+      }
+      .item-7 {
+        transform: rotate(36deg);
+      }
+      .item-8 {
+        transform: rotate(50deg);
+      }
+      .item-9 {
+        transform: rotate(65deg);
+        width: 40px;
+      }
+    }
+  }
 }
