@@ -54,6 +54,11 @@ export default [
         icon: 'ts-app icon-helmet',
         title: 'Mando'
       },
+      // {
+      //   route: 'lantern',
+      //   icon: 'ts-app icon-ring',
+      //   title: 'Lantern Corps'
+      // },
     ]
   },
   {
@@ -83,7 +88,7 @@ export default [
       },
       {
         route: 'gana',
-        icon: 'ts-app icon-gana',
+        icon: 'ts-app icon-japan',
         title: '仮名'
       },
       {
