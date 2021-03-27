@@ -1,3 +1,279 @@
+.ring-base {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 15px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
 .lantern-wrapper {
-  
+  display: flex;
+  flex-wrap: wrap;
+  .green-lantern {
+    .ring-base();
+    background: #4F8B5A;
+    .inner-circle {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      border: 20px solid #000;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      border-top: 20px solid #000;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      height: 0;
+      width: 110px;
+      top: 20px;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      border-bottom: 20px solid #000;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      height: 0;
+      width: 110px;
+      bottom: 20px;
+    }
+  }
+  .red-lantern {
+    .ring-base();
+    background: #CB2328;
+    .inner-circle {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      border: 15px solid #000;
+      margin-top: 55px;
+    }
+    .left-1 {
+      width: 15px;
+      height: 110px;
+      position: absolute;
+      background: #000;
+      bottom: 0;
+      left: 30px;
+    }
+    .left-2 {
+      width: 15px;
+      height: 22px;
+      position: absolute;
+      background: #000;
+      left: 31px;
+      bottom: 106px;
+      transform: rotate(-35deg);
+      transform-origin: center bottom;
+    }
+    .left-3 {
+      width: 15px;
+      height: 40px;
+      position: absolute;
+      background: #000;
+      bottom: 120px;
+      left: 20px;
+    }
+    .right-1 {
+      width: 15px;
+      height: 110px;
+      position: absolute;
+      background: #000;
+      bottom: 0;
+      right: 30px;
+    }
+    .right-2 {
+      width: 15px;
+      height: 22px;
+      position: absolute;
+      background: #000;
+      right: 31px;
+      bottom: 106px;
+      transform: rotate(35deg);
+      transform-origin: center bottom;
+    }
+    .right-3 {
+      width: 15px;
+      height: 40px;
+      position: absolute;
+      background: #000;
+      bottom: 120px;
+      right: 20px;
+    }
+  }
+  .black-lantern {
+    .ring-base();
+    background: #333;
+    .trangle {
+      position: absolute;
+      border-top: 85px solid #000;
+      border-left: 85px solid transparent;
+      border-right: 85px solid transparent;
+      height: 0;
+      width: 100%;
+      top: 85px;
+    }
+    .trangle-inner {
+      content: '';
+      position: absolute;
+      border-top: 50px solid #333;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      height: 0;
+      width: 80px;
+      top: 100px;
+    }
+    .line {
+      display: flex;
+      justify-content: space-between;
+      width: 120px;
+      position: absolute;
+      top: 0;
+      .item {
+        height: 100px;
+        width: 15px;
+        background: #000;
+      }
+    }
+    .inner-circle-wrapper {
+      width: 100%;
+      height: 50%;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      overflow: hidden;
+      .inner-circle {
+        height: 170px;
+        width: 170px;
+        border-radius: 50%;
+        border: 10px solid #333;
+      }
+    }
+  }
+  .orange-lantern {
+    .ring-base();
+    background: #C6550F;
+    .inner-circle {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      border: 15px solid #000;
+    }
+    .left-1 {
+      position: absolute;
+      width: 150px;
+      left: -14.5px;
+      top: 15px;
+      border-bottom: 15px solid #000;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      transform: rotate(60deg);
+      transform-origin: center top;
+    }
+    .right-1 {
+      position: absolute;
+      width: 150px;
+      right: -14.5px;
+      top: 15px;
+      border-bottom: 15px solid #000;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      transform: rotate(-60deg);
+      transform-origin: center top;
+    }
+    .left-2 {
+      position: absolute;
+      width: 70px;
+      left: -15px;
+      top: 35px;
+      border-bottom: 15px solid #000;
+      transform: rotate(30deg);
+      transform-origin: center top;
+    }
+    .right-2 {
+      position: absolute;
+      width: 70px;
+      right: -15px;
+      top: 35px;
+      border-bottom: 15px solid #000;
+      transform: rotate(-30deg);
+      transform-origin: center top;
+    }
+    .left-3 {
+      position: absolute;
+      width: 75px;
+      left: -15px;
+      top: 140px;
+      border-bottom: 15px solid #000;
+      transform: rotate(-45deg);
+      transform-origin: center top;
+    }
+    .right-3 {
+      position: absolute;
+      width: 75px;
+      right: -15px;
+      top: 140px;
+      border-bottom: 15px solid #000;
+      transform: rotate(45deg);
+      transform-origin: center top;
+    }
+  }
+  .indigo-lantern {
+    .ring-base();
+    background: #5800C7;
+    .inner-circle {
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
+      border: 15px solid #000;
+      z-index: 1;
+    }
+    .top-trangle {
+      position: absolute;
+      border-bottom: 50px solid #000;
+      border-left: 45px solid transparent;
+      border-right: 45px solid transparent;
+      height: 0;
+      top: 0;
+    }
+    .top-trangle-inner {
+      position: absolute;
+      border-bottom: 50px solid #5800C7;
+      border-left: 45px solid transparent;
+      border-right: 45px solid transparent;
+      height: 0;
+      top: 20px;
+    }
+    .bottom-trangle {
+      position: absolute;
+      border-top: 50px solid #000;
+      border-left: 45px solid transparent;
+      border-right: 45px solid transparent;
+      height: 0;
+      bottom: 0;
+    }
+    .bottom-trangle-inner {
+      position: absolute;
+      border-top: 50px solid #5800C7;
+      border-left: 45px solid transparent;
+      border-right: 45px solid transparent;
+      height: 0;
+      bottom: 20px;
+    }
+  }
+  .purple-lantern {
+    .ring-base();
+    background: #5800C7;
+    .inner-circle {
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
+      border: 15px solid #000;
+      z-index: 1;
+    }
+  }
 }

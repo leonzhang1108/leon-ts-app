@@ -54,11 +54,11 @@ export default [
         icon: 'ts-app icon-helmet',
         title: 'Mando'
       },
-      // {
-      //   route: 'lantern',
-      //   icon: 'ts-app icon-ring',
-      //   title: 'Lantern Corps'
-      // },
+      {
+        route: 'lantern',
+        icon: 'ts-app icon-ring',
+        title: 'Lantern Corps'
+      },
     ]
   },
   {
