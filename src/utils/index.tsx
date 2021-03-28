@@ -4,6 +4,32 @@ import { connect } from 'react-redux'
 import request from './fetch'
 import Storage from './storage'
 
+function animateScrollTo({ el, from, to, isVertical = true }) {
+  // 计算需要移动的距离
+  const delta = to - from
+  let _from = from
+  let direction = isVertical ? 'scrollTop' : 'scrollLeft'
+
+  function move() {
+    // 一次调用滑动帧数，每次调用会不一样
+    const dist = Math.ceil(delta / 5)
+    _from += dist
+    el[direction] = from
+    // 如果移动幅度小于5个像素，直接移动，否则递归调用，实现动画效果
+    if (Math.abs(delta) > 5) {
+      animateScrollTo({ el, from: _from, to, isVertical })
+    } else {
+      el[direction] = to
+    }
+  }
+
+  if (requestAnimationFrame) {
+    requestAnimationFrame(move)
+  } else {
+    setTimeout(move, 10)
+  }
+}
+
 export default {
   request,
   Storage,
@@ -100,5 +126,7 @@ export default {
     document.body.appendChild(a)
     a.click()
     a.remove()
-  }
+  },
+
+  animateScrollTo
 }

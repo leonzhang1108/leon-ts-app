@@ -57,7 +57,7 @@ module.exports = {
   ],
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json', '.png', '.jpg', '.mp3', '.ogg'],
+    extensions: ['.ts', '.tsx', '.js', '.json', '.png', '.jpg', '.mp3', '.ogg', 'svg'],
     plugins: [ new TsConfigPathsPlugin({ configFile }) ],
     alias: {
       '@ant-design/icons/lib$': path.resolve(__dirname, '../src/constant/icons.ts')

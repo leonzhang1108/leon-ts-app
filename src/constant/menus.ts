@@ -59,6 +59,11 @@ export default [
         icon: 'ts-app icon-ring',
         title: 'Lantern Corps'
       },
+      {
+        route: 'digimon',
+        icon: 'ts-app icon-dragon',
+        title: 'Digimon'
+      },
     ]
   },
   {
