@@ -40,7 +40,7 @@ const Digimon = (props: any) => {
       <div className={`digivice-wrapper ${isMobile ? 'mobile' : 'pc'}`}>
         <div className="digivice-container">
           <div className="digivice-container__cut digivice-container__cut--left-top">
-            <div className="wireless" />
+            <div className={`wireless ${inited ? 'active' : 'inactive'}`} />
           </div>
           <div className="digivice-container__cut digivice-container__cut--left-bottom" />
           <div className="digivice-container__cut digivice-container__cut--right-top" />
