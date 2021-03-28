@@ -46,17 +46,17 @@ const Digimon = (props: any) => {
           <div className="digivice-container__cut digivice-container__cut--right-top" />
           <div className="digivice-container__cut digivice-container__cut--right-bottom" />
           <div className="digivice">
-            <label className="digivice__button digivice__button--digital" onClick={() => setInited(inited => !inited)}/>
-            <div className="digivice__button digivice__button--a" onClick={() => setIndex(index => index === 0 ? 7 : index - 1)} />
-            <div className="digivice__button digivice__button--b" onClick={() => setIndex(index => index === 7 ? 0 : index + 1)} />
-            <div className="digivice__detail digivice__detail--h digivice__detail--left" />
-            <div className="digivice__detail digivice__detail--h digivice__detail--right-a" />
-            <div className="digivice__detail digivice__detail--h digivice__detail--right-b" />
-            <div className="digivice__detail digivice__detail--v digivice__detail--top-left" />
-            <div className="digivice__detail digivice__detail--v digivice__detail--top-right" />
-            <div className="digivice__detail digivice__detail--v digivice__detail--bottom-left" />
-            <div className="digivice__detail digivice__detail--v digivice__detail--bottom-right" />
-            <div className="digivice__circle">
+            <label className={`digivice__button digivice__button--digital ${inited ? 'active' : 'inactive'}`} onClick={() => setInited(inited => !inited)}/>
+            <div className={`digivice__button digivice__button--a ${inited ? 'active' : 'inactive'}`} onClick={() => setIndex(index => index === 0 ? 7 : index - 1)} />
+            <div className={`digivice__button digivice__button--b ${inited ? 'active' : 'inactive'}`} onClick={() => setIndex(index => index === 7 ? 0 : index + 1)} />
+            <div className={`digivice__detail digivice__detail--h digivice__detail--left ${inited ? 'active' : 'inactive'}`} />
+            <div className={`digivice__detail digivice__detail--h digivice__detail--right-a ${inited ? 'active' : 'inactive'}`}/>
+            <div className={`digivice__detail digivice__detail--h digivice__detail--right-b ${inited ? 'active' : 'inactive'}`}/>
+            <div className={`digivice__detail digivice__detail--h digivice__detail--top-left ${inited ? 'active' : 'inactive'}`}/>
+            <div className={`digivice__detail digivice__detail--h digivice__detail--top-right ${inited ? 'active' : 'inactive'}`}/>
+            <div className={`digivice__detail digivice__detail--h digivice__detail--bottom-left ${inited ? 'active' : 'inactive'}`}/>
+            <div className={`digivice__detail digivice__detail--h digivice__detail--bottom-right ${inited ? 'active' : 'inactive'}`}/>
+            <div className={`digivice__circle ${inited ? 'active' : 'inactive'}`}>
               <div className={`digivice__inner-circle ${inited ? 'active' : 'inactive'}`}>
                 <div className={`digivice__screen ${inited ? 'active' : 'inactive'}`}>
                   <div className="badge-wrapper" ref={screenRef}>
