@@ -24,7 +24,8 @@ const list = [
 const Digimon = (props: any) => {
   const { isMobile } = props
   const screenRef = useRef<any>()
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(Utils.random(0, 7))
+  const [inited, setInited] = useState(false)
 
   useEffect(() => {
     Utils.animateScrollTo({
@@ -45,7 +46,7 @@ const Digimon = (props: any) => {
           <div className="digivice-container__cut digivice-container__cut--right-top" />
           <div className="digivice-container__cut digivice-container__cut--right-bottom" />
           <div className="digivice">
-            <label className="digivice__button digivice__button--digital" />
+            <label className="digivice__button digivice__button--digital" onClick={() => setInited(inited => !inited)}/>
             <div className="digivice__button digivice__button--a" onClick={() => setIndex(index => index === 0 ? 7 : index - 1)} />
             <div className="digivice__button digivice__button--b" onClick={() => setIndex(index => index === 7 ? 0 : index + 1)} />
             <div className="digivice__detail digivice__detail--h digivice__detail--left" />
@@ -56,8 +57,8 @@ const Digimon = (props: any) => {
             <div className="digivice__detail digivice__detail--v digivice__detail--bottom-left" />
             <div className="digivice__detail digivice__detail--v digivice__detail--bottom-right" />
             <div className="digivice__circle">
-              <div className="digivice__inner-circle">
-                <div className="digivice__screen">
+              <div className={`digivice__inner-circle ${inited ? 'active' : 'inactive'}`}>
+                <div className={`digivice__screen ${inited ? 'active' : 'inactive'}`}>
                   <div className="badge-wrapper" ref={screenRef}>
                     {
                       list.map((item, key) => 
