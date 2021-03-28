@@ -107,8 +107,9 @@
       justify-content: center;
       border-radius: 45%;
       position: relative;
-      background: #89b4df;
+      // background: #89b4df;
       overflow: hidden;
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #89b4df 75%);
     }
 
     .digivice__detail {
@@ -308,15 +309,15 @@
     }
 
     .digivice__screen {
-      border: 2px solid var(--contrast);
+      border: 3px solid #dcdcdc;
       padding: 5px;
       width: 90px;
       height: 90px;
-      background: #fff;
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #fff 5%, #dcdcdc 65%);
       box-sizing: content-box;
       &.active {
         animation: shining-core 1.5s infinite;
-        border: 2px solid gold;
+        border: 3px solid gold;
       }
 
       &.inactive {}
