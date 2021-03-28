@@ -58,7 +58,21 @@ const Digimon = (props: any) => {
             <div className={`digivice__detail digivice__detail--h digivice__detail--bottom-right ${inited ? 'active' : 'inactive'}`}/>
             <div className={`digivice__circle ${inited ? 'active' : 'inactive'}`}>
               <div className={`digivice__inner-circle ${inited ? 'active' : 'inactive'}`}>
-                <div className={`digivice__screen ${inited ? 'active' : 'inactive'}`}>
+                <div
+                  className={`digivice__screen ${inited ? 'active' : 'inactive'}`}
+                  onClick={() => setIndex(index => {
+                    let cycle = true
+                    let newIndex = -1
+                    while (cycle) {
+                      const tempIndex = Utils.random(0, 7)
+                      if (index !== tempIndex) {
+                        newIndex = tempIndex
+                        cycle = false
+                      }
+                    }
+                    return newIndex
+                  })}
+                >
                   <div className="badge-wrapper" ref={screenRef}>
                     {
                       list.map((item, key) => 

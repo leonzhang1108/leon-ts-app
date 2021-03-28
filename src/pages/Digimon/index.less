@@ -79,7 +79,8 @@
       left: 35px;
       border-radius: 40%;
       transform: rotate(80deg);
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 50% -50%,#ccc 25%,#454545 75%);
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 50% -50%, #ccc 25%, #454545 75%);
+
       &.active {
         animation: shining-wireless 1.5s infinite;
       }
@@ -120,6 +121,7 @@
       position: absolute;
       border: 2px solid var(--contrast);
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 0%, #3a648e 65%);
+
       &.active {
         border: 2px solid var(--gold-line);
       }
@@ -180,6 +182,7 @@
       justify-content: center;
       position: relative;
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #3a648e 75%);
+
       &.active {
         border: 2px solid var(--gold-line);
       }
@@ -199,6 +202,7 @@
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #285782 75%);
       z-index: 2;
       cursor: pointer;
+
       &.active {
         border: 2px solid var(--gold-line);
       }
@@ -254,6 +258,7 @@
       border: 2px solid var(--contrast);
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, var(--button) 75%);
     }
+
     .digivice__button--a.active::after {
       border: 2px solid var(--gold-line);
     }
@@ -315,17 +320,29 @@
 
     .digivice__screen {
       border: 5px solid;
-      border-color: #3c3a34 #aba899 #cac6b6 #6b6960;
+      border-color: #3c3a34 #6b6960 #cac6b6 #aba899;
       padding: 5px;
       width: 90px;
       height: 90px;
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #fff 5%, #dcdcdc 65%);
+      background: #dcdcdc;
       box-sizing: content-box;
-      // box-shadow: inset 0 0 15px 10px rgba(10, 144, 255, .5);
+      background-position: center;
+      transition: background 0.8s;
+
       &.active {
-        animation: shining-core 1.5s infinite;
+        animation: shining-core .5s infinite;
         border: 5px solid;
-        border-color: #848458d9 #b1b11c #ecec00 #fdff86;
+        border-color: #848458d9 #b1b11c #fdff86 #ecec00;
+      }
+
+      &:hover {
+        background: #cccccc radial-gradient(circle, #dcdcdc 1%, #cccccc 1%) center / 15000%;
+      }
+
+      &:active {
+        background-color: #dcdcdc;
+        background-size: 100%;
+        transition: background 0s;
       }
     }
   }
