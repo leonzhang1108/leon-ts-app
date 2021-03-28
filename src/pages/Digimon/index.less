@@ -78,7 +78,7 @@
       left: 35px;
       border-radius: 40%;
       transform: rotate(80deg);
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 50% -20%, #ccc 5%, #454545 75%);
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 50% -50%,#ccc 25%,#454545 75%);
     }
 
     .digivice-container__cut--left-bottom {
@@ -109,13 +109,13 @@
       position: relative;
       // background: #3a648e;
       overflow: hidden;
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #3a648e 75%);
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #225990 75%);
     }
 
     .digivice__detail {
       position: absolute;
       border: 2px solid var(--contrast);
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #3a648e 75%);
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 0%, #3a648e 65%);
       &.active {
         border: 2px solid gold;
       }
@@ -283,7 +283,7 @@
       height: 220px;
       border-radius: 50%;
       position: absolute;
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #3a648e 75%);
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #294867 75%);
     }
 
     .digivice__circle.active::after {
@@ -294,8 +294,8 @@
 
     .digivice__inner-circle {
       border: 2px solid var(--contrast);
-      width: 160px;
-      height: 160px;
+      width: 175px;
+      height: 175px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -312,12 +312,14 @@
     }
 
     .digivice__screen {
-      border: 3px solid #dcdcdc;
+      border: 5px solid;
+      border-color: #3c3a34 #aba899 #cac6b6 #6b6960;
       padding: 5px;
       width: 90px;
       height: 90px;
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #fff 5%, #dcdcdc 65%);
       box-sizing: content-box;
+      // box-shadow: inset 0 0 15px 10px rgba(10, 144, 255, .5);
       &.active {
         animation: shining-core 1.5s infinite;
         border: 3px solid gold;
