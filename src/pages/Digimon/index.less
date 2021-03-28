@@ -2,6 +2,7 @@
   --bg: #2d2e2e;
   --button: #285782;
   --contrast: #454545;
+  --gold-line: #ffff67;
 }
 
 .digimon-wrapper {
@@ -117,7 +118,7 @@
       border: 2px solid var(--contrast);
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 0%, #3a648e 65%);
       &.active {
-        border: 2px solid gold;
+        border: 2px solid var(--gold-line);
       }
     }
 
@@ -177,7 +178,7 @@
       position: relative;
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, #3a648e 75%);
       &.active {
-        border: 2px solid gold;
+        border: 2px solid var(--gold-line);
       }
     }
 
@@ -196,7 +197,7 @@
       z-index: 2;
       cursor: pointer;
       &.active {
-        border: 2px solid gold;
+        border: 2px solid var(--gold-line);
       }
     }
 
@@ -216,7 +217,7 @@
     }
 
     .digivice__button--digital.active::before {
-      border: 2px solid gold;
+      border: 2px solid var(--gold-line);
     }
 
     .digivice__button--digital::after {
@@ -231,7 +232,7 @@
     }
 
     .digivice__button--digital.active::after {
-      border: 1px solid gold;
+      border: 1px solid var(--gold-line);
     }
 
     .digivice__button--a {
@@ -251,7 +252,7 @@
       background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, var(--button) 75%);
     }
     .digivice__button--a.active::after {
-      border: 2px solid gold;
+      border: 2px solid var(--gold-line);
     }
 
     .digivice__button--b {
@@ -272,7 +273,7 @@
     }
 
     .digivice__button--b.active::after {
-      border: 2px solid gold;
+      border: 2px solid var(--gold-line);
     }
 
     .digivice__circle::after {
@@ -287,8 +288,8 @@
     }
 
     .digivice__circle.active::after {
-      border: 2px solid gold;
-      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, gold 75%);
+      border: 2px solid var(--gold-line);
+      background: repeat-x 100% 0~"/"100% 100% radial-gradient(circle at 100% 0, #dcdcdc 5%, var(--gold-line) 75%);
       animation: shining 1.5s infinite;
     }
 
@@ -305,7 +306,7 @@
 
       &.active {
         animation: shining 1.5s infinite;
-        border: 2px solid gold;
+        border: 2px solid var(--gold-line);
       }
 
       &.inactive {}
@@ -322,7 +323,8 @@
       // box-shadow: inset 0 0 15px 10px rgba(10, 144, 255, .5);
       &.active {
         animation: shining-core 1.5s infinite;
-        border: 3px solid gold;
+        border: 5px solid;
+        border-color: #848458d9 #b1b11c #ecec00 #fdff86;
       }
 
       &.inactive {}
