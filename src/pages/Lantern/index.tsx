@@ -1,18 +1,21 @@
+/* eslint-disable react/display-name */
 import React, { useState, useMemo } from 'react'
 import Utils from '@utils'
 import { oathEn, oathCh } from './oath'
 import './index.less'
 
-function GreenLantern(props: any) {
-  return (
+const GreenLantern = {
+  name: 'GreenLantern',
+  Item: (props: any) => (
     <div className="green-lantern lantern" {...props}>
       <div className="inner-circle" />
     </div>
   )
 }
 
-function RedLantern(props: any) {
-  return (
+const RedLantern = {
+  name: 'RedLantern',
+  Item: (props: any) => (
     <div className="red-lantern lantern" {...props}>
       <div className="inner-circle" />
       <div className="left-1" />
@@ -25,8 +28,9 @@ function RedLantern(props: any) {
   )
 }
 
-function BlackLantern(props: any) {
-  return (
+const BlackLantern = {
+  name: 'BlackLantern',
+  Item: (props: any) => (
     <div className="black-lantern lantern" {...props}>
       <div className="trangle" />
       <div className="trangle-inner" />
@@ -45,8 +49,9 @@ function BlackLantern(props: any) {
   )
 }
 
-function OrangeLantern(props: any) {
-  return (
+const OrangeLantern = {
+  name: 'OrangeLantern',
+  Item: (props: any) => (
     <div className="orange-lantern lantern" {...props}>
       <div className="inner-circle" />
       <div className="left-1" />
@@ -59,8 +64,9 @@ function OrangeLantern(props: any) {
   )
 }
 
-function IndigoLantern(props: any) {
-  return (
+const IndigoLantern = {
+  name: 'IndigoLantern',
+  Item: (props: any) => (
     <div className="indigo-lantern lantern" {...props}>
       <div className="inner-circle" />
       <div className="top-trangle" />
@@ -71,8 +77,9 @@ function IndigoLantern(props: any) {
   )
 }
 
-function PurpleLantern(props: any) {
-  return (
+const PurpleLantern = {
+  name: 'PurpleLantern',
+  Item: (props: any) => (
     <div className="purple-lantern lantern" {...props}>
       <div className="inner-square-1" />
       <div className="inner-square-2" />
@@ -83,8 +90,9 @@ function PurpleLantern(props: any) {
   )
 }
 
-function BlueLantern(props: any) {
-  return (
+const BlueLantern = {
+  name: 'BlueLantern',
+  Item: (props: any) => (
     <div className="blue-lantern lantern" {...props}>
       <div className="inner-circle-1" />
       <div className="inner-circle-2" />
@@ -105,8 +113,9 @@ function BlueLantern(props: any) {
   )
 }
 
-function YellowLantern(props: any) {
-  return (
+const YellowLantern = {
+  name: 'YellowLantern',
+  Item: (props: any) => (
     <div className="yellow-lantern lantern" {...props}>
       <div className="inner-circle-1" />
       <div className="inner-circle-2" />
@@ -124,8 +133,9 @@ function YellowLantern(props: any) {
   )
 }
 
-function WhiteLantern(props: any) {
-  return (
+const WhiteLantern = {
+  name: 'WhiteLantern',
+  Item: (props: any) => (
     <div className="white-lantern lantern" {...props}>
       <div className="trangle" />
       <div className="trangle-inner" />
@@ -146,7 +156,7 @@ function WhiteLantern(props: any) {
   )
 }
 
-const LanternList = [
+const LanternList: any[] = [
   WhiteLantern,
   PurpleLantern,
   IndigoLantern,
@@ -204,13 +214,13 @@ const Lantern = (props: any) => {
           <div className={`around-wrapper-wrapper ${fadeIn ? 'fadein' : ''} ${fadeOut ? 'fadeout' : ''}`}>
             <div className={`around-wrapper ${isMobile ? 'mobile' : 'pc'}`}>
               <div className="center">
-                <CenterLantern />
+                <CenterLantern.Item />
               </div>
               {
                 OtherLanterns.map((Cpt, index) => {
                   return (
                     <div className={`around item-${index}`} key={index}>
-                      <Cpt onClick={() => {
+                      <Cpt.Item onClick={() => {
                         setFadeOut(true)
                         setTimeout(() => {
                           setCurr(Cpt.name)
