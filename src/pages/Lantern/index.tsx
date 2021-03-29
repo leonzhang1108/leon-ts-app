@@ -181,11 +181,9 @@ const colorMap = {
   BlackLantern: '51, 51, 51',
 }
 
-const randomIndex = Utils.random(0, 8)
-
 const Lantern = (props: any) => {
   const { isMobile } = props
-  const [curr, setCurr] = useState(LanternList[randomIndex].name)
+  const [curr, setCurr] = useState(LanternList[Utils.random(0, 8)].name)
   const [visible, setVisible] = useState(true)
   const [fadeIn, setFadeIn] = useState(false)
   const [fadeOut, setFadeOut] = useState(false)
@@ -193,7 +191,9 @@ const Lantern = (props: any) => {
   const { CenterLantern, OtherLanterns } = useMemo(() => {
     const index = LanternList.findIndex((Item) => Item.name === curr)
     const CenterLantern = LanternList[index]
-    const OtherLanterns = LanternList.filter((_, i) => i !== index)
+    const OtherLanterns = LanternList
+      .filter((_, i) => i !== index)
+      .sort(() => Math.random()>.5 ? -1 : 1)
     return {
       CenterLantern,
       OtherLanterns
@@ -221,6 +221,7 @@ const Lantern = (props: any) => {
                   return (
                     <div className={`around item-${index}`} key={index}>
                       <Cpt.Item onClick={() => {
+                        if (fadeIn || fadeOut) return
                         setFadeOut(true)
                         setTimeout(() => {
                           setCurr(Cpt.name)
