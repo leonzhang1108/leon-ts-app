@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import Utils from '@utils'
 import { oathEn, oathCh } from './oath'
 import './index.less'
@@ -200,6 +200,23 @@ const Lantern = (props: any) => {
     }
   }, [curr])
 
+  const setCurrentRing = useCallback((Cpt) => {
+    if (fadeIn || fadeOut) return
+    setFadeOut(true)
+    setTimeout(() => {
+      setCurr(Cpt.name)
+      setVisible(false)
+      setFadeOut(false)
+      setFadeIn(true)
+      setTimeout(() => {
+        setVisible(true)
+      })
+      setTimeout(() => {
+        setFadeIn(false)
+      }, 350)
+    }, 350)
+  }, [fadeIn, fadeOut])
+
   return (
     <div className="lantern-wrapper" style={{ background: `rgba(${colorMap[curr]}, 0.3)` }}>
       {
@@ -214,29 +231,27 @@ const Lantern = (props: any) => {
           <div className={`around-wrapper-wrapper ${fadeIn ? 'fadein' : ''} ${fadeOut ? 'fadeout' : ''}`}>
             <div className={`around-wrapper ${isMobile ? 'mobile' : 'pc'}`}>
               <div className="center">
-                <CenterLantern.Item />
+                <CenterLantern.Item
+                  onClick={() => {
+                    let cycle = true
+                    let Cpt = null
+                    while (cycle) {
+                      const innerIndex = Utils.random(0, 8)
+                      const temp = LanternList[innerIndex]
+                      if (temp.name !== curr) {
+                        cycle = false
+                        Cpt = temp
+                      }
+                    }
+                    setCurrentRing(Cpt)
+                  }}
+                />
               </div>
               {
                 OtherLanterns.map((Cpt, index) => {
                   return (
                     <div className={`around item-${index}`} key={index}>
-                      <Cpt.Item onClick={() => {
-                        if (fadeIn || fadeOut) return
-                        setFadeOut(true)
-                        setTimeout(() => {
-                          setCurr(Cpt.name)
-                          setVisible(false)
-                          setFadeOut(false)
-                          setFadeIn(true)
-                          setTimeout(() => {
-                            setVisible(true)
-                          })
-                          setTimeout(() => {
-                            setFadeIn(false)
-                          }, 350)
-                        }, 350)
-                        
-                      }}/>
+                      <Cpt.Item onClick={() => setCurrentRing(Cpt)}/>
                     </div>
                   )
                 })
