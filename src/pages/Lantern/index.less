@@ -1,3 +1,20 @@
+.keyframefromto(@name; @from; @to){
+  @keyframes @name{
+    0% { transform: @from;}
+    100% { transform: @to;}
+  }
+}
+
+.keyframefromto(item-0, rotate(0), rotate(360deg));
+.keyframefromto(item-1, rotate(-45deg), rotate(-45deg + 360deg));
+.keyframefromto(item-2, rotate(-90deg), rotate(-90deg + 360deg));
+.keyframefromto(item-3, rotate(-135deg), rotate(-135deg + 360deg));
+.keyframefromto(item-4, rotate(-180deg), rotate(-180deg + 360deg));
+.keyframefromto(item-5, rotate(-225deg), rotate(-225deg + 360deg));
+.keyframefromto(item-6, rotate(-270deg), rotate(-270deg + 360deg));
+.keyframefromto(item-7, rotate(-315deg), rotate(-315deg + 360deg));
+.keyframefromto(item-8, rotate(-360deg), rotate(-360deg + 360deg));
+
 .ring-base {
   height: 200px;
   width: 200px;
@@ -11,36 +28,137 @@
 }
 
 .lantern-wrapper {
-  overflow: scroll;
+  overflow: hidden;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: background-color 500ms;
+
+  .oath-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 30px;
+    position: absolute;
+    &.en {
+      bottom: 0;
+      &.pc {
+        right: 0;
+        text-align: right;
+        font-size: 20px;
+      }
+    }
+    &.ch {
+      top: 0;
+      &.pc {
+        left: 0;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    animation: spin 15s linear infinite;
+    animation-direction: reverse;
+  }
+
+  .fadein {
+    animation: fadein 0.35s ease-in;
+  }
+
+  .fadeout {
+    animation: fadeout 0.35s ease-out;
+  }
+
+  .around-wrapper-wrapper {
+    .around-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      &.mobile {
+        animation: spin-mobile 15s linear infinite;
+        margin-top: 10%;
+      }
+    
+      &.pc {
+        animation: spin-pc 15s linear infinite;
+      }
+  
+      .around {
+        position: absolute;
+        bottom: 0;
+        height: 450px;
+        transform-origin: bottom center;
+        &.item-0 {
+          transform: scale(0.5) rotate(0);
+          > div {
+            animation: item-0 15s linear infinite;
+          }
+        }
+        &.item-1 {
+          transform: scale(0.5) rotate(45deg);
+          > div {
+            animation: item-1 15s linear infinite;
+          }
+        }
+        &.item-2 {
+          transform: scale(0.5) rotate(90deg);
+          > div {
+            animation: item-2 15s linear infinite;
+          }
+        }
+        &.item-3 {
+          transform: scale(0.5) rotate(135deg);
+          > div {
+            animation: item-3 15s linear infinite;
+          }
+        }
+        &.item-4 {
+          transform: scale(0.5) rotate(180deg);
+          > div {
+            animation: item-4 15s linear infinite;
+          }
+        }
+        &.item-5 {
+          transform: scale(0.5) rotate(225deg);
+          > div {
+            animation: item-5 15s linear infinite;
+          }
+        }
+        &.item-6 {
+          transform: scale(0.5) rotate(270deg);
+          > div {
+            animation: item-6 15s linear infinite;
+          }
+        }
+        &.item-7 {
+          transform: scale(0.5) rotate(315deg);
+          > div {
+            animation: item-7 15s linear infinite;
+          }
+        }
+        &.item-8 {
+          transform: scale(0.5) rotate(360deg);
+          > div {
+            animation: item-8 15s linear infinite;
+          }
+        }
+      }
+    }
+  }
+ 
 
   .lantern {
     margin: 10px;
-  }
-
-  .ring-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0.3),
-        rgba(160, 60, 150, 0.3),
-        rgba(88, 0, 199, 0.3),
-        rgba(70, 117, 185, 0.3),
-        rgba(79, 139, 90, 0.3),
-        rgba(250, 240, 40, 0.3),
-        rgba(198, 85, 15, 0.3),
-        rgba(203, 35, 40, 0.3),
-        rgba(51, 51, 51, 0.3),
-        rgba(255, 255, 255, 0.3),
-      );
-
-    &.pc {
-      height: 100%;
-    }
+    cursor: pointer;
   }
 
   .green-lantern {
@@ -720,7 +838,7 @@
       }
 
       .item-0 {
-        transform: rotate(-65deg);
+        transform: rotate(-63deg);
         width: 40px;
       }
 
@@ -757,9 +875,39 @@
       }
 
       .item-9 {
-        transform: rotate(65deg);
+        transform: rotate(63deg);
         width: 40px;
       }
     }
   }
+}
+
+@keyframes spin {
+  0%   { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes spin-mobile {
+  0%   { transform: rotate(360deg) scale(0.7); }
+  100% { transform: rotate(0deg) scale(0.7); }
+}
+
+@keyframes spin-pc {
+  0%   { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes spin-pc {
+  0%   { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes fadein {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeout {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
 }

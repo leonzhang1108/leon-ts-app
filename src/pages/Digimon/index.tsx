@@ -46,7 +46,21 @@ const Digimon = (props: any) => {
           <div className="digivice-container__cut digivice-container__cut--right-top" />
           <div className="digivice-container__cut digivice-container__cut--right-bottom" />
           <div className="digivice">
-            <label className={`digivice__button digivice__button--digital ${inited ? 'active' : 'inactive'}`} onClick={() => setInited(inited => !inited)}/>
+            <label
+              className={`digivice__button digivice__button--digital ${inited ? 'active' : 'inactive'}`}
+              onClick={() => setIndex(index => {
+                let cycle = true
+                let newIndex = -1
+                while (cycle) {
+                  const tempIndex = Utils.random(0, 7)
+                  if (index !== tempIndex) {
+                    newIndex = tempIndex
+                    cycle = false
+                  }
+                }
+                return newIndex
+              })}
+            />
             <div className={`digivice__button digivice__button--a ${inited ? 'active' : 'inactive'}`} onClick={() => setIndex(index => index === 0 ? 7 : index - 1)} />
             <div className={`digivice__button digivice__button--b ${inited ? 'active' : 'inactive'}`} onClick={() => setIndex(index => index === 7 ? 0 : index + 1)} />
             <div className={`digivice__detail digivice__detail--h digivice__detail--left ${inited ? 'active' : 'inactive'}`} />
@@ -60,18 +74,7 @@ const Digimon = (props: any) => {
               <div className={`digivice__inner-circle ${inited ? 'active' : 'inactive'}`}>
                 <div
                   className={`digivice__screen ${inited ? 'active' : 'inactive'}`}
-                  onClick={() => setIndex(index => {
-                    let cycle = true
-                    let newIndex = -1
-                    while (cycle) {
-                      const tempIndex = Utils.random(0, 7)
-                      if (index !== tempIndex) {
-                        newIndex = tempIndex
-                        cycle = false
-                      }
-                    }
-                    return newIndex
-                  })}
+                  onClick={() => setInited(inited => !inited)}
                 >
                   <div className="badge-wrapper" ref={screenRef}>
                     {
