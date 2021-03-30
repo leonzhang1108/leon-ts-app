@@ -204,13 +204,14 @@ const Lantern = (props: any) => {
     if (fadeIn || fadeOut) return
     setFadeOut(true)
     setTimeout(() => {
-      setCurr(Cpt.name)
       setVisible(false)
-      setFadeOut(false)
+      setCurr(Cpt.name)
       setFadeIn(true)
       setTimeout(() => {
         setVisible(true)
       })
+
+      setFadeOut(false)
       setTimeout(() => {
         setFadeIn(false)
       }, 350)

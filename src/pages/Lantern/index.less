@@ -5,15 +5,15 @@
   }
 }
 
-.keyframefromto(item-0, rotate(0), rotate(360deg));
-.keyframefromto(item-1, rotate(-45deg), rotate(-45deg + 360deg));
-.keyframefromto(item-2, rotate(-90deg), rotate(-90deg + 360deg));
-.keyframefromto(item-3, rotate(-135deg), rotate(-135deg + 360deg));
-.keyframefromto(item-4, rotate(-180deg), rotate(-180deg + 360deg));
-.keyframefromto(item-5, rotate(-225deg), rotate(-225deg + 360deg));
-.keyframefromto(item-6, rotate(-270deg), rotate(-270deg + 360deg));
-.keyframefromto(item-7, rotate(-315deg), rotate(-315deg + 360deg));
-.keyframefromto(item-8, rotate(-360deg), rotate(-360deg + 360deg));
+.keyframefromto(item-0, rotate(360deg), rotate(0));
+.keyframefromto(item-1, rotate(315deg), rotate(-45deg));
+.keyframefromto(item-2, rotate(270deg), rotate(-90deg));
+.keyframefromto(item-3, rotate(225deg), rotate(-135deg));
+.keyframefromto(item-4, rotate(180deg), rotate(-180deg));
+.keyframefromto(item-5, rotate(135deg), rotate(-225deg));
+.keyframefromto(item-6, rotate(90deg), rotate(-270deg));
+.keyframefromto(item-7, rotate(45deg), rotate(-315deg));
+.keyframefromto(item-8, rotate(0), rotate(-360deg));
 
 .ring-base {
   height: 200px;
@@ -884,23 +884,23 @@
 }
 
 @keyframes spin {
-  0%   { transform: rotate(360deg); }
-  100% { transform: rotate(0deg); }
+  0%   { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes spin-mobile {
-  0%   { transform: rotate(360deg) scale(0.7); }
-  100% { transform: rotate(0deg) scale(0.7); }
+  0%   { transform: rotate(0) scale(0.7); }
+  100% { transform: rotate(360deg) scale(0.7); }
 }
 
 @keyframes spin-pc {
-  0%   { transform: rotate(360deg); }
-  100% { transform: rotate(0deg); }
+  0%   { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes spin-pc {
-  0%   { transform: rotate(360deg); }
-  100% { transform: rotate(0deg); }
+  0%   { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes fadein {
