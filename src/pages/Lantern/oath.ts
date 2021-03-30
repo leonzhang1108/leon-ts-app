@@ -9,7 +9,7 @@ export const oathEn = {
     For hearts long lost and full of fright.
     For those alone in Blackest Night.
     Accept our ring and join our fight.
-    Love conquers all... With Violet Light
+    Love conquers all... With Violet Light!
   `,
   IndigoLantern: `
     Tor lorek san, bor nakka mur,
@@ -33,7 +33,7 @@ export const oathEn = {
     In blackest day, in brightest night.
     Beware your fears made into light.
     Let those who try to stop what's right.
-    Burn like his power... Sinestro's might.
+    Burn like his power... Sinestro's might!
   `,
   OrangeLantern: `
     I'll cheat, steal or cut in line.
@@ -45,7 +45,7 @@ export const oathEn = {
     With blood and rage of crimson red.
     Ripped from a corpse so freshly dead.
     Together with our hellish hate,
-    We'll burn you all... That is your fate.
+    We'll burn you all... That is your fate!
   `,
   BlackLantern: `
     The Blackest Night falls from the skies.
@@ -69,7 +69,7 @@ export const oathCh = {
     世间孤爱紫光填！
   `,
   IndigoLantern: `
-    怜悯与你同在
+    怜悯与你同在!
   `,
   BlueLantern: `
     怀惧日，泛痛夜，
@@ -106,6 +106,6 @@ export const oathCh = {
     至黑之夜遮天日，
     此消彼长暗吞光。
     剜心摄魂汝命毙，
-    亡灵复出黑手役。
+    亡灵复出黑手役!
   `,
 }
