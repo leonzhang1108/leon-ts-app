@@ -1,4 +1,8 @@
-import _ from 'lodash'
+import shuffle from 'lodash/shuffle'
+import random from 'lodash/random'
+import range from 'lodash/range'
+import throttle from 'lodash/throttle'
+import isFunction from 'lodash/isFunction'
 import store from '../../store'
 
 export const init = (wrapperRef, inputRef) => {
@@ -56,7 +60,7 @@ export const init = (wrapperRef, inputRef) => {
       this.disableScale = disableScale;
 
       this.resizeHandlers = [];
-      this.handleResize = _.throttle(this.handleResize.bind(this), 100);
+      this.handleResize = throttle(this.handleResize.bind(this), 100);
 
       this.adjust();
 
@@ -110,7 +114,7 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     paint(fn) {
-      if (!_.isFunction(fn)) return;
+      if (!isFunction(fn)) return;
 
       const { context } = this;
 
@@ -124,7 +128,7 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     repaint(fn) {
-      if (!_.isFunction(fn)) return;
+      if (!isFunction(fn)) return;
 
       this.clear();
 
@@ -132,7 +136,7 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     onResize(fn) {
-      if (!_.isFunction(fn)) return;
+      if (!isFunction(fn)) return;
 
       this.resizeHandlers.push(fn);
     }
@@ -199,7 +203,7 @@ export const init = (wrapperRef, inputRef) => {
 
       const { length } = MOVE_TRAILS;
 
-      const [deltaX, deltaY] = MOVE_TRAILS[_.random(length - 1)];
+      const [deltaX, deltaY] = MOVE_TRAILS[random(length - 1)];
 
       return [
         x + deltaX,
@@ -291,7 +295,7 @@ export const init = (wrapperRef, inputRef) => {
       row = 0,
       col = 0,
       {
-        electronCount = _.random(1, 4),
+        electronCount = random(1, 4),
         background = ELECTRON_COLOR,
         forceElectrons = false,
         electronOptions = {} } =
@@ -321,7 +325,7 @@ export const init = (wrapperRef, inputRef) => {
       t1 = CELL_REPAINT_INTERVAL[0],
       t2 = CELL_REPAINT_INTERVAL[1])
     {
-      this.nextUpdate = Date.now() + _.random(t1, t2);
+      this.nextUpdate = Date.now() + random(t1, t2);
     }
 
     paintNextTo(layer = new FullscreenCanvas()) {
@@ -345,7 +349,7 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     popRandom(arr = []) {
-      const ramIdx = _.random(arr.length - 1);
+      const ramIdx = random(arr.length - 1);
 
       return arr.splice(ramIdx, 1)[0];
     }
@@ -403,8 +407,8 @@ export const init = (wrapperRef, inputRef) => {
     const { width, height } = mainLayer;
 
     const cell = new Cell(
-      _.random(height / CELL_DISTANCE),
-      _.random(width / CELL_DISTANCE),
+      random(height / CELL_DISTANCE),
+      random(width / CELL_DISTANCE),
       options);
 
 
@@ -460,7 +464,7 @@ export const init = (wrapperRef, inputRef) => {
       return;
     }
 
-    nextRandomAt = now + _.random(300, 1000);
+    nextRandomAt = now + random(300, 1000);
 
     createRandomCell();
   }
@@ -555,14 +559,14 @@ export const init = (wrapperRef, inputRef) => {
       return {
         speed: 2,
         color: FONT_COLOR,
-        lifeTime: _.random(300, 500) };
+        lifeTime: random(300, 500) };
 
     },
 
     get cellOptions() {
       return {
         background: FONT_COLOR,
-        electronCount: _.random(1, 4),
+        electronCount: random(1, 4),
         electronOptions: this.electronOptions };
 
     },
@@ -570,7 +574,7 @@ export const init = (wrapperRef, inputRef) => {
     get explodeOptions() {
       return Object.assign(this.cellOptions, {
         electronOptions: Object.assign(this.electronOptions, {
-          lifeTime: _.random(500, 1500) }) });
+          lifeTime: random(500, 1500) }) });
 
 
     },
@@ -697,7 +701,7 @@ export const init = (wrapperRef, inputRef) => {
 
       this.lastText = text;
 
-      const matrix = this.lastMatrix = _.shuffle(this.getTextMatrix(text, options));
+      const matrix = this.lastMatrix = shuffle(this.getTextMatrix(text, options));
 
       matrix.forEach(([i, j]) => {
         const cell = new Cell(i, j, this.cellOptions);
@@ -727,7 +731,7 @@ export const init = (wrapperRef, inputRef) => {
       const oy = Math.floor(rows / 2);
 
       let cnt = 1;
-      let deg = _.random(360);
+      let deg = random(360);
       let r = radius === undefined ? Math.floor(Math.min(cols, rows) / 3) : radius;
 
       const step = reverse ? 15 : -15;
@@ -765,7 +769,7 @@ export const init = (wrapperRef, inputRef) => {
 
         const max = Math.min(
           50,
-          _.random(Math.floor(length / 20), Math.floor(length / 10)));
+          random(Math.floor(length / 20), Math.floor(length / 10)));
 
 
         for (let idx = 0; idx < max; idx++) {
@@ -776,7 +780,7 @@ export const init = (wrapperRef, inputRef) => {
           cell.paintNextTo(mainLayer);
         }
       } else {
-        const max = _.random(10, 20);
+        const max = random(10, 20);
 
         for (let idx = 0; idx < max; idx++) {
           createRandomCell(this.explodeOptions);
@@ -804,7 +808,7 @@ export const init = (wrapperRef, inputRef) => {
   }
 
   function countdown() {
-    const arr = _.range(3, 0, -1);
+    const arr = range(3, 0, -1);
 
     let i = 0;
     const max = arr.length;

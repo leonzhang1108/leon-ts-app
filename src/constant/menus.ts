@@ -64,6 +64,11 @@ export default [
         icon: 'ts-app icon-dragon',
         title: 'Digimon'
       },
+      {
+        route: 'mi-logo',
+        icon: 'ts-app icon-mi',
+        title: 'MI logo'
+      },
     ]
   },
   {
