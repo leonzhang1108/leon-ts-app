@@ -72,9 +72,9 @@ const MiLogo = () => {
       <div className="slider-wrapper">
         <h4>精度</h4>
         <Slider
-          max={0.5}
+          max={0.8}
           min={0.002}
-          step={0.002}
+          step={0.001}
           value={step}
           onChange={setStep}
         />
