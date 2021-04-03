@@ -66,7 +66,7 @@ const MiLogo = () => {
           />
         </svg>
         <div className="mi-logo">
-          <i className="anticon anticon-ts-app ts-app icon-mi" style={{ fontSize: squareSize / 2 }} />
+          <i className="anticon anticon-ts-app ts-app icon-mi" style={{ fontSize: squareSize / 1.7 }} />
         </div>
       </div>
       <div className="slider-wrapper">
