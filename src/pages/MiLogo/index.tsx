@@ -15,6 +15,7 @@ const MiLogo = () => {
     let list2: string[] = []
     let list3: string[] = []
     let list4: string[] = []
+    let center = ''
 
     const range = Math.pow(0.5, 1 / power)
 
@@ -34,9 +35,12 @@ const MiLogo = () => {
       list2.push(`${ay},${ax1}`)
       list3.push(`${ax2},${ay}`)
       list4.push(`${ay},${ax2}`)
+      if (i === -range) {
+        center = `${x1},${x1}`
+      }
     }
 
-    return [...list1, ...list2.reverse(), ...list3.reverse(), ...list4]
+    return [...list1, center, ...list2.reverse(), ...list3.reverse(), ...list4]
   }, [power, size, step])
 
   const squareSize = useMemo(() => {
@@ -63,7 +67,6 @@ const MiLogo = () => {
         </svg>
         <div className="mi-logo">
           <svg
-            className="icon"
             style={{ verticalAlign: 'middle', fill: 'currentColor', overflow: 'hidden' }}
             viewBox="0 0 1024 1024"
             version="1.1"
