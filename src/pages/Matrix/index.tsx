@@ -406,7 +406,6 @@ class Matrix extends React.Component<IProps, IMatrixState> {
           <Button
             disabled={this.state.bottomDisable}
             type="primary"
-            size="large"
             onClick={this.doClick}
           >
             {text}
@@ -415,7 +414,6 @@ class Matrix extends React.Component<IProps, IMatrixState> {
             <Button
               disabled={this.state.bottomDisable}
               type="primary"
-              size="large"
               onClick={this.doAutoComplete}
             >
               Auto Complete

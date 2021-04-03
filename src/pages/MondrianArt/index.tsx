@@ -67,14 +67,12 @@ const MondrianArt = ({ isMobile, h, w }) => {
         className={`download-btn ${btn}`}
         icon={<DownloadOutline />}
         type="primary"
-        size="small"
         onClick={toPicture}
       />
       <Button
         className={`refresh-btn ${btn}`}
         icon={<RedoOutline />}
         type="primary"
-        size="small"
         onClick={refresh}
       />
     </div>
