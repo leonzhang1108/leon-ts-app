@@ -65,7 +65,7 @@ const rectangleOptions = () => ({
   restitution: 0.3,
   friction: 0.01,
   frictionStatic: 0.01,
-  frictionAir: 0,
+  frictionAir: 0.01,
   isStatic: true,
   render: {
     fillStyle: '#000'
@@ -109,7 +109,7 @@ const circleOptions = (radius) => {
       restitution: 0.3,
       friction: 0.01,
       frictionStatic: 0.01,
-      frictionAir: 0,
+      frictionAir: 0.01,
       render: {
         fillStyle: colors[index] || '#dcdcdc',
       },
