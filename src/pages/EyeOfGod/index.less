@@ -4,11 +4,12 @@
   justify-content: center;
   align-items: center;
   .inner-wrapper {
+    transition: transform 500ms;
     .eye {
       width: 500px;
       height: 500px;
       border: solid 1px #000;
-      border-radius: 90% 1%;
+      border-radius: 90% 0;
       transform: rotate(135deg);
       position: relative;
       background: #fff;
@@ -16,6 +17,7 @@
     }
   
     .iris {
+      transition: opacity 500ms;
       position: absolute;
       top: 100px;
       left: 100px;
