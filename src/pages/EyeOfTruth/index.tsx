@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import Utils from '@utils'
 import './index.less'
 
-const EyeOfGod = (props: any) => {
+const EyeOfTruth = (props: any) => {
   const { h } = props
 
   const [isClose, setIsClose] = useState(true)
@@ -38,7 +38,7 @@ const EyeOfGod = (props: any) => {
   }, [])
 
   return (
-    <div className="eye-of-god-wrapper" onClick={doBlick}>
+    <div className="eye-of-truth-wrapper" onClick={doBlick}>
       <div className="inner-wrapper" style={{ transform: `scale(${h / 1000}) rotateY(${isClose ? 90 : 0}deg)` }}>
         <div className="eye">
           <div className="iris" style={{ opacity: visible ? 1 : 0}}>
@@ -59,7 +59,7 @@ const EyeOfGod = (props: any) => {
 }
 
 export default Utils.connect({
-  component: EyeOfGod,
+  component: EyeOfTruth,
   mapStateToProps: state => ({
     h: state.common.contentHeight,
   })
