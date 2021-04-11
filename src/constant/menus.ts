@@ -69,6 +69,11 @@ export default [
         icon: 'ts-app icon-mi',
         title: 'MI logo'
       },
+      {
+        route: 'eye-of-god',
+        icon: 'ts-app icon-hexagon',
+        title: 'Eye Of God'
+      },
     ]
   },
   {
