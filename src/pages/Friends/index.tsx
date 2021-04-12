@@ -10,14 +10,14 @@ const Friends = (props: any) => {
       <img
         className="frame"
         src={frame}
-        height={isMobile ? h : h * 0.8}
+        height={isMobile ? (h / 2) : (h / 1.2)}
         width={isMobile ? w : w * 0.8}
       />
       <div
         className="l-logo"
         style={{
           transform: `scale(${isMobile ? 0.4 : 1})`,
-          height: h
+          height: isMobile ? undefined : 300
         }}>
         <div className="fire red _f" />
         <div className="fire yellow _r" />
