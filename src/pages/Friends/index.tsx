@@ -7,8 +7,19 @@ const Friends = (props: any) => {
   const { h, w, isMobile } = props
   return (
     <div className="friends-wrapper">
-      <img className="frame" src={frame} height={h} width={w} />
-      <div className="l-logo" style={{ transform: `scale(${isMobile ? 0.5 : 1})`}}>
+      <img
+        className="frame"
+        src={frame}
+        height={isMobile ? h : h * 0.8}
+        width={isMobile ? w : w * 0.8}
+        style={{ bottom: isMobile ? 100 : 120 }}
+      />
+      <div
+        className="l-logo"
+        style={{
+          transform: `scale(${isMobile ? 0.4 : 1})`,
+          bottom: isMobile ? 150 : 50
+        }}>
         <div className="fire red _f" />
         <div className="fire yellow _r" />
         <div className="fire blue _i" />
