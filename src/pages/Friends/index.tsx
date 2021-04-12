@@ -12,13 +12,12 @@ const Friends = (props: any) => {
         src={frame}
         height={isMobile ? h : h * 0.8}
         width={isMobile ? w : w * 0.8}
-        style={{ bottom: isMobile ? 100 : 120 }}
       />
       <div
         className="l-logo"
         style={{
           transform: `scale(${isMobile ? 0.4 : 1})`,
-          bottom: isMobile ? 150 : 50
+          height: h
         }}>
         <div className="fire red _f" />
         <div className="fire yellow _r" />
