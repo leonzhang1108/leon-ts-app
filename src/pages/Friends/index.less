@@ -1,0 +1,99 @@
+@font-face {
+  font-family: friends;
+  font-weight: 400;
+  src: url(./friends.ttf) format('truetype');
+  font-style: normal
+}
+
+.friends-wrapper {
+  background-color: #7959A1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .frame {
+    padding: 10px;
+    position: absolute;
+  }
+
+  .l-logo {
+    width: 657px;
+    height: 71px;
+    position: absolute;
+  }
+
+  .l-logo .fire {
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    float: left;
+    animation: loading 2s infinite alternate;
+    -webkit-animation: loading 2s infinite alternate
+  }
+
+  .l-logo .red {
+    background: #EC1C24;
+    box-shadow: 0 0 20px 2px #EC1C24;
+    animation-delay: .7s;
+    -webkit-animation-delay: .7s
+  }
+
+  .l-logo .yellow {
+    background: #FDB612;
+    box-shadow: 0 0 20px 2px #FDB612;
+    animation-delay: .4s;
+    -webkit-animation-delay: .4s
+  }
+
+  .l-logo .blue {
+    background: #00B0EA;
+    box-shadow: 0 0 20px 2px #00B0EA;
+    animation-delay: .9s;
+    -webkit-animation-delay: .9s
+  }
+
+  .l-logo ._f {
+    margin: 30px 0 0 75px
+  }
+
+  .l-logo ._r {
+    margin: 30px 0 0 100px
+  }
+
+  .l-logo ._i {
+    margin: 30px 0 0 60px
+  }
+
+  .l-logo ._e {
+    margin: 30px 0 0 90px
+  }
+
+  .l-logo ._n {
+    margin: 30px 0 0 100px
+  }
+
+  .l-logo ._d {
+    margin: 30px 0 0 105px
+  }
+
+  .friends-title {
+    color: #fff;
+    position: absolute;
+    font-family: friends;
+    width: 100%;
+    text-align: center;
+    font-size: 85px;
+    margin-top: -20px;
+    letter-spacing: 41px
+  }
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

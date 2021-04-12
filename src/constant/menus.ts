@@ -74,6 +74,11 @@ export default [
         icon: 'ts-app icon-hexagon',
         title: 'Eye Of Truth'
       },
+      {
+        route: 'friends',
+        icon: 'ts-app icon-frame',
+        title: 'F.R.I.E.N.D.S'
+      },
     ]
   },
   {
