@@ -14,7 +14,7 @@ const emojiList = [
 
 const Friends = (props: any) => {
   const { h, w, isMobile } = props
-  const [index, setIndex] = useState(Utils.random(0, 5))
+  const [index, setIndex] = useState(Utils.random(0, 6))
 
   return (
     <div className="friends-wrapper">
@@ -23,7 +23,7 @@ const Friends = (props: any) => {
         onClick={() => {
           let tempIndex = index
           while (tempIndex === index) {
-            tempIndex = Utils.random(0, 5)
+            tempIndex = Utils.random(0, 6)
           }
           setIndex(tempIndex)
         }}
