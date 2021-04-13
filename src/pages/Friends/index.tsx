@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Utils from '@utils'
 import frame from './frame.svg'
 import './index.less'
 
+const emojiList = [
+  '🦖💍🐒🎹🥪🇬🇧',
+  '🤣🐣🛁💻🚬🇾🇪',
+  '🐧🤌🍕👙🩺🇨🇳',
+  '👸👗👠☕️⛵️🇮🇳',
+  '👩‍🍳💯👢🎰🕶🇬🇧',
+  '🐈🎸🚕🏃‍♀️🚲🇫🇷',
+]
+
 const Friends = (props: any) => {
   const { h, w, isMobile } = props
+  const [index, setIndex] = useState(Utils.random(0, 5))
+
   return (
     <div className="friends-wrapper">
-      <img
-        className="frame"
-        src={frame}
-        height={isMobile ? (h / 2) : (h / 1.2)}
-        width={isMobile ? w : w * 0.8}
-      />
+      <div
+        className="frame-wrapper"
+        onClick={() => {
+          let tempIndex = index
+          while (tempIndex === index) {
+            tempIndex = Utils.random(0, 5)
+          }
+          setIndex(tempIndex)
+        }}
+      >
+        <img
+          className="frame"
+          src={frame}
+          height={isMobile ? (h / 2) : (h / 1.2)}
+          width={isMobile ? w : w * 0.8}
+        />
+        <div className="emoji" style={{ fontSize: isMobile ? (h / 25) : (h / 17) }}>{emojiList[index]}</div>
+      </div>
       <div
         className="l-logo"
         style={{

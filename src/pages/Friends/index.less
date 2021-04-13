@@ -12,8 +12,18 @@
   align-items: center;
   flex-direction: column;
 
-  .frame {
-    padding: 50px;
+  .frame-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .frame {
+      padding: 50px;
+    }
+    .emoji {
+      position: absolute;
+      width: 20%;
+    }
   }
 
   .l-logo {
