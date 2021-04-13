@@ -17,17 +17,17 @@ const Friends = (props: any) => {
   const [index, setIndex] = useState(Utils.random(0, 6))
 
   return (
-    <div className="friends-wrapper">
-      <div
-        className="frame-wrapper"
-        onClick={() => {
-          let tempIndex = index
-          while (tempIndex === index) {
-            tempIndex = Utils.random(0, 6)
-          }
-          setIndex(tempIndex)
-        }}
-      >
+    <div
+      className="friends-wrapper"
+      onClick={() => {
+        let tempIndex = index
+        while (tempIndex === index) {
+          tempIndex = Utils.random(0, 6)
+        }
+        setIndex(tempIndex)
+      }}
+    >
+      <div className="frame-wrapper">
         <img
           className="frame"
           src={frame}
