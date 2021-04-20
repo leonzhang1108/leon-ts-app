@@ -19,9 +19,9 @@ const Subway = () => {
   const mapRef = useRef<any>()
   const markerRef = useRef<any>()
   const wrapperRef = useRef<any>()
-  const [fromto, setFromto] = useState({
-    from: '',
-    to: '',
+  const [fromto, setFromto] = useState<any>({
+    from: null,
+    to: null,
   })
 
   useEffect(() => {
@@ -50,28 +50,28 @@ const Subway = () => {
   useEffect(() => {
     const { from, to } = fromto
     mapRef.current.addEventListener('tap', function handler(e) {
-      const { name } = e.station
+      const { station } = e
       if (from && to) {
         // 设置起点
         setFromto({
-          from: name,
-          to: '',
+          from: station,
+          to: null,
         })
-        setMark(name)
+        setMark(station.name)
       } else if (from) {
         // 设置终点
         setFromto({
           ...fromto,
-          to: name,
+          to: station,
         })
         mapRef.current.removeMarker(markerRef.current)
       } else {
         // 设置起点
         setFromto({
           ...fromto,
-          from: name,
+          from: station,
         })
-        setMark(name)
+        setMark(station.name)
       }
       mapRef.current.removeEventListener('tap', handler)
     })
