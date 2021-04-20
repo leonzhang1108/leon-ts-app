@@ -9,6 +9,11 @@ export default [
     icon: 'ts-app icon-doraemon',
     title: '刘发财生日快乐！'
   },
+  {
+    route: 'subway',
+    icon: 'ts-app icon-subway',
+    title: '地铁'
+  },
   // {
   //   route: 'loading-test',
   //   icon: 'ts-app icon-doraemon',
