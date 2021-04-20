@@ -12,7 +12,7 @@ export default [
   {
     route: 'subway',
     icon: 'ts-app icon-subway',
-    title: '地铁'
+    title: 'Subway'
   },
   // {
   //   route: 'loading-test',
