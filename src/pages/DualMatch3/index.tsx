@@ -50,8 +50,11 @@ const DualMatch3 = () => {
     if (!draging) return
     const { left: gameLeft, top: gameTop } = gameRef.current.getBoundingClientRect()
     const { left: wrapperLeft, top: wrapperTop } = wrapperRef.current.getBoundingClientRect()
-    const left = e.pageX - wrapperLeft
-    const top = e.pageY - wrapperTop
+    const mouseLeft = e.pageX || e.touches[0].pageX
+    const mouseTop = e.pageY || e.touches[0].pageY
+
+    const left = mouseLeft - wrapperLeft
+    const top = mouseTop - wrapperTop
     setMousePos({ x: left, y: top })
   }, [comboList, draging])
 
