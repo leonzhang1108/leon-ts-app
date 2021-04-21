@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 import Utils from '@utils'
 import './index.less'
 
@@ -16,13 +16,31 @@ const getItems = () => {
   return list
 }
 
-const DualMatch3 = () => {
+const DualMatch3 = (props: any) => {
+  const { isMobile } = props
+
   const wrapperRef = useRef<any>()
   const gameRef = useRef<any>()
   const [itemList, setItemList] = useState(getItems())
   const [draging, setDraging] = useState(false)
   const [comboList, setComboList] = useState<any>([])
   const [{ x, y }, setMousePos] = useState({ x: 50, y: 50 })
+
+  const containerStyle = useMemo(() => {
+    return {
+      width: isMobile ? 230 : 350,
+      height: isMobile ? 230 : 350
+    }
+  }, [isMobile])
+
+  const itemStyle = useCallback(({ row, col }) => {
+    return {
+      top: row * (isMobile ? 40: 60),
+      left: col * (isMobile ? 40: 60),
+      width: isMobile ? 30 : 50,
+      height: isMobile ? 30 : 50
+    }
+  }, [isMobile])
 
   useEffect(() => {
     // console.log(draging)
@@ -70,7 +88,7 @@ const DualMatch3 = () => {
       <svg className="svg-container" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <line x1="50" y1="50" x2={x} y2={y} style={{ stroke: 'red', strokeWidth: 5 }}/>
       </svg>
-      <div className="game-area" ref={gameRef}>
+      <div className="game-area" ref={gameRef} style={containerStyle}>
         {
           itemList.map(
             (list: any, row: number) => 
@@ -79,7 +97,7 @@ const DualMatch3 = () => {
                   <div
                     className="item"
                     key={item.key}
-                    style={{ top: row * 60, left: col * 60 }}
+                    style={itemStyle({ row, col })}
                     onMouseDown={() => {
                       setDraging(true)
                       setComboList(comboList => comboList.concat({ row, col, key: item.key }))
@@ -99,4 +117,9 @@ const DualMatch3 = () => {
   )
 }
 
-export default DualMatch3
+export default Utils.connect({
+  component: DualMatch3,
+  mapStateToProps: state => ({
+    isMobile: state.common.isMobile,
+  })
+})
