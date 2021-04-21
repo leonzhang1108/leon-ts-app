@@ -209,7 +209,12 @@ export default [
         route: 'water-melon',
         icon: 'ts-app icon-watermelon',
         title: '合并大圈圈'
-      }
+      },
+      {
+        route: 'dual-match-3',
+        icon: 'ts-app icon-dual-match-3',
+        title: '双重三连消'
+      },
     ]
   },
   {
