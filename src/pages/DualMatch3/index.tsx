@@ -56,7 +56,14 @@ const DualMatch3 = () => {
   }, [comboList, draging])
 
   return (
-    <div className="dual-match-3-wrapper" ref={wrapperRef} onMouseUp={() => setDraging(false)} onMouseMove={wrapperMouseMove}>
+    <div
+      className="dual-match-3-wrapper"
+      ref={wrapperRef}
+      onMouseUp={() => setDraging(false)}
+      onTouchEnd={() => setDraging(false)}
+      onMouseMove={wrapperMouseMove}
+      onTouchMove={wrapperMouseMove}
+    >
       <svg className="svg-container" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <line x1="50" y1="50" x2={x} y2={y} style={{ stroke: 'red', strokeWidth: 5 }}/>
       </svg>
@@ -71,6 +78,10 @@ const DualMatch3 = () => {
                     key={item.key}
                     style={{ top: row * 60, left: col * 60 }}
                     onMouseDown={() => {
+                      setDraging(true)
+                      setComboList(comboList => comboList.concat({ row, col, key: item.key }))
+                    }}
+                    onTouchStart={() => {
                       setDraging(true)
                       setComboList(comboList => comboList.concat({ row, col, key: item.key }))
                     }}
