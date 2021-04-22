@@ -6,9 +6,35 @@
   align-items: center;
   .point-wrapper {
     position: absolute;
+    width: 100%;
     top: 50px;
-    .point {
+    display: flex;
+    justify-content: space-evenly;
+    .point-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .point {
+        font-weight: bold;
+        font-size: 50px;
+      }
+    }
+  }
+  .game-over {
+    position: absolute;
+    z-index: 1;
+    background: #000;
+    opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .text {
+      font-size: 30px;
       font-weight: bold;
+      color: #fff;
+    }
+    .anticon {
       font-size: 50px;
     }
   }

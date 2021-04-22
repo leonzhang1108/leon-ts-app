@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react'
 import Utils from '@utils'
+import { useCountUp } from 'react-countup'
+import { RedoOutlined } from '@constant/icons'
 import './index.less'
 
 const colors = ['#4E79A5', '#F18F3B', '#E0585B', '#77B7B2']
@@ -94,12 +96,18 @@ const DualMatch3 = (props: any) => {
   const [comboList, setComboList] = useState<any>([])
   const [lineColor, setLineColor] = useState<string>()
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [count, setCount] = useState(0)
+  const { countUp: count, update: setCount } = useCountUp({
+    start: 0,
+    end: 0,
+    duration: 0.5
+  })
+  const [isCombo, setIsCombo] = useState(false)
+  const [comboCount, setComboCount] = useState(10)
 
   const containerStyle = useMemo(() => {
     return {
-      width: isMobile ? 285 : 340,
-      height: isMobile ? 285 : 340,
+      width: isMobile ? 286 : 340,
+      height: isMobile ? 286 : 340,
     }
   }, [isMobile])
 
@@ -143,8 +151,8 @@ const DualMatch3 = (props: any) => {
     
     const valueList = comboList.map((item: any) => Number(item.value))
     const list = getCombo(valueList)
+    setIsCombo(!!list.length)
     const newList = [...comboList]
-
     list.forEach(({ pointer, length }) => {
       for (let i = pointer; i < pointer + length; i++) {
         newList[i] = {
@@ -199,9 +207,10 @@ const DualMatch3 = (props: any) => {
 
   const mouseUp = useCallback(() => {
     if (comboList.length >= 3) {
-      console.log(selectedItems)
       // set point
-      setCount(count => count + selectedItems.reduce((total, item) => total + Number(item.value), 0))
+      setCount(Number(count) + selectedItems.reduce((total, item) => total + Number(item.value), 0))
+
+      !isCombo && setComboCount(count => count - 1)
 
       // hide combo item
       comboList.forEach((item) => {
@@ -243,7 +252,7 @@ const DualMatch3 = (props: any) => {
     }
     setDraging(false)
     setComboList([])
-  }, [comboList, itemList])
+  }, [comboList, itemList, isCombo])
 
   const touchMove = e => {
     if (!isMobile) return
@@ -300,8 +309,26 @@ const DualMatch3 = (props: any) => {
         })}
       </svg>
       <div className="point-wrapper">
-        <div className="point">{count}</div>
+        <div className="point-item">
+          <div className="point">{count}</div>
+          <div className="title">分数</div>
+        </div>
+        <div className="point-item">
+          <div className="point">{comboCount}</div>
+          <div className="title">回合数</div>
+        </div>
       </div>
+      {
+        comboCount === 0 ? (
+          <div className="game-over" style={containerStyle}>
+            <div className="text">Game Over</div>
+            <RedoOutlined style={{ color: '#fff' }} onClick={() => {
+              setComboCount(10)
+              setCount(0)
+            }} />
+          </div>
+        ) : null
+      }
       <div className="game-area" ref={gameRef} style={containerStyle}>
         {itemList.map((list: any, row: number) =>
           list.map((item: any, col: number) => {
