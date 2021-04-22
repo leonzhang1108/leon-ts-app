@@ -196,8 +196,7 @@ const DualMatch3 = (props: any) => {
     if (!isMobile) return
     const touch = e.targetTouches[0]
     const currTarget: any = document.elementFromPoint(Math.floor(touch.pageX), Math.floor(touch.pageY))
-
-    if (currTarget.className.indexOf('item') >= 0) {
+    if (currTarget.className.indexOf && currTarget.className.indexOf('item') >= 0) {
       if (!staticItem.current) {
         const col = currTarget.getAttribute('col')
         const row = currTarget.getAttribute('row')
