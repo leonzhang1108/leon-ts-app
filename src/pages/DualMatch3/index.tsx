@@ -102,7 +102,7 @@ const DualMatch3 = (props: any) => {
     duration: 0.5
   })
   const [isCombo, setIsCombo] = useState(false)
-  const [comboCount, setComboCount] = useState(10)
+  const [comboCount, setComboCount] = useState(30)
 
   const containerStyle = useMemo(() => {
     return {
@@ -319,11 +319,11 @@ const DualMatch3 = (props: any) => {
         </div>
       </div>
       {
-        comboCount === 0 ? (
+        comboCount !== 0 ? (
           <div className="game-over" style={containerStyle}>
             <div className="text">Game Over</div>
             <RedoOutlined style={{ color: '#fff' }} onClick={() => {
-              setComboCount(10)
+              setComboCount(30)
               setCount(0)
             }} />
           </div>
