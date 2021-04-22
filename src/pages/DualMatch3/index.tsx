@@ -10,7 +10,7 @@ const randomNum = (min, max) =>
 const initItem = () => ({
   key: Utils.uuid(),
   color: colors[randomNum(0, 3)],
-  value: randomNum(1, 3),
+  value: randomNum(1, 4),
   opacity: 1
 })
 
@@ -50,6 +50,37 @@ const calculateNewItemList = (list) => {
     })
   }
   return [...list]
+}
+
+function isCombo(list) {
+  const res: any = {}
+  list.forEach(item => {
+    if (!res[item + '']) {
+      res[item + ''] = 1
+    } else {
+      res[item + ''] += 1
+    }
+  })
+  return Object.keys(res).length === 1
+}
+
+function getCombo(list, offset = 0) {
+  if (list.length < 3) return []
+  let length = 3
+  let hasCombo = false
+
+  while (length <= list.length && isCombo(list.slice(0, length))) {
+    length += 1
+    hasCombo = true
+  }
+  length -= 1
+  if (hasCombo) {
+    list.splice(0, length)
+    return [{ pointer: offset, length }, ...getCombo(list, offset + length)]
+  } else {
+    const [_, ...rest] = list
+    return getCombo(rest, offset + 1)
+  }
 }
 
 const DualMatch3 = (props: any) => {
@@ -107,10 +138,21 @@ const DualMatch3 = (props: any) => {
   }, [draging, comboList, mousePos, isMobile])
 
   const selectedItems = useMemo(() => {
-    return comboList.map((item) => ({
-      ...item,
-      value: item.value * 10
-    }))
+    // getCombo
+    
+    const valueList = comboList.map((item: any) => Number(item.value))
+    const list = getCombo(valueList)
+    const newList = [...comboList]
+
+    list.forEach(({ pointer, length }) => {
+      for (let i = pointer; i < pointer + length; i++) {
+        newList[i] = {
+          ...newList[i],
+          value: newList[i].value * 10
+        }
+      }
+    })
+    return newList
   }, [comboList])
 
   const mouseEnter = useCallback(
