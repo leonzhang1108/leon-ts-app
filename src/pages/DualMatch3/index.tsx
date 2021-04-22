@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import React, { useState, useCallback, useRef, useMemo } from 'react'
 import Utils from '@utils'
-import NotAvailableOnMobile from '@cpt/NotAvailableOnMobile'
 import './index.less'
 
 const colors = ['#4E79A5', '#F18F3B', '#E0585B', '#77B7B2']
@@ -27,11 +26,12 @@ const getItems = () => {
   return list
 }
 
-const getItemClass = (row, col, comboList) => {
+const getItemClass = (row, col, comboList, { isNew = false }) => {
   const index = comboList.findIndex((item) => {
     return Number(item.row) === Number(row) && Number(item.col) === Number(col)
   })
-  return index >= 0 ? 'item active' : 'item'
+  const className = index >= 0 ? 'item active' : 'item'
+  return isNew ? `${className} new` : className
 }
 
 const calculateNewItemList = (list) => {
@@ -39,7 +39,10 @@ const calculateNewItemList = (list) => {
     const colList = list.map(item => item[col]).filter(item => item.opacity === 1)
     const newItemsList: any = []
     for (let num = 0; num < list.length - colList.length; num++) {
-      newItemsList.push(initItem())
+      newItemsList.push({
+        ...initItem(),
+        isNew: true
+      })
     }
     ;[...newItemsList, ...colList].map((item, i) => {
       const { top, ...rest } = item
@@ -180,7 +183,10 @@ const DualMatch3 = (props: any) => {
       setTimeout(() => {
         const list = calculateNewItemList(itemList)
         setItemList(list)
-      }, 500)
+        setTimeout(() => {
+          setItemList(list.map((row) => row.map(({ isNew, ...rest }) => rest)))
+        }, 200)
+      }, 300)
     }
     setDraging(false)
     setComboList([])
@@ -244,7 +250,7 @@ const DualMatch3 = (props: any) => {
         {itemList.map((list: any, row: number) =>
           list.map((item: any, col: number) => (
             <div
-              className={getItemClass(row, col, comboList)}
+              className={getItemClass(row, col, comboList, item)}
               key={item.key}
               style={itemStyle({ row, col, item })}
               // @ts-ignore
