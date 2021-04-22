@@ -94,11 +94,12 @@ const DualMatch3 = (props: any) => {
   const [comboList, setComboList] = useState<any>([])
   const [lineColor, setLineColor] = useState<string>()
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [count, setCount] = useState(0)
 
   const containerStyle = useMemo(() => {
     return {
-      width: isMobile ? 230 : 340,
-      height: isMobile ? 230 : 340,
+      width: isMobile ? 285 : 340,
+      height: isMobile ? 285 : 340,
     }
   }, [isMobile])
 
@@ -106,10 +107,10 @@ const DualMatch3 = (props: any) => {
     ({ row, col, item }) => {
       const { color, opacity, top = 0 } = item
       return {
-        top: row * (isMobile ? 40 : 60) + top,
-        left: col * (isMobile ? 40 : 60),
-        width: isMobile ? 30 : 40,
-        height: isMobile ? 30 : 40,
+        top: row * (isMobile ? 50 : 60) + top,
+        left: col * (isMobile ? 50 : 60),
+        width: isMobile ? 36 : 40,
+        height: isMobile ? 36 : 40,
         background: color,
         opacity,
       }
@@ -130,8 +131,8 @@ const DualMatch3 = (props: any) => {
     const positions = comboList.map((item: any) => {
       const { row, col } = item
       return {
-        x: col * (isMobile ? 40 : 60) - wrapperLeft + gameLeft + (isMobile ? 15 : 20),
-        y: row * (isMobile ? 40 : 60) - wrapperTop + gameTop + (isMobile ? 15 : 20),
+        x: col * (isMobile ? 50 : 60) - wrapperLeft + gameLeft + (isMobile ? 18 : 20),
+        y: row * (isMobile ? 50 : 60) - wrapperTop + gameTop + (isMobile ? 18 : 20),
       }
     })
     return [...positions, mousePos]
@@ -198,6 +199,9 @@ const DualMatch3 = (props: any) => {
 
   const mouseUp = useCallback(() => {
     if (comboList.length >= 3) {
+      console.log(selectedItems)
+      // set point
+      setCount(count => count + selectedItems.reduce((total, item) => total + Number(item.value), 0))
 
       // hide combo item
       comboList.forEach((item) => {
@@ -216,7 +220,7 @@ const DualMatch3 = (props: any) => {
           const item = itemList[row][col]
           item.top = top
           if (item.opacity === 0) {
-            top += (isMobile ? 40 : 60)
+            top += (isMobile ? 50 : 60)
           }
           row--
           list = [item, ...list]
@@ -295,6 +299,9 @@ const DualMatch3 = (props: any) => {
           return null
         })}
       </svg>
+      <div className="point-wrapper">
+        <div className="point">{count}</div>
+      </div>
       <div className="game-area" ref={gameRef} style={containerStyle}>
         {itemList.map((list: any, row: number) =>
           list.map((item: any, col: number) => {

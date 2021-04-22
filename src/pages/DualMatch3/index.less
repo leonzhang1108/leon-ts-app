@@ -4,6 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  .point-wrapper {
+    position: absolute;
+    top: 50px;
+    .point {
+      font-weight: bold;
+      font-size: 50px;
+    }
+  }
   .game-area {
     position: relative;
     .item {
@@ -17,7 +25,7 @@
       align-items: center;
       cursor: grab;
       color: #fff;
-      font-size: 14px;
+      font-size: 18px;
       font-weight: bold;
       &.active {
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
