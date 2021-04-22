@@ -106,10 +106,17 @@ const DualMatch3 = (props: any) => {
     return [...positions, mousePos]
   }, [draging, comboList, mousePos, isMobile])
 
+  const selectedItems = useMemo(() => {
+    return comboList.map((item) => ({
+      ...item,
+      value: item.value * 10
+    }))
+  }, [comboList])
+
   const mouseEnter = useCallback(
     ({ row, col, item }) => {
       if (!draging) return
-      const { key, color } = item
+      const { key, color, value } = item
       const index = comboList.findIndex((item) => item.key === key)
       if (index === comboList.length - 1) {
         setComboList((comboList) => comboList.slice(0, comboList.length - 1))
@@ -119,7 +126,7 @@ const DualMatch3 = (props: any) => {
         const { row: latestRow, col: latestCol } = latest
         const isNeighbour = (Math.abs(latestRow - row) < 2) && (Math.abs(latestCol - col) < 2)
         if (isNeighbour && index === -1 && lineColor === color) {
-          setComboList((comboList) => comboList.concat({ row, col, key }))
+          setComboList((comboList) => comboList.concat({ row, col, key, value }))
         }
       }
     },
@@ -172,7 +179,7 @@ const DualMatch3 = (props: any) => {
           row--
           list = [item, ...list]
         }
-        
+
         list.forEach((item: any, row) => {
           tempList[row].push({ ...item })
         })
@@ -206,7 +213,7 @@ const DualMatch3 = (props: any) => {
         staticItem.current = {
           col, row, value, key
         }
-        const item = { color, key }
+        const item = { color, key, value }
         mouseEnter({ row, col, item })
       }
     } else {
@@ -248,37 +255,45 @@ const DualMatch3 = (props: any) => {
       </svg>
       <div className="game-area" ref={gameRef} style={containerStyle}>
         {itemList.map((list: any, row: number) =>
-          list.map((item: any, col: number) => (
-            <div
-              className={getItemClass(row, col, comboList, item)}
-              key={item.key}
-              style={itemStyle({ row, col, item })}
-              // @ts-ignore
-              row={row}
-              col={col}
-              color={item.color}
-              value={item.value}
-              unique={item.key}
-              onMouseDown={(e) => {
-                if (isMobile) return
-                setDraging(true)
-                doSetMousePosition(e)
-                setComboList(() => [{ row, col, key: item.key }])
-                setLineColor(item.color)
-              }}
-              onTouchStart={(e) => {
-                if (!isMobile) return
-                setDraging(true)
-                doSetMousePosition(e)
-                setComboList(() => [{ row, col, key: item.key }])
-                setLineColor(item.color)
-                e.preventDefault()
-              }}
-              onMouseEnter={() => !isMobile && mouseEnter({ row, col, item })}
-            >
-              {item.value}
-            </div>
-          ))
+          list.map((item: any, col: number) => {
+            const comboItem =
+              selectedItems.find(
+                ({ row: itemRow, col: itemCol }) => 
+                  Number(row) === Number(itemRow) && Number(col) === Number(itemCol)
+              )
+
+            return (
+              <div
+                className={getItemClass(row, col, comboList, item)}
+                key={item.key}
+                style={itemStyle({ row, col, item })}
+                // @ts-ignore
+                row={row}
+                col={col}
+                color={item.color}
+                value={item.value}
+                unique={item.key}
+                onMouseDown={(e) => {
+                  if (isMobile) return
+                  setDraging(true)
+                  doSetMousePosition(e)
+                  setComboList(() => [{ row, col, key: item.key, value: item.value }])
+                  setLineColor(item.color)
+                }}
+                onTouchStart={(e) => {
+                  if (!isMobile) return
+                  setDraging(true)
+                  doSetMousePosition(e)
+                  setComboList(() => [{ row, col, key: item.key, value: item.value }])
+                  setLineColor(item.color)
+                  e.preventDefault()
+                }}
+                onMouseEnter={() => !isMobile && mouseEnter({ row, col, item })}
+              >
+                {(comboItem || item).value}
+              </div>
+            )
+          })
         )}
       </div>
     </div>

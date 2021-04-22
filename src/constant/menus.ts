@@ -213,7 +213,7 @@ export default [
       {
         route: 'dual-match-3',
         icon: 'ts-app icon-dual-match-3',
-        title: '双重三连消'
+        title: 'Dual Match 3'
       },
     ]
   },
