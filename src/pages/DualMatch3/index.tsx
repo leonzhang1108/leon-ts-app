@@ -197,6 +197,14 @@ const DualMatch3 = (props: any) => {
     setMousePos({ x: left, y: top })
   }
 
+  const onDragStart = (e, row, col, item: any) => {
+    setDraging(true)
+    doSetMousePosition(e)
+    setComboList(() => [{ row, col, key: item.key, value: item.value }])
+    setLineColor(item.color)
+    e.preventDefault()
+  }
+
   const wrapperMouseMove = useCallback(
     (e) => {
       if (!draging || isMobile) return
@@ -269,7 +277,11 @@ const DualMatch3 = (props: any) => {
           col, row, value, key
         }
         const item = { color, key, value }
-        mouseEnter({ row, col, item })
+        if (draging) {
+          mouseEnter({ row, col, item })
+        } else {
+          onDragStart(e, row, col, item)
+        }
       }
     } else {
       staticItem.current = null
@@ -351,18 +363,11 @@ const DualMatch3 = (props: any) => {
                 unique={item.key}
                 onMouseDown={(e) => {
                   if (isMobile) return
-                  setDraging(true)
-                  doSetMousePosition(e)
-                  setComboList(() => [{ row, col, key: item.key, value: item.value }])
-                  setLineColor(item.color)
+                  onDragStart(e, row, col, item)
                 }}
                 onTouchStart={(e) => {
                   if (!isMobile) return
-                  setDraging(true)
-                  doSetMousePosition(e)
-                  setComboList(() => [{ row, col, key: item.key, value: item.value }])
-                  setLineColor(item.color)
-                  e.preventDefault()
+                  onDragStart(e, row, col, item)
                 }}
                 onMouseEnter={() => !isMobile && mouseEnter({ row, col, item })}
               >
