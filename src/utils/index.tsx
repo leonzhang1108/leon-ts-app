@@ -44,6 +44,15 @@ function uuid() {
   return uuid
 }
 
+export const getScript = url => new Promise((resolve, reject) => {
+  const myScript = document.createElement('script')
+  myScript.type = 'text/javascript'
+  myScript.src = url
+  myScript.onload = resolve
+  myScript.onerror = reject
+  document.body.appendChild(myScript)
+})
+
 export default {
   request,
   Storage,
