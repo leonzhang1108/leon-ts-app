@@ -1,5 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react'
+import { getScript } from '@utils'
+import Loader from '@cpt/Loader'
 import './index.less'
+
+const mapUrl = 'https://api.map.baidu.com/api?type=subway&v=1.0&ak=mS6bT1vyU9WYtFEqhUevBrhRji8CDmlO'
 
 const getSubwayCity = (cityname: string) => {
   const { BMapSub }: any = window
@@ -15,16 +19,18 @@ const getSubwayCity = (cityname: string) => {
 }
 
 const Subway = () => {
-  const { BMapSub }: any = window
   const mapRef = useRef<any>()
   const markerRef = useRef<any>()
   const wrapperRef = useRef<any>()
+  const [loadingMap, setLoadingMap] = useState(true)
   const [fromto, setFromto] = useState<any>({
     from: null,
     to: null,
   })
 
   useEffect(() => {
+    const { BMapSub }: any = window
+    if (loadingMap) return
     const subwaycity = getSubwayCity('上海')
     const subway = new BMapSub.Subway('subway', subwaycity.citycode)
     subway.addControl({
@@ -33,9 +39,24 @@ const Subway = () => {
     subway.setZoom(0.5)
     subway.setCenter('静安寺')
     mapRef.current = subway
-  }, [])
+
+    // 绑定zoom方法
+    function onMouseWheel(e) {
+      const scale = e.wheelDelta / 300
+      const factor = Math.pow(1.1, scale)
+      mapRef.current.setZoom(mapRef.current.getZoom() * factor)
+      e.preventDefault()
+    }
+
+    wrapperRef.current.addEventListener('wheel', onMouseWheel)
+    return () => {
+      wrapperRef.current.removeEventListener('wheel', onMouseWheel)
+    }
+  }, [loadingMap])
 
   const setMark = (name) => {
+    const { BMapSub }: any = window
+    if (!BMapSub) return
     const startIcon = new BMapSub.Icon(
       'https://api.map.baidu.com/images/subway/start-bak.png',
       new BMapSub.Size(50, 80)
@@ -48,6 +69,8 @@ const Subway = () => {
   }
 
   useEffect(() => {
+    const { BMapSub }: any = window
+    if (loadingMap) return
     const { from, to } = fromto
     mapRef.current.addEventListener('tap', function handler(e) {
       const { station } = e
@@ -80,24 +103,26 @@ const Subway = () => {
       const drct = new BMapSub.Direction(mapRef.current)
       drct.search(from, to)
     }
-  }, [fromto])
+  }, [loadingMap])
 
   useEffect(() => {
-    function onMouseWheel(e) {
-      const scale = e.wheelDelta / 300
-      const factor = Math.pow(1.1, scale)
-      mapRef.current.setZoom(mapRef.current.getZoom() * factor)
-      e.preventDefault()
-    }
-    wrapperRef.current.addEventListener('wheel', onMouseWheel)
-    return () => {
-      wrapperRef.current.removeEventListener('wheel', onMouseWheel)
+    const { BMapSub }: any = window
+    if (BMapSub) {
+      setLoadingMap(false)
+    } else {
+      getScript(mapUrl).then(() => {
+        setLoadingMap(false)
+      })
     }
   }, [])
 
-  return (
+  return !loadingMap ? (
     <div className="subway-wrapper" ref={wrapperRef}>
       <div id="subway" />
+    </div>
+  ) : (
+    <div className="loading-center">
+      <Loader />
     </div>
   )
 }
