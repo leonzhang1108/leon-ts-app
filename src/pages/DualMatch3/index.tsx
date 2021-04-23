@@ -32,8 +32,14 @@ const getItemClass = (row, col, comboList, { isNew = false }) => {
   const index = comboList.findIndex((item) => {
     return Number(item.row) === Number(row) && Number(item.col) === Number(col)
   })
-  const className = index >= 0 ? 'item active' : 'item'
-  return isNew ? `${className} new` : className
+  const className = ['item']
+  if (index >= 0) {
+    className.push('active')
+  }
+  if (isNew) {
+    className.push('new')
+  }
+  return className.join(' ')
 }
 
 const calculateNewItemList = (list) => {
@@ -157,7 +163,8 @@ const DualMatch3 = (props: any) => {
       for (let i = pointer; i < pointer + length; i++) {
         newList[i] = {
           ...newList[i],
-          value: newList[i].value * 10
+          value: newList[i].value * 10,
+          isComboed: true,
         }
       }
     })
@@ -258,7 +265,7 @@ const DualMatch3 = (props: any) => {
         setTimeout(() => {
           setItemList(list.map((row) => row.map(({ isNew, ...rest }) => rest)))
         }, 100)
-      }, 300)
+      }, 200)
     }
     setDraging(false)
     setComboList([])
@@ -380,9 +387,9 @@ const DualMatch3 = (props: any) => {
       <div className="combo-displayer">
         {
           selectedItems.map((comboItem, i) => {
-            const { value, row, col } = comboItem
+            const { value, row, col, isComboed } = comboItem
             const item = { color: lineColor }
-            return <div key={i} className="combo-item" style={itemStyle({ row, col, item })}>{value}</div>
+            return <div key={i} className={`combo-item ${isComboed ? 'expand' : ''}`} style={itemStyle({ row, col, item })}>{value}</div>
           })
         }
       </div>
