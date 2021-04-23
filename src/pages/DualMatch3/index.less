@@ -60,8 +60,7 @@
         transform: scale(1.2);
       }
       &.new {
-        animation: fadein 0.2s ease-in;
-        opacity: 0;
+        top: -1000px!important;
       }
     }
   }
@@ -74,7 +73,3 @@
   }
 }
 
-@keyframes fadein {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
-}

@@ -255,7 +255,7 @@ const DualMatch3 = (props: any) => {
         setItemList(list)
         setTimeout(() => {
           setItemList(list.map((row) => row.map(({ isNew, ...rest }) => rest)))
-        }, 200)
+        }, 100)
       }, 300)
     }
     setDraging(false)
