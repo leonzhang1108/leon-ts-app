@@ -354,7 +354,6 @@ const DualMatch3 = (props: any) => {
       {
         comboCount === 0 ? (
           <div className="game-over" style={containerStyle(20)}>
-            <div className="text">Game Over</div>
             <RedoOutlined style={{ color: '#fff' }} onClick={() => {
               setComboCount(30)
               setCount(0)
