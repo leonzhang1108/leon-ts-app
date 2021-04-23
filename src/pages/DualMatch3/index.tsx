@@ -280,6 +280,7 @@ const DualMatch3 = (props: any) => {
         if (draging) {
           mouseEnter({ row, col, item })
         } else {
+          console.log('fff')
           onDragStart(e, row, col, item)
         }
       }
@@ -362,11 +363,9 @@ const DualMatch3 = (props: any) => {
                 value={item.value}
                 unique={item.key}
                 onMouseDown={(e) => {
-                  if (isMobile) return
                   onDragStart(e, row, col, item)
                 }}
                 onTouchStart={(e) => {
-                  if (!isMobile) return
                   onDragStart(e, row, col, item)
                 }}
                 onMouseEnter={() => !isMobile && mouseEnter({ row, col, item })}
