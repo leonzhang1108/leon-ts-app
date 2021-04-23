@@ -103,7 +103,7 @@ const Subway = () => {
       const drct = new BMapSub.Direction(mapRef.current)
       drct.search(from, to)
     }
-  }, [loadingMap])
+  }, [fromto, loadingMap])
 
   useEffect(() => {
     const { BMapSub }: any = window
