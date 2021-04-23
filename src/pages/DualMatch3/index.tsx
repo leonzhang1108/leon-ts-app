@@ -104,10 +104,10 @@ const DualMatch3 = (props: any) => {
   const [isCombo, setIsCombo] = useState(false)
   const [comboCount, setComboCount] = useState(30)
 
-  const containerStyle = useMemo(() => {
+  const containerStyle = useCallback((num = 0) => {
     return {
-      width: isMobile ? 286 : 340,
-      height: isMobile ? 286 : 340,
+      width: (isMobile ? 286 : 340) + num,
+      height: (isMobile ? 286 : 340) + num,
     }
   }, [isMobile])
 
@@ -333,7 +333,7 @@ const DualMatch3 = (props: any) => {
       </div>
       {
         comboCount === 0 ? (
-          <div className="game-over" style={containerStyle}>
+          <div className="game-over" style={containerStyle(20)}>
             <div className="text">Game Over</div>
             <RedoOutlined style={{ color: '#fff' }} onClick={() => {
               setComboCount(30)
@@ -342,7 +342,7 @@ const DualMatch3 = (props: any) => {
           </div>
         ) : null
       }
-      <div className="game-area" ref={gameRef} style={containerStyle}>
+      <div className="game-area" ref={gameRef} style={containerStyle(0)}>
         {itemList.map((list: any, row: number) =>
           list.map((item: any, col: number) => {
             const comboItem =
