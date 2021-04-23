@@ -170,7 +170,9 @@ const DualMatch3 = (props: any) => {
       const { key, color, value } = item
       const index = comboList.findIndex((item) => item.key === key)
       if (index === comboList.length - 1) {
-        setComboList((comboList) => comboList.slice(0, comboList.length - 1))
+        if (comboList.length > 1) {
+          setComboList((comboList) => comboList.slice(0, comboList.length - 1))
+        }
       } else {
         // 未连接且同色且相邻
         const latest = comboList[comboList.length - 1]
