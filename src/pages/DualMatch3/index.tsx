@@ -113,7 +113,7 @@ const DualMatch3 = (props: any) => {
 
   const itemStyle = useCallback(
     ({ row, col, item }) => {
-      const { color, opacity, top = 0 } = item
+      const { color, opacity = 1, top = 0 } = item
       return {
         top: row * (isMobile ? 50 : 60) + top,
         left: col * (isMobile ? 50 : 60),
@@ -280,7 +280,6 @@ const DualMatch3 = (props: any) => {
         if (draging) {
           mouseEnter({ row, col, item })
         } else {
-          console.log('fff')
           onDragStart(e, row, col, item)
         }
       }
@@ -375,6 +374,15 @@ const DualMatch3 = (props: any) => {
             )
           })
         )}
+      </div>
+      <div className="combo-displayer">
+        {
+          selectedItems.map((comboItem, i) => {
+            const { value, row, col } = comboItem
+            const item = { color: lineColor }
+            return <div key={i} className="combo-item" style={itemStyle({ row, col, item })}>{value}</div>
+          })
+        }
       </div>
     </div>
   )
