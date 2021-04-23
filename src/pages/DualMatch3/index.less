@@ -99,7 +99,7 @@
       transform: scale(1);
       transition: all 0.2s ease;
       &.expand {
-        animation: blink 1000ms ease-in infinite;
+        animation: blink 2000ms ease-in infinite;
         &:before {
           content: '';
           position: absolute;
@@ -110,6 +110,7 @@
           background: inherit;
           filter: blur(2px);
           z-index: -1;
+          animation: blink 2000ms ease-in infinite;
         }
       }
     }
@@ -124,6 +125,6 @@
 
 @keyframes blink-blur {
   0%   { filter: blur(2px); transform: scale(1) }
-  50%  { filter: blur(4px); transform: scale(1.2) }
+  50%  { filter: blur(4px); transform: scale(1) }
   100% { filter: blur(2px); transform: scale(1) }
 }
