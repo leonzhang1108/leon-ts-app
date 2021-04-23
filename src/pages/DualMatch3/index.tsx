@@ -12,7 +12,7 @@ const randomNum = (min, max) =>
 const initItem = () => ({
   key: Utils.uuid(),
   color: colors[randomNum(0, 3)],
-  value: randomNum(1, 4),
+  value: randomNum(1, 3),
   opacity: 1
 })
 
