@@ -110,10 +110,22 @@ const DualMatch3 = (props: any) => {
   const [isCombo, setIsCombo] = useState(false)
   const [comboCount, setComboCount] = useState(30)
 
+  const wrapperSize = useMemo(() => {
+    return isMobile ? 312 : 340
+  }, [isMobile])
+
+  const itemPosition = useMemo(() => {
+    return isMobile ? 55 : 60
+  }, [isMobile])
+
+  const itemSize = useMemo(() => {
+    return isMobile ? 36 : 40
+  }, [isMobile])
+
   const containerStyle = useCallback((num = 0) => {
     return {
-      width: (isMobile ? 286 : 340) + num,
-      height: (isMobile ? 286 : 340) + num,
+      width: wrapperSize + num,
+      height: wrapperSize + num,
     }
   }, [isMobile])
 
@@ -121,10 +133,10 @@ const DualMatch3 = (props: any) => {
     ({ row, col, item }) => {
       const { color, opacity = 1, top = 0 } = item
       return {
-        top: row * (isMobile ? 50 : 60) + top,
-        left: col * (isMobile ? 50 : 60),
-        width: isMobile ? 36 : 40,
-        height: isMobile ? 36 : 40,
+        top: row * itemPosition + top,
+        left: col * itemPosition,
+        width: itemSize,
+        height: itemSize,
         background: color,
         opacity,
       }
@@ -145,8 +157,8 @@ const DualMatch3 = (props: any) => {
     const positions = comboList.map((item: any) => {
       const { row, col } = item
       return {
-        x: col * (isMobile ? 50 : 60) - wrapperLeft + gameLeft + (isMobile ? 18 : 20),
-        y: row * (isMobile ? 50 : 60) - wrapperTop + gameTop + (isMobile ? 18 : 20),
+        x: col * itemPosition - wrapperLeft + gameLeft + itemSize / 2,
+        y: row * itemPosition - wrapperTop + gameTop + itemSize / 2,
       }
     })
     return [...positions, mousePos]
@@ -246,7 +258,7 @@ const DualMatch3 = (props: any) => {
           const item = itemList[row][col]
           item.top = top
           if (item.opacity === 0) {
-            top += (isMobile ? 50 : 60)
+            top += itemPosition
           }
           row--
           list = [item, ...list]
