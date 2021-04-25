@@ -28,7 +28,7 @@ const getItems = () => {
   return list
 }
 
-const getItemClass = (row, col, comboList, { isNew = false }) => {
+const getItemClass = (row, col, comboList, { isNew = false, isComboed = false }) => {
   const index = comboList.findIndex((item) => {
     return Number(item.row) === Number(row) && Number(item.col) === Number(col)
   })
@@ -38,6 +38,9 @@ const getItemClass = (row, col, comboList, { isNew = false }) => {
   }
   if (isNew) {
     className.push('new')
+  }
+  if (isComboed) {
+    className.push('expand')
   }
   return className.join(' ')
 }
@@ -144,29 +147,8 @@ const DualMatch3 = (props: any) => {
     [isMobile]
   )
 
-  const svgLinePoints = useMemo(() => {
-    if (!draging) return []
-    const {
-      left: gameLeft,
-      top: gameTop,
-    } = gameRef.current.getBoundingClientRect()
-    const {
-      left: wrapperLeft,
-      top: wrapperTop,
-    } = wrapperRef.current.getBoundingClientRect()
-    const positions = comboList.map((item: any) => {
-      const { row, col } = item
-      return {
-        x: col * itemPosition - wrapperLeft + gameLeft + itemSize / 2,
-        y: row * itemPosition - wrapperTop + gameTop + itemSize / 2,
-      }
-    })
-    return [...positions, mousePos]
-  }, [draging, comboList, mousePos, isMobile])
-
   const selectedItems = useMemo(() => {
     // getCombo
-    
     const valueList = comboList.map((item: any) => Number(item.value))
     const list = getCombo(valueList)
     setIsCombo(!!list.length)
@@ -182,6 +164,26 @@ const DualMatch3 = (props: any) => {
     })
     return newList
   }, [comboList])
+
+  const svgLinePoints = useMemo(() => {
+    if (!draging) return []
+    const {
+      left: gameLeft,
+      top: gameTop,
+    } = gameRef.current.getBoundingClientRect()
+    const {
+      left: wrapperLeft,
+      top: wrapperTop,
+    } = wrapperRef.current.getBoundingClientRect()
+    const positions = selectedItems.map((item: any) => {
+      const { row, col } = item
+      return {
+        x: col * itemPosition - wrapperLeft + gameLeft + itemSize / 2,
+        y: row * itemPosition - wrapperTop + gameTop + itemSize / 2,
+      }
+    })
+    return [...positions, mousePos]
+  }, [draging, selectedItems, mousePos, isMobile])
 
   const mouseEnter = useCallback(
     ({ row, col, item }) => {
@@ -376,7 +378,7 @@ const DualMatch3 = (props: any) => {
 
             return (
               <div
-                className={getItemClass(row, col, comboList, item)}
+                className={getItemClass(row, col, comboList, comboItem || item)}
                 key={item.key}
                 style={itemStyle({ row, col, item })}
                 // @ts-ignore
