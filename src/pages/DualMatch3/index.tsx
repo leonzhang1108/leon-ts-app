@@ -316,6 +316,7 @@ const DualMatch3 = (props: any) => {
       staticItem.current = null
     }
     doSetMousePosition(e)
+    e.preventDefault()
   }
 
   return (
