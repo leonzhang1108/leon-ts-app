@@ -63,24 +63,30 @@ const calculateNewItemList = (list) => {
   return [...list]
 }
 
-function isCombo(list) {
+function deDuplicate(list) {
   const res: any = {}
   list.forEach(item => {
-    if (!res[item + '']) {
-      res[item + ''] = 1
+    const key = item + ''
+    if (!res[key]) {
+      res[key] = 1
     } else {
-      res[item + ''] += 1
+      res[key] += 1
     }
   })
   return Object.keys(res).length === 1
 }
 
-function getCombo(list, offset = 0) {
+/**
+ * 
+ * @param list  getCombo([1, 2, 3, 3, 3, 5, 3, 3, 3, 3])
+ * @returns     [{ "pointer":2, "length":3 },{ "pointer":6, "length":4 }]
+ */
+function getCombo(list = [], offset = 0) {
   if (list.length < 3) return []
   let length = 3
   let hasCombo = false
 
-  while (length <= list.length && isCombo(list.slice(0, length))) {
+  while (length <= list.length && deDuplicate(list.slice(0, length))) {
     length += 1
     hasCombo = true
   }
