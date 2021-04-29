@@ -30,7 +30,7 @@ export function initShiled(el: any, w: number, h: number, isMobile) {
       },
     shieldRed:
       function () {
-        const col = c.createRadialGradient(center_x, center_y, 0, center_x, center_y, width / (isMobile ? 2 : 4));
+        const col = c.createRadialGradient(center_x, center_y, 0, center_x, center_y, width / (isMobile ? 2.2 : 4));
         col.addColorStop(.5, "#7D3C46");
         col.addColorStop(.95, "#67252f");
         col.addColorStop(1.0, "#67252f");
@@ -82,7 +82,7 @@ export function initShiled(el: any, w: number, h: number, isMobile) {
   function init() {
     width = w;
     height = h;
-    radius = width / (isMobile ? 2 : 4) * .4;
+    radius = width / (isMobile ? 2.2 : 4) * .4;
     center_x = width / 2;
     center_y = height / 2;
     mousex = center_x;
@@ -152,7 +152,7 @@ export function initShiled(el: any, w: number, h: number, isMobile) {
   }
 
   function shield() {
-    const outerRadius = width / (isMobile ? 2 : 4);
+    const outerRadius = width / (isMobile ? 2.2 : 4);
     c.save();
     c.shadowOffsetX = 0;
     c.shadowOffsetY = 0;
