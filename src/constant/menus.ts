@@ -173,6 +173,11 @@ export default [
         icon: 'ts-app icon-neon',
         title: 'Neon'
       },
+      {
+        route: 'shield',
+        icon: 'ts-app icon-shield',
+        title: 'Shield'
+      },
     ]
   },
   {
