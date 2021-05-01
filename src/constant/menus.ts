@@ -45,11 +45,6 @@ export default [
         title: 'Giorno'
       },
       {
-        route: 'netflix',
-        icon: 'ts-app icon-netflix',
-        title: 'Netflix'
-      },
-      {
         route: 'light-saber',
         icon: 'ts-app icon-sword',
         title: 'Light Saber'
