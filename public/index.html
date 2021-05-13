@@ -4,7 +4,16 @@
   var _hmt = _hmt || [];
   (function () {
     var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?1dbe91570cb7b7b80b238dea7c528c16";
+    var code = ''
+    switch(location.hostname) {
+      case '6rina.com':
+        code = 'f928327427267f829a91e4d8d17c7408';
+      case 'ultrabatman.com':
+        code = '523db019fc2312a92acfd8f888e842c6';
+      default:
+        code = '1dbe91570cb7b7b80b238dea7c528c16';
+    }
+    hm.src = "https://hm.baidu.com/hm.js?" + code;
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
