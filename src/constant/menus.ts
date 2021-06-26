@@ -84,6 +84,11 @@ export default [
         icon: 'ts-app icon-frame',
         title: 'F.R.I.E.N.D.S'
       },
+      {
+        route: 'loki',
+        icon: 'ts-app icon-loki',
+        title: 'Loki'
+      },
     ]
   },
   {
