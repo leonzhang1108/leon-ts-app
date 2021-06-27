@@ -28,10 +28,15 @@ const Loki = (props: any) => {
       })
     }
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       rollIntro()
       setCount(count + 1)
     }, 350)
+
+    return () => {
+      console.log(timeout)
+      clearTimeout(timeout)
+    }
   }, [count])
 
   return (
