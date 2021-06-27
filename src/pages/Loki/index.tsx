@@ -34,7 +34,6 @@ const Loki = (props: any) => {
     }, 350)
 
     return () => {
-      console.log(timeout)
       clearTimeout(timeout)
     }
   }, [count])
