@@ -1,4 +1,6 @@
 export default ({ h, w }) => {
+  var loop
+  var raf
   window.requestAnimationFrame =
     window.__requestAnimationFrame ||
     window.requestAnimationFrame ||
@@ -24,7 +26,6 @@ export default ({ h, w }) => {
     if (loaded) return;
     loaded = true;
     var mobile = window.isDevice;
-    var koef = mobile ? 0.5 : 1;
     var canvas = document.getElementById('heart');
     var ctx = canvas.getContext('2d');
     var width = canvas.width = w;
@@ -48,11 +49,11 @@ export default ({ h, w }) => {
       ctx.fillRect(0, 0, width, height);
     });
 
-    var traceCount = mobile ? 20 : 50;
+    var traceCount = mobile ? 20 : 20;
     var pointsOrigin = [];
     var i;
-    var dr = mobile ? 0.3 : 0.1;
-    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 210, 13, 0, 0));
+    var dr = mobile ? 0.1 : 0.1;
+    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), mobile ? 105 : 210 ,  mobile ? 7.5 : 13, 0, 0));
     for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 150, 9, 0, 0));
     for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 90, 5, 0, 0));
     var heartPointsCount = pointsOrigin.length;
@@ -89,11 +90,11 @@ export default ({ h, w }) => {
 
     var config = {
       traceK: 0.4,
-      timeDelta: 0.01
+      timeDelta: 0.1
     };
 
     var time = 0;
-    var loop = function () {
+    loop = function () {
       var n = -Math.cos(time);
       pulse((1 + n) * .5, (1 + n) * .5);
       time += ((Math.sin(time)) < 0 ? 9 : (n > 0.8) ? .2 : 1) * config.timeDelta;
@@ -136,15 +137,20 @@ export default ({ h, w }) => {
           ctx.fillRect(u.trace[k].x, u.trace[k].y, 1, 1);
         }
       }
-      //ctx.fillStyle = "rgba(255,255,255,1)";
-      //for (i = u.trace.length; i--;) ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 2, 2);
-
-      window.requestAnimationFrame(loop, canvas);
+      // ctx.fillStyle = "rgba(255,255,255,1)";
+      // for (i = u.trace.length; i--;) ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 2, 2);
+      raf = window.requestAnimationFrame(loop, canvas);
     };
-    loop();
   };
 
   var s = document.readyState;
   if (s === 'complete' || s === 'loaded' || s === 'interactive') init();
   else document.addEventListener('DOMContentLoaded', init, false);
+
+  return {
+    init: loop,
+    stop: () => {
+      cancelAnimationFrame(raf)
+    }
+  }
 }

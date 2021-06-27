@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import utils from './utils'
 import Utils from '@utils'
 
@@ -6,7 +6,9 @@ const Heart = (props: any) => {
   const { h, w } = props
 
   useEffect(() => {
-    utils({ h, w })
+    const { init, stop } = utils({ h, w })
+    init()
+    return stop
   }, [])
 
   return (

@@ -47,7 +47,8 @@ export const init = (wrapperRef, inputRef) => {
     [1, 1] // right bottom
   ].map(([x, y]) => [
     x * CELL_DISTANCE - BORDER_WIDTH / 2,
-    y * CELL_DISTANCE - BORDER_WIDTH / 2]);
+    y * CELL_DISTANCE - BORDER_WIDTH / 2
+  ]);
 
 
   class FullscreenCanvas {
@@ -71,12 +72,18 @@ export const init = (wrapperRef, inputRef) => {
       const {
         canvas,
         context,
-        disableScale } =
+        disableScale
+      } =
       this;
 
-      const { common } = store.getState();
+      const {
+        common
+      } = store.getState();
 
-      const { contentHeight, contentWidth } = common;
+      const {
+        contentHeight,
+        contentWidth
+      } = common;
 
       const innerWidth = contentWidth;
       const innerHeight = contentHeight;
@@ -95,7 +102,9 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     clear() {
-      const { context } = this;
+      const {
+        context
+      } = this;
 
       context.clearRect(0, 0, this.width, this.height);
     }
@@ -105,7 +114,12 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     blendBackground(background, opacity = 0.05) {
-      return this.paint((ctx, { realWidth, realHeight, width, height }) => {
+      return this.paint((ctx, {
+        realWidth,
+        realHeight,
+        width,
+        height
+      }) => {
         ctx.globalCompositeOperation = 'source-over';
         ctx.globalAlpha = opacity;
 
@@ -116,7 +130,9 @@ export const init = (wrapperRef, inputRef) => {
     paint(fn) {
       if (!isFunction(fn)) return;
 
-      const { context } = this;
+      const {
+        context
+      } = this;
 
       context.save();
 
@@ -142,7 +158,9 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     handleResize() {
-      const { resizeHandlers } = this;
+      const {
+        resizeHandlers
+      } = this;
 
       if (!resizeHandlers.length) return;
 
@@ -152,7 +170,9 @@ export const init = (wrapperRef, inputRef) => {
     }
 
     renderIntoView(target = wrapperRef.current) {
-      const { canvas } = this;
+      const {
+        canvas
+      } = this;
 
       this.container = target;
 
@@ -177,13 +197,11 @@ export const init = (wrapperRef, inputRef) => {
   class Electron {
     constructor(
       x = 0,
-      y = 0,
-      {
+      y = 0, {
         lifeTime = 3 * 1e3,
         speed = STEP_LENGTH,
-        color = ELECTRON_COLOR } =
-      {})
-    {
+        color = ELECTRON_COLOR
+      } = {}) {
       this.lifeTime = lifeTime;
       this.expireAt = Date.now() + lifeTime;
 
@@ -198,16 +216,20 @@ export const init = (wrapperRef, inputRef) => {
 
     randomPath() {
       const {
-        current: [x, y] } =
+        current: [x, y]
+      } =
       this;
 
-      const { length } = MOVE_TRAILS;
+      const {
+        length
+      } = MOVE_TRAILS;
 
       const [deltaX, deltaY] = MOVE_TRAILS[random(length - 1)];
 
       return [
         x + deltaX,
-        y + deltaY];
+        y + deltaY
+      ];
 
     }
 
@@ -230,12 +252,12 @@ export const init = (wrapperRef, inputRef) => {
       let {
         speed,
         current,
-        destination } =
+        destination
+      } =
       this;
 
       if (Math.abs(current[0] - destination[0]) <= speed / 2 &&
-      Math.abs(current[1] - destination[1]) <= speed / 2)
-      {
+        Math.abs(current[1] - destination[1]) <= speed / 2) {
         destination = this.randomPath();
 
         let tryCnt = 1;
@@ -268,7 +290,8 @@ export const init = (wrapperRef, inputRef) => {
         radius,
         color,
         expireAt,
-        lifeTime } =
+        lifeTime
+      } =
       this;
 
       const [x, y] = this.next();
@@ -293,14 +316,12 @@ export const init = (wrapperRef, inputRef) => {
   class Cell {
     constructor(
       row = 0,
-      col = 0,
-      {
+      col = 0, {
         electronCount = random(1, 4),
         background = ELECTRON_COLOR,
         forceElectrons = false,
-        electronOptions = {} } =
-      {})
-    {
+        electronOptions = {}
+      } = {}) {
       this.background = background;
       this.electronOptions = electronOptions;
       this.forceElectrons = forceElectrons;
@@ -323,8 +344,7 @@ export const init = (wrapperRef, inputRef) => {
 
     scheduleUpdate(
       t1 = CELL_REPAINT_INTERVAL[0],
-      t2 = CELL_REPAINT_INTERVAL[1])
-    {
+      t2 = CELL_REPAINT_INTERVAL[1]) {
       this.nextUpdate = Date.now() + random(t1, t2);
     }
 
@@ -333,7 +353,8 @@ export const init = (wrapperRef, inputRef) => {
         startX,
         startY,
         background,
-        nextUpdate } =
+        nextUpdate
+      } =
       this;
 
       if (nextUpdate && Date.now() < nextUpdate) return;
@@ -360,7 +381,8 @@ export const init = (wrapperRef, inputRef) => {
         startY,
         electronCount,
         electronOptions,
-        forceElectrons } =
+        forceElectrons
+      } =
       this;
 
       if (!electronCount) return;
@@ -404,7 +426,10 @@ export const init = (wrapperRef, inputRef) => {
   function createRandomCell(options = {}) {
     if (ACTIVE_ELECTRONS.length >= MAX_ELECTRONS) return;
 
-    const { width, height } = mainLayer;
+    const {
+      width,
+      height
+    } = mainLayer;
 
     const cell = new Cell(
       random(height / CELL_DISTANCE),
@@ -416,7 +441,10 @@ export const init = (wrapperRef, inputRef) => {
   }
 
   function drawGrid() {
-    bgLayer.paint((ctx, { width, height }) => {
+    bgLayer.paint((ctx, {
+      width,
+      height
+    }) => {
       ctx.fillStyle = BG_COLOR;
       ctx.fillRect(0, 0, width, height);
 
@@ -481,32 +509,14 @@ export const init = (wrapperRef, inputRef) => {
       return i === li && j === lj;
     };
 
-    function print(isMove, { clientX, clientY }) {
-      const i = Math.floor(clientY / CELL_DISTANCE);
-      const j = Math.floor(clientX / CELL_DISTANCE);
-
-      if (isMove && isSameCell(i, j)) {
-        return;
-      }
-
-      const cell = new Cell(i, j, {
-        background: CELL_HIGHLIGHT,
-        forceElectrons: true,
-        electronCount: isMove ? 2 : 4,
-        electronOptions: {
-          speed: 3,
-          lifeTime: isMove ? 500 : 1000,
-          color: CELL_HIGHLIGHT } });
-
-
-
-      cell.paintNextTo(mainLayer);
-    }
-
     const handlers = {
-      touchend({ changedTouches }) {
+      touchend({
+        changedTouches
+      }) {
         if (changedTouches) {
-          Array.from(changedTouches).forEach(({ identifier }) => {
+          Array.from(changedTouches).forEach(({
+            identifier
+          }) => {
             delete touchRecords[identifier];
           });
         } else {
@@ -531,7 +541,10 @@ export const init = (wrapperRef, inputRef) => {
   function prepaint() {
     drawGrid();
 
-    mainLayer.paint((ctx, { width, height }) => {
+    mainLayer.paint((ctx, {
+      width,
+      height
+    }) => {
       // composite with rgba(255,255,255,255) to clear trails
       ctx.fillStyle = '#fff';
       ctx.fillRect(0, 0, width, height);
@@ -559,7 +572,8 @@ export const init = (wrapperRef, inputRef) => {
       return {
         speed: 2,
         color: FONT_COLOR,
-        lifeTime: random(300, 500) };
+        lifeTime: random(300, 500)
+      };
 
     },
 
@@ -567,14 +581,17 @@ export const init = (wrapperRef, inputRef) => {
       return {
         background: FONT_COLOR,
         electronCount: random(1, 4),
-        electronOptions: this.electronOptions };
+        electronOptions: this.electronOptions
+      };
 
     },
 
     get explodeOptions() {
       return Object.assign(this.cellOptions, {
         electronOptions: Object.assign(this.electronOptions, {
-          lifeTime: random(500, 1500) }) });
+          lifeTime: random(500, 1500)
+        })
+      });
 
 
     },
@@ -604,7 +621,8 @@ export const init = (wrapperRef, inputRef) => {
 
     clear() {
       const {
-        lastMatrix } =
+        lastMatrix
+      } =
       this;
 
       this.lastText = '';
@@ -636,15 +654,14 @@ export const init = (wrapperRef, inputRef) => {
     },
 
     getTextMatrix(
-      text,
-      {
+      text, {
         fontWeight = 'bold',
-        fontFamily = FONT_FAMILY } =
-      {})
-    {
+        fontFamily = FONT_FAMILY
+      } = {}) {
       const {
         width,
-        height } =
+        height
+      } =
       shapeLayer;
 
       shapeLayer.repaint(ctx => {
@@ -670,7 +687,8 @@ export const init = (wrapperRef, inputRef) => {
           if (alpha > 0) {
             matrix.push([
               Math.floor(i / CELL_DISTANCE),
-              Math.floor(j / CELL_DISTANCE)]);
+              Math.floor(j / CELL_DISTANCE)
+            ]);
 
           }
         }
@@ -690,7 +708,8 @@ export const init = (wrapperRef, inputRef) => {
           this.spiral({
             reverse: true,
             lifeTime: 500,
-            electronCount: 2 });
+            electronCount: 2
+          });
 
         }
 
@@ -717,11 +736,12 @@ export const init = (wrapperRef, inputRef) => {
       reverse = false,
       lifeTime = 250,
       electronCount = 1,
-      forceElectrons = true } =
-    {}) {
+      forceElectrons = true
+    } = {}) {
       const {
         width,
-        height } =
+        height
+      } =
       mainLayer;
 
       const cols = Math.floor(width / CELL_DISTANCE);
@@ -748,10 +768,9 @@ export const init = (wrapperRef, inputRef) => {
           electronOptions: {
             lifeTime,
             speed: 3,
-            color: CELL_HIGHLIGHT } });
-
-
-
+            color: CELL_HIGHLIGHT
+          }
+        });
 
         cell.delay(cnt * 16);
 
@@ -765,7 +784,9 @@ export const init = (wrapperRef, inputRef) => {
       stripOld();
 
       if (matrix) {
-        const { length } = matrix;
+        const {
+          length
+        } = matrix;
 
         const max = Math.min(
           50,
@@ -786,7 +807,8 @@ export const init = (wrapperRef, inputRef) => {
           createRandomCell(this.explodeOptions);
         }
       }
-    } };
+    }
+  };
 
 
   let timer;
@@ -831,7 +853,8 @@ export const init = (wrapperRef, inputRef) => {
       radius: 0,
       increment: 1,
       lifeTime: 100,
-      electronCount: 1 });
+      electronCount: 1
+    });
 
 
     timer = setTimeout(galaxy, 16);
@@ -843,7 +866,10 @@ export const init = (wrapperRef, inputRef) => {
     timer = setTimeout(ring, 16);
   }
 
-  inputRef.current.addEventListener('keypress', ({ keyCode, target }) => {
+  inputRef.current.addEventListener('keypress', ({
+    keyCode,
+    target
+  }) => {
     if (keyCode === 13) {
       clearTimeout(timer);
       const value = target.value.trim();
@@ -883,7 +909,8 @@ export const init = (wrapperRef, inputRef) => {
           return;
 
         default:
-          return shape.print(value);}
+          return shape.print(value);
+      }
 
     }
   });
