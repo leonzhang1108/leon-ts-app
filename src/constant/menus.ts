@@ -178,6 +178,11 @@ export default [
         icon: 'ts-app icon-shield',
         title: 'Shield'
       },
+      {
+        route: 'heart',
+        icon: 'ts-app icon-heart',
+        title: 'Heart'
+      },
     ]
   },
   {
