@@ -184,9 +184,9 @@ export default [
         title: 'Heart'
       },
       {
-        route: 'loveOfMyLife',
+        route: 'love-of-my-life',
         icon: 'ts-app icon-heart',
-        title: 'love-of-my-life'
+        title: 'Love Of My Life'
       },
     ]
   },
