@@ -5,18 +5,15 @@ import './index.less'
 const FONT_FAMILY =
   'Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuan Yi Micro Hei", sans-serif'
 const fontWeight = 'bold'
-const CELL_SIZE = 5
 const BORDER_WIDTH = 0
-const CELL_DISTANCE = CELL_SIZE + BORDER_WIDTH
 const BG_COLOR = 'rgba(0,0,0,1)'
-const traceCount = 5
 const rand = Math.random
 
 const config = {
   traceK: 0.5,
 }
 
-const textList = ['I ❤ U', '发财']
+const textList = ['I ❤ U', '發財']
 
 
 const LoveOfMyLife = (props: any) => {
@@ -31,6 +28,13 @@ const LoveOfMyLife = (props: any) => {
   const [globalE, setGlobalE] = useState<any[]>([])
   const [index, setIndex] = useState(0)
 
+  const CELL_SIZE = useMemo(() => {
+    return isMobile ? 5 : 10
+  }, [isMobile])
+
+  const CELL_DISTANCE = useMemo(() => {
+    return CELL_SIZE + BORDER_WIDTH
+  }, [CELL_SIZE])
 
   const MAX_FONT_SIZE = useMemo(() => {
     return isMobile ? 300 : 500
@@ -44,6 +48,9 @@ const LoveOfMyLife = (props: any) => {
     return isMobile ? h : w
   }, [isMobile])
 
+  const traceCount = useMemo(() => {
+    return isMobile ? 5 : 7
+  }, [isMobile])
 
 
   const getE = useCallback((max, width, height) => {
@@ -93,9 +100,6 @@ const LoveOfMyLife = (props: any) => {
     const fontFamily = FONT_FAMILY
     bgCtx.clearRect(0, 0, width, height)
     bgCtx.textAlign = 'center'
-    // bgCtx.translate(width / 2, height / 2)
-    // bgCtx.rotate(45 * Math.PI / 180)
-    // bgCtx.translate(-width / 2, -height / 2)
     bgCtx.textBaseline = 'middle'
     bgCtx.fillStyle = BG_COLOR
     bgCtx.font = `${fontWeight} ${MAX_FONT_SIZE}px ${fontFamily}`
@@ -123,7 +127,7 @@ const LoveOfMyLife = (props: any) => {
   const loop = () => {
     ctx.fillStyle = 'rgba(0,0,0,.1)'
     ctx.fillRect(0, 0, width, height)
-    for (let i = globalE.length; i--; ) {
+    for (let i = globalE.length; i--;) {
       const u = globalE[i] || {}
       const q = matrix[u.q] || []
       const dx = u.trace[0].x - (q[0] || width * rand())
@@ -149,7 +153,7 @@ const LoveOfMyLife = (props: any) => {
       u.trace[0].y += u.vy
       u.vx *= u.force
       u.vy *= u.force
-      for (let k = 0; k < u.trace.length - 1; ) {
+      for (let k = 0; k < u.trace.length - 1;) {
         const T = u.trace[k]
         const N = u.trace[++k]
         N.x -= config.traceK * (N.x - T.x)
@@ -195,7 +199,7 @@ const LoveOfMyLife = (props: any) => {
 
       setGlobalE(nextE)
     }
-    
+
   }, [matrix, initiated])
 
   useEffect(() => {
