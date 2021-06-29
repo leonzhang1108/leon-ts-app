@@ -15,16 +15,16 @@ const config = {
 
 const textList = ['發財', '服翼']
 
-
 const LoveOfMyLife = (props: any) => {
   const { h, w, isMobile } = props
-  const [text, setText] = useState(textList[0])
   const canvasRef = useRef<any>()
+  const bgCanvasRef = useRef<any>()
+  const rafRef = useRef<any>()
+  const [text, setText] = useState<string>()
   const [ctx, setCtx] = useState<any>(null)
   const [bgCtx, setBgCtx] = useState<any>(null)
   const [matrix, setMatrix] = useState<any>([])
   const [initiated, setInitiated] = useState(false)
-  const rafRef = useRef<any>()
   const [globalE, setGlobalE] = useState<any[]>([])
   const [index, setIndex] = useState(0)
 
@@ -52,42 +52,45 @@ const LoveOfMyLife = (props: any) => {
     return isMobile ? 5 : 7
   }, [isMobile])
 
-
-  const getE = useCallback((max, width, height) => {
-    const e: any = []
-    for (let i = 0; i < max; i++) {
-      const x = rand() * width
-      const y = rand() * height
-      e[i] = {
-        vx: 0,
-        vy: 0,
-        R: 2,
-        speed: rand() + isMobile ? 15 : 1,
-        q: ~~(rand() * max),
-        D: 2 * (i % 2) - 1,
-        force: 0.2 * rand() + 0.7,
-        f:
-          'hsla(0,' +
-          ~~(40 * rand() + 60) +
-          '%,' +
-          ~~(60 * rand() + 20) +
-          '%,1)',
-        trace: [],
-      }
-      for (let k = 0; k < traceCount; k++) {
-        e[i].trace[k] = {
-          x,
-          y,
+  const getE = useCallback(
+    (max, width, height) => {
+      const e: any = []
+      for (let i = 0; i < max; i++) {
+        const x = rand() * width
+        const y = rand() * height
+        e[i] = {
+          vx: 0,
+          vy: 0,
+          R: 2,
+          speed: rand() + isMobile ? 15 : 10,
+          q: ~~(rand() * max),
+          D: 2 * (i % 2) - 1,
+          force: 0.2 * rand() + 0.7,
+          f:
+            'hsla(0,' +
+            ~~(40 * rand() + 60) +
+            '%,' +
+            ~~(60 * rand() + 20) +
+            '%,1)',
+          trace: [],
+        }
+        for (let k = 0; k < traceCount; k++) {
+          e[i].trace[k] = {
+            x,
+            y,
+          }
         }
       }
-    }
-    return e
-  }, [isMobile])
+      return e
+    },
+    [isMobile]
+  )
 
   useEffect(() => {
     const canvas = canvasRef.current
+    const bgCanvas = bgCanvasRef.current
     const context = canvas.getContext('2d')
-    const bgContext = canvas.getContext('2d')
+    const bgContext = bgCanvas.getContext('2d')
     setCtx(context)
     setBgCtx(bgContext)
     return () => {
@@ -107,7 +110,6 @@ const LoveOfMyLife = (props: any) => {
     const fontSize = Math.min(MAX_FONT_SIZE, MAX_FONT_SIZE * scale * 0.8)
     bgCtx.font = `${fontWeight} ${fontSize}px ${fontFamily}`
     bgCtx.fillText(text, width / 2, height / 2)
-
     const matrix: any = []
     const pixels = bgCtx.getImageData(0, 0, width, height).data
     for (let i = 0; i < height; i += CELL_DISTANCE) {
@@ -120,14 +122,13 @@ const LoveOfMyLife = (props: any) => {
       }
     }
     setMatrix(matrix)
-
-    bgCtx.fillRect(0, 0, width, height)
   }, [bgCtx, height, width, text])
 
   const loop = () => {
+    // ctx.clearRect(0, 0, width, height)
     ctx.fillStyle = 'rgba(0,0,0,.1)'
     ctx.fillRect(0, 0, width, height)
-    for (let i = globalE.length; i--;) {
+    for (let i = globalE.length; i--; ) {
       const u = globalE[i] || {}
       const q = matrix[u.q] || []
       const dx = u.trace[0].x - (q[0] || width * rand())
@@ -153,7 +154,7 @@ const LoveOfMyLife = (props: any) => {
       u.trace[0].y += u.vy
       u.vx *= u.force
       u.vy *= u.force
-      for (let k = 0; k < u.trace.length - 1;) {
+      for (let k = 0; k < u.trace.length - 1; ) {
         const T = u.trace[k]
         const N = u.trace[++k]
         N.x -= config.traceK * (N.x - T.x)
@@ -167,13 +168,10 @@ const LoveOfMyLife = (props: any) => {
     rafRef.current = window.requestAnimationFrame(loop)
   }
 
-  const doLoop = useCallback(
-    () => {
-      rafRef.current && cancelAnimationFrame(rafRef.current)
-      matrix.length && globalE.length && loop()
-    },
-    [matrix, globalE],
-  )
+  const doLoop = useCallback(() => {
+    rafRef.current && cancelAnimationFrame(rafRef.current)
+    matrix.length && globalE.length && loop()
+  }, [matrix, globalE])
 
   useEffect(() => {
     globalE && doLoop()
@@ -199,35 +197,42 @@ const LoveOfMyLife = (props: any) => {
 
       setGlobalE(nextE)
     }
-
   }, [matrix, initiated])
 
   useEffect(() => {
     setText(textList[index % textList.length])
   }, [index])
 
-  const canvasOnClick = useCallback(
-    () => {
-      setIndex(index => index + 1)
-    },
-    [],
-  )
+  const canvasOnClick = useCallback(() => {
+    setIndex((index) => index + 1)
+  }, [])
 
   const canvasStyle = useMemo(() => {
     if (isMobile) {
       return {
         transform: 'rotate(90deg)',
-        transformOrigin: `${height / 2}px ${height / 2}px`
+        transformOrigin: `${height / 2}px ${height / 2}px`,
       }
     } else {
       return {}
     }
   }, [isMobile])
 
-
   return (
     <div className="love-of-my-life-wrapper" onClick={canvasOnClick}>
-      <canvas style={canvasStyle} ref={canvasRef} height={height} width={width} />
+      <canvas
+        style={canvasStyle}
+        ref={canvasRef}
+        height={height}
+        width={width}
+      />
+      <canvas
+        className="bg-canvas"
+        style={canvasStyle}
+        ref={bgCanvasRef}
+        height={height}
+        width={width}
+      />
     </div>
   )
 }
