@@ -13,7 +13,7 @@ const config = {
   traceK: 0.5,
 }
 
-const textList = ['發財', 'I ❤ U']
+const textList = ['發財', '服翼']
 
 
 const LoveOfMyLife = (props: any) => {
