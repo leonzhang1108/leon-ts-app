@@ -13,7 +13,7 @@ const config = {
   traceK: 0.5,
 }
 
-const textList = ['發財', '服翼']
+const textList = ['發 財', '❤ ❤']
 
 const LoveOfMyLife = (props: any) => {
   const { h, w, isMobile } = props
@@ -220,6 +220,7 @@ const LoveOfMyLife = (props: any) => {
 
   return (
     <div className="love-of-my-life-wrapper" onClick={canvasOnClick}>
+      <div className="hint">click to change</div>
       <canvas
         style={canvasStyle}
         ref={canvasRef}
