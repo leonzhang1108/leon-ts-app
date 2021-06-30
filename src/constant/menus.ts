@@ -1,8 +1,8 @@
 export default [
   {
-    route: 'leon',
+    route: 'deshi-basara',
     icon: 'ts-app icon-home',
-    title: 'Leon'
+    title: 'Deshi Basara'
   },
   {
     route: 'doraemon',
