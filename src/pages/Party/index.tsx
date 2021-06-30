@@ -15,7 +15,8 @@ const config = {
 
 const h = document.body.clientHeight
 const w = document.body.clientWidth
-const isMobile = false
+const win: any = window
+const isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(((navigator.userAgent || navigator.vendor || win.opera)).toLowerCase()))
 
 const Party = () => {
   const canvasRef = useRef<any>()
