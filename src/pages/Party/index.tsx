@@ -18,6 +18,8 @@ const w = document.body.clientWidth
 const win: any = window
 const isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(((navigator.userAgent || navigator.vendor || win.opera)).toLowerCase()))
 
+const textList = ['1921', '2021']
+
 const Party = () => {
   const canvasRef = useRef<any>()
   const bgCanvasRef = useRef<any>()
@@ -118,16 +120,16 @@ const Party = () => {
     if (!bgCtx) return
     bgCtx.clearRect(0, 0, width, height)
     if (index % 3 !== 0) {
-      const remainder = index % 3
+      const text = textList[index % 3 - 1]
       const fontFamily = FONT_FAMILY
       bgCtx.textAlign = 'center'
       bgCtx.textBaseline = 'middle'
       bgCtx.fillStyle = BG_COLOR
       bgCtx.font = `${fontWeight} ${MAX_FONT_SIZE}px ${fontFamily}`
-      const scale = width / bgCtx.measureText(remainder === 1 ? '1921' : '2021').width
+      const scale = width / bgCtx.measureText(text).width
       const fontSize = Math.min(MAX_FONT_SIZE, MAX_FONT_SIZE * scale * 1)
       bgCtx.font = `${fontWeight} ${fontSize}px ${fontFamily}`
-      bgCtx.fillText(remainder === 1 ? '1921' : '2021', width / 2, height / 2)
+      bgCtx.fillText(text, width / 2, height / 2)
       getMatrix()
     } else {
       const img = new Image()
@@ -135,7 +137,7 @@ const Party = () => {
   
         let scale = width / img.width
   
-        scale = height / img.height
+        scale = height / img.height * (isMobile ? 0.9 : 0.8)
   
         const imageWidth = img.width * scale //imgW，imgH是图片的大小
         const imageHeight = img.height * scale
@@ -227,10 +229,6 @@ const Party = () => {
     }
   }, [matrix, initiated])
 
-  const canvasOnClick = useCallback(() => {
-    setIndex((index) => index + 1)
-  }, [])
-
   const canvasStyle = useMemo(() => {
     if (isMobile) {
       return {
@@ -242,8 +240,19 @@ const Party = () => {
     }
   }, [isMobile])
 
+  const canvasOnClick = useCallback(() => {
+    setIndex((index) => index + 1)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(canvasOnClick, 3000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
-    <div className="party-wrapper" onClick={canvasOnClick}>
+    <div className="party-wrapper">
       <canvas
         style={canvasStyle}
         ref={canvasRef}
