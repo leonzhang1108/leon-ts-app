@@ -53,11 +53,11 @@ class Router extends React.Component<IProps> {
 
   redirectToHome = () => {
     this.props.actions.toggleOpenKeys({
-      breadcrumb: [{route: "home", icon: "ts-app icon-home", title: "Home"}],
+      breadcrumb: [{route: "leon", icon: "ts-app icon-home", title: "Leon"}],
       isInit: true
     })
 
-    return <Redirect to="/home" />
+    return <Redirect to="/leon" />
   }
 
   render() {
