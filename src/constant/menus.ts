@@ -1,8 +1,8 @@
 export default [
   {
-    route: 'home',
+    route: 'leon',
     icon: 'ts-app icon-home',
-    title: 'Home'
+    title: 'Leon'
   },
   {
     route: 'doraemon',
