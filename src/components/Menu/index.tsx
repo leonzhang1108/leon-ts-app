@@ -132,7 +132,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
     const menuProps: IMenuProps = {
       className: 'left-menu',
-      selectedKeys: [route ? `/${route}` : '/home'],
+      selectedKeys: [route ? `/${route}` : '/leon'],
       mode: 'inline',
       theme: '',
       defaultOpenKeys
