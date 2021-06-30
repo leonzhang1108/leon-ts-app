@@ -5,6 +5,8 @@ import Menu from '@cpt/Menu'
 import Router from '@pages/router'
 import { Layout } from 'antd'
 import React from 'react'
+import { Route, Switch } from 'react-router-dom'
+import Party from '@pages/Party'
 import './App.less'
 
 const { Content, Footer } = Layout
@@ -25,4 +27,13 @@ const App = () => (
   </Layout>
 )
 
-export default App
+const Wrapper = () => {
+  return (
+    <Switch>
+      <Route path="/100" exact={true} component={Party} />
+      <Route component={App} />
+    </Switch>
+  )
+}
+
+export default Wrapper
