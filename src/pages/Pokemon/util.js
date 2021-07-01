@@ -686,13 +686,6 @@ export default ({ el, height, width, setCount }) => {
       result.scene.rotation.set(-Math.PI / 8, 0, 0)
       result.scene.position.set(-0.01, -0.02, -0.15)
       ballGroup.add(result.scene)
-
-      // ballGroup.scale.set(0.5, 0.5, 0.5)
-      // ballGroup.rotation.set(-Math.PI / 8, 0, 0)
-      // ballGroup.position.set(-0.5, -0.5, -0.5)
-      // ballGroup.add(result.scene)
-      
-
       ballGroup2.add(ballGroup.clone())
       setCount(count => count + 1)
     })
@@ -788,7 +781,6 @@ export default ({ el, height, width, setCount }) => {
 
     ballGroup2.add(mesh)
     ballGroup2.scale.set(1, 1, 1)
-    ballGroup2.position.set(0, 0, 0.5)
     ballGroup2.rotation.set(Math.PI / 16, -Math.PI / 16 + Math.PI, 0)
     parentGroupFront.add(ballGroup2)
     
@@ -1176,6 +1168,7 @@ export default ({ el, height, width, setCount }) => {
 
       newMaterial5.uniforms.time.value = -delta / (1000 * 2)
       shadermat.uniforms.time.value = delta
+      ballGroup2.position.set(0.1, 0.05 * Math.sin(-delta / 800), 0.4)
     }
   }
   var matrix = new THREE.Matrix4()
