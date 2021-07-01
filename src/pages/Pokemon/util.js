@@ -16,15 +16,8 @@ export default ({ el, height, width, setCount }) => {
     'https://img.alicdn.com/imgextra/i1/O1CN017b6yjO22H6Nf2V8hU_!!6000000007094-49-tps-600-600.webp'
   const water =
     'https://img.alicdn.com/imgextra/i2/O1CN01K9cVZ21pWalot4vzn_!!6000000005368-49-tps-512-512.webp'
-  // const pokeball = './3d-models/ball3.glb'
-  // const pokelogo = './3d-models/log2.glb'
-  // const charmodel = './3d-models/char8.glb'
-  // const rocks = './3d-models/rocks12.glb'
-
-  const pokeball = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/ball3.glb";
-  const pokelogo = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/log2.glb";
-  const charmodel = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/char8.glb";
-  const rocks = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/rocks12.glb";
+  const pokeball = './3d-models/ball3.glb'
+  const pokelogo = './3d-models/log2.glb'
 
   const borderFront =
     'https://img.alicdn.com/imgextra/i4/O1CN01L4DScA21zhKTJIdN4_!!6000000007056-2-tps-2516-3636.png'
@@ -38,16 +31,6 @@ export default ({ el, height, width, setCount }) => {
     'https://img.alicdn.com/imgextra/i4/O1CN01wlj9g323MsztwMu4i_!!6000000007242-2-tps-2512-3632.png'
   const color3 =
     'https://img.alicdn.com/imgextra/i4/O1CN01W72Of81SfzjikKQTZ_!!6000000002275-49-tps-417-626.webp'
-  const lavamap =
-    'https://img.alicdn.com/imgextra/i1/O1CN01JwkahA1WNSASP5NSD_!!6000000002776-49-tps-2048-2048.webp'
-  const lavanormal =
-    'https://img.alicdn.com/imgextra/i4/O1CN01DhK3ZR1UBsvx6axqt_!!6000000002480-49-tps-2048-2048.webp'
-  const lavadisplacement =
-    'https://img.alicdn.com/imgextra/i1/O1CN01NpR0fF2AC4xfyM2gP_!!6000000008166-49-tps-2048-2048.webp'
-  const lavaocc =
-    'https://img.alicdn.com/imgextra/i3/O1CN01UCd2DJ1dMiqcviSEp_!!6000000003722-49-tps-2048-2048.webp'
-  const lavaspec =
-    'https://img.alicdn.com/imgextra/i1/O1CN01JvfaWe1XfbTsYKT5o_!!6000000002951-49-tps-2048-2048.webp'
 
   let scene, sceneRTT, camera, cameraRTT, renderer, controls, rocksmat
 
@@ -504,10 +487,9 @@ export default ({ el, height, width, setCount }) => {
     light()
     models()
     mesh()
-    meshgroups()
+    meshGroups()
     cardBack()
     cardFront()
-    addFontCard()
     addPoints()
     onPositionChange()
     animate()
@@ -591,100 +573,6 @@ export default ({ el, height, width, setCount }) => {
     bloomComposer.renderToScreen = false
     bloomComposer.addPass(renderScene)
     bloomComposer.addPass(bloomPass)
-  }
-
-  function addFontCard() {
-    const loader = new GLTFLoader()
-    loader.load(charmodel, (gltf) => {
-      gltf.scene.traverse(function (node) {
-        if (node.isMesh) {
-          node.castShadow = true
-        }
-      })
-
-      gltf.scene.scale.set(0.03, 0.03, 0.03)
-      gltf.scene.position.set(-0.35, -1.7, -1.2)
-      gltf.scene.rotation.set(0, Math.PI / 6, 0)
-
-      parentGroupFront.add(gltf.scene)
-
-      const geocyl = new THREE.CylinderBufferGeometry(
-        0.0008,
-        0.45,
-        7,
-        32,
-        64,
-        true
-      )
-      const mesh = new THREE.Mesh(geocyl, newMaterial5)
-      mesh.rotation.set(Math.PI / 1.6, Math.PI / 4.5, Math.PI / 1.6)
-      mesh.position.set(2.7, 2.3, 1.38)
-      mesh.scale.set(1, 1, 1)
-      parentGroupFront.add(mesh)
-
-      const geosphere = new THREE.SphereBufferGeometry(10, 32, 32)
-      const meshback = new THREE.Mesh(geosphere, newMaterial6)
-
-      parentGroupFront.add(meshback)
-
-      parentGroupFront.rotation.set(0, Math.PI, 0)
-      parentGroupFront.scale.set(0.75, 0.75, 0.75)
-      setCount(count => count + 1)
-    })
-
-    loader.load(rocks, (gltf) => {
-      rocksmat = new THREE.MeshStandardMaterial({
-        color: 0x666666,
-        map: new THREE.TextureLoader().load(lavamap),
-        normalMap: new THREE.TextureLoader().load(lavanormal),
-        normalScale: new THREE.Vector2(20, 20),
-        aoMap: new THREE.TextureLoader().load(lavaocc),
-        aoMapIntensity: 1,
-        displacementMap: new THREE.TextureLoader().load(lavadisplacement),
-        displacementScale: 0.1,
-        lightMap: new THREE.TextureLoader().load(lavaspec),
-        // metalness: 0.1,
-        // lightMapIntensity: 0.01,
-      })
-
-      rocksmat.onBeforeCompile = (shader) => {
-        shaderRockCtx = shader
-        shader.uniforms = {
-          ...shader.uniforms,
-          time: { type: 'f', value: 0.0 },
-        }
-
-        shader.fragmentShader = `
-          uniform float time; 
-          float map2(float value, float min1, float max1, float min2, float max2) {
-            return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
-          }
-      
-        ${shader.fragmentShader}`
-
-        shader.fragmentShader = shader.fragmentShader.replace(
-          '#include <dithering_fragment>',
-          `
-          #include <dithering_fragment>
-          vec4 color = gl_FragColor;
-  
-          if(color.r>=0.3 && color.r!=color.g){
-            gl_FragColor *= map2(sin(time/1.3),-1.,1.,0.7,1.9);
-          }
-          `
-        )
-      }
-
-      gltf.scene.traverse(function (node) {
-        if (node.isMesh) node.material = rocksmat
-      })
-
-      gltf.scene.rotation.set(0, -Math.PI / 1.5, 0)
-      gltf.scene.scale.set(1.2, 1.2, 1.2)
-      gltf.scene.position.set(3, -4.85, -7)
-      parentGroupFront.add(gltf.scene)
-      setCount(count => count + 1)
-    })
   }
 
   function sceneLights() {
@@ -851,7 +739,7 @@ export default ({ el, height, width, setCount }) => {
     parentGroupBack.add(mesh)
   }
 
-  function meshgroups() {
+  function meshGroups() {
     const geometry = new THREE.SphereBufferGeometry(
       0.4,
       30,
@@ -1024,7 +912,7 @@ export default ({ el, height, width, setCount }) => {
       },
       btemplate: {
         type: 't',
-        value: new THREE.TextureLoader().load(borderFront),
+        value: new THREE.TextureLoader().load(borderBack),
       },
       demoimg: {
         type: 't',
@@ -1044,125 +932,106 @@ export default ({ el, height, width, setCount }) => {
         type: 't',
         value: new THREE.TextureLoader().load(rampimg),
       },
-      time: {
-        type: 'f',
-        value: 0.0,
-      },
     }
     const geometry = new THREE.PlaneBufferGeometry(2, 3)
     const rough = new THREE.TextureLoader().load(straightnoise)
     newfrontmaterial = new THREE.MeshStandardMaterial({
       color: 0xfffffff,
       metalness: 1,
-      roughness: 1.4,
+      roughness: 0.7,
       roughnessMap: rough,
       transparent: true,
     })
     newfrontmaterial.onBeforeCompile = (shader) => {
-      shaderCtx = shader
+      shaderCtx2 = shader
       shader.uniforms = {
         ...shader.uniforms,
         ...uniforms,
       }
 
       shader.vertexShader = `
-          varying vec2 vUv2;
-          varying vec3 camPos;
-          // varying vec3 eyeVector;
-        ${shader.vertexShader}
-        `
+        varying vec2 vUv2;
+        varying vec3 camPos;
+      ${shader.vertexShader}
+      `
 
       shader.vertexShader = shader.vertexShader.replace(
         '#include <project_vertex>',
         `
-          #include <project_vertex>
-          vUv2 = uv;
-          camPos = cameraPosition;
-          vec4 worldPosition2 = modelViewMatrix * vec4( position, 1.0);
-          // eyeVector = normalize(worldPosition2.xyz - abs(cameraPosition));
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);`
+        #include <project_vertex>
+        vUv2 = uv;
+        camPos = cameraPosition;
+        vec4 worldPosition = modelViewMatrix * vec4( position, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);`
       )
 
       shader.fragmentShader = `
-          varying vec2 vUv2;
-          varying vec3 camPos;
-          // varying vec3 eyeVector;
-          uniform sampler2D renderBackTex;
-          uniform sampler2D btemplate;
-          uniform vec4 resolution;
-          uniform float screenWidth;
-          uniform sampler2D frontimg;
-          uniform sampler2D backtexture;
-          uniform sampler2D colorramp;
-          uniform sampler2D demoimg;
-          uniform float time;
+      
+        varying vec2 vUv2;
+        varying vec3 camPos;
+        uniform sampler2D renderBackTex;
+        uniform sampler2D btemplate;
+        uniform vec4 resolution;
+        uniform float screenWidth;
+        uniform sampler2D frontimg;
+        uniform sampler2D backtexture;
+        uniform sampler2D colorramp;
+        uniform sampler2D demoimg;
   
-        ${shader.fragmentShader}
-      `
+        vec3 rgb(float r,float g,float b){
+          return vec3(r/255.,g/255.,b/255.);
+        }
+        
+      ${shader.fragmentShader}
+    `
 
       shader.fragmentShader = shader.fragmentShader.replace(
         '#include <dithering_fragment>',
         `
-          #include <dithering_fragment>
+        #include <dithering_fragment>
   
-          vec4 originalG = gl_FragColor;
-          vec2 uv = gl_FragCoord.xy/resolution.xy ;
-          vec4 demotex = texture2D(demoimg,mod(vUv2,1.));
-          float centerXAxis = screenWidth/resolution.x;
-          vec4 backTemplete = texture2D(btemplate,mod(vUv2,1.));
+        vec4 originalG = gl_FragColor;
+        vec2 uv = gl_FragCoord.xy/resolution.xy ;
+        float centerXAxis = screenWidth/resolution.x;
+        vec4 backTemplete = texture2D(btemplate,mod(vUv2,1.));    
+        vec4 target = texture2D(renderBackTex,vec2(uv.x - centerXAxis + 0.5,uv.y));    
   
-          float frequency = 100.0/(0.8 - vUv.y);
-          float amplitude = 0.004;
-          float distortion=sin(uv.y*frequency + time)*amplitude*(0.8 - vUv.y)*smoothstep(0.380,0.1,vUv.y);;
+        vec4 frontimgtex = texture2D(btemplate,mod(vUv2,1.));   
+        vec3 backtexturetex = texture2D(backtexture,mod(vUv2,1.)).rgb;   
+        float tone = pow(dot(normalize(camPos), normalize(backtexturetex.rgb)), 1.);
+        vec4 colortex = texture2D( colorramp, vec2(tone,0.));
   
-          vec4 target = texture2D(renderBackTex,vec2(uv.x - centerXAxis + distortion + 0.5,uv.y));
+        gl_FragColor = vec4(frontimgtex);
+        vec4 col = vec4(0.);
+        col = vec4(vec3(colortex),1.);
+        col += vec4(sin((tone + vUv2.x + vUv2.y/10.)*10.))/8.;
+        col += vec4(0.3);
   
-          gl_FragColor = vec4(backTemplete);
-          if(backTemplete.r >= .05 ){
-            gl_FragColor = vec4(target);
-          }
+        vec4 shine = vUv.y*smoothstep(0.1,0.101,vec4(0.48)*sin((-normalize(camPos).x + vUv.x*2. - vUv.y*.7)/3.))/10.;
+        vec4 finaltex = vec4(frontimgtex);
+        if(frontimgtex.r<=0.99 && frontimgtex.g<=0.99 && frontimgtex.b<=0.99){
+          finaltex = vec4(1.);
+        }
+        gl_FragColor = frontimgtex;
   
-          vec4 frontimgtex = texture2D(btemplate,mod(vUv2,1.));
-          vec3 backtexturetex = texture2D(backtexture,mod(vec2(vUv2.x,vUv2.y*1.),1.)).rgb;
-          float tone = pow(dot(normalize(camPos), normalize(backtexturetex.rgb)), 1.);
-          vec4 colortex = texture2D( colorramp, vec2(mod(tone + 0.,1.),0.2));
+        if(gl_FragColor.g==1. && (gl_FragColor.r <= 0.055 && gl_FragColor.r >= 0.05 )){
+          gl_FragColor = vec4(0.);
+        }
   
-          gl_FragColor = vec4(frontimgtex);
-          vec4 col = vec4(0.);
-          col = vec4(vec3(colortex),1.);
-          col += vec4(sin((tone + vUv2.x + vUv2.y/10.)*10.))/8.;
-          col += vec4(0.3);
+        if(gl_FragColor.r == 0.0 && gl_FragColor.g >= 0.00){
+          // gl_FragColor = (vec4(target) + originalG/5.)*gl_FragColor.a;
+          gl_FragColor = (vec4(target))*gl_FragColor.a;
+          // gl_FragColor += shine;
   
-          vec4 finaltex = vec4(frontimgtex);
+        } else {
+          gl_FragColor =  col - vec4(vec3( 1.4 - col.r),1.) + 0.2 + originalG;
+          gl_FragColor.b = 0.8;
+          gl_FragColor.g *= 0.45;
+          gl_FragColor.r *= 0.38;
+          gl_FragColor += shine/5.;
+        }
   
-          if(frontimgtex.r<=0.99 && frontimgtex.g<=0.1){
-            finaltex = vec4(0.);
-          }
-  
-          vec4 shine = vUv.y*smoothstep(0.1,0.101,vec4(0.48)*sin((normalize(camPos).x + vUv.x*2. - vUv.y*.7)/3.))/10.;
-          if(finaltex.r>=0.01 && finaltex.g <=0.001){
-            gl_FragColor = vec4(target) + originalG/5.;
-            // gl_FragColor = vec4(target) + vec4(shine);
-          } else {
-            if(finaltex.r==0.&&finaltex.g==0.){
-              // gl_FragColor = vec4(1.,1.,1.,finaltex.a) * (col - vec4(vec3( 1.4  - gl_FragColor.r),1.) + 0.2 + originalG);
-              gl_FragColor = vec4(0.2,0.2,0.2,1.) * (col - vec4(vec3(0.2),1.)  + originalG);
-  
-            }else{
-              gl_FragColor = vec4(1.,1.,1.,finaltex.a) * (col - vec4(vec3( 1.4  - gl_FragColor.r),1.) + 0.2 + originalG) + shine/5.;
-            }
-          }
-  
-          // display pokemon info
-          if(demotex.a>=0.9){
-            if(demotex.r>=0.5 && demotex.g>=0.5 && demotex.b>=0.5){
-              gl_FragColor = (col - vec4(vec3( 1.6 - demotex.r),demotex.a) + 0.2 + originalG)*gl_FragColor.a ;
-            }else{
-              gl_FragColor = (col * demotex + originalG)*gl_FragColor.a ;
-            }
-          }
-  
-          `
+      `
       )
     }
     newfrontmaterial.anisotropy = 0
