@@ -14,12 +14,15 @@ const Pokemon = (props: any) => {
   }, [count])
 
   useEffect(() => {
-    init({
+    const destroy = init({
       el: wrapperRef.current,
       height,
       width,
       setCount,
     })
+    return () => {
+      destroy()
+    }
   }, [])
 
   return (
