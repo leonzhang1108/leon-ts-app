@@ -19,8 +19,6 @@ export default ({ el, height, width, setCount }) => {
   const pokeball = './3d-models/ball3.glb'
   const pokelogo = './3d-models/log2.glb'
 
-  const borderFront =
-    'https://img.alicdn.com/imgextra/i4/O1CN01L4DScA21zhKTJIdN4_!!6000000007056-2-tps-2516-3636.png'
   const borderBack =
     'https://img.alicdn.com/imgextra/i1/O1CN01mtgFii1M45GGZRFLh_!!6000000001380-2-tps-1884-2727.png'
   const rampimg =
@@ -677,6 +675,7 @@ export default ({ el, height, width, setCount }) => {
   })
 
   const ballGroup = new THREE.Group()
+  const ballGroup2 = new THREE.Group()
   let parentGroupBack = new THREE.Group()
   let parentGroupFront = new THREE.Group()
 
@@ -687,6 +686,14 @@ export default ({ el, height, width, setCount }) => {
       result.scene.rotation.set(-Math.PI / 8, 0, 0)
       result.scene.position.set(-0.01, -0.02, -0.15)
       ballGroup.add(result.scene)
+
+      // ballGroup.scale.set(0.5, 0.5, 0.5)
+      // ballGroup.rotation.set(-Math.PI / 8, 0, 0)
+      // ballGroup.position.set(-0.5, -0.5, -0.5)
+      // ballGroup.add(result.scene)
+      
+
+      ballGroup2.add(ballGroup.clone())
       setCount(count => count + 1)
     })
 
@@ -701,6 +708,17 @@ export default ({ el, height, width, setCount }) => {
       obj2.add(obj.clone())
       obj2.rotation.set(0, 0, Math.PI)
       parentGroupBack.add(obj2)
+
+      let obj3 = new THREE.Object3D()
+      obj3.add(obj2.clone())
+      obj3.rotation.set(0, Math.PI, 0)
+      parentGroupFront.add(obj3)
+
+      let obj4 = new THREE.Object3D()
+      obj4.add(obj3.clone())
+      obj4.rotation.set(0, 0, Math.PI)
+      parentGroupFront.add(obj4)
+
       setCount(count => count + 1)
     })
   }
@@ -756,14 +774,26 @@ export default ({ el, height, width, setCount }) => {
       depthWrite: false,
     })
     const mesh = new THREE.Mesh(geometry, newMaterialGroup)
+    const mesh2 = new THREE.Mesh(geometry, newMaterialGroup)
     mesh.scale.set(1.6, 1.1, 1.3)
     mesh.position.set(-0.16, 0.21, -0.14)
     mesh.rotation.set(-Math.PI / 1.8, Math.PI / 3, 0)
+    mesh2.scale.set(1.6, 1.1, 1.3)
+    mesh2.position.set(-0.16, 0.21, -0.14)
+    mesh2.rotation.set(-Math.PI / 1.8, Math.PI / 3, 0)
     ballGroup.add(mesh)
     ballGroup.scale.set(1.84, 1.84, 1.84)
     ballGroup.rotation.set(Math.PI / 16, -Math.PI / 16, 0)
     parentGroupBack.add(ballGroup)
+
+    ballGroup2.add(mesh)
+    ballGroup2.scale.set(1, 1, 1)
+    ballGroup2.position.set(0, 0, 0.5)
+    ballGroup2.rotation.set(Math.PI / 16, -Math.PI / 16 + Math.PI, 0)
+    parentGroupFront.add(ballGroup2)
+    
     sceneRTT.add(parentGroupBack)
+    sceneRTT.add(parentGroupFront)
   }
 
   let newfrontmaterial, newbackmaterial
