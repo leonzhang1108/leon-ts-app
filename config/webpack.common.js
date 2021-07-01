@@ -48,6 +48,10 @@ module.exports = {
           from: path.resolve(__dirname, '../public/icon'),
           to: path.resolve(__dirname, '../dist/icon')
         },
+        {
+          from: path.resolve(__dirname, '../public/3d-models'),
+          to: path.resolve(__dirname, '../dist/3d-models')
+        },
         { 
           from: path.resolve(__dirname, '../public/manifest.json'),
           to: path.resolve(__dirname, '../dist/manifest.json')
@@ -112,6 +116,12 @@ module.exports = {
           test: /matter-js/,
           priority: 100,
           name: 'matterjsVendor',
+          chunks: 'async'
+        },
+        three: {
+          test: /three/,
+          priority: 100,
+          name: 'threejsVendor',
           chunks: 'async'
         },
       }
