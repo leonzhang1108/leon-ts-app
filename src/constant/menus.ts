@@ -188,6 +188,11 @@ export default [
         icon: 'ts-app icon-dollar',
         title: 'Love Of My Life'
       },
+      {
+        route: 'pokemon',
+        icon: 'ts-app icon-pokemon',
+        title: 'Pokemon'
+      },
     ]
   },
   {
