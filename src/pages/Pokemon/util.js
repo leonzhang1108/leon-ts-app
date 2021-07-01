@@ -16,10 +16,16 @@ export default ({ el, height, width, setCount }) => {
     'https://img.alicdn.com/imgextra/i1/O1CN017b6yjO22H6Nf2V8hU_!!6000000007094-49-tps-600-600.webp'
   const water =
     'https://img.alicdn.com/imgextra/i2/O1CN01K9cVZ21pWalot4vzn_!!6000000005368-49-tps-512-512.webp'
-  const pokeball = './3d-models/ball3.glb'
-  const pokelogo = './3d-models/log2.glb'
-  const charmodel = './3d-models/char8.glb'
-  const rocks = './3d-models/rocks12.glb'
+  // const pokeball = './3d-models/ball3.glb'
+  // const pokelogo = './3d-models/log2.glb'
+  // const charmodel = './3d-models/char8.glb'
+  // const rocks = './3d-models/rocks12.glb'
+
+  const pokeball = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/ball3.glb";
+  const pokelogo = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/log2.glb";
+  const charmodel = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/char8.glb";
+  const rocks = "https://raw.githubusercontent.com/pizza3/asset/master/chaassets/rocks12.glb";
+
   const borderFront =
     'https://img.alicdn.com/imgextra/i4/O1CN01L4DScA21zhKTJIdN4_!!6000000007056-2-tps-2516-3636.png'
   const borderBack =
