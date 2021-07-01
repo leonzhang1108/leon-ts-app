@@ -6,6 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three'
 
 export default ({ el, height, width, setCount }) => {
+  let raf
   const streakimg =
     'https://img.alicdn.com/imgextra/i1/O1CN01XXy6zu1jcBuwuQIUr_!!6000000004568-49-tps-506-525.webp'
   const streakimg2 =
@@ -783,7 +784,7 @@ export default ({ el, height, width, setCount }) => {
     ballGroup2.scale.set(1, 1, 1)
     ballGroup2.rotation.set(Math.PI / 16, -Math.PI / 16 + Math.PI, 0)
     parentGroupFront.add(ballGroup2)
-    
+
     sceneRTT.add(parentGroupBack)
     sceneRTT.add(parentGroupFront)
   }
@@ -1171,17 +1172,11 @@ export default ({ el, height, width, setCount }) => {
       ballGroup2.position.set(0.1, 0.05 * Math.sin(-delta / 800), 0.4)
     }
   }
-  var matrix = new THREE.Matrix4()
-  var period = 5
-  var clock = new THREE.Clock()
 
   function animate(delta) {
-    requestAnimationFrame(animate)
+    raf = requestAnimationFrame(animate)
     updateDraw(delta)
     controls.update()
-    // matrix.makeRotationY(-(clock.getDelta() * 0.7 * Math.PI) / period);
-    // camera.position.applyMatrix4(matrix);
-    // camera.lookAt(frontcard.position);
 
     renderer.clear()
     bloomComposer.render()
@@ -1244,6 +1239,9 @@ export default ({ el, height, width, setCount }) => {
     }
   }
 
-  window.addEventListener('load', init())
-  window.addEventListener('resize', handleResize)
+  init()
+
+  return () => {
+    raf && cancelAnimationFrame(raf)
+  }
 }
