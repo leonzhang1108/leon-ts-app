@@ -519,6 +519,7 @@ export default ({ el, height, width, setCount }) => {
 
     controls = new OrbitControls(camera, renderer.domElement)
     controls.enableZoom = false
+    controls.enablePan = false
     controls.addEventListener('change', onPositionChange)
 
     el.appendChild(renderer.domElement)
