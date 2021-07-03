@@ -1211,8 +1211,8 @@ export default ({ el, height, width, setCount }) => {
       if (prevAngle !== 'front') {
         handleResize()
         prevAngle = 'front'
-        ambLight.intensity = 0.75
-        // dir1Light.intensity = 0.5;
+        ambLight.intensity = 0.25
+        dir1Light.intensity = 0.5
         dir2Light.intensity = 0.1
         dir3Light.position.set(0, 0, -1)
         sceneRTT.remove(parentGroupBack)
