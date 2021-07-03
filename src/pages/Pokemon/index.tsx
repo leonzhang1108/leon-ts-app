@@ -28,9 +28,9 @@ const Pokemon = (props: any) => {
   return (
     <div className="pokemon-wrapper">
       <div ref={wrapperRef} />
-      <div className="source-tip">
+      {/* <div className="source-tip">
         source: https://codepen.io/pizza3/pen/oNZYyxy
-      </div>
+      </div> */}
       {loading ? (
         <div className="model-loading">
           <Loader />
