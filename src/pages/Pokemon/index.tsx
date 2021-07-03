@@ -10,7 +10,7 @@ const Pokemon = (props: any) => {
   const [count, setCount] = useState(0)
 
   const loading = useMemo(() => {
-    return count !== 2
+    return count !== 3
   }, [count])
 
   useEffect(() => {
