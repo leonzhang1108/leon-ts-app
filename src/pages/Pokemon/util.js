@@ -694,8 +694,7 @@ export default ({ el, height, width, setCount }) => {
 
     gloader.load(mew, function (result) {
       result.scene.scale.set(0.1, 0.1, 0.1)
-      result.scene.rotation.set(0, 0, 0)
-      result.scene.position.set(0.1, -0.1, -0.15)
+      result.scene.position.set(0.2, -0.1, -0.15)
       mewGroup.add(result.scene)
       setCount(count => count + 1)
     })
