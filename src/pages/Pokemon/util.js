@@ -17,6 +17,7 @@ export default ({ el, height, width, setCount }) => {
     'https://img.alicdn.com/imgextra/i1/O1CN017b6yjO22H6Nf2V8hU_!!6000000007094-49-tps-600-600.webp'
   const water =
     'https://img.alicdn.com/imgextra/i2/O1CN01K9cVZ21pWalot4vzn_!!6000000005368-49-tps-512-512.webp'
+  const mew = './3d-models/scene.gltf'
   const pokeball = './3d-models/ball3.glb'
   const pokelogo = './3d-models/log2.glb'
 
@@ -677,18 +678,25 @@ export default ({ el, height, width, setCount }) => {
   })
 
   const ballGroup = new THREE.Group()
-  const ballGroup2 = new THREE.Group()
+  const mewGroup = new THREE.Group()
   let parentGroupBack = new THREE.Group()
   let parentGroupFront = new THREE.Group()
 
   function models() {
     const gloader = new GLTFLoader()
     gloader.load(pokeball, function (result) {
-      result.scene.scale.set(0.27, 0.28, 0.28)
+      result.scene.scale.set(0.28, 0.28, 0.28)
       result.scene.rotation.set(-Math.PI / 8, 0, 0)
       result.scene.position.set(-0.01, -0.02, -0.15)
       ballGroup.add(result.scene)
-      ballGroup2.add(ballGroup.clone())
+      setCount(count => count + 1)
+    })
+
+    gloader.load(mew, function (result) {
+      result.scene.scale.set(0.1, 0.1, 0.1)
+      result.scene.rotation.set(0, 0, 0)
+      result.scene.position.set(0.1, -0.1, -0.15)
+      mewGroup.add(result.scene)
       setCount(count => count + 1)
     })
 
@@ -706,13 +714,13 @@ export default ({ el, height, width, setCount }) => {
 
       let obj3 = new THREE.Object3D()
       obj3.add(obj2.clone())
-      obj3.rotation.set(0, Math.PI, 0)
+      obj3.rotation.set(0, Math.PI, Math.PI)
       parentGroupFront.add(obj3)
 
-      let obj4 = new THREE.Object3D()
-      obj4.add(obj3.clone())
-      obj4.rotation.set(0, 0, Math.PI)
-      parentGroupFront.add(obj4)
+      // let obj4 = new THREE.Object3D()
+      // obj4.add(obj3.clone())
+      // obj4.rotation.set(0, 0, Math.PI)
+      // parentGroupFront.add(obj4)
 
       setCount(count => count + 1)
     })
@@ -769,22 +777,18 @@ export default ({ el, height, width, setCount }) => {
       depthWrite: false,
     })
     const mesh = new THREE.Mesh(geometry, newMaterialGroup)
-    const mesh2 = new THREE.Mesh(geometry, newMaterialGroup)
     mesh.scale.set(1.6, 1.1, 1.3)
     mesh.position.set(-0.16, 0.21, -0.14)
     mesh.rotation.set(-Math.PI / 1.8, Math.PI / 3, 0)
-    mesh2.scale.set(1.6, 1.1, 1.3)
-    mesh2.position.set(-0.16, 0.21, -0.14)
-    mesh2.rotation.set(-Math.PI / 1.8, Math.PI / 3, 0)
     ballGroup.add(mesh)
     ballGroup.scale.set(1.84, 1.84, 1.84)
     ballGroup.rotation.set(Math.PI / 16, -Math.PI / 16, 0)
     parentGroupBack.add(ballGroup)
 
-    ballGroup2.add(mesh)
-    ballGroup2.scale.set(1, 1, 1)
-    ballGroup2.rotation.set(Math.PI / 16, -Math.PI / 16 + Math.PI, 0)
-    parentGroupFront.add(ballGroup2)
+    // mewGroup.add(mesh)
+    mewGroup.scale.set(1, 1, 1)
+    mewGroup.rotation.set(Math.PI / 16, -Math.PI / 16 + Math.PI, 0)
+    parentGroupFront.add(mewGroup)
 
     sceneRTT.add(parentGroupBack)
     sceneRTT.add(parentGroupFront)
@@ -1170,7 +1174,7 @@ export default ({ el, height, width, setCount }) => {
 
       newMaterial5.uniforms.time.value = -delta / (1000 * 2)
       shadermat.uniforms.time.value = delta
-      ballGroup2.position.set(0.1, 0.05 * Math.sin(-delta / 800), 0.4)
+      mewGroup.position.set(0.1, 0.05 * Math.sin(-delta / 800), 0.4)
     }
   }
 
