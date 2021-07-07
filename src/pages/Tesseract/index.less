@@ -1,0 +1,91 @@
+.tesseract-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  .bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+  }
+
+  .progress-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    z-index: 1;
+    .progress-line {
+      width: 20%;
+    }
+  }
+  .res-wrapper {
+    padding: 20px;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pre {
+      height: auto;
+      max-height: 100%;
+      overflow: auto;
+      word-break: normal !important;
+      word-wrap: normal !important;
+      white-space: pre !important;
+    }​
+    img {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      opacity: 0.5;
+    }
+  }
+
+  .upload-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    .upload,
+    .change {
+      height: 4rem;
+      width: 4rem;
+    }
+    .change {
+      overflow: hidden;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      position: absolute;
+    }
+    .upload {
+      position: relative;
+      padding: 0.4rem 1rem;
+      text-align: center;
+      border: 1px dashed #999;
+      text-decoration: none;
+      color: #666;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.disappear {
+        height: 0;
+        opacity: 0;
+        margin: 0;
+      }
+      .icon-add {
+        font-size: 2rem;
+      }
+    }
+  }
+}
