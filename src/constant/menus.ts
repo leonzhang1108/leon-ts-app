@@ -130,6 +130,11 @@ export default [
         route: 'fromto-container-page',
         icon: 'ts-app icon-tree',
         title: '流向图'
+      },
+      {
+        route: 'tesseract',
+        icon: 'ts-app icon-tesseract',
+        title: 'Tesseract'
       }
     ]
   },
