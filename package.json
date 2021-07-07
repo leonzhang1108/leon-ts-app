@@ -27,6 +27,7 @@
     "react-particles-js": "^3.4.1",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
+    "tesseract.js": "^2.1.4",
     "three": "^0.130.0",
     "tracking": "^1.1.3"
   },
