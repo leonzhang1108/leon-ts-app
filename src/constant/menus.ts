@@ -85,7 +85,7 @@ export default [
         title: 'Loki'
       },
       {
-        route: 'poke-badge',
+        route: 'gym-badge',
         icon: 'ts-app icon-badge',
         title: 'Gym Badge'
       },
