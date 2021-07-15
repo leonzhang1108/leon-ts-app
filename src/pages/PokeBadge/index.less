@@ -1,0 +1,1991 @@
+.pokemon-badge-wrapper {
+  height: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #454545;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  *:before,
+  *:after {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+
+  .boulder-badge,
+  .cascade-badge,
+  .thunder-badge,
+  .rainbow-badge,
+  .soul-badge,
+  .marsh-badge,
+  .volcano-badge,
+  .earth-badge {
+    width: 240px;
+    height: 240px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .boulder-badge .badge,
+  .cascade-badge .badge,
+  .thunder-badge .badge,
+  .rainbow-badge .badge,
+  .soul-badge .badge,
+  .marsh-badge .badge,
+  .volcano-badge .badge,
+  .earth-badge .badge {
+    display: inline-block;
+  }
+
+  .boulder-badge h1,
+  .cascade-badge h1,
+  .thunder-badge h1,
+  .rainbow-badge h1,
+  .soul-badge h1,
+  .marsh-badge h1,
+  .volcano-badge h1,
+  .earth-badge h1 {
+    font-family: Lato, sans-serif;
+    font-size: 1em;
+    text-transform: uppercase;
+    color: white;
+    margin-top: 30px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .boulder-badge {
+    // background: #2d3e50;
+  }
+
+  .boulder-badge .badge {
+    position: relative;
+    width: 180px;
+    height: 180px;
+  }
+
+  .boulder-badge .badge .part,
+  .boulder-badge .badge .part:before,
+  .boulder-badge .badge .part:after {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .boulder-badge .badge .part {
+    -webkit-transform-origin: center center 0;
+    -moz-transform-origin: center center 0;
+    -ms-transform-origin: center center 0;
+    -o-transform-origin: center center 0;
+    transform-origin: center center 0;
+    top: 0;
+    left: 50%;
+    margin-left: -38px;
+    border-width: 90px 38px 90px 38px;
+  }
+
+  .boulder-badge .badge .part:before {
+    -webkit-transform: rotate(0.01deg);
+    -moz-transform: rotate(0.01deg);
+    -ms-transform: rotate(0.01deg);
+    -o-transform: rotate(0.01deg);
+    transform: rotate(0.01deg);
+    /* Jagged edge fix */
+    content: ' ';
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -26px;
+    border-width: 60px 26px 60px 26px;
+    z-index: 10;
+  }
+
+  .boulder-badge .badge .part:after {
+    -webkit-transform: rotate(0.01deg);
+    -moz-transform: rotate(0.01deg);
+    -ms-transform: rotate(0.01deg);
+    -o-transform: rotate(0.01deg);
+    transform: rotate(0.01deg);
+    content: ' ';
+    top: 50%;
+    left: 50%;
+    margin-top: -39px;
+    margin-left: -17px;
+    border-width: 39px 17px 39px 17px;
+    z-index: 20;
+  }
+
+  .boulder-badge .badge .part-1 {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-top-color: #9f9d9e;
+    border-bottom-color: #646263;
+    z-index: 50;
+  }
+
+  .boulder-badge .badge .part-1:before {
+    border-top-color: #878586;
+    border-bottom-color: #595556;
+  }
+
+  .boulder-badge .badge .part-1:after {
+    border-top-color: #8d8d8d;
+    border-bottom-color: #7f7f7f;
+  }
+
+  .boulder-badge .badge .part-2 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-top-color: #858182;
+    border-bottom-color: #898788;
+    z-index: 40;
+  }
+
+  .boulder-badge .badge .part-2:before {
+    border-top-color: #706e6f;
+    border-bottom-color: #777576;
+  }
+
+  .boulder-badge .badge .part-2:after {
+    border-top-color: #8d8d8d;
+    border-bottom-color: #8d8d8d;
+  }
+
+  .boulder-badge .badge .part-3 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    border-top-color: #676364;
+    border-bottom-color: #979596;
+    z-index: 30;
+  }
+
+  .boulder-badge .badge .part-3:before {
+    border-top-color: #595556;
+    border-bottom-color: #838182;
+  }
+
+  .boulder-badge .badge .part-3:after {
+    border-top-color: #7f7f7f;
+    border-bottom-color: #8d8d8d;
+  }
+
+  .boulder-badge .badge .part-4 {
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    border-top-color: #615d5e;
+    border-bottom-color: #a5a3a4;
+    z-index: 20;
+  }
+
+  .boulder-badge .badge .part-4:before {
+    border-top-color: #535152;
+    border-bottom-color: #878586;
+  }
+
+  .boulder-badge .badge .part-4:after {
+    border-top-color: #7f7f7f;
+    border-bottom-color: #8d8d8d;
+  }
+
+  .boulder-badge .badge .part-shade {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: 13px;
+    margin-left: -6px;
+    border-left-width: 0;
+    border-top-color: #767475;
+    border-bottom-color: #7b797a;
+    z-index: 100;
+  }
+
+  .boulder-badge .badge .part-shade:before {
+    margin-left: 0;
+    border-left-width: 0;
+    border-top-color: #656364;
+    border-bottom-color: #6b696a;
+  }
+
+  .boulder-badge .badge .part-shade:after {
+    margin-left: 0;
+    border-left-width: 0;
+    border-top-color: #7f7f7f;
+    border-bottom-color: #7f7f7f;
+  }
+
+  .cascade-badge {
+    // background: #474749;
+  }
+
+  .cascade-badge .badge {
+    position: relative;
+    width: 145px;
+    height: 200px;
+  }
+
+  .cascade-badge .badge .part {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .cascade-badge .badge .part-1,
+  .cascade-badge .badge .part-2,
+  .cascade-badge .badge .part-3,
+  .cascade-badge .badge .part-4 {
+    left: 50%;
+  }
+
+  .cascade-badge .badge .part-5,
+  .cascade-badge .badge .part-6,
+  .cascade-badge .badge .part-7,
+  .cascade-badge .badge .part-8 {
+    right: 50%;
+  }
+
+  .cascade-badge .badge .part-1 {
+    border-width: 60px 0 40px 37px;
+    border-left-color: #39a8d5;
+  }
+
+  .cascade-badge .badge .part-2 {
+    -webkit-transform: rotate(13deg);
+    -moz-transform: rotate(13deg);
+    -ms-transform: rotate(13deg);
+    -o-transform: rotate(13deg);
+    transform: rotate(13deg);
+    top: 61px;
+    margin-left: 4px;
+    border-width: 0 48px 48px 27px;
+    border-bottom-color: #25a2d2;
+  }
+
+  .cascade-badge .badge .part-3 {
+    -webkit-transform: rotate(13deg);
+    -moz-transform: rotate(13deg);
+    -ms-transform: rotate(13deg);
+    -o-transform: rotate(13deg);
+    transform: rotate(13deg);
+    top: 107px;
+    margin-left: -9px;
+    border-width: 63px 7px 0 69px;
+    border-top-color: #0d9bcd;
+  }
+
+  .cascade-badge .badge .part-4 {
+    top: 100px;
+    border-width: 75px 0 24px 52px;
+    border-left-color: #0697c9;
+  }
+
+  .cascade-badge .badge .part-5 {
+    top: 100px;
+    border-width: 75px 52px 24px 0;
+    border-right-color: #25a2d2;
+  }
+
+  .cascade-badge .badge .part-6 {
+    -webkit-transform: rotate(-13deg);
+    -moz-transform: rotate(-13deg);
+    -ms-transform: rotate(-13deg);
+    -o-transform: rotate(-13deg);
+    transform: rotate(-13deg);
+    top: 107px;
+    margin-right: -9px;
+    border-width: 63px 69px 0 7px;
+    border-top-color: #45acd9;
+  }
+
+  .cascade-badge .badge .part-7 {
+    -webkit-transform: rotate(-13deg);
+    -moz-transform: rotate(-13deg);
+    -ms-transform: rotate(-13deg);
+    -o-transform: rotate(-13deg);
+    transform: rotate(-13deg);
+    top: 61px;
+    margin-right: 4px;
+    border-width: 0 27px 48px 48px;
+    border-bottom-color: #55b0dd;
+  }
+
+  .cascade-badge .badge .part-8 {
+    border-width: 60px 37px 40px 0;
+    border-right-color: #5db4df;
+  }
+
+  .thunder-badge {
+    // background: #525c65;
+  }
+
+  .thunder-badge .badge {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 68px;
+    border-color: #eac830 #ebae2c #ebae2c #eac830;
+  }
+
+  .thunder-badge .badge:before,
+  .thunder-badge .badge:after {
+    -webkit-transform-origin: center right 0;
+    -moz-transform-origin: center right 0;
+    -ms-transform-origin: center right 0;
+    -o-transform-origin: center right 0;
+    transform-origin: center right 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    content: ' ';
+    position: absolute;
+    top: -68px;
+    left: -68px;
+    width: 68px;
+    height: 136px;
+    background: #eac830;
+    z-index: 10;
+  }
+
+  .thunder-badge .badge:after {
+    -webkit-transform-origin: center left 0;
+    -moz-transform-origin: center left 0;
+    -ms-transform-origin: center left 0;
+    -o-transform-origin: center left 0;
+    transform-origin: center left 0;
+    left: 0;
+    background: #ebae2c;
+  }
+
+  .thunder-badge .badge .part,
+  .thunder-badge .badge .part:before {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .thunder-badge .badge .part {
+    -webkit-transform-origin: center center 0;
+    -moz-transform-origin: center center 0;
+    -ms-transform-origin: center center 0;
+    -o-transform-origin: center center 0;
+    transform-origin: center center 0;
+    top: -60px;
+    left: 50%;
+    margin-left: -25px;
+    border-width: 60px 25px 60px 25px;
+    z-index: 20;
+  }
+
+  .thunder-badge .badge .part:before {
+    -webkit-transform: rotate(0.01deg);
+    -moz-transform: rotate(0.01deg);
+    -ms-transform: rotate(0.01deg);
+    -o-transform: rotate(0.01deg);
+    transform: rotate(0.01deg);
+    /* Jagged edge fix */
+    content: ' ';
+    top: 50%;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -17px;
+    border-width: 40px 17px 40px 17px;
+    border-top-color: #e64d2d;
+    border-bottom-color: #e64d2d;
+    z-index: 30;
+  }
+
+  .thunder-badge .badge .part-1 {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-top-color: #da492c;
+    border-bottom-color: #ac3518;
+    z-index: 50;
+  }
+
+  .thunder-badge .badge .part-2 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-top-color: #b33921;
+    border-bottom-color: #be3e25;
+    z-index: 40;
+  }
+
+  .thunder-badge .badge .part-3 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    border-top-color: #ac3518;
+    border-bottom-color: #d2452a;
+    z-index: 30;
+  }
+
+  .thunder-badge .badge .part-4 {
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    border-top-color: #a63016;
+    border-bottom-color: #da492c;
+    z-index: 20;
+  }
+
+  .thunder-badge .badge .part-shade {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: 9px;
+    margin-left: -4px;
+    border-left-width: 0;
+    border-top-color: #bf3b1f;
+    border-bottom-color: #c93f22;
+    z-index: 100;
+  }
+
+  .thunder-badge .badge .part-shade:before {
+    margin-left: 0;
+    border-left-width: 0;
+    border-top-color: #e64d2d;
+    border-bottom-color: #e64d2d;
+  }
+
+  .rainbow-badge {
+    // background: #474749;
+  }
+
+  .rainbow-badge .badge {
+    position: relative;
+    height: 180px;
+    width: 180px;
+  }
+
+  .rainbow-badge .badge:before {
+    content: ' ';
+    position: absolute;
+    background: #bdb6b4;
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+    border-style: solid;
+    border-width: 16px;
+    border-color: #c6bebc #beb6b4 #beb6b4 #c6bebc;
+    z-index: 50;
+  }
+
+  .rainbow-badge .badge .part-leaf {
+    -webkit-transform-origin: center bottom 0;
+    -moz-transform-origin: center bottom 0;
+    -ms-transform-origin: center bottom 0;
+    -o-transform-origin: center bottom 0;
+    transform-origin: center bottom 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 90px;
+    width: 0;
+    margin-left: -13px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
+    border-width: 0 13px 0 13px;
+    z-index: 10;
+  }
+
+  .rainbow-badge .badge .part-leaf:before,
+  .rainbow-badge .badge .part-leaf:after {
+    content: ' ';
+    position: absolute;
+    top: -1px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
+  }
+
+  .rainbow-badge .badge .part-leaf:before {
+    right: 12px;
+    border-width: 23px 17px 40px 0;
+  }
+
+  .rainbow-badge .badge .part-leaf:after {
+    left: 12px;
+    border-width: 23px 0 40px 17px;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-1 {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-left-color: #e2004b;
+    border-right-color: #d60048;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-1:before {
+    border-right-color: #e2004b;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-1:after {
+    border-left-color: #d60048;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-2 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-left-color: #e64d2d;
+    border-right-color: #d2452a;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-2:before {
+    border-right-color: #e64d2d;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-2:after {
+    border-left-color: #d2452a;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-3 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    border-left-color: #e0bd2d;
+    border-right-color: #d4b42b;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-3:before {
+    border-right-color: #e0bd2d;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-3:after {
+    border-left-color: #d4b42b;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-4 {
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    border-left-color: #4e9f5e;
+    border-right-color: #54b36a;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-4:before {
+    border-right-color: #4e9f5e;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-4:after {
+    border-left-color: #54b36a;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-5 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    border-left-color: #399f57;
+    border-right-color: #3eaa5e;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-5:before {
+    border-right-color: #399f57;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-5:after {
+    border-left-color: #3eaa5e;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-6 {
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    transform: rotate(225deg);
+    border-left-color: #67a3c7;
+    border-right-color: #6eb3de;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-6:before {
+    border-right-color: #67a3c7;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-6:after {
+    border-left-color: #6eb3de;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-7 {
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+    border-left-color: #486ba7;
+    border-right-color: #4d70b3;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-7:before {
+    border-right-color: #486ba7;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-7:after {
+    border-left-color: #4d70b3;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-8 {
+    -webkit-transform: rotate(315deg);
+    -moz-transform: rotate(315deg);
+    -ms-transform: rotate(315deg);
+    -o-transform: rotate(315deg);
+    transform: rotate(315deg);
+    border-left-color: #9455a2;
+    border-right-color: #8b4f9b;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-8:before {
+    border-right-color: #9455a2;
+  }
+
+  .rainbow-badge .badge .part-leaf.part-8:after {
+    border-left-color: #8b4f9b;
+  }
+
+  .rainbow-badge .badge .part-inner {
+    -webkit-transform-origin: center bottom 0;
+    -moz-transform-origin: center bottom 0;
+    -ms-transform-origin: center bottom 0;
+    -o-transform-origin: center bottom 0;
+    transform-origin: center bottom 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 35px;
+    width: 0;
+    margin-left: -14px;
+    margin-top: -35px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
+    border-width: 0 14px 0 14px;
+    z-index: 20;
+  }
+
+  .rainbow-badge .badge .part-inner:before,
+  .rainbow-badge .badge .part-inner:after {
+    content: ' ';
+    position: absolute;
+    top: -1px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
+  }
+
+  .rainbow-badge .badge .part-inner:before {
+    right: 13px;
+    border-width: 16px 10px 10px 0;
+  }
+
+  .rainbow-badge .badge .part-inner:after {
+    left: 13px;
+    border-width: 16px 0 10px 10px;
+  }
+
+  .rainbow-badge .badge .part-inner.part-1 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-left-color: #e4d3cf;
+    border-right-color: #d9c8c4;
+  }
+
+  .rainbow-badge .badge .part-inner.part-1:before {
+    border-right-color: #e4d3cf;
+  }
+
+  .rainbow-badge .badge .part-inner.part-1:after {
+    border-left-color: #d9c8c4;
+  }
+
+  .rainbow-badge .badge .part-inner.part-2 {
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    border-left-color: #cfbeb8;
+    border-right-color: #cfbeb8;
+  }
+
+  .rainbow-badge .badge .part-inner.part-2:before {
+    border-right-color: #cfbeb8;
+  }
+
+  .rainbow-badge .badge .part-inner.part-2:after {
+    border-left-color: #cfbeb8;
+  }
+
+  .rainbow-badge .badge .part-inner.part-3 {
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    transform: rotate(225deg);
+    border-left-color: #e6d4d3;
+    border-right-color: #efe2db;
+  }
+
+  .rainbow-badge .badge .part-inner.part-3:before {
+    border-right-color: #e6d4d3;
+  }
+
+  .rainbow-badge .badge .part-inner.part-3:after {
+    border-left-color: #efe2db;
+  }
+
+  .rainbow-badge .badge .part-inner.part-4 {
+    -webkit-transform: rotate(315deg);
+    -moz-transform: rotate(315deg);
+    -ms-transform: rotate(315deg);
+    -o-transform: rotate(315deg);
+    transform: rotate(315deg);
+    border-left-color: #fbeee7;
+    border-right-color: #fbeee7;
+  }
+
+  .rainbow-badge .badge .part-inner.part-4:before {
+    border-right-color: #fbeee7;
+  }
+
+  .rainbow-badge .badge .part-inner.part-4:after {
+    border-left-color: #fbeee7;
+  }
+
+  .soul-badge {
+    // background: #2d3e50;
+  }
+
+  .soul-badge .badge {
+    position: relative;
+    height: 180px;
+    width: 180px;
+  }
+
+  .soul-badge .badge .part {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
+  }
+
+  .soul-badge .badge .part-1 {
+    -webkit-transform: rotate(-62deg);
+    -moz-transform: rotate(-62deg);
+    -ms-transform: rotate(-62deg);
+    -o-transform: rotate(-62deg);
+    transform: rotate(-62deg);
+    left: 50%;
+    margin-top: 31px;
+    margin-left: -36px;
+    border-width: 0 41px 27px 50px;
+    border-bottom-color: #c370a4;
+  }
+
+  .soul-badge .badge .part-2 {
+    -webkit-transform: rotate(-119deg);
+    -moz-transform: rotate(-119deg);
+    -ms-transform: rotate(-119deg);
+    -o-transform: rotate(-119deg);
+    transform: rotate(-119deg);
+    right: 50%;
+    margin-top: 31px;
+    margin-right: -36px;
+    border-width: 27px 41px 0 50px;
+    border-top-color: #c370a4;
+  }
+
+  .soul-badge .badge .part-3 {
+    -webkit-transform: rotate(-27deg);
+    -moz-transform: rotate(-27deg);
+    -ms-transform: rotate(-27deg);
+    -o-transform: rotate(-27deg);
+    transform: rotate(-27deg);
+    left: 50%;
+    margin-top: 20px;
+    margin-left: -18px;
+    border-width: 0 23px 53px 75px;
+    border-bottom-color: #b86c9d;
+  }
+
+  .soul-badge .badge .part-4 {
+    -webkit-transform: rotate(-154deg);
+    -moz-transform: rotate(-154deg);
+    -ms-transform: rotate(-154deg);
+    -o-transform: rotate(-154deg);
+    transform: rotate(-154deg);
+    right: 50%;
+    margin-top: 20px;
+    margin-right: -18px;
+    border-width: 53px 23px 0 75px;
+    border-top-color: #cb76af;
+  }
+
+  .soul-badge .badge .part-5 {
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
+    transform: rotate(5deg);
+    left: 50%;
+    margin-top: 44px;
+    border-width: 0 6px 51px 84px;
+    border-bottom-color: #aa6091;
+  }
+
+  .soul-badge .badge .part-6 {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    right: 50%;
+    margin-top: 44px;
+    border-width: 0 84px 51px 6px;
+    border-bottom-color: #c370a4;
+  }
+
+  .soul-badge .badge .part-7 {
+    -webkit-transform: rotate(51deg);
+    -moz-transform: rotate(51deg);
+    -ms-transform: rotate(51deg);
+    -o-transform: rotate(51deg);
+    transform: rotate(51deg);
+    left: 50%;
+    margin-left: 10px;
+    margin-top: 65px;
+    border-width: 0 7px 63px 63px;
+    border-bottom-color: #995681;
+  }
+
+  .soul-badge .badge .part-8 {
+    -webkit-transform: rotate(-51deg);
+    -moz-transform: rotate(-51deg);
+    -ms-transform: rotate(-51deg);
+    -o-transform: rotate(-51deg);
+    transform: rotate(-51deg);
+    right: 50%;
+    margin-right: 10px;
+    margin-top: 65px;
+    border-width: 0 63px 63px 7px;
+    border-bottom-color: #b86c9d;
+  }
+
+  .soul-badge .badge .part-9 {
+    top: 50%;
+    left: 50%;
+    border-width: 52px 0 45px 44px;
+    border-left-color: #874d73;
+  }
+
+  .soul-badge .badge .part-10 {
+    top: 50%;
+    right: 50%;
+    border-width: 52px 44px 45px 0;
+    border-right-color: #b26695;
+  }
+
+  .soul-badge .badge .part-shade {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 4px;
+    margin-left: -3px;
+    width: 6px;
+    height: 89px;
+    background: #4e3145;
+    z-index: 20;
+  }
+
+  .soul-badge .badge .part-shade:before,
+  .soul-badge .badge .part-shade:after {
+    content: ' ';
+    position: absolute;
+    left: -3px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
+  }
+
+  .soul-badge .badge .part-shade:before {
+    top: -7px;
+    border-width: 0 3px 4px 3px;
+    border-bottom-color: #4e3145;
+  }
+
+  .soul-badge .badge .part-shade:after {
+    bottom: -7px;
+    border-width: 4px 3px 0 3px;
+    border-top-color: #4e3145;
+  }
+
+  .marsh-badge {
+    // background: #2d3e50;
+  }
+
+  .marsh-badge .badge {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    background: #f0c514;
+    overflow: hidden;
+  }
+
+  .marsh-badge .badge:before,
+  .marsh-badge .badge:after {
+    -webkit-transform: rotate(40deg);
+    -moz-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    -o-transform: rotate(40deg);
+    transform: rotate(40deg);
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 180px;
+    width: 180px;
+    background: #eeb412;
+  }
+
+  .marsh-badge .badge:before {
+    margin-left: 70px;
+  }
+
+  .marsh-badge .badge:after {
+    margin-top: 150px;
+  }
+
+  .marsh-badge .badge .inner {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    background: #f0c514;
+    border: solid 6px #f59d1f;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  .marsh-badge .badge .inner:before {
+    -webkit-transform: rotate(40deg);
+    -moz-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    -o-transform: rotate(40deg);
+    transform: rotate(40deg);
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 180px;
+    width: 180px;
+    background: #eeb412;
+    margin: 40px 0 0 10px;
+  }
+
+  .volcano-badge {
+    // background: #474749;
+  }
+
+  .volcano-badge .badge {
+    position: relative;
+    width: 165px;
+    height: 190px;
+  }
+
+  .volcano-badge .badge .part-outer {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .volcano-badge .badge .part-outer.part-1 {
+    top: 0;
+    left: 50%;
+    border-width: 51px 0 37px 39px;
+    border-left-color: #e01544;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-2 {
+    top: 0;
+    right: 50%;
+    border-width: 51px 39px 37px 0;
+    border-right-color: #e01544;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-3 {
+    -webkit-transform: rotate(34deg);
+    -moz-transform: rotate(34deg);
+    -ms-transform: rotate(34deg);
+    -o-transform: rotate(34deg);
+    transform: rotate(34deg);
+    top: 0;
+    left: 50%;
+    height: 70px;
+    border-width: 25px 0 18px 48px;
+    border-left-color: #d61240;
+    margin: 44px 0 0 30px;
+  }
+
+  .volcano-badge .badge .part-outer.part-3:before,
+  .volcano-badge .badge .part-outer.part-3:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .volcano-badge .badge .part-outer.part-3:before {
+    height: 50px;
+    border-width: 12px 7px 0 0;
+    border-right-color: #d61240;
+    margin: -16px 0 0 -52px;
+  }
+
+  .volcano-badge .badge .part-outer.part-3:after {
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    transform: rotate(2deg);
+    width: 20px;
+    height: 60px;
+    border: none;
+    background: #d61240;
+    margin: -6px 0 0 -68px;
+  }
+
+  .volcano-badge .badge .part-outer.part-4 {
+    -webkit-transform: rotate(-34deg);
+    -moz-transform: rotate(-34deg);
+    -ms-transform: rotate(-34deg);
+    -o-transform: rotate(-34deg);
+    transform: rotate(-34deg);
+    top: 0;
+    right: 50%;
+    height: 70px;
+    border-width: 25px 48px 18px 0;
+    border-right-color: #ec1747;
+    margin: 45px 30px 0 0;
+  }
+
+  .volcano-badge .badge .part-outer.part-4:before,
+  .volcano-badge .badge .part-outer.part-4:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .volcano-badge .badge .part-outer.part-4:before {
+    height: 50px;
+    border-width: 12px 0 0 7px;
+    border-left-color: #ec1747;
+    margin: -14px 0 0 47px;
+  }
+
+  .volcano-badge .badge .part-outer.part-4:after {
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    transform: rotate(2deg);
+    width: 20px;
+    height: 60px;
+    border: none;
+    background: #ec1747;
+    margin: -6px 0 0 45px;
+  }
+
+  .volcano-badge .badge .part-outer.part-5 {
+    -webkit-transform: rotate(25deg);
+    -moz-transform: rotate(25deg);
+    -ms-transform: rotate(25deg);
+    -o-transform: rotate(25deg);
+    transform: rotate(25deg);
+    top: 0;
+    left: 50%;
+    margin: 95px 0 0 -4px;
+    border-width: 0 17px 13px 68px;
+    border-bottom-color: #af0931;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-6 {
+    -webkit-transform: rotate(-25deg);
+    -moz-transform: rotate(-25deg);
+    -ms-transform: rotate(-25deg);
+    -o-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+    top: 0;
+    right: 50%;
+    margin: 95px -4px 0 0;
+    border-width: 0 68px 13px 17px;
+    border-bottom-color: #d61240;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-7 {
+    -webkit-transform: rotate(49deg);
+    -moz-transform: rotate(49deg);
+    -ms-transform: rotate(49deg);
+    -o-transform: rotate(49deg);
+    transform: rotate(49deg);
+    top: 0;
+    left: 50%;
+    margin: 102px 0 0 0;
+    border-width: 0 24px 31px 70px;
+    border-bottom-color: #af0931;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-8 {
+    -webkit-transform: rotate(-49deg);
+    -moz-transform: rotate(-49deg);
+    -ms-transform: rotate(-49deg);
+    -o-transform: rotate(-49deg);
+    transform: rotate(-49deg);
+    top: 0;
+    right: 50%;
+    margin: 102px 0 0 0;
+    border-width: 0 70px 31px 24px;
+    border-bottom-color: #d61240;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-9 {
+    top: 88px;
+    left: 50%;
+    border-width: 73px 0 38px 67px;
+    border-left-color: #9d0329;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-outer.part-10 {
+    top: 88px;
+    right: 50%;
+    border-width: 73px 67px 38px 0;
+    border-right-color: #cd123d;
+    z-index: 2;
+  }
+
+  .volcano-badge .badge .part-inner {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+    z-index: 5;
+  }
+
+  .volcano-badge .badge .part-inner.part-1 {
+    top: 60px;
+    left: 50%;
+    border-width: 24px 0 18px 17px;
+    border-left-color: #e6bc12;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-2 {
+    top: 60px;
+    right: 50%;
+    border-width: 24px 17px 18px 0;
+    border-right-color: #e6bc12;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-3 {
+    -webkit-transform: rotate(40deg);
+    -moz-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    -o-transform: rotate(40deg);
+    transform: rotate(40deg);
+    top: 0;
+    left: 50%;
+    height: 35px;
+    border-width: 12px 0 9px 22px;
+    border-left-color: #d9b312;
+    margin: 79px 0 0 13px;
+    z-index: 5;
+  }
+
+  .volcano-badge .badge .part-inner.part-3:before,
+  .volcano-badge .badge .part-inner.part-3:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .volcano-badge .badge .part-inner.part-3:before {
+    height: 32px;
+    border-width: 6px 4px 0 0;
+    border-right-color: #d9b312;
+    margin: -6px 0 0 -25px;
+  }
+
+  .volcano-badge .badge .part-inner.part-3:after {
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    transform: rotate(2deg);
+    width: 10px;
+    height: 30px;
+    border: none;
+    background: #d9b312;
+    margin: 2px 0 0 -28px;
+  }
+
+  .volcano-badge .badge .part-inner.part-4 {
+    -webkit-transform: rotate(-37deg);
+    -moz-transform: rotate(-37deg);
+    -ms-transform: rotate(-37deg);
+    -o-transform: rotate(-37deg);
+    transform: rotate(-37deg);
+    top: 0;
+    right: 50%;
+    height: 35px;
+    border-width: 12px 22px 9px 0;
+    border-right-color: #f0c514;
+    margin: 78px 13px 0 0;
+  }
+
+  .volcano-badge .badge .part-inner.part-4:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .volcano-badge .badge .part-inner.part-4:before {
+    height: 32px;
+    border-width: 12px 0 0 7px;
+    border-left-color: #f0c514;
+    margin: -7px 0 0 21px;
+  }
+
+  .volcano-badge .badge .part-inner.part-5 {
+    -webkit-transform: rotate(18deg);
+    -moz-transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    -o-transform: rotate(18deg);
+    transform: rotate(18deg);
+    top: 0;
+    left: 50%;
+    margin: 102px 0 0 -4px;
+    border-width: 0 7px 6px 34px;
+    border-bottom-color: #b2910e;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-6 {
+    -webkit-transform: rotate(-18deg);
+    -moz-transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    -o-transform: rotate(-18deg);
+    transform: rotate(-18deg);
+    top: 0;
+    right: 50%;
+    margin: 102px -4px 0 0;
+    border-width: 0 34px 6px 7px;
+    border-bottom-color: #d9b312;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-7 {
+    -webkit-transform: rotate(43deg);
+    -moz-transform: rotate(43deg);
+    -ms-transform: rotate(43deg);
+    -o-transform: rotate(43deg);
+    transform: rotate(43deg);
+    top: 0;
+    left: 50%;
+    margin: 102px 0 0 -1px;
+    border-width: 0 7px 16px 34px;
+    border-bottom-color: #b2910e;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-8 {
+    -webkit-transform: rotate(-43deg);
+    -moz-transform: rotate(-43deg);
+    -ms-transform: rotate(-43deg);
+    -o-transform: rotate(-43deg);
+    transform: rotate(-43deg);
+    top: 0;
+    right: 50%;
+    margin: 102px -1px 0 0;
+    border-width: 0 34px 16px 7px;
+    border-bottom-color: #d9b312;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-9 {
+    top: 102px;
+    left: 50%;
+    border-width: 28px 0 16px 30px;
+    border-left-color: #9e8006;
+    z-index: 10;
+  }
+
+  .volcano-badge .badge .part-inner.part-10 {
+    top: 102px;
+    right: 50%;
+    border-width: 28px 30px 16px 0;
+    border-right-color: #cfaa13;
+    z-index: 10;
+  }
+
+  .earth-badge {
+    // background: #474749;
+  }
+
+  .earth-badge .badge {
+    position: relative;
+    height: 170px;
+    width: 170px;
+  }
+
+  .earth-badge .badge .part-leaf {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-leaf.part-top,
+  .earth-badge .badge .part-leaf.part-1,
+  .earth-badge .badge .part-leaf.part-2,
+  .earth-badge .badge .part-leaf.part-3,
+  .earth-badge .badge .part-leaf.part-4,
+  .earth-badge .badge .part-leaf.part-5,
+  .earth-badge .badge .part-leaf.part-6 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border: none;
+    right: 0;
+    top: 0;
+    margin: 7px 7px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-top:before,
+  .earth-badge .badge .part-leaf.part-top:after,
+  .earth-badge .badge .part-leaf.part-1:before,
+  .earth-badge .badge .part-leaf.part-1:after,
+  .earth-badge .badge .part-leaf.part-2:before,
+  .earth-badge .badge .part-leaf.part-2:after,
+  .earth-badge .badge .part-leaf.part-3:before,
+  .earth-badge .badge .part-leaf.part-3:after,
+  .earth-badge .badge .part-leaf.part-4:before,
+  .earth-badge .badge .part-leaf.part-4:after,
+  .earth-badge .badge .part-leaf.part-5:before,
+  .earth-badge .badge .part-leaf.part-5:after,
+  .earth-badge .badge .part-leaf.part-6:before,
+  .earth-badge .badge .part-leaf.part-6:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 29px;
+    top: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-leaf.part-top:before,
+  .earth-badge .badge .part-leaf.part-1:before,
+  .earth-badge .badge .part-leaf.part-2:before,
+  .earth-badge .badge .part-leaf.part-3:before,
+  .earth-badge .badge .part-leaf.part-4:before,
+  .earth-badge .badge .part-leaf.part-5:before,
+  .earth-badge .badge .part-leaf.part-6:before {
+    right: 0;
+    margin-right: -1px;
+    border-width: 15px 25px 15px 0;
+    border-right-color: #4fb96e;
+  }
+
+  .earth-badge .badge .part-leaf.part-top:after,
+  .earth-badge .badge .part-leaf.part-1:after,
+  .earth-badge .badge .part-leaf.part-2:after,
+  .earth-badge .badge .part-leaf.part-3:after,
+  .earth-badge .badge .part-leaf.part-4:after,
+  .earth-badge .badge .part-leaf.part-5:after,
+  .earth-badge .badge .part-leaf.part-6:after {
+    left: 0;
+    border-width: 15px 0 15px 25px;
+    border-left-color: #3c9255;
+  }
+
+  .earth-badge .badge .part-leaf.part-1 {
+    -webkit-transform: rotate(-13deg);
+    -moz-transform: rotate(-13deg);
+    -ms-transform: rotate(-13deg);
+    -o-transform: rotate(-13deg);
+    transform: rotate(-13deg);
+    margin: 5px 75px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-1:before,
+  .earth-badge .badge .part-leaf.part-1:after {
+    height: 38px;
+  }
+
+  .earth-badge .badge .part-leaf.part-1:before {
+    border-width: 10px 17px 10px 0;
+    border-right-color: #4bb168;
+  }
+
+  .earth-badge .badge .part-leaf.part-1:after {
+    border-width: 10px 0 10px 17px;
+    border-left-color: #4bb168;
+  }
+
+  .earth-badge .badge .part-leaf.part-2 {
+    -webkit-transform: rotate(106deg);
+    -moz-transform: rotate(106deg);
+    -ms-transform: rotate(106deg);
+    -o-transform: rotate(106deg);
+    transform: rotate(106deg);
+    margin: 76px 6px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-2:before,
+  .earth-badge .badge .part-leaf.part-2:after {
+    height: 38px;
+  }
+
+  .earth-badge .badge .part-leaf.part-2:before {
+    border-width: 10px 17px 10px 0;
+    border-right-color: #398f52;
+  }
+
+  .earth-badge .badge .part-leaf.part-2:after {
+    border-width: 10px 0 10px 17px;
+    border-left-color: #398f52;
+  }
+
+  .earth-badge .badge .part-leaf.part-3 {
+    -webkit-transform: rotate(-14deg);
+    -moz-transform: rotate(-14deg);
+    -ms-transform: rotate(-14deg);
+    -o-transform: rotate(-14deg);
+    transform: rotate(-14deg);
+    margin: 35px 100px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-3:before,
+  .earth-badge .badge .part-leaf.part-3:after {
+    height: 38px;
+  }
+
+  .earth-badge .badge .part-leaf.part-3:before {
+    border-width: 9px 16px 9px 0;
+    border-right-color: #46a060;
+  }
+
+  .earth-badge .badge .part-leaf.part-3:after {
+    border-width: 9px 0 9px 16px;
+    border-left-color: #46a060;
+  }
+
+  .earth-badge .badge .part-leaf.part-4 {
+    -webkit-transform: rotate(108deg);
+    -moz-transform: rotate(108deg);
+    -ms-transform: rotate(108deg);
+    -o-transform: rotate(108deg);
+    transform: rotate(108deg);
+    margin: 100px 37px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-4:before,
+  .earth-badge .badge .part-leaf.part-4:after {
+    height: 38px;
+  }
+
+  .earth-badge .badge .part-leaf.part-4:before {
+    border-width: 9px 16px 9px 0;
+    border-right-color: #338249;
+  }
+
+  .earth-badge .badge .part-leaf.part-4:after {
+    border-width: 9px 0 9px 16px;
+    border-left-color: #338249;
+  }
+
+  .earth-badge .badge .part-leaf.part-5 {
+    -webkit-transform: rotate(-17deg);
+    -moz-transform: rotate(-17deg);
+    -ms-transform: rotate(-17deg);
+    -o-transform: rotate(-17deg);
+    transform: rotate(-17deg);
+    margin: 65px 121px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-5:before,
+  .earth-badge .badge .part-leaf.part-5:after {
+    height: 19px;
+  }
+
+  .earth-badge .badge .part-leaf.part-5:before {
+    border-width: 9px 16px 9px 0;
+    border-right-color: #3a9256;
+  }
+
+  .earth-badge .badge .part-leaf.part-5:after {
+    border-width: 5px 0 9px 13px;
+    border-left-color: #3a9256;
+  }
+
+  .earth-badge .badge .part-leaf.part-6 {
+    -webkit-transform: rotate(108deg);
+    -moz-transform: rotate(108deg);
+    -ms-transform: rotate(108deg);
+    -o-transform: rotate(108deg);
+    transform: rotate(108deg);
+    margin: 120px 64px 0 0;
+  }
+
+  .earth-badge .badge .part-leaf.part-6:before,
+  .earth-badge .badge .part-leaf.part-6:after {
+    height: 19px;
+  }
+
+  .earth-badge .badge .part-leaf.part-6:before {
+    border-width: 5px 13px 9px 0;
+    border-right-color: #3a9256;
+  }
+
+  .earth-badge .badge .part-leaf.part-6:after {
+    border-width: 9px 0 9px 16px;
+    border-left-color: #3a9256;
+  }
+
+  .earth-badge .badge .part-center.part-handle {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 122px;
+    right: 124px;
+  }
+
+  .earth-badge .badge .part-center.part-handle:before,
+  .earth-badge .badge .part-center.part-handle:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 65px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-handle:before {
+    left: 0;
+    margin-left: -7px;
+    border-right-color: #94b464;
+    border-right-width: 5px;
+  }
+
+  .earth-badge .badge .part-center.part-handle:after {
+    left: 0;
+    border-left-color: #84a35b;
+    border-left-width: 5px;
+  }
+
+  .earth-badge .badge .part-center.part-1-left,
+  .earth-badge .badge .part-center.part-1-right,
+  .earth-badge .badge .part-center.part-2-left,
+  .earth-badge .badge .part-center.part-2-right,
+  .earth-badge .badge .part-center.part-3-left,
+  .earth-badge .badge .part-center.part-3-right,
+  .earth-badge .badge .part-center.part-4 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-1-left {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 67px;
+    top: 0;
+    right: 0;
+    margin: 51px 90px 0 0;
+    border-width: 0 0 0 25px;
+    border-left-color: #a3c86e;
+  }
+
+  .earth-badge .badge .part-center.part-1-left:before,
+  .earth-badge .badge .part-center.part-1-left:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: -25px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-1-left:before {
+    margin-top: -15px;
+    border-width: 15px 25px 15px 0;
+    border-right-color: #abd275;
+  }
+
+  .earth-badge .badge .part-center.part-1-left:after {
+    margin-top: 52px;
+    border-width: 15px 25px 15px 0;
+    border-right-color: #94b564;
+  }
+
+  .earth-badge .badge .part-center.part-1-right {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 67px;
+    top: 0;
+    right: 0;
+    margin: 68px 73px 0 0;
+    border-width: 0 25px 0 0;
+    border-right-color: #8dac60;
+  }
+
+  .earth-badge .badge .part-center.part-1-right:before,
+  .earth-badge .badge .part-center.part-1-right:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-1-right:before {
+    margin-top: -15px;
+    border-width: 15px 0 15px 25px;
+    border-left-color: #9bc069;
+  }
+
+  .earth-badge .badge .part-center.part-1-right:after {
+    margin-top: 52px;
+    border-width: 15px 0 15px 25px;
+    border-left-color: #84a45b;
+  }
+
+  .earth-badge .badge .part-center.part-2-left {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 45px;
+    top: 0;
+    right: 0;
+    margin: 66px 92px 0 0;
+    border-width: 0 0 0 12px;
+    border-left-color: #53af65;
+  }
+
+  .earth-badge .badge .part-center.part-2-left:before,
+  .earth-badge .badge .part-center.part-2-left:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: -12px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-2-left:before {
+    margin-top: -11px;
+    border-width: 11px 12px 11px 0;
+    border-right-color: #5fbd71;
+  }
+
+  .earth-badge .badge .part-center.part-2-left:after {
+    margin-top: 33px;
+    border-width: 11px 12px 11px 0;
+    border-right-color: #459055;
+  }
+
+  .earth-badge .badge .part-center.part-2-right {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 45px;
+    top: 0;
+    right: 0;
+    margin: 75px 84px 0 0;
+    border-width: 0 12px 0 0;
+    border-right-color: #3f844e;
+  }
+
+  .earth-badge .badge .part-center.part-2-right:before,
+  .earth-badge .badge .part-center.part-2-right:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-2-right:before {
+    margin-top: -11px;
+    border-width: 11px 0 11px 12px;
+    border-left-color: #4b9c5f;
+  }
+
+  .earth-badge .badge .part-center.part-2-right:after {
+    margin-top: 33px;
+    border-width: 11px 0 11px 12px;
+    border-left-color: #377744;
+  }
+
+  .earth-badge .badge .part-center.part-3-left {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 29px;
+    top: 0;
+    right: 0;
+    margin: 75px 92px 0 0;
+    border-width: 0 0 0 6px;
+    border-left-color: #59b66b;
+  }
+
+  .earth-badge .badge .part-center.part-3-left:before,
+  .earth-badge .badge .part-center.part-3-left:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: -6px;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-3-left:before {
+    margin-top: -6px;
+    border-width: 6px 6px 6px 0;
+    border-right-color: #54ae65;
+  }
+
+  .earth-badge .badge .part-center.part-3-left:after {
+    margin-top: 24px;
+    border-width: 6px 6px 6px 0;
+    border-right-color: #51a362;
+  }
+
+  .earth-badge .badge .part-center.part-3-right {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 0;
+    height: 29px;
+    top: 0;
+    right: 0;
+    margin: 79px 88px 0 0;
+    border-width: 0 6px 0 0;
+    border-right-color: #4d9f5d;
+  }
+
+  .earth-badge .badge .part-center.part-3-right:before,
+  .earth-badge .badge .part-center.part-3-right:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-3-right:before {
+    margin-top: -6px;
+    border-width: 6px 0 6px 6px;
+    border-left-color: #54ae65;
+  }
+
+  .earth-badge .badge .part-center.part-3-right:after {
+    margin-top: 24px;
+    border-width: 6px 0 6px 6px;
+    border-left-color: #489558;
+  }
+
+  .earth-badge .badge .part-center.part-4 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 6px;
+    height: 27px;
+    top: 0;
+    right: 0;
+    margin: 78px 90px 0 0;
+    border: none;
+    background: #3d9257;
+  }
+
+  .earth-badge .badge .part-center.part-4:before,
+  .earth-badge .badge .part-center.part-4:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .earth-badge .badge .part-center.part-4:before {
+    margin-top: -3px;
+    border-width: 0 3px 3px 3px;
+    border-bottom-color: #3d9257;
+  }
+
+  .earth-badge .badge .part-center.part-4:after {
+    top: 100%;
+    border-width: 3px 3px 0 3px;
+    border-top-color: #3d9257;
+  }
+}
