@@ -31,11 +31,11 @@ const IronMan = () => (
     {[0, 0, 0].map((item, index) => (
       <div className={`iron-man clip-${index + 1}`} key={index}>
         <div className="inner-circle">
-          <div className="white-circle"></div>
-          <div className="center-triangle-4"></div>
-          <div className="center-triangle-3"></div>
-          <div className="center-triangle-2"></div>
-          <div className="center-triangle"></div>
+          <div className="white-circle" />
+          <div className="center-triangle-4" />
+          <div className="center-triangle-3" />
+          <div className="center-triangle-2" />
+          <div className="center-triangle" />
         </div>
       </div>
     ))}
@@ -86,19 +86,18 @@ const Hulk = () => {
 const Thor = () => {
   return (
     <div className="thor-wrapper">
-      <div className="top"></div>
-      <div className="bottom"></div>
-      <div className="needle"></div>
-      <div className="wing-left"></div>
-      <div className="mouth-left"></div>
-      <div className="wing-left-top-1"></div>
-      <div className="wing-left-top-2"></div>
-      <div className="wing-left-top-3"></div>
-      <div className="wing-right"></div>
-      <div className="mouth-right"></div>
-      <div className="wing-right-top-1"></div>
-      <div className="wing-right-top-2"></div>
-      <div className="wing-right-top-3"></div>
+      <div className="top" />
+      <div className="needle" />
+      <div className="wing-left" />
+      <div className="mouth-left" />
+      <div className="wing-left-top-1" />
+      <div className="wing-left-top-2" />
+      <div className="wing-left-top-3" />
+      <div className="wing-right" />
+      <div className="mouth-right" />
+      <div className="wing-right-top-1" />
+      <div className="wing-right-top-2" />
+      <div className="wing-right-top-3" />
     </div>
   )
 }
@@ -106,10 +105,10 @@ const Thor = () => {
 const HawkEye = () => {
   return (
     <div className="hawk-eye-wrapper">
-      <div className="inner-circle"></div>
-      <div className="outer-circle"></div>
-      <div className="vertical-line"></div>
-      <div className="horizontal-line"></div>
+      <div className="inner-circle" />
+      <div className="outer-circle" />
+      <div className="vertical-line" />
+      <div className="horizontal-line" />
     </div>
   )
 }
