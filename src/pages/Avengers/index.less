@@ -1,0 +1,434 @@
+@iron-man-color: #55bee6;
+@captain-america-color: #2d3542;
+@hulk-color: #326018;
+@hulk-core-color: #f6d04c;
+@thor-color: #7a8592;
+@hawk-eye-color: #3F004F;
+@black-widow-color: #000;
+
+.avengers-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .iron-man-wrapper {
+    width: 300px;
+    height: 300px;
+    .iron-man {
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      clip-path: inset(0 0 0 150px);
+      overflow: hidden;
+      &.clip-1 {
+        transform: rotate(-60deg);
+      }
+      &.clip-2 {
+        transform: rotate(60deg);
+      }
+      &.clip-3 {
+        transform: rotate(180deg);
+      }
+      .inner-circle {
+        width: 100%;
+        height: 100%;
+        background: @iron-man-color;
+        position: absolute;
+        clip-path: inset(0 150px 0 0);
+        transform: rotate(120deg);
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .white-circle {
+          position: absolute;
+          border-radius: 50%;
+          height: 270px;
+          width: 270px;
+          background-color: #fff;
+        }
+        .center-triangle-4 {
+          position: absolute;
+          height: 300px;
+          width: 170px;
+          transform: rotate(30deg);
+          background-color: @iron-man-color;
+          filter: drop-shadow(0 0 10px rgba(85, 190, 230, 0.7));
+          &::before {
+            content: '';
+            position: absolute;
+            height: 35px;
+            width: 100px;
+            background-color: @iron-man-color;
+            top: 85px;
+            left: -90px;
+            transform: rotate(20deg);
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            height: 35px;
+            width: 100px;
+            background-color: @iron-man-color;
+            top: 180px;
+            left: -90px;
+            transform: rotate(-20deg);
+          }
+        }
+        .center-triangle-3 {
+          position: absolute;
+          height: 300px;
+          width: 130px;
+          transform: rotate(30deg);
+          background-color: #fff;
+          &::before {
+            content: '';
+            position: absolute;
+            height: 35px;
+            width: 100px;
+            background-color: @iron-man-color;
+            top: 40px;
+            left: -25px;
+            transform: rotate(60deg);
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            height: 35px;
+            width: 100px;
+            background-color: @iron-man-color;
+            top: 225px;
+            left: -25px;
+            transform: rotate(-60deg);
+          }
+        }
+        .center-triangle-2 {
+          position: absolute;
+          height: 200px;
+          width: 90px;
+          transform: rotate(30deg);
+          background-color: @iron-man-color;
+          filter: drop-shadow(0 0 10px rgba(85, 190, 230, 0.7));
+        }
+        .center-triangle {
+          position: absolute;
+          height: 150px;
+          width: 45px;
+          transform: rotate(30deg);
+          background-color: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+  }
+  .captain-america-wrapper {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: @captain-america-color;
+    position: relative;
+    overflow: hidden;
+    border: 5px solid #28303d;
+    box-sizing: content-box;
+    svg {
+      z-index: 1;
+    }
+    .line-1 {
+      position: absolute;
+      background-color: #fff;
+      top: 134px;
+      width: 500px;
+      height: 25px;
+    }
+    .line-2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 0;
+      background: transparent;
+      border-bottom: 0 solid transparent;
+      border-top: 25px solid #fff;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      position: absolute;
+      top: 166px;
+      .inner {
+        width: 100px;
+        height: 0;
+        background: transparent;
+        border-top: 0 solid transparent;
+        border-bottom: 30px solid #2d3542;
+        border-left: 35px solid transparent;
+        border-right: 35px solid transparent;
+        position: absolute;
+      }
+    }
+    .line-3 {
+      position: absolute;
+      background-color: #fff;
+      top: 100px;
+      width: 500px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .inner {
+        width: 200px;
+        height: 0;
+        background: transparent;
+        border-bottom: 0 solid transparent;
+        border-top: 27px solid @captain-america-color;
+        border-left: 35px solid transparent;
+        border-right: 35px solid transparent;
+      }
+    }
+  }
+  .hulk-wrapper {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .core-circle {
+      height: 50px;
+      width: 50px;
+      background: @hulk-core-color;
+      border-radius: 50%;
+      border: 10px solid @hulk-color;
+      box-sizing: content-box;
+      z-index: 1;
+    }
+    .leaf {
+      position: absolute;
+      height: 300px;
+      width: 300px;
+      border-radius: 50%;
+      clip-path: inset(0 0 0 150px);
+      overflow: hidden;
+      &.leaf-1 {
+        transform: rotate(30deg);
+      }
+      &.leaf-2 {
+        transform: rotate(150deg);
+      }
+      &.leaf-3 {
+        transform: rotate(270deg);
+      }
+      &:before {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 100%;
+        clip-path: inset(0 0 0 150px);
+        transform: rotate(120deg);
+        border-radius: 50%;
+        background: @hulk-core-color;
+        overflow: hidden;
+      }
+    }
+  }
+  .thor-wrapper {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    position: relative;
+    border: 5px solid rgb(107 118 130);
+    .top {
+      height: 120px;
+      width: 120px;
+      background: #fff;
+      border-radius: 100%;
+      clip-path: inset(0 0 60px 0);
+      position: absolute;
+      top: 100px;
+    }
+    .bottom {
+      position: absolute;
+      width: 120px;
+      height: 10px;
+      background: #fff;
+      top: 159px;
+    }
+    .needle {
+      width: 20px;
+      height: 72px;
+      background: #fff;
+      position: absolute;
+      top: 102px;
+      &::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        border-top: 0 solid transparent;
+        border-bottom: 10px solid #fff;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        top: -20px;
+        position: absolute;
+      }
+    }
+    .wing-left {
+      position: absolute;
+      border-top: 120px solid #fff;
+      border-left: 40px solid transparent;
+      left: 55px;
+      top: 110px;
+    }
+    .mouth-left {
+      position: absolute;
+      background: #fff;
+      width: 18px;
+      height: 32px;
+      left: 94px;
+      top: 205px;
+      transform: skewY(45deg);
+    }
+    .wing-left-top-1 {
+      position: absolute;
+      background: #fff;
+      width: 60px;
+      height: 20px;
+      left: 35px;
+      top: 90px;
+      transform: skewY(30deg);
+    }
+    .wing-left-top-2 {
+      position: absolute;
+      background: #fff;
+      width: 45px;
+      height: 25px;
+      left: 45px;
+      top: 105px;
+      transform: skewY(30deg);
+    }
+    .wing-left-top-3 {
+      position: absolute;
+      background: #fff;
+      width: 35px;
+      height: 30px;
+      left: 55px;
+      top: 125px;
+      transform: skewY(30deg);
+    }
+    .wing-right {
+      position: absolute;
+      border-top: 120px solid #fff;
+      border-right: 40px solid transparent;
+      right: 55px;
+      top: 110px;
+    }
+    .mouth-right {
+      position: absolute;
+      background: #fff;
+      width: 18px;
+      height: 32px;
+      right: 94px;
+      top: 205px;
+      transform: skewY(-45deg);
+    }
+    .wing-right-top-1 {
+      position: absolute;
+      background: #fff;
+      width: 60px;
+      height: 20px;
+      right: 35px;
+      top: 90px;
+      transform: skewY(-30deg);
+    }
+    .wing-right-top-2 {
+      position: absolute;
+      background: #fff;
+      width: 45px;
+      height: 25px;
+      right: 45px;
+      top: 105px;
+      transform: skewY(-30deg);
+    }
+    .wing-right-top-3 {
+      position: absolute;
+      background: #fff;
+      width: 35px;
+      height: 30px;
+      right: 55px;
+      top: 125px;
+      transform: skewY(-30deg);
+    }
+  }
+  .hawk-eye-wrapper {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    position: relative;
+    border: 5px solid #340141;
+    overflow: hidden;
+    transform: rotate(-30deg);
+    .inner-circle {
+      position: absolute;
+      border-radius: 100%;
+      width: 125px;
+      height: 125px;
+      background: @hawk-eye-color;
+      border: 15px solid #C89CEC;
+      z-index: 1;
+    }
+    .outer-circle {
+      position: absolute;
+      border-radius: 100%;
+      width: 230px;
+      height: 230px;
+      background: @hawk-eye-color;
+      border: 15px solid #C89CEC;
+    }
+    .vertical-line {
+      position: absolute;
+      height: 300px;
+      width: 15px;
+      background: #C89CEC;
+      z-index: 1;
+    }
+    .horizontal-line {
+      position: absolute;
+      width: 300px;
+      height: 15px;
+      background: #C89CEC;
+      z-index: 1;
+    }
+  }
+  .black-widow-wrapper {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    position: relative;
+    border: 15px solid #C2070E;
+    &::before {
+      content: '';
+      position: absolute;
+      border-top: 120px solid #C2070E;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      top: 40px;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      border-bottom: 120px solid #C2070E;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      bottom: 40px;
+    }
+  }
+}

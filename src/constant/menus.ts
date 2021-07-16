@@ -89,6 +89,11 @@ export default [
         icon: 'ts-app icon-badge',
         title: 'Gym Badge'
       },
+      {
+        route: 'avengers',
+        icon: 'ts-app icon-avengers',
+        title: 'Avengers'
+      },
     ]
   },
   {
