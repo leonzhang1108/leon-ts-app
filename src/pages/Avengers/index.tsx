@@ -124,8 +124,7 @@ const Cpts = [IronMan, CaptainAmerica, Hulk, Thor, HawkEye, BlackWidow]
 
 const Avengers = () => {
 
-  const [index, setIndex] = useState(5)
-  // const [index, setIndex] = useState(randomNum(0, colors.length - 1))
+  const [index, setIndex] = useState(randomNum(0, colors.length - 1))
 
   const Cpt = useMemo(() => {
     return Cpts[index]
