@@ -94,6 +94,11 @@ export default [
         icon: 'ts-app icon-avengers',
         title: 'Avengers'
       },
+      {
+        route: 'v',
+        icon: 'ts-app icon-v',
+        title: 'V'
+      },
     ]
   },
   {
