@@ -25,11 +25,6 @@ export default [
     key: 'logo',
     childs: [
       {
-        route: 'batman-history',
-        icon: 'ts-app icon-batman-logo',
-        title: 'Bat History'
-      },
-      {
         route: 'panghabo',
         icon: 'ts-app icon-panghabo',
         title: '胖哈勃'
@@ -43,16 +38,6 @@ export default [
         route: 'giorno',
         icon: 'ts-app icon-insect',
         title: 'Giorno'
-      },
-      {
-        route: 'light-saber',
-        icon: 'ts-app icon-sword',
-        title: 'Light Saber'
-      },
-      {
-        route: 'mando',
-        icon: 'ts-app icon-helmet',
-        title: 'Mando'
       },
       {
         route: 'lantern',
@@ -80,24 +65,9 @@ export default [
         title: 'F.R.I.E.N.D.S'
       },
       {
-        route: 'loki',
-        icon: 'ts-app icon-loki',
-        title: 'Loki'
-      },
-      {
-        route: 'gym-badge',
-        icon: 'ts-app icon-badge',
-        title: 'Gym Badge'
-      },
-      {
         route: 'avengers',
         icon: 'ts-app icon-avengers',
         title: 'Avengers'
-      },
-      {
-        route: 'v',
-        icon: 'ts-app icon-v',
-        title: 'V'
       },
     ]
   },
@@ -184,16 +154,6 @@ export default [
         title: 'Spring 12'
       },
       {
-        route: 'painting',
-        icon: 'ts-app icon-painting',
-        title: 'Painting'
-      },
-      {
-        route: 'neon',
-        icon: 'ts-app icon-neon',
-        title: 'Neon'
-      },
-      {
         route: 'shield',
         icon: 'ts-app icon-shield',
         title: 'Shield'
@@ -254,6 +214,53 @@ export default [
         route: 'dual-match-3',
         icon: 'ts-app icon-dual-match-3',
         title: 'Dual Match 3'
+      },
+    ]
+  },
+  {
+    icon: 'ts-app icon-study',
+    title: 'Study',
+    key: 'study',
+    childs: [
+      {
+        route: 'batman-history',
+        icon: 'ts-app icon-batman-logo',
+        title: 'Bat History'
+      },
+      {
+        route: 'light-saber',
+        icon: 'ts-app icon-sword',
+        title: 'Light Saber'
+      },
+      {
+        route: 'mando',
+        icon: 'ts-app icon-helmet',
+        title: 'Mando'
+      },
+      {
+        route: 'gym-badge',
+        icon: 'ts-app icon-badge',
+        title: 'Gym Badge'
+      },
+      {
+        route: 'loki',
+        icon: 'ts-app icon-loki',
+        title: 'Loki'
+      },
+      {
+        route: 'v',
+        icon: 'ts-app icon-v',
+        title: 'V'
+      },
+      {
+        route: 'painting',
+        icon: 'ts-app icon-painting',
+        title: 'Painting'
+      },
+      {
+        route: 'neon',
+        icon: 'ts-app icon-neon',
+        title: 'Neon'
       },
     ]
   },
