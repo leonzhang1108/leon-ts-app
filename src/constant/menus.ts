@@ -262,6 +262,11 @@ export default [
         icon: 'ts-app icon-neon',
         title: 'Neon'
       },
+      {
+        route: 'jigglypuff',
+        icon: 'ts-app icon-pokemon',
+        title: 'Jigglypuff'
+      },
     ]
   },
   {
