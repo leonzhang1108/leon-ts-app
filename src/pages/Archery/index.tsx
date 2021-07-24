@@ -35,12 +35,12 @@ const Archery = (props: any) => {
 
   const pentacleList = useMemo(() => {
     const { x, y } = center
-    return getPentacleList(x, y + 50, 30, 0)
+    return getPentacleList(x, y + 50, 30, 180)
   }, [center])
 
   const pentacle1 = useMemo(() => {
     const { x, y } = center
-    return getPentacleList(x - 55, y - 10, 15, -5)
+    return getPentacleList(x - 55, y - 10, 15, -10)
   }, [center])
 
   const pentacle2 = useMemo(() => {
@@ -55,7 +55,7 @@ const Archery = (props: any) => {
 
   const pentacle4 = useMemo(() => {
     const { x, y } = center
-    return getPentacleList(x + 55, y - 10, 15, 5)
+    return getPentacleList(x + 55, y - 10, 15, 10)
   }, [center])
 
   return (
