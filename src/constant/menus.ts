@@ -69,6 +69,11 @@ export default [
         icon: 'ts-app icon-avengers',
         title: 'Avengers'
       },
+      {
+        route: 'archery',
+        icon: 'ts-app icon-archery',
+        title: 'Archery'
+      },
     ]
   },
   {
