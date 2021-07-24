@@ -1,0 +1,106 @@
+@color: #E93A2B;
+@color-2: #FEF35F;
+
+@size: 30px;
+@inner-size: 18px;
+
+.archery-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#fff, #000, #62B5C5);
+  .arrow {
+    height: 1000px;
+    width: @size;
+    background: @color;
+    position: absolute;
+    bottom: 50%;
+    z-index: 2;
+  }
+  .top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 5 * @size;
+    .arrow-inner {
+      height: 8 * @size;
+      width: @size;
+      background: @color;
+      position: absolute;
+      top: -5 * @size;
+      z-index: 2;
+      &::before {
+        content: '';
+        height: 0.6 * @size;
+        width: 2 * @size;
+        background: @color;
+        position: absolute;
+        left: -1.5 * @size;
+        top: 2.5 * @size;
+        transform: rotate(15deg);
+      }
+      &::after {
+        content: '';
+        height: 0.6 * @size;
+        width: 2 * @size;
+        background: @color;
+        position: absolute;
+        right: -1.5 * @size;
+        top: 2.5 * @size;
+        transform: rotate(-15deg);
+      }
+    }
+    &::before {
+      content: '';
+      right: 0;
+      position: absolute;
+      background: transparent;
+      border-top: 2 * @size solid transparent;
+      border-right: 3 * @size solid @color;
+      border-left: 0 solid transparent;
+      border-bottom: 10 * @size solid transparent;
+    }
+    &::after {
+      content: '';
+      left: 0;
+      position: absolute;
+      background: transparent;
+      border-top: 2 * @size solid transparent;
+      border-left: 3 * @size solid @color;
+      border-right: 0 solid transparent;
+      border-bottom: 10 * @size solid transparent;
+    }
+    .top-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &::before {
+        content: '';
+        right: 0;
+        bottom: -4 * @inner-size;
+        position: absolute;
+        background: transparent;
+        border-top: 2 * @inner-size solid transparent;
+        border-right: 3 * @inner-size solid @color-2;
+        border-left: 0 solid transparent;
+        border-bottom: 10 * @inner-size solid transparent;
+      }
+      &::after {
+        content: '';
+        left: 0;
+        bottom: -4 * @inner-size;
+        position: absolute;
+        background: transparent;
+        border-top: 2 * @inner-size solid transparent;
+        border-left: 3 * @inner-size solid @color-2;
+        border-right: 0 solid transparent;
+        border-bottom: 10 * @inner-size solid transparent;
+      }
+    }
+  }
+}
