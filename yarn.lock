@@ -8191,10 +8191,10 @@ text-table@^0.2.0:
   resolved "https://registry.npm.taobao.org/text-table/download/text-table-0.2.0.tgz"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-three@^0.130.0:
-  version "0.130.0"
-  resolved "https://registry.nlark.com/three/download/three-0.130.0.tgz?cache=0&sync_timestamp=1625055911008&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fthree%2Fdownload%2Fthree-0.130.0.tgz"
-  integrity sha1-Q3eKljZvpePR2ijGiOiiv9i0Kqs=
+three@^0.137.0:
+  version "0.137.0"
+  resolved "https://registry.npmmirror.com/three/download/three-0.137.0.tgz#0ebd6ba66637a332c31f234bcdd35aeec071a6e3"
+  integrity sha512-rzSDhia6cU35UCy6y+zEEws6vSgytfHqFMSaBvUcySgzwvDO6vETyswtSNi/+aVqJw8WLMwyT1mlQQ1T/dxxOA==
 
 through2@^2.0.0:
   version "2.0.5"
