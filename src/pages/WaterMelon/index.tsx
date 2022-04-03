@@ -443,7 +443,7 @@ const WaterMelon = (props: any) => {
   const [clickable, setClickable] = useState(true)
   const [score, setScore] = useState(0)
 
-  const { setFireworks, fireworks } = useExplode({ game })
+  const { setFireworks } = useExplode({ game })
 
   const { countUp, update } = useCountUp({
     start: 0,
