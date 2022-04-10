@@ -4,11 +4,11 @@ export default [
     icon: 'ts-app icon-home',
     title: 'Deshi Basara'
   },
-  {
-    route: 'doraemon',
-    icon: 'ts-app icon-doraemon',
-    title: '刘发财生日快乐！'
-  },
+  // {
+  //   route: 'doraemon',
+  //   icon: 'ts-app icon-doraemon',
+  //   title: '刘发财生日快乐！'
+  // },
   {
     route: 'subway',
     icon: 'ts-app icon-subway',
