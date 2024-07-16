@@ -13,6 +13,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
