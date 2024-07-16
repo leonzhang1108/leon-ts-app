@@ -7,6 +7,7 @@ import { Layout } from 'antd'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Party from '@pages/Party'
+import Page5123 from '@pages/5123'
 import './App.less'
 
 const { Content, Footer } = Layout
@@ -31,6 +32,9 @@ const Wrapper = () => {
   return (
     <Switch>
       <Route path="/100" exact={true} component={Party} />
+      {location.hostname === 'vxiiiii.com' && (
+        <Route path="/birthday" exact={true} component={Page5123} />
+      )}
       <Route component={App} />
     </Switch>
   )

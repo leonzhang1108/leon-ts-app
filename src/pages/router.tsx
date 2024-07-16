@@ -8,13 +8,13 @@ import { common } from '@actions'
 import { bindActionCreators } from 'redux'
 import Loader from '@cpt/Loader'
 
-const load = c =>
-  loadable(() => import(/* webpackChunkName: `[request]` */`../pages/${c}`), {
+const load = (c) =>
+  loadable(() => import(/* webpackChunkName: `[request]` */ `../pages/${c}`), {
     fallback: (
       <div className="loading-center">
         <Loader />
       </div>
-    )
+    ),
   })
 
 const NotFound = load('NotFound')
@@ -28,22 +28,20 @@ const renderRouter = (menu, i) => (
   />
 )
 
-
 const allMenus: any[] = []
 
 const initRoute = (currMenus: any[]) => {
-  currMenus.forEach(menu => {
+  currMenus.forEach((menu) => {
     menu.childs ? initRoute(menu.childs) : allMenus.push(menu)
   })
 }
 
 initRoute(menus)
 
-
 interface IProps extends RouteComponentProps<any> {
   actions: {
-    toggleOpenKeys(v: any): void;
-  };
+    toggleOpenKeys(v: any): void
+  }
 }
 
 class Router extends React.Component<IProps> {
@@ -53,8 +51,14 @@ class Router extends React.Component<IProps> {
 
   redirectToHome = () => {
     this.props.actions.toggleOpenKeys({
-      breadcrumb: [{route: "deshi-basara", icon: "ts-app icon-home", title: "Deshi Basara"}],
-      isInit: true
+      breadcrumb: [
+        {
+          route: 'deshi-basara',
+          icon: 'ts-app icon-home',
+          title: 'Deshi Basara',
+        },
+      ],
+      isInit: true,
     })
 
     return <Redirect to="/deshi-basara" />
@@ -78,13 +82,12 @@ class Router extends React.Component<IProps> {
 
 export default Utils.connect({
   component: withRouter(Router),
-  mapDispatchToProps: dispatch => ({
+  mapDispatchToProps: (dispatch) => ({
     actions: bindActionCreators(
       {
-        toggleOpenKeys: common.toggleOpenKeys
+        toggleOpenKeys: common.toggleOpenKeys,
       },
       dispatch
-    )
-  })
+    ),
+  }),
 })
-

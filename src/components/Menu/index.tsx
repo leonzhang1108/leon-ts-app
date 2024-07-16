@@ -11,25 +11,25 @@ const { Sider } = Layout
 const SubMenu = Menu.SubMenu
 
 interface IProps {
-  collapsed: boolean;
-  route: string;
-  isMobile: boolean;
-  breadcrumb: any[];
-  openKeys: string[];
-  h: number;
+  collapsed: boolean
+  route: string
+  isMobile: boolean
+  breadcrumb: any[]
+  openKeys: string[]
+  h: number
   actions: {
-    changeBreadcrumb(v: any): void;
-    toggleCollapse(): void;
-    toggleOpenKeys(v: any): void;
-  };
+    changeBreadcrumb(v: any): void
+    toggleCollapse(): void
+    toggleOpenKeys(v: any): void
+  }
 }
 
 interface IMenuProps {
-  className: string;
-  selectedKeys: string[];
-  mode: any;
-  theme: any;
-  defaultOpenKeys?: any;
+  className: string
+  selectedKeys: string[]
+  mode: any
+  theme: any
+  defaultOpenKeys?: any
 }
 
 class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
@@ -39,7 +39,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     const { changeBreadcrumb } = this.props.actions
 
     // 前进后退
-    window.addEventListener('popstate', ev => {
+    window.addEventListener('popstate', (ev) => {
       Utils.findBreadcrumb(this.getRoute(), changeBreadcrumb)
     })
   }
@@ -47,7 +47,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
   getRoute = () =>
     window.location.hash
       .split('/')
-      .filter(i => i && i !== '#')
+      .filter((i) => i && i !== '#')
       .join('/')
 
   constructor(props) {
@@ -55,7 +55,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     Utils.findBreadcrumb(this.getRoute(), ({ breadcrumb }) => {
       this.props.actions.toggleOpenKeys({
         breadcrumb,
-        isInit: true
+        isInit: true,
       })
     })
   }
@@ -64,7 +64,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     const { route } = menu
     this.props.actions.changeBreadcrumb({
       breadcrumb: parents.concat(menu),
-      route
+      route,
     })
     if (this.props.isMobile) {
       this.doCollapse()
@@ -72,12 +72,12 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     e.stopPropagation()
   }
 
-  onTitleClick = e => {
+  onTitleClick = (e) => {
     e.domEvent.stopPropagation()
   }
 
   renderMenus = (currMenus: any = menus, parents: any[] = []) =>
-    currMenus.map(menu =>
+    currMenus.map((menu) =>
       menu.childs ? (
         <SubMenu
           key={menu.key}
@@ -135,7 +135,7 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
       selectedKeys: [route ? `/${route}` : '/deshi-basara'],
       mode: 'inline',
       theme: '',
-      defaultOpenKeys
+      defaultOpenKeys,
     }
 
     if (this.menuWrapper) {
@@ -145,27 +145,25 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
     return isMobile ? (
       <div
         className="navbar"
-        ref={dom => (this.menuWrapper = dom)}
+        ref={(dom) => (this.menuWrapper = dom)}
         onClick={this.doCollapse}
         style={{
           transform: `translateX(${collapsed ? 0 : -width}px)`,
-          width: '200px'
+          width: '200px',
         }}
       >
-        {
-          showMenu ? (
-            <Menu
-              {...menuProps}
-              style={{
-                height: `100%`,
-                overflowX: 'hidden',
-                overflowY: 'auto'
-              }}
-            >
-              {this.renderMenus()}
-            </Menu>
-          ) : null
-        }
+        {showMenu ? (
+          <Menu
+            {...menuProps}
+            style={{
+              height: `100%`,
+              overflowX: 'hidden',
+              overflowY: 'auto',
+            }}
+          >
+            {this.renderMenus()}
+          </Menu>
+        ) : null}
         <div
           className="icon"
           style={{ right: `-40px` }}
@@ -182,21 +180,19 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
         onCollapse={toggleCollapse}
       >
         <div className="logo" />
-        {
-          showMenu ? (
-            <Menu
-              {...menuProps}
-              mode="inline"
-              style={{
-                height: `${document.body.clientHeight - 98}px`,
-                overflowX: 'hidden',
-                overflowY: 'auto'
-              }}
-            >
-              {this.renderMenus()}
-            </Menu>
-          ) : null
-        }
+        {showMenu ? (
+          <Menu
+            {...menuProps}
+            mode="inline"
+            style={{
+              height: `${document.body.clientHeight - 98}px`,
+              overflowX: 'hidden',
+              overflowY: 'auto',
+            }}
+          >
+            {this.renderMenus()}
+          </Menu>
+        ) : null}
       </Sider>
     )
   }
@@ -204,24 +200,24 @@ class MenuComponent extends React.Component<IProps & RouteComponentProps<any>> {
 
 export default Utils.connect({
   component: MenuComponent,
-  mapStateToProps: state => {
+  mapStateToProps: (state) => {
     return {
       route: state.common.route,
       breadcrumb: state.common.breadcrumb,
       openKeys: state.common.openKeys,
       collapsed: state.common.collapsed,
       isMobile: state.common.isMobile,
-      h: state.common.contentHeight
+      h: state.common.contentHeight,
     }
   },
-  mapDispatchToProps: dispatch => ({
+  mapDispatchToProps: (dispatch) => ({
     actions: bindActionCreators(
       {
         changeBreadcrumb: common.changeBreadcrumb,
         toggleCollapse: common.toggleCollapse,
-        toggleOpenKeys: common.toggleOpenKeys
+        toggleOpenKeys: common.toggleOpenKeys,
       },
       dispatch
-    )
-  })
+    ),
+  }),
 })
