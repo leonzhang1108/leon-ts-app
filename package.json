@@ -86,8 +86,5 @@
   "author": "Leon Zhang",
   "main": "index.tsx",
   "license": "MIT",
-  "homepage": ".",
-  "engines": {
-    "node": ">=16.0.0 <17.0.0"
-  }
+  "homepage": "."
 }
