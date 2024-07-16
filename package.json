@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "cross-env NODE_ENV=DEV webpack --config ./config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=PROD webpack --config ./config/webpack.prod.js",
-    "start": "cross-env NODE_ENV=SERVER webpack-dev-server --config ./config/webpack.server.js",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=DEV webpack --config ./config/webpack.dev.js",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=PROD webpack --config ./config/webpack.prod.js",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=SERVER webpack-dev-server --config ./config/webpack.server.js",
     "lint": "eslint './src/**/*.ts' './src/**/*.tsx' --fix"
   },
   "dependencies": {
