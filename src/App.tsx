@@ -21,7 +21,7 @@ const App = () => (
         </ContentWrapper>
       </Content>
       <Footer style={{ textAlign: 'center', padding: '10px 50px' }}>
-        BLOG © 2018 - 2022 Created by Leon
+        BLOG © 2018 - 2024 Created by Leon
       </Footer>
     </MainContent>
   </Layout>
