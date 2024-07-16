@@ -61,7 +61,11 @@ class Router extends React.Component<IProps> {
       isInit: true,
     })
 
-    return <Redirect to="/deshi-basara" />
+    return (
+      <Redirect
+        to={location.hostname === 'vxiiiii.com' ? '/birthday' : '/deshi-basara'}
+      />
+    )
   }
 
   render() {
