@@ -8,7 +8,7 @@ const Page5123 = () => {
   useEffect(() => {
     init()
 
-    window.addEventListener('keydown', () => {
+    window.addEventListener('click', () => {
       audioRef.current.play()
     })
   }, [])
