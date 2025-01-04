@@ -1,14 +1,7 @@
 import React, { useEffect, useRef } from 'react'
-import init from './index.js'
-import './index.less'
 
 const Page5123 = () => {
-  const audioRef: any = useRef()
-  useEffect(() => {
-    init()
-  }, [])
-
-  return <canvas id="c" />
+  return <div>爱你，网页更新中</div>
 }
 
 export default Page5123

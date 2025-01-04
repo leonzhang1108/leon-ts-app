@@ -63,7 +63,7 @@ class Router extends React.Component<IProps> {
 
     return (
       <Redirect
-        to={location.hostname === 'vxiiiii.com' ? '/birthday' : '/deshi-basara'}
+        to={location.hostname === 'vxiiiii.com' ? '/diary' : '/deshi-basara'}
       />
     )
   }

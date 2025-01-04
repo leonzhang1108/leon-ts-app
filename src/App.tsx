@@ -33,7 +33,7 @@ const Wrapper = () => {
     <Switch>
       <Route path="/100" exact={true} component={Party} />
       {location.hostname === 'vxiiiii.com' && (
-        <Route path="/birthday" exact={true} component={Page5123} />
+        <Route path="/diary" exact={true} component={Page5123} />
       )}
       <Route component={App} />
     </Switch>
