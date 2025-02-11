@@ -1,11 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import ringModel from '@sound/ring.glb'
+import Loader from '@cpt/Loader'
 
 const Ring = () => {
   const wrapperRef = useRef<any>()
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // 创建场景
@@ -49,14 +52,6 @@ const Ring = () => {
 
         // 遍历模型中的所有物体并应用金属光泽效果
         model.traverse((child) => {
-          console.log(child)
-
-          // [
-          //   'Diamond_Princess',
-          //   'Diamond_Trillion_Curved',
-          //   'Diamond_Trillion_Curved_node',
-          // ].includes(child.name)
-
           if (child.isMesh && child.name.includes('Diamond')) {
             child.material = new THREE.MeshPhysicalMaterial({
               color: child.name === 'Diamond_Princess' ? 0xeffffe : 0x0f52ba,
@@ -115,8 +110,18 @@ const Ring = () => {
     )
 
     wrapperRef.current.appendChild(renderer.domElement)
+    setLoading(false)
   }, [])
-  return <div ref={wrapperRef} />
+
+  return (
+    <div ref={wrapperRef}>
+      {loading && (
+        <div className="model-loading">
+          <Loader />
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default Ring
