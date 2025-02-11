@@ -97,7 +97,7 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
         // 渲染场景
         const animate = () => {
           requestAnimationFrame(animate)
-          // controls.update() // 更新控制器
+          controls.update() // 更新控制器
           model.rotation.y += 0.01
           renderer.render(scene, camera)
         }
