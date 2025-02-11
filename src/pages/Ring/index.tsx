@@ -94,7 +94,7 @@ const Ring = () => {
         // controls.screenSpacePanning = false // 禁止平面移动
         controls.maxPolarAngle = Math.PI // 设置相机旋转的最大角度
 
-        controls.enablePan = false
+        controls.panSpeed = 0.5
         controls.rotateSpeed = 0.5
         controls.zoomSpeed = 0.5
 
