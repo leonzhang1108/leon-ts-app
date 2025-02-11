@@ -70,6 +70,7 @@ module.exports = {
       '.jpg',
       '.mp3',
       '.ogg',
+      '.glb',
       'svg',
     ],
     plugins: [new TsConfigPathsPlugin({ configFile })],

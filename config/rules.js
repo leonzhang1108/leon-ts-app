@@ -131,7 +131,7 @@ module.exports = [
     use: ['file-loader'],
   },
   {
-    test: /\.(mp3|ogg|wav|wma|ape|aac)$/i, // 音频处理
+    test: /\.(mp3|ogg|wav|wma|ape|aac|glb)$/i, // 音频处理
     use: ['file-loader'],
   },
   {
