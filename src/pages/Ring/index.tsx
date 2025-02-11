@@ -100,7 +100,7 @@ const Ring = () => {
         controls.rotateSpeed = 0.5
         controls.zoomSpeed = 0.5
 
-        model.rotation.x += 0.5
+        model.rotation.x += Math.PI / 4
 
         // 渲染场景
         const animate = () => {
