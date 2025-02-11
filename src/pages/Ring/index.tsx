@@ -26,16 +26,20 @@ const Ring = () => {
     document.body.appendChild(renderer.domElement)
 
     // 创建光源
-    const ambientLight = new THREE.AmbientLight(0x404040) // 环境光
+    const ambientLight = new THREE.AmbientLight(0x404040, 5) // 环境光
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight.position.set(1, 1, 1).normalize()
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2) // 定向光
+    directionalLight.position.set(1, 1, 1)
+    directionalLight.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight)
+    scene.add(directionalLight.target)
 
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight2.position.set(-1, -1, -1).normalize()
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 2) // 定向光
+    directionalLight2.position.set(-1, -1, -1)
+    directionalLight2.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight2)
+    scene.add(directionalLight2.target)
 
     // 创建加载器
     const loader = new GLTFLoader()
@@ -52,24 +56,24 @@ const Ring = () => {
           if (child.isMesh && child.name.includes('Diamond')) {
             child.material = new THREE.MeshPhysicalMaterial({
               color: child.name === 'Diamond_Princess' ? 0xeffffe : 0x0f52ba,
-              metalness: 0, // 钻石不是金属
+              metalness: 0.6, // 钻石不是金属
               roughness: 0.01, // 非常光滑的表面
+              refractiveIndex: 2.42, // 钻石的折射率（钻石的折射率大约为 2.42）
               reflectivity: 0.9, // 高反射率
               clearcoat: 1, // 清漆层模拟钻石的光泽
               clearcoatRoughness: 0, // 清漆层的粗糙度为 0，使其光滑
-              transparency: true, // 启用透明
+              transparent: true, // 启用透明
               opacity: 1, // 完全透明
-              transmission: 0.5, // 高透明度
+              transmission: 0.3, // 高透明度
+              emissive: child.name === 'Diamond_Princess' ? 0xeffffe : 0x0f52ba,
+              emissiveIntensity: 0.1, // 自发光强度
             })
-          }
-
-          if (child.isMesh && !child.name.includes('Diamond')) {
+          } else {
             child.material = new THREE.MeshPhysicalMaterial({
               color: 0xffffff,
-              metalness: 0.5,
-              roughness: 0.3,
-              opacity: 1, // 设置透明度为 0.5
-              transparent: true, // 启用透明效果
+              metalness: 1, // 设置为金属
+              roughness: 0.6, // 粗糙度（较低以获得光滑的金属表面）
+              reflectivity: 1, // 反射强度
             })
           }
         })
@@ -89,6 +93,10 @@ const Ring = () => {
         controls.dampingFactor = 0.25 // 设置阻尼系数
         // controls.screenSpacePanning = false // 禁止平面移动
         controls.maxPolarAngle = Math.PI // 设置相机旋转的最大角度
+
+        controls.enablePan = false
+        controls.rotateSpeed = 0.5
+        controls.zoomSpeed = 0.5
 
         // 渲染场景
         const animate = () => {
