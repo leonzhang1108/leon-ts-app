@@ -78,6 +78,7 @@ const Ring = () => {
 
         // 设定模型缩放
         model.scale.set(0.15, 0.15, 0.15)
+        model.position.set(0, 0, -0.25)
 
         // 设置摄像头位置
         camera.position.z = 5
