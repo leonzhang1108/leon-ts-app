@@ -67,7 +67,7 @@ class Router extends React.Component<IProps> {
       redirect = '/diary'
     }
 
-    if (location.hostname === 'will6marry.me') {
+    if (['will6marry.me', '6rina.com'].includes(location.hostname)) {
       redirect = '/ring'
     }
 

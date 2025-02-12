@@ -29,17 +29,29 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
     const ambientLight = new THREE.AmbientLight(0xffffff, 4) // 环境光
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2) // 定向光
-    directionalLight.position.set(1, 2, 1)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1) // 定向光
+    directionalLight.position.set(0, 1, 1)
     directionalLight.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight)
     scene.add(directionalLight.target)
 
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 2) // 定向光
-    directionalLight2.position.set(-1, -2, -1)
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
+    directionalLight2.position.set(0, 1, -1)
     directionalLight2.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight2)
     scene.add(directionalLight2.target)
+
+    const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
+    directionalLight3.position.set(1, 2, 1)
+    directionalLight3.target.position.set(0, 0, 0) // 定向光照向原点
+    scene.add(directionalLight3)
+    scene.add(directionalLight3.target)
+
+    const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
+    directionalLight4.position.set(-1, -2, -1)
+    directionalLight4.target.position.set(0, 0, 0) // 定向光照向原点
+    scene.add(directionalLight4)
+    scene.add(directionalLight4.target)
 
     // 创建加载器
     const loader = new GLTFLoader()
@@ -56,8 +68,8 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
             const isPrincess = child.name === 'PrincessCutDiamond_Plane'
             child.material = new THREE.MeshPhysicalMaterial({
               color: isPrincess ? 0xeafafd : 0x0f52ba,
-              metalness: 0.5, // 钻石不是金属
-              roughness: isPrincess ? 0 : 0.3, // 非常光滑的表面
+              metalness: 0.4, // 钻石不是金属
+              roughness: isPrincess ? 0 : 0.4, // 非常光滑
               refractiveIndex: 2.42, // 钻石的折射率（钻石的折射率大约为 2.42）
               reflectivity: 0.9, // 高反射率
               clearcoat: 0, // 清漆层模拟钻石的光泽
@@ -67,8 +79,8 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
               opacity: 0.95,
               transmission: isPrincess ? 0.97 : 1, // 高透明度
               emissive: isPrincess ? 0xeafafd : 0x0f52ba,
-              emissiveIntensity: isPrincess ? 0.5 : 0.6, // 自发光强度
-              thickness: isPrincess ? 0.03 : 0.01,
+              emissiveIntensity: isPrincess ? 0.4 : 0.6, // 自发光强度
+              thickness: 0.03,
             })
           } else {
             child.material = new THREE.MeshPhysicalMaterial({

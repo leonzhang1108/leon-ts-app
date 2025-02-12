@@ -36,7 +36,7 @@ const Wrapper = () => {
       {location.hostname === 'vxiiiii.com' && (
         <Route path="/diary" exact={true} component={Page5123} />
       )}
-      {location.hostname === 'will6marry.me' && (
+      {['will6marry.me', '6rina.com'].includes(location.hostname) && (
         <Route path="/ring" exact={true} component={Ring} />
       )}
       <Route component={App} />
