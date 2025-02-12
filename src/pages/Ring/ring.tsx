@@ -69,16 +69,6 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
               emissive: isPrincess ? 0xeafafd : 0x0f52ba,
               emissiveIntensity: isPrincess ? 0.4 : 0.6, // 自发光强度
               thickness: 0.05,
-
-              // roughness: 0.0, // 高光部分
-              // metalness: 0.1, // 轻微的金属感
-              // clearcoat: 1.0, // 清漆层，增加反射
-              // clearcoatRoughness: 0.0, // 高光
-              // envMap: cubeTexture, // 环境反射贴图
-              // reflectivity: 0.9, // 反射度
-              // transmission: 1.0, // 完全透明，模拟折射
-              // thickness: 0.1, // 模拟厚度
-              // ior: 2.42, // 折射率，钻石的折射率大约是2.42
             })
           } else {
             child.material = new THREE.MeshPhysicalMaterial({
