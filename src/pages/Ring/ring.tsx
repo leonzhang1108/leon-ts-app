@@ -4,7 +4,13 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import ringModel from '@sound/princess.glb'
 
-const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
+const Ring = ({
+  setLoading,
+  setError,
+}: {
+  setLoading: (value: boolean) => void
+  setError: (value: string) => void
+}) => {
   const wrapperRef = useRef<any>()
 
   useEffect(() => {
@@ -120,6 +126,8 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
       undefined,
       (error) => {
         console.error('模型加载失败:', error)
+        setError('模型加载失败')
+        setLoading(false)
       }
     )
 

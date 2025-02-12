@@ -5,11 +5,16 @@ import Ring from './ring'
 
 const RingIndex = () => {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   return (
     <div className="ring-wrapper">
       {loading && <Loader />}
-      <Ring setLoading={setLoading} />
+      {error ? (
+        <div>{error}</div>
+      ) : (
+        <Ring setLoading={setLoading} setError={setError} />
+      )}
     </div>
   )
 }
