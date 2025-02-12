@@ -80,8 +80,8 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
         })
         scene.add(model)
         // 设定模型缩放
-        model.scale.set(0.15, 0.15, 0.15)
-        model.position.set(0, 0, -0.25)
+        model.scale.set(0.1, 0.1, 0.1)
+        model.position.set(0, -0.5, -0.25)
         // 设置摄像头位置
         camera.position.z = 5
         // 创建 OrbitControls，允许用户控制模型的旋转、平移和缩放
