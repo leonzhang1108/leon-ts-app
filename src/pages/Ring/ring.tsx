@@ -57,7 +57,7 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
             child.material = new THREE.MeshPhysicalMaterial({
               color: isPrincess ? 0xeafafd : 0x0f52ba,
               metalness: 0.5, // 钻石不是金属
-              roughness: isPrincess ? 0.1 : 0.3, // 非常光滑的表面
+              roughness: isPrincess ? 0 : 0.3, // 非常光滑的表面
               refractiveIndex: 2.42, // 钻石的折射率（钻石的折射率大约为 2.42）
               reflectivity: 0.9, // 高反射率
               clearcoat: 0, // 清漆层模拟钻石的光泽
@@ -67,7 +67,7 @@ const Ring = ({ setLoading }: { setLoading: (value: boolean) => void }) => {
               opacity: 0.95,
               transmission: isPrincess ? 0.97 : 1, // 高透明度
               emissive: isPrincess ? 0xeafafd : 0x0f52ba,
-              emissiveIntensity: isPrincess ? 0.4 : 0.6, // 自发光强度
+              emissiveIntensity: isPrincess ? 0.5 : 0.6, // 自发光强度
               thickness: isPrincess ? 0.03 : 0.01,
             })
           } else {
