@@ -16,7 +16,37 @@ const Ring = ({
   useEffect(() => {
     // 创建场景
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(0xd0f6ff)
+
+    // 创建Canvas来绘制渐变
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+
+    // 设置Canvas的宽度和高度
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    // 创建从左到右的渐变（红色到蓝色）
+    const gradient = ctx?.createLinearGradient(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    )
+
+    gradient?.addColorStop(0, '#d0f6ff')
+    gradient?.addColorStop(1, '#ffffff')
+
+    // 填充渐变
+    ctx.fillStyle = gradient
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    // 将Canvas转换为纹理
+    const texture = new THREE.CanvasTexture(canvas)
+
+    // 设置为背景纹理
+    scene.background = texture
+
+    // scene.background = new THREE.Color(0xd0f6ff)
 
     // 创建摄像头
     const camera = new THREE.PerspectiveCamera(
@@ -85,7 +115,7 @@ const Ring = ({
               opacity: 0.95,
               transmission: isPrincess ? 0.97 : 1, // 高透明度
               emissive: isPrincess ? 0xeafafd : 0x0f52ba,
-              emissiveIntensity: isPrincess ? 0.4 : 0.6, // 自发光强度
+              emissiveIntensity: isPrincess ? 0.3 : 0.6, // 自发光强度
               thickness: 0.03,
             })
           } else {
