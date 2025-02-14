@@ -33,12 +33,12 @@ const Wrapper = () => {
   return (
     <Switch>
       <Route path="/100" exact={true} component={Party} />
-      {location.hostname === 'vxiiiii.com' && (
+      {/* {location.hostname === 'vxiiiii.com' && (
         <Route path="/diary" exact={true} component={Page5123} />
-      )}
-      {['will6marry.me', '6rina.com'].includes(location.hostname) && (
-        <Route path="/ring" exact={true} component={Ring} />
-      )}
+      )} */}
+      {['will6marry.me', '6rina.com', 'vxiiiii.com'].includes(
+        location.hostname
+      ) && <Route path="/ring" exact={true} component={Ring} />}
       <Route component={App} />
     </Switch>
   )
