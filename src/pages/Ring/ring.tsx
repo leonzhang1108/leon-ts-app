@@ -21,9 +21,12 @@ const Ring = ({
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
+    const width = wrapperRef.current.offsetWidth
+    const height = wrapperRef.current.offsetHeight
+
     // 设置Canvas的宽度和高度
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    canvas.width = width
+    canvas.height = height
 
     // 创建从左到右的渐变（红色到蓝色）
     const gradient = ctx?.createLinearGradient(
@@ -49,16 +52,11 @@ const Ring = ({
     // scene.background = new THREE.Color(0xd0f6ff)
 
     // 创建摄像头
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    )
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
 
     // 创建渲染器
     const renderer = new THREE.WebGLRenderer()
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(width, height)
     document.body.appendChild(renderer.domElement)
 
     // 创建光源
@@ -143,15 +141,21 @@ const Ring = ({
         controls.rotateSpeed = 0.5
         controls.zoomSpeed = 0.5
         model.rotation.x += Math.PI / 4
+
+        let animationFrameId
         // 渲染场景
         const animate = () => {
-          requestAnimationFrame(animate)
+          animationFrameId = requestAnimationFrame(animate)
           controls.update() // 更新控制器
           model.rotation.y += 0.01
           renderer.render(scene, camera)
         }
         animate()
         setLoading(false)
+
+        return () => {
+          cancelAnimationFrame(animationFrameId) // 清除动画
+        }
       },
       undefined,
       (error) => {
@@ -164,7 +168,7 @@ const Ring = ({
     wrapperRef.current.appendChild(renderer.domElement)
   }, [])
 
-  return <div ref={wrapperRef} />
+  return <div style={{ height: '100%' }} ref={wrapperRef} />
 }
 
 export default Ring

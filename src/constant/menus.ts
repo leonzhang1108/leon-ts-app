@@ -74,6 +74,11 @@ export default [
         icon: 'ts-app icon-archery',
         title: 'Archery',
       },
+      {
+        route: 'ring',
+        icon: 'ts-app icon-diamond',
+        title: 'Ring',
+      },
     ],
   },
   {
