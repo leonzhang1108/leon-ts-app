@@ -74,11 +74,6 @@ export default [
         icon: 'ts-app icon-archery',
         title: 'Archery',
       },
-      {
-        route: 'ring',
-        icon: 'ts-app icon-diamond',
-        title: 'Ring',
-      },
     ],
   },
   {
@@ -182,6 +177,11 @@ export default [
         route: 'pokemon',
         icon: 'ts-app icon-pokemon',
         title: 'Pokemon',
+      },
+      {
+        route: 'ring',
+        icon: 'ts-app icon-diamond',
+        title: 'Ring',
       },
     ],
   },
