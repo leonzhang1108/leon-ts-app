@@ -66,14 +66,12 @@ const Ring = ({
     const spotlightPosition = [
       { x: 1, y: 1, z: 1 },
       { x: -1, y: 1, z: 1 },
-      { x: 1, y: 2, z: 1 },
-      { x: -1, y: 2, z: 1 },
       { x: 3, y: -3, z: -3 },
       { x: -3, y: -3, z: -3 },
     ]
 
     spotlightPosition.forEach((p) => {
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 1) // 定向光
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5) // 定向光
       directionalLight.position.set(p.x, p.y, p.z)
       directionalLight.target.position.set(0, 0, 0) // 定向光照向原点
       scene.add(directionalLight)
