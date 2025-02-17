@@ -64,13 +64,13 @@ const Ring = ({
     scene.add(ambientLight)
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight.position.set(0, 1, 1)
+    directionalLight.position.set(1, 1, 1)
     directionalLight.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight)
     scene.add(directionalLight.target)
 
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight2.position.set(0, 1, -1)
+    directionalLight2.position.set(-1, 1, 1)
     directionalLight2.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight2)
     scene.add(directionalLight2.target)
@@ -82,7 +82,7 @@ const Ring = ({
     scene.add(directionalLight3.target)
 
     const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight4.position.set(-1, -2, -1)
+    directionalLight4.position.set(-1, 2, 1)
     directionalLight4.target.position.set(0, 0, 0) // 定向光照向原点
     scene.add(directionalLight4)
     scene.add(directionalLight4.target)
@@ -127,10 +127,10 @@ const Ring = ({
         })
         scene.add(model)
         // 设定模型缩放
-        model.scale.set(0.1, 0.1, 0.1)
+        model.scale.set(0.15, 0.15, 0.15)
         model.position.set(0, -0.5, -0.25)
         // 设置摄像头位置
-        camera.position.z = 5
+        camera.position.z = 6
         // 创建 OrbitControls，允许用户控制模型的旋转、平移和缩放
         const controls = new OrbitControls(camera, renderer.domElement)
         controls.enableDamping = true // 启用阻尼
