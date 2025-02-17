@@ -63,29 +63,22 @@ const Ring = ({
     const ambientLight = new THREE.AmbientLight(0xffffff, 4) // 环境光
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight.position.set(1, 1, 1)
-    directionalLight.target.position.set(0, 0, 0) // 定向光照向原点
-    scene.add(directionalLight)
-    scene.add(directionalLight.target)
+    const spotlightPosition = [
+      { x: 1, y: 1, z: 1 },
+      { x: -1, y: 1, z: 1 },
+      { x: 1, y: 2, z: 1 },
+      { x: -1, y: 2, z: 1 },
+      { x: 3, y: -3, z: -3 },
+      { x: -3, y: -3, z: -3 },
+    ]
 
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight2.position.set(-1, 1, 1)
-    directionalLight2.target.position.set(0, 0, 0) // 定向光照向原点
-    scene.add(directionalLight2)
-    scene.add(directionalLight2.target)
-
-    const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight3.position.set(1, 2, 1)
-    directionalLight3.target.position.set(0, 0, 0) // 定向光照向原点
-    scene.add(directionalLight3)
-    scene.add(directionalLight3.target)
-
-    const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1) // 定向光
-    directionalLight4.position.set(-1, 2, 1)
-    directionalLight4.target.position.set(0, 0, 0) // 定向光照向原点
-    scene.add(directionalLight4)
-    scene.add(directionalLight4.target)
+    spotlightPosition.forEach((p) => {
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1) // 定向光
+      directionalLight.position.set(p.x, p.y, p.z)
+      directionalLight.target.position.set(0, 0, 0) // 定向光照向原点
+      scene.add(directionalLight)
+      scene.add(directionalLight.target)
+    })
 
     // 创建加载器
     const loader = new GLTFLoader()
