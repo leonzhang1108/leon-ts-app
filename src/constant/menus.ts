@@ -134,9 +134,9 @@ export default [
     key: 'canvas',
     childs: [
       {
-        route: 'cena',
+        route: 'fod',
         icon: 'ts-app icon-food',
-        title: 'Cena',
+        title: 'Food',
       },
       {
         route: 'music-visualizer',

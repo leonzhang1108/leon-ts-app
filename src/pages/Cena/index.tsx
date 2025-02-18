@@ -19,7 +19,7 @@ class Word {
     this.y = Math.random() * h
     this.font = words[key] * 10 + 'px arial'
     this.speed =
-      (words[key] > 5 ? words[key] - 2.5 : words[key]) + Utils.random(0, 5)
+      (words[key] > 5 ? words[key] - 4 : words[key]) + Utils.random(0, 3)
   }
 }
 
