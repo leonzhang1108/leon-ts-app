@@ -33,7 +33,7 @@ const Wrapper = () => {
   return (
     <Switch>
       <Route path="/100" exact={true} component={Party} />
-      {['5cena.com'].includes(location.hostname) && (
+      {['5cena.com', '192.168.71.118'].includes(location.hostname) && (
         <Route path="/cena" exact={true} component={Cena} />
       )}
       {['will6marry.me', '6rina.com', 'vxiiiii.com'].includes(
