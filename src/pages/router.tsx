@@ -63,7 +63,7 @@ class Router extends React.Component<IProps> {
 
     let redirect = '/deshi-basara'
 
-    if (location.hostname === '5cena.com') {
+    if (['5cena.com'].includes(location.hostname)) {
       redirect = '/cena'
     }
 
