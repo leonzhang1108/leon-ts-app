@@ -7,7 +7,7 @@ import { Layout } from 'antd'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Party from '@pages/Party'
-import Page5123 from '@pages/5123'
+import Cena from '@pages/Cena'
 import Ring from '@pages/Ring'
 import './App.less'
 
@@ -33,9 +33,9 @@ const Wrapper = () => {
   return (
     <Switch>
       <Route path="/100" exact={true} component={Party} />
-      {/* {location.hostname === 'vxiiiii.com' && (
-        <Route path="/diary" exact={true} component={Page5123} />
-      )} */}
+      {['5cena.com'].includes(location.hostname) && (
+        <Route path="/cena" exact={true} component={Cena} />
+      )}
       {['will6marry.me', '6rina.com', 'vxiiiii.com'].includes(
         location.hostname
       ) && <Route path="/ring" exact={true} component={Ring} />}
