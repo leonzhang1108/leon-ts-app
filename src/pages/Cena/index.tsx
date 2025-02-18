@@ -1,5 +1,4 @@
 import React from 'react'
-import Utils from '@utils'
 import './index.less'
 import CenaOptions from './cena.json'
 
@@ -19,7 +18,7 @@ class Word {
     this.y = Math.random() * h
     this.font = words[key] * 10 + 'px arial'
     this.speed =
-      (words[key] > 5 ? words[key] - 4 : words[key]) + Utils.random(0, 3)
+      (words[key] > 4 ? words[key] - 4 : words[key]) + Math.random() * 5
   }
 }
 
