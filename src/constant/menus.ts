@@ -134,7 +134,7 @@ export default [
     key: 'canvas',
     childs: [
       {
-        route: 'fod',
+        route: 'food',
         icon: 'ts-app icon-food',
         title: 'Food',
       },
