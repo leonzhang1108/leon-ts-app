@@ -9,29 +9,31 @@ const { block: blockMap, keyCode, scores } = Constant
 const blocks = Object.keys(blockMap)
 
 interface IStates {
-  row: number;
-  column: number;
-  screen: number[][];
-  playboard: number[][];
-  cBlock: string;
-  interval?: number;
-  y: number;
-  x: number;
-  h: number;
-  rotate: number;
-  intervalTime: number;
-  couldMove: boolean;
-  pause: boolean;
-  gameover: boolean;
-  touchDown: boolean;
-  score: number;
-  pressed: boolean;
-  style: any;
+  row: number
+  column: number
+  screen: number[][]
+  playboard: number[][]
+  cBlock: string
+  interval?: number
+  y: number
+  x: number
+  h: number
+  rotate: number
+  intervalTime: number
+  couldMove: boolean
+  pause: boolean
+  gameover: boolean
+  touchDown: boolean
+  score: number
+  pressed: boolean
+  style: {
+    paddingTop: number
+  }
 }
 
 interface IProps {
-  isMobile: boolean;
-  h: number;
+  isMobile: boolean
+  h: number
 }
 
 class Tetris extends React.Component<IProps, IStates> {
@@ -101,7 +103,7 @@ class Tetris extends React.Component<IProps, IStates> {
       pause: false,
       gameover: false,
       touchDown: false,
-      pressed: false
+      pressed: false,
     }
     if (e) {
       this.setState(state, () => this.doMovePlayboard(true))
@@ -128,18 +130,18 @@ class Tetris extends React.Component<IProps, IStates> {
       cBlock,
       screen,
       rotate,
-      moveTo: keyCode.down
+      moveTo: keyCode.down,
     })
     return !(couldMove || blockMap[cBlock][rotate].length < y - 1)
   }
 
-  clearRow = playboard => {
-    const screen = Utils.clone(playboard).map(row =>
-      row.map(item => (item ? 2 : 0))
+  clearRow = (playboard) => {
+    const screen = Utils.clone(playboard).map((row) =>
+      row.map((item) => (item ? 2 : 0))
     )
     const clearedList: number[] = []
     playboard.forEach((row, i) => {
-      if (row.every(item => item)) {
+      if (row.every((item) => item)) {
         screen.splice(i, 1)
         screen.unshift(new Array(10).fill(0))
         clearedList.push(i)
@@ -153,7 +155,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({ pressed: false })
   }
 
-  keydown = e => {
+  keydown = (e) => {
     if (!this.state.pressed) {
       const { keyCode: code } = e
       if (code === keyCode.space) {
@@ -164,7 +166,7 @@ class Tetris extends React.Component<IProps, IStates> {
     }
   }
 
-  doMove = code => {
+  doMove = (code) => {
     const {
       x: cx,
       y: my,
@@ -173,7 +175,7 @@ class Tetris extends React.Component<IProps, IStates> {
       row,
       rotate,
       pause,
-      gameover
+      gameover,
     } = this.state
     if (pause || gameover) {
       return
@@ -183,13 +185,17 @@ class Tetris extends React.Component<IProps, IStates> {
     switch (code) {
       case keyCode.left:
         x = cx - 1
-        const { playboard: lp, x: lx, couldMove: lc } = Tools.getCurrPosition({
+        const {
+          playboard: lp,
+          x: lx,
+          couldMove: lc,
+        } = Tools.getCurrPosition({
           x,
           y: my ? my : 20,
           cBlock,
           screen,
           rotate,
-          moveTo: keyCode.left
+          moveTo: keyCode.left,
         })
         if (lc) {
           x = lx
@@ -199,13 +205,17 @@ class Tetris extends React.Component<IProps, IStates> {
         return
       case keyCode.right:
         x = cx + 1
-        const { playboard: rp, x: rx, couldMove: rc } = Tools.getCurrPosition({
+        const {
+          playboard: rp,
+          x: rx,
+          couldMove: rc,
+        } = Tools.getCurrPosition({
           x,
           y: my ? my : 20,
           cBlock,
           screen,
           rotate,
-          moveTo: keyCode.right
+          moveTo: keyCode.right,
         })
         if (rc) {
           x = rx
@@ -223,7 +233,7 @@ class Tetris extends React.Component<IProps, IStates> {
           cBlock,
           screen,
           rotate,
-          moveTo: keyCode.down
+          moveTo: keyCode.down,
         })
         if (couldMove) {
           this.newInterval()
@@ -241,7 +251,7 @@ class Tetris extends React.Component<IProps, IStates> {
           cBlock,
           screen,
           rotate: r,
-          moveTo: keyCode.up
+          moveTo: keyCode.up,
         })
         if (uc) {
           playboard = up
@@ -285,7 +295,7 @@ class Tetris extends React.Component<IProps, IStates> {
       cBlock,
       screen,
       rotate,
-      moveTo: keyCode.down
+      moveTo: keyCode.down,
     })
     if (couldMove) {
       this.setState({ playboard, y: y + 1 })
@@ -308,7 +318,7 @@ class Tetris extends React.Component<IProps, IStates> {
         cBlock,
         screen,
         rotate,
-        moveTo: keyCode.down
+        moveTo: keyCode.down,
       })
       couldGoDown = couldMove
       if (couldMove) {
@@ -333,7 +343,7 @@ class Tetris extends React.Component<IProps, IStates> {
       const state = couldCalculate
         ? { screen, score: score + scores[length - 1] }
         : { screen, score }
-      clearedList.forEach(index => (playboard[index] = new Array(10).fill(3)))
+      clearedList.forEach((index) => (playboard[index] = new Array(10).fill(3)))
       this.setState({ screen: playboard })
       this.vibrate(100)
       setTimeout(() => {
@@ -351,7 +361,7 @@ class Tetris extends React.Component<IProps, IStates> {
         cBlock: blocks[Utils.random(0, blocks.length)],
         y: 0,
         x: 0,
-        rotate: Utils.random(0, 4)
+        rotate: Utils.random(0, 4),
       },
       () => this.isRowNeedClear(true)
     )
@@ -374,24 +384,24 @@ class Tetris extends React.Component<IProps, IStates> {
   renderPlayboard = () =>
     this.state.playboard
       ? this.state.playboard.map((r, i) => (
-        <div className="row" key={i}>
-          {r.map((c, j) => {
-            let cName = ''
-            switch (c) {
-              case 1:
-                cName = 'block'
-                break
-              case 2:
-                cName = 'full'
-                break
-              case 3:
-                cName = 'cleared'
-                break
-            }
-            return <div key={j} className={`item ${cName}`} />
-          })}
-        </div>
-      ))
+          <div className="row" key={i}>
+            {r.map((c, j) => {
+              let cName = ''
+              switch (c) {
+                case 1:
+                  cName = 'block'
+                  break
+                case 2:
+                  cName = 'full'
+                  break
+                case 3:
+                  cName = 'cleared'
+                  break
+              }
+              return <div key={j} className={`item ${cName}`} />
+            })}
+          </div>
+        ))
       : null
 
   togglePause = () => {
@@ -405,7 +415,7 @@ class Tetris extends React.Component<IProps, IStates> {
     this.setState({ pause: !pause })
   }
 
-  touchStart = code => {
+  touchStart = (code) => {
     this.clearBtnInterval()
     const interval = code === keyCode.down ? 50 : 100
     this.doMove(code)
@@ -414,7 +424,7 @@ class Tetris extends React.Component<IProps, IStates> {
     }
   }
 
-  getSize = props => {
+  getSize = (props) => {
     if (!this.props.isMobile) {
       return {}
     }
@@ -423,16 +433,16 @@ class Tetris extends React.Component<IProps, IStates> {
     const filling = h - 480
     return {
       paddingTop: (filling - 100) * 0.6,
-      [this.transform]: `scale(${scale + 0.3})`
+      [this.transform]: `scale(${scale + 0.3})`,
     }
   }
 
-  vibrate = s =>
+  vibrate = (s) =>
     false && this.props.isMobile && navigator.vibrate
       ? navigator.vibrate(s)
       : null
 
-  getDirectionBtn = direction => (
+  getDirectionBtn = (direction) => (
     <div
       onTouchStart={Utils.handle(
         direction === 'up' ? this.doMove : this.touchStart,
@@ -490,8 +500,8 @@ class Tetris extends React.Component<IProps, IStates> {
 
 export default Utils.connect({
   component: Tetris,
-  mapStateToProps: state => ({
+  mapStateToProps: (state) => ({
     isMobile: state.common.isMobile,
-    h: state.common.contentHeight
-  })
+    h: state.common.contentHeight,
+  }),
 })

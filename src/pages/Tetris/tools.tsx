@@ -13,7 +13,7 @@ const couldMoveLeftOrRight = ({ width, block, rx, y, playboard, length }) => {
       return true
     })
   })
-  blockList.every(item => {
+  blockList.every((item) => {
     const { x: ox, y: oy } = item
     const nx = ox + rx
     const ny = y + oy - length
@@ -25,8 +25,8 @@ const couldMoveLeftOrRight = ({ width, block, rx, y, playboard, length }) => {
   return couldMove
 }
 
-const couldMoveFun = {
-  [keyCode.up]: ({ width, block, rx, y, playboard, length }) => {
+const couldMoveFunc = {
+  [keyCode.up]: ({ block, rx, y, playboard, length }) => {
     let couldMove = true
     block.every((row, dy) => {
       row.every((_, dx) => {
@@ -58,7 +58,7 @@ const couldMoveFun = {
         l--
       }
     }
-    bottomBlockList.every(b => {
+    bottomBlockList.every((b) => {
       const { x: ox, y: oy } = b
       const nx = ox + rx
       const ny = y + oy - length
@@ -70,7 +70,7 @@ const couldMoveFun = {
     return couldMove
   },
   [keyCode.left]: couldMoveLeftOrRight,
-  [keyCode.right]: couldMoveLeftOrRight
+  [keyCode.right]: couldMoveLeftOrRight,
 }
 
 export default {
@@ -92,7 +92,7 @@ export default {
       rx = max
       x = width % 2 === 1 ? center + 1 : center
     }
-    const cm = couldMoveFun[moveTo]({ width, block, rx, y, playboard, length })
+    const cm = couldMoveFunc[moveTo]({ width, block, rx, y, playboard, length })
 
     if (cm) {
       while (index > 0 && length > 0) {
@@ -112,5 +112,5 @@ export default {
     }
 
     return { playboard, x, screen, couldMove: cm }
-  }
+  },
 }

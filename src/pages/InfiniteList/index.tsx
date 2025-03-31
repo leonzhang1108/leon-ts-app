@@ -2,19 +2,19 @@ import React from 'react'
 import './index.less'
 
 interface IState {
-  list: any[];
+  list: any[]
   // 可视区域top
-  top: number;
+  top: number
   // 数据总高度
-  contentHeight: number;
+  contentHeight: number
   // 可见高度
-  visibleHeight: number;
+  visibleHeight: number
   // 可见列表
-  visibleData: any[];
+  visibleData: any[]
   // 上下预加载个数
-  offset: number;
+  offset: number
   // 间隔
-  interval: number;
+  interval: number
 }
 
 class InfiniteList extends React.Component<{}, IState> {
@@ -56,7 +56,7 @@ class InfiniteList extends React.Component<{}, IState> {
       // 总列表，及offsetTop
       list,
       // 数据总高度
-      contentHeight
+      contentHeight,
     }
   }
 
@@ -66,11 +66,11 @@ class InfiniteList extends React.Component<{}, IState> {
 
     this.setState({
       visibleHeight,
-      ...this.doCalculate(0)
+      ...this.doCalculate(0),
     })
   }
 
-  calculateOffset = index => {
+  calculateOffset = (index) => {
     const { list } = this.state
 
     if (index === list.length) {
@@ -89,7 +89,7 @@ class InfiniteList extends React.Component<{}, IState> {
     // 添加缓存
     list[index] = {
       ...list[index],
-      offsetTop
+      offsetTop,
     }
 
     this.setState({ list })
@@ -97,7 +97,7 @@ class InfiniteList extends React.Component<{}, IState> {
     return offsetTop
   }
 
-  doCalculate = startIndex => {
+  doCalculate = (startIndex) => {
     const { list, offset } = this.state
 
     const innerOffset = (startIndex = startIndex - offset)
@@ -117,9 +117,9 @@ class InfiniteList extends React.Component<{}, IState> {
     return { visibleData, top }
   }
 
-  findTopByIndex = index => (index ? this.state.list[index - 1].offsetTop : 0)
+  findTopByIndex = (index) => (index ? this.state.list[index - 1].offsetTop : 0)
 
-  findStartIndex = top => {
+  findStartIndex = (top) => {
     const { list } = this.state
 
     let index = 0
@@ -139,7 +139,7 @@ class InfiniteList extends React.Component<{}, IState> {
     return index
   }
 
-  findEndIndex = startIndex => {
+  findEndIndex = (startIndex) => {
     let { visibleHeight } = this.state
     const { list } = this.state
 
@@ -176,7 +176,7 @@ class InfiniteList extends React.Component<{}, IState> {
     return index
   }
 
-  scrollHandler = e => {
+  scrollHandler = (e) => {
     const { interval } = this.state
 
     const startIndex = this.findStartIndex(e.target.scrollTop)
@@ -193,7 +193,7 @@ class InfiniteList extends React.Component<{}, IState> {
       <div
         className="infinite-list-wrapper"
         onScroll={this.scrollHandler}
-        ref={ref => {
+        ref={(ref) => {
           this.wrapper = ref
         }}
       >
@@ -208,7 +208,7 @@ class InfiniteList extends React.Component<{}, IState> {
           {visibleData.map((item, i) => {
             const style = {
               height: `${item.height}px`,
-              lineHeight: `${item.height}px`
+              lineHeight: `${item.height}px`,
             }
             return (
               <div
